@@ -11,8 +11,8 @@ const theme = {
  main_gray: '#f1f1f1',
  button_purple: '#999cda',
  mobile: `(max-width:${size.mobile})`,
- tablet: `(min-width:${size.tablet})`,
- logo: '',
+ tablet: `(max-width:${size.tablet})`,
+ logo: 'font-family: "Baloo Tammudu 2", cursive;font-size:38px;',
 };
 
 export default theme;
