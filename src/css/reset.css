@@ -120,3 +120,11 @@ table {
 body {
   box-sizing: border-box;
 }
+
+strong {
+  font-weight: 500;
+}
+
+em {
+  font-style: italic;
+}
