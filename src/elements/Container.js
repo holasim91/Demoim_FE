@@ -5,11 +5,11 @@ const Container = ({ children }) => {
 
 
 
- return (
-  <ContainerBox>
-   {children}
-  </ContainerBox>
- )
+  return (
+    <ContainerBox>
+      {children}
+    </ContainerBox>
+  )
 }
 
 export default Container
@@ -19,16 +19,16 @@ export default Container
 
 const ContainerBox = styled.div`
   width : 1200px;
+  box-sizing: border-box;
   margin: 0px auto;
-  background-color: blue;
   padding:0px 20px;
 
- @media ${props => props.theme.tablet}{
+  @media ${props => props.theme.tablet}{
   width: 100%;
-  background-color: orange;
- }
+  padding: 0px 10px;
+  }
 
-@media ${props => props.theme.mobile}{
- background-color: skyblue;
-}
+  @media ${props => props.theme.mobile}{
+  width:100%;
+  }
 `
