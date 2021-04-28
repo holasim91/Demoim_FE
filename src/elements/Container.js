@@ -25,7 +25,7 @@ const ContainerBox = styled.div`
 
   @media ${props => props.theme.tablet}{
   width: 100%;
-  padding: 0px 10px;
+  padding: 0px 30px;
   }
 
   @media ${props => props.theme.mobile}{
