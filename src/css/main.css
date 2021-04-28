@@ -1,0 +1,10 @@
+/*로고 폰트*/
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@800&display=swap");
+/*font-family: 'Baloo Tammudu 2', cursive;*/
+
+/*기본 폰트*/
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+body {
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+}
