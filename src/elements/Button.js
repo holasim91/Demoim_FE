@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Button = (props) => {
-  
-  const { text, _onClick, children, margin, width, padding, bg, color, disabled,borderColor,size,bold, borderRadius } = props;
+
+  const { text, _onClick, children, margin, width, padding, bg, color, disabled, borderColor, size, bold, borderRadius, shadow } = props;
 
   const styles = {
     margin: margin,
@@ -14,13 +14,14 @@ const Button = (props) => {
     borderColor: borderColor,
     size: size,
     bold: bold,
-    borderRadius:borderRadius,
+    borderRadius: borderRadius,
+    shadow: shadow,
   }
 
   return (
     <React.Fragment>
 
-      <BasicButton {...styles} onClick={_onClick}  disabled={disabled}>{text? text:children}</BasicButton>
+      <BasicButton {...styles} onClick={_onClick} disabled={disabled}>{text ? text : children}</BasicButton>
     </React.Fragment>
   )
 
@@ -28,7 +29,7 @@ const Button = (props) => {
 
 Button.defaultProps = {
   text: false,
-  _onClick : () => { },
+  _onClick: () => { },
   children: null,
   margin: false,
   width: '100%',
@@ -40,7 +41,8 @@ Button.defaultProps = {
   size: '16px',
   bold: false,
   borderRadius: '3px',
- 
+  shadow: false,
+
 }
 
 const BasicButton = styled.button`
@@ -50,11 +52,12 @@ const BasicButton = styled.button`
   color:${(props) => props.color};
   padding:${(props) => props.padding};
   border: ${(props) => props.borderColor};
-  border-radius: ${(props)=> props.borderRadius};
+  border-radius: ${(props) => props.borderRadius};
   box-sizing: border-box;
-  font-size: ${(props)=> props.size};
+  font-size: ${(props) => props.size};
   ${(props) => (props.margin ? `margin:${props.margin};` : '')}
-  ${(props)=> (props.bold?'font-weight:600;':'')}
+  ${(props) => (props.bold ? 'font-weight:600;' : '')}
+  ${(props) => (props.shadow ? `box-shadow:${props.shadow};` : '')}
   outline: none;
   &:focus{
     outline: none;
