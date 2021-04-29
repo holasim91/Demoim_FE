@@ -5,28 +5,28 @@ import { Text, Grid } from './index';
 
 const Input = (props) => {
 
-const {label, placeholder,multiLine, _onChange,type, width,margin,padding,_onClick,value } =  props ;
+  const { label, placeholder, multiLine, _onChange, type, width, margin, padding, _onClick, value } = props;
 
-const styles = {
-  width: width,
-  margin: margin,
-  padding:padding,
-}
+  const styles = {
+    width: width,
+    margin: margin,
+    padding: padding,
+  }
 
-if (multiLine) {
-return (
- <Grid>
-  { label && <Text margin="0px 0px 6px 4px">{label}</Text>}
-    <ElTextarea placeholder={placeholder} onChange={_onChange} rows={10} value={value}/>
- </Grid>
-)
- }
- 
- return (
+  if (multiLine) {
+    return (
+      <Grid>
+        { label && <Text margin="0px 0px 6px 4px">{label}</Text>}
+        <ElTextarea placeholder={placeholder} onChange={_onChange} rows={10} value={value} />
+      </Grid>
+    )
+  }
+
+  return (
     <React.Fragment>
       { label && <Text margin="0px 0px 8px 4px">{label}</Text>}
-     <ElInput {...styles} type={type} placeholder={placeholder} onClick={_onClick} onChange={_onChange} value={ value}/>
-   </React.Fragment>
+      <ElInput {...styles} type={type} placeholder={placeholder} onClick={_onClick} onChange={_onChange} value={value} />
+    </React.Fragment>
   )
 }
 
@@ -41,18 +41,18 @@ Input.defaultProps = {
   padding: false,
   label: false,
   multiLine: false,
-  
+
 }
 
 const ElInput = styled.input`
   box-sizing: border-box;
   border:1px solid #ccc;
   border-radius: 3px;
-  padding: ${(props)=> props.padding?`${props.padding};`:'19px 19px;'};
+  padding: ${(props) => props.padding ? `${props.padding};` : '19px 19px;'};
   outline: none;
   width: ${(props) => props.width};
   box-sizing: border-box;
-  ${(props)=>props.margin?`margin:${props.margin};`:''}
+  ${(props) => props.margin ? `margin:${props.margin};` : ''}
 
   &::placeholder{
     color:#B1B1B1;
