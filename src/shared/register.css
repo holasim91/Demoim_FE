@@ -1,0 +1,17 @@
+.checkId,
+.checkPw
+{
+  display: none;
+}
+
+.error {
+  color: #b3130b;
+}
+
+.ok {
+  color: #0f851a;
+}
+
+.ReCheckPw {
+  display: none;
+}
