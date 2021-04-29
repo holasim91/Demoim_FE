@@ -79,8 +79,8 @@ export default Header;
 
 const Wrapper = styled.div`
  width: 100%;
- height: 110px;
- box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.04);
+ height: 108px;
+ box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.06);
  position: relative;
  z-index:30;
   @media ${props => props.theme.mobile}{
@@ -107,6 +107,9 @@ const NavBox = styled.nav`
 const Logo = styled.p`
   ${props => props.theme.logo}
   color: ${props => props.theme.main_black};
+  position: relative;
+  top:-10px;
+  left:50px;
 
   span{
     color:${props => props.theme.main_color};
@@ -114,6 +117,9 @@ const Logo = styled.p`
 
   @media ${props => props.theme.mobile}{
     font-size: 1.56em;
+    position: relative;
+    top:0;
+    left:0;
   }
 `;
 
@@ -135,8 +141,8 @@ const NavMenu = styled.div`
   white-space: nowrap;
   align-items:flex-end; 
   gap : 77px;
-  font-size:15px;
-  padding:0px 0px 17px 0px;
+  font-size:1.06em;
+  padding:0px 0px 20px 0px;
   color: ${props => props.theme.main_black};
  
   @media ${props => props.theme.mobile}{
@@ -147,7 +153,9 @@ const UserMenu = styled.div`
   display: flex;
   gap: 35px;
   margin-bottom: 55px;
-
+  position: relative;
+  right: 10px;
+  font-size: 0.9em;
   @media ${props => props.theme.mobile}{
     display: none;
   }

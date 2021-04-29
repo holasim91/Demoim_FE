@@ -10,6 +10,7 @@ const Footer = () => {
             <span>De</span>moim
           </Logo>
           <Text>© 2021 Project Demoim.</Text>
+          <Text margin='5px 0px 0px 0px'>All rights reserved.</Text>
         </Content>
       </Container>
     </Wrapper>

@@ -2,7 +2,7 @@ import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { Route } from "react-router-dom";
 import { history } from "../redux/configStore";
-import { Main } from "../pages";
+import { Main, TeamAllList } from "../pages";
 import { Header, Footer } from "../components";
 import styled from "styled-components";
 function App() {
@@ -14,6 +14,7 @@ function App() {
           <ConnectedRouter history={history}>
             <Header />
             <Route path="/" exact component={Main} />
+            <Route path="/team" exact component={TeamAllList} />
           </ConnectedRouter>
         </ContentContainer>
         <Footer />

@@ -1,3 +1,4 @@
 import Main from "./Main";
 import Signup from "./Signup";
-export { Main,Signup };
+import TeamAllList from "./TeamAllList";
+export { Main, Signup, TeamAllList };
