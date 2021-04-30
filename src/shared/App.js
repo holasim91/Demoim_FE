@@ -2,7 +2,7 @@ import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { Route } from "react-router-dom";
 import { history } from "../redux/configStore";
-import { Exhibition, Main, TeamAllList, Signup } from "../pages";
+import { Exhibition, Main, TeamAllList, Signup, Login } from "../pages";
 import { Header, Footer } from "../components";
 import styled from "styled-components";
 function App() {
@@ -17,6 +17,7 @@ function App() {
             <Route path="/team" exact component={TeamAllList} />
             <Route path="/exhibition" exact component={Exhibition} />
             <Route path="/signup" exact component={Signup} />
+            <Route path="/login" exact component={Login} />
           </ConnectedRouter>
         </ContentContainer>
         <Footer />
