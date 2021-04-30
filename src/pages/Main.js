@@ -68,8 +68,6 @@ const Main = (props) => {
                      </React.Fragment>
                   )}
                </BannerInner>
-
-
             </Container>
          </BannerBox>
          <Container>
@@ -89,6 +87,12 @@ const Main = (props) => {
                </MakingBox>
             </Container>
          </MiddleBox>
+         <Container>
+            <DetalkBox>
+               <Detalk><span>De</span> Talk</Detalk>
+               <p>다른 유저들과 소통할 수 있는 공간입니다.</p>
+            </DetalkBox>
+         </Container>
       </React.Fragment>
    )
 }
@@ -253,7 +257,7 @@ const MakingBtn = styled.button`
    }
 
    @media ${props => props.theme.mobile}{
-      //font-size: 0.9em;
+
       font-size: 2.7vw;
       width:auto;
       padding:10px 20px;
@@ -269,7 +273,6 @@ const MakingMent = styled.p`
       font-size: 3vw;
    }
 `;
-
 
 const TitleBox = styled.div`
    width:95%;
@@ -307,3 +310,19 @@ const More = styled.p`
 
 //데톡 영역
 
+const DetalkBox = styled.div`
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 110px;
+   
+`
+const Detalk = styled.p`
+   ${props => props.theme.logo};
+   font-size:2.06em;
+
+   & span{
+      color:${props => props.theme.main_color};
+   }
+`
