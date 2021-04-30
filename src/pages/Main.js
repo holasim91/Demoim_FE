@@ -3,7 +3,12 @@ import styled from "styled-components";
 import { Container, Text } from "../elements";
 import Team from "../images/team.svg";
 import { TeamList } from "../components";
+import { history } from '../redux/configStore';
+
 const Main = (props) => {
+
+   //const isTablet 
+
    return (
       <React.Fragment>
          <BannerBox>
@@ -30,6 +35,14 @@ const Main = (props) => {
                </BannerInner>
             </Container>
          </BannerBox>
+         <Container>
+            <TitleBox>
+               <Title>
+                  📢 프로젝트 팀원 모집
+               </Title>
+               <More onClick={() => history.push('/team')}>더보기 ></More>
+            </TitleBox>
+         </Container>
          <TeamList />
          <MiddleBox>
             <Container>
@@ -102,17 +115,26 @@ const DescText = styled.p`
    font-size: 0.87em;
    line-height: 1.8em;
 
+
+   @media ${props => props.theme.tablet}{
+    font-size:1.36vw;
+  }
+
    @media ${props => props.theme.mobile}{
+      
       font-size:0.7em;
 
       br{
          display: none;
       }
    }
+
+   
 `;
 
 const ImgBox = styled.div`
    margin-top: -10px;
+   
 
   @media ${props => props.theme.mobile}{
       margin:0px;
@@ -124,7 +146,8 @@ const ImgBox = styled.div`
 
 const BannerImg = styled.img`
    width: 100%;
-   @media ${props => props.theme.mobile}{
+
+@media ${props => props.theme.mobile}{
       width:70%;
   }
 `;
@@ -194,4 +217,45 @@ const MakingMent = styled.p`
    }
 `;
 
+
+const TitleBox = styled.div`
+  width:95%;
+  margin: 60px auto 0px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const Title = styled.p`
+  padding-left:5px;
+  font-size: 1.37em;
+  font-weight: bold;
+
+  @media ${props => props.theme.tablet}{
+    font-size:2vw;
+  }
+
+
+  @media ${props => props.theme.mobile}{
+  //  font-size:1.1em;
+    font-size:3vw;  
+  }
+
+`;
+
+const More = styled.p`
+  font-weight: 0.9em;
+  cursor: pointer;
+  margin-right:15px;
+  color: ${props => props.theme.main_color};
+
+  @media ${props => props.theme.tablet}{
+    font-size:1.7vw;
+  }
+  @media ${props => props.theme.mobile}{
+    display: none;
+  }
+  
+`;
+
 //데톡 영역
+

@@ -133,12 +133,7 @@ const TeamList = (props) => {
 
   return (
     <Container>
-      <TitleBox>
-        <Title>
-          📢 프로젝트 팀원 모집
-        </Title>
-        <More onClick={() => history.push('/team')}>더보기 ></More>
-      </TitleBox>
+
       <Grid>
         {ProjectList.map((p) => {
           return (
@@ -174,35 +169,6 @@ const Grid = styled.div`
     grid-template-columns: repeat(1,minmax(0,1fr));
     margin:20px auto 144px auto;
   }
-`;
-const TitleBox = styled.div`
-  width:95%;
-  margin: 60px auto 0px auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const Title = styled.p`
-  padding-left:5px;
-  font-size: 1.37em;
-  font-weight: bold;
-
-  @media ${props => props.theme.mobile}{
-  //  font-size:1.1em;
-    font-size:3vw;  
-  }
-
-`;
-const More = styled.p`
-  font-weight: 0.9em;
-  cursor: pointer;
-  margin-right:15px;
-  color: ${props => props.theme.main_color};
-
-  @media ${props => props.theme.mobile}{
-    display: none;
-  }
-  
 `;
 
 const MoreBox = styled.div`
