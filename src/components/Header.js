@@ -9,6 +9,28 @@ import { MobileBar } from "../elements";
 const Header = () => {
 
   const [open, setOpen] = React.useState(false);
+  const sticky = React.useRef(null);
+
+  const handleScroll = () => {
+    if (sticky.current) {
+      if (sticky.current.offsetTop < window.pageYOffset) {
+        sticky.current.classList.add("sticky");
+
+      } else {
+        sticky.current.classList.remove("sticky");
+      }
+    }
+  }
+
+  React.useEffect(() => {
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", () => handleScroll);
+    };
+
+  }, []);
 
   const openBar = () => {
     setOpen(true);
@@ -19,7 +41,7 @@ const Header = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={sticky}>
       <Container>
         <Bars onClick={openBar} />
         <NavBox>
@@ -35,7 +57,7 @@ const Header = () => {
             <NavLink to='/team'>
               팀 메이킹
             </NavLink>
-            <NavLink to='/detalk'>
+            <NavLink to='/exhibition'>
               De Talk
             </NavLink>
           </NavMenu>
@@ -51,6 +73,11 @@ const Header = () => {
 
         <MobileBar open={open} close={closeBar}>
           <MobileMenu>
+            <Logo>
+              <span>De</span>moim
+               <Line />
+            </Logo>
+
             <NoneActiveLink to='/service'>
               서비스소개
             </NoneActiveLink>
@@ -83,6 +110,15 @@ const Wrapper = styled.div`
  box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.06);
  position: relative;
  z-index:30;
+
+  &.sticky{
+    position: fixed;
+    top:0;
+    left:0;
+    background-color: white;
+    z-index:10;
+  }
+
   @media ${props => props.theme.mobile}{
     height: 70px;
   }
@@ -116,7 +152,8 @@ const Logo = styled.p`
   }
 
   @media ${props => props.theme.mobile}{
-    font-size: 1.56em;
+    font-size:5vw;
+    //font-size: 1.56em;
     position: relative;
     top:0;
     left:0;
@@ -133,6 +170,12 @@ const NavLink = styled(Link)`
   ${LinkStyle}
   &.active{
     color: ${props => props.theme.main_color};
+  }
+
+  @media ${props => props.theme.mobile}{
+    &:hover{
+      text-decoration: none;
+    }
   }
 `;
 
@@ -165,10 +208,12 @@ const NoneActiveLink = styled(ActiveNoneLink)`
   font-size:13px;
 
   @media ${props => props.theme.mobile}{
-    font-size:1.2em;
-
+    font-size:3.7vw;
+    
     &.userMenu{
-      font-size: 1em;
+      font-size:3vw;
+      color:#7c7788;
+      
     }
   }
 `;
@@ -176,15 +221,16 @@ const NoneActiveLink = styled(ActiveNoneLink)`
 const MobileMenu = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1.2em;
+  padding: 1.4em;
   gap:26px;
 `;
 
 const MobileUserMenu = styled.div`
   display: flex;
   flex-direction: column;
-  gap:14px;
-  margin-top: 3em;
+  gap:30px;
+  margin-top: 3.5em;
+  
 `;
 
 const Bars = styled(FaBars)`
@@ -203,3 +249,9 @@ const Bars = styled(FaBars)`
   }
 `;
 
+const Line = styled.div`
+  width:100%;
+  height: 1px;
+  background-color:#f1f1f1;
+  margin-top:10px;
+`

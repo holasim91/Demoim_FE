@@ -23,11 +23,11 @@ const Footer = () => {
           </Logo>
           {isPc && <React.Fragment>
             <Text>© 2021 Project Demoim.</Text>
-            <Text margin='5px 0px 0px 0px'>All rights reserved.</Text>
+            <Text margin='3px 0px 0px 0px'>All rights reserved.</Text>
           </React.Fragment>}
           {isMobile && <React.Fragment>
             <Text size="2vw">© 2021 Project Demoim.</Text>
-            <Text size="2vw" margin='5px 0px 0px 0px'>All rights reserved.</Text>
+            <Text size="2vw" margin='3px 0px 0px 0px'>All rights reserved.</Text>
           </React.Fragment>}
         </Content>
       </Container>

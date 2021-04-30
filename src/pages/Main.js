@@ -3,33 +3,83 @@ import styled from "styled-components";
 import { Container, Text } from "../elements";
 import Team from "../images/team.svg";
 import { TeamList } from "../components";
+import { history } from '../redux/configStore';
+import { useMediaQuery } from "react-responsive";
+
 const Main = (props) => {
+
+   const isTablet = useMediaQuery({
+      query: "(min-width:769px) and (max-width:1200px)"
+   });
+
+   const isMobile = useMediaQuery({
+      query: "(max-width:768px)"
+   });
+
    return (
       <React.Fragment>
          <BannerBox>
             <Container>
                <BannerInner>
-                  <MentBox>
-                     <TitleText>
-                        취업을 위한 첫 걸음, 팀프로젝트 여기여기 모여라!
+                  {!isMobile ? (<React.Fragment>
+                     <MentBox>
+                        <TitleText>
+                           취업을 위한 첫 걸음, 팀프로젝트 여기여기 모여라!
                      </TitleText>
-                     <DescText>
-                        DeMoim 는 국비, 부트캠프를 하지 않고도 <br />
-                        팀 프로젝트의 경험을 쌓고 싶은 다양한 분야의 사람들이 모여 <br />
-                        안정적인 플랫폼 내에서 팀을 만들고,
-                        팀원을 모아 자신의 경험을 쌓아 나갈수 있는<br />
-                        팀 빌딩 플랫폼 입니다.
-                     </DescText>
-                     <ServiceBtn>
-                        프로젝트 시작하기
-                     </ServiceBtn>
-                  </MentBox>
-                  <ImgBox>
-                     <BannerImg src={Team} />
-                  </ImgBox>
+                        {isTablet ? (<React.Fragment>
+                           <DescText>
+                              DeMoim 는 국비, 부트캠프를 하지 않고도 팀 프로젝트의 경험을 <br /> 쌓고 싶은 다양한 분야의 사람들이 모여
+                           안정적인 플랫폼 내에서 팀을 만들고,
+                           팀원을 모아 자신의 경험을 쌓아 나갈수 있는
+                           팀 빌딩 플랫폼 입니다.
+                           </DescText>
+                        </React.Fragment>) : (<React.Fragment>
+                           <DescText>
+                              DeMoim 는 국비, 부트캠프를 하지 않고도 <br />
+                              팀 프로젝트의 경험을 쌓고 싶은 다양한 분야의 사람들이 모여 <br />
+                              안정적인 플랫폼 내에서 팀을 만들고,
+                              팀원을 모아 자신의 경험을 쌓아 나갈수 있는<br />
+                              팀 빌딩 플랫폼 입니다.
+                           </DescText>
+                        </React.Fragment>)}
+                        <ServiceBtn>
+                           프로젝트 시작하기
+                        </ServiceBtn>
+                     </MentBox>
+                     <ImgBox>
+                        <BannerImg src={Team} />
+                     </ImgBox>
+                  </React.Fragment>) : (
+                     <React.Fragment>
+                        <TitleText>
+                           취업을 위한 첫 걸음, 팀프로젝트 여기여기 모여라!
+                        </TitleText>
+                        <ImgBox>
+                           <BannerImg src={Team} />
+                        </ImgBox>
+                        <DescText>
+                           Demoim은 국비, 부트캠프를 하지 않고도<br />
+                           팀 프로젝트의 경험을 쌓아 나갈 수 있는<br />
+                           <strong>팀 빌딩 플랫폼</strong> 입니다.
+                        </DescText>
+                        <ServiceBtn>
+                           프로젝트 시작하기
+                        </ServiceBtn>
+                     </React.Fragment>
+                  )}
                </BannerInner>
+
+
             </Container>
          </BannerBox>
+         <Container>
+            <TitleBox>
+               <Title>
+                  📢 프로젝트 팀원 모집
+               </Title>
+               <More onClick={() => history.push('/team')}>더보기 ></More>
+            </TitleBox>
+         </Container>
          <TeamList />
          <MiddleBox>
             <Container>
@@ -54,7 +104,10 @@ const BannerBox = styled.div`
    background: -moz-linear-gradient(#F2F5FA, #ffffff);
    background: -o-linear-gradient(#F2F5FA, #ffffff);
    background: linear-gradient(#F2F5FA, #ffffff);
-   
+
+   @media ${props => props.theme.mobile}{
+      height: auto;
+   }
 `;
 
 const BannerInner = styled.div`
@@ -66,15 +119,14 @@ const BannerInner = styled.div`
    margin-left:-50px;
 
    @media ${props => props.theme.tablet}{
-    padding:130px 0px 0px 0px;
-    margin-left:0px;
-  }
+      padding:130px 0px 0px 0px;
+      margin-left:0px;
+   }
    @media ${props => props.theme.mobile}{
       padding: 80px 0px 0px 0px;
-      justify-content: space-between;
-  }
-
-
+      flex-direction: column;
+      align-items: center;
+   }
 `;
 
 const MentBox = styled.div`
@@ -91,10 +143,13 @@ const TitleText = styled.p`
    font-size:1.4em;
    font-weight:bold;
 
+   @media ${props => props.theme.tablet}{
+      font-size:2vw;
+   }
+
    @media ${props => props.theme.mobile}{
       font-size: 3vw;
    }
-   
 `
 
 const DescText = styled.p`
@@ -102,31 +157,35 @@ const DescText = styled.p`
    font-size: 0.87em;
    line-height: 1.8em;
 
+   @media ${props => props.theme.tablet}{
+      font-size:1.36vw;
+   }
    @media ${props => props.theme.mobile}{
-      font-size:0.7em;
-
-      br{
-         display: none;
-      }
+      
+      font-size: 2.5vw;
+      text-align:center;
+      margin-top:15px;
    }
 `;
 
 const ImgBox = styled.div`
    margin-top: -10px;
+   
 
   @media ${props => props.theme.mobile}{
-      margin:0px;
+      margin-top:30px;
       display: flex;
       flex-direction: column;
       align-items: center;
-  }
+   }
 `;
 
 const BannerImg = styled.img`
    width: 100%;
-   @media ${props => props.theme.mobile}{
-      width:70%;
-  }
+
+@media ${props => props.theme.mobile}{
+      width:90%;
+   }
 `;
 
 const ServiceBtn = styled.button`
@@ -138,6 +197,23 @@ const ServiceBtn = styled.button`
    border-radius: 17.5px;
    cursor: pointer;
    margin-top: 32px;
+
+   transition:all .3s;
+   &:hover{
+      color:white;
+      background-color: ${props => props.theme.button_purple};
+      border:1px solid ${props => props.theme.button_purple};
+   }
+
+   @media ${props => props.theme.tablet}{
+      font-size:1.4vw;
+   }
+
+   @media ${props => props.theme.mobile}{
+      font-size:2vw;
+      margin-top:2px;
+   }
+
 `;
 
 //팀메이킹 권유 영역
@@ -156,7 +232,7 @@ const MakingBox = styled.div`
    gap:15%;
 
    @media ${props => props.theme.mobile}{
-      gap:10%;
+      gap:5%;
    }
 `;
 const MakingBtn = styled.button`
@@ -194,4 +270,40 @@ const MakingMent = styled.p`
    }
 `;
 
+
+const TitleBox = styled.div`
+   width:95%;
+   margin: 60px auto 0px auto;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+`;
+const Title = styled.p`
+   padding-left:5px;
+   font-size: 1.37em;
+   font-weight: bold;
+
+   @media ${props => props.theme.tablet}{
+      font-size:2vw;
+   }
+   @media ${props => props.theme.mobile}{
+      font-size:3vw;  
+   }
+`;
+
+const More = styled.p`
+   font-weight: 0.9em;
+   cursor: pointer;
+   margin-right:15px;
+   color: ${props => props.theme.main_color};
+
+   @media ${props => props.theme.tablet}{
+      font-size:1.7vw;
+   }
+   @media ${props => props.theme.mobile}{
+      display: none;
+   }
+`;
+
 //데톡 영역
+
