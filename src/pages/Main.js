@@ -92,7 +92,7 @@ const TitleText = styled.p`
    font-weight:bold;
 
    @media ${props => props.theme.mobile}{
-      font-size:1.15em;
+      font-size: 3vw;
    }
    
 `
@@ -104,9 +104,11 @@ const DescText = styled.p`
 
    @media ${props => props.theme.mobile}{
       font-size:0.7em;
+
+      br{
+         display: none;
+      }
    }
-
-
 `;
 
 const ImgBox = styled.div`
@@ -152,8 +154,11 @@ const MakingBox = styled.div`
    align-items: center;
    height: 152px;
    gap:15%;
-`
 
+   @media ${props => props.theme.mobile}{
+      gap:10%;
+   }
+`;
 const MakingBtn = styled.button`
    font-size: 1.06em;
    padding: 10px 0px;
@@ -166,14 +171,27 @@ const MakingBtn = styled.button`
    border: none;
    cursor: pointer;
    outline: none;
-   transition: .3s;
+   transition:box-shadow .3s;
    &:hover{
       box-shadow:0 0 4px 0 rgba(0, 0, 0, 0.15);
    }
+
+   @media ${props => props.theme.mobile}{
+      //font-size: 0.9em;
+      font-size: 2.7vw;
+      width:auto;
+      padding:10px 20px;
+      white-space:nowrap;
+   }
+
 `;
 const MakingMent = styled.p`
    font-size: 1.4em;
    font-weight: 500;
+
+   @media ${props => props.theme.mobile}{
+      font-size: 3vw;
+   }
 `;
 
 //데톡 영역

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { TeamCard } from "../../components";
 import { Container } from "../../elements";
 import { history } from '../../redux/configStore';
+import { FaChevronDown } from "react-icons/fa";
+import { useMediaQuery } from "react-responsive"
 
 const TeamList = (props) => {
 
@@ -143,6 +145,10 @@ const TeamList = (props) => {
             <TeamCard {...p} key={p.id} />
           )
         })}
+        <MoreBox>
+          <MobileMome />
+          <MobileMoreTeam>더보기</MobileMoreTeam>
+        </MoreBox>
       </Grid>
     </Container>
   )
@@ -152,34 +158,72 @@ export default TeamList
 
 const Grid = styled.div`
   margin:30px auto 170px auto;
-  width:100%;
+  width:95%;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  grid-template-rows: auto;
   grid-column-gap: 2%;
   grid-row-gap: 27px;
   align-items: center;
 
   @media ${props => props.theme.tablet}{
-   
-    grid-gap:0%;
+  grid-template-columns: repeat(2,minmax(0,1fr));
   }
 
-`
+  @media ${props => props.theme.mobile}{
+    grid-template-columns: repeat(1,minmax(0,1fr));
+    margin:20px auto 144px auto;
+  }
+`;
 const TitleBox = styled.div`
-  width:90%;
+  width:95%;
   margin: 60px auto 0px auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 const Title = styled.p`
   padding-left:5px;
   font-size: 1.37em;
   font-weight: bold;
-`
+
+  @media ${props => props.theme.mobile}{
+  //  font-size:1.1em;
+    font-size:3vw;  
+  }
+
+`;
 const More = styled.p`
   font-weight: 0.9em;
   cursor: pointer;
-  margin-right:45px;
-  color: ${props => props.theme.main_color}
+  margin-right:15px;
+  color: ${props => props.theme.main_color};
+
+  @media ${props => props.theme.mobile}{
+    display: none;
+  }
+  
+`;
+
+const MoreBox = styled.div`
+  
+  display: none;
+
+  @media ${props => props.theme.mobile}{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+`
+const MobileMome = styled(FaChevronDown)`
+  color:#7b7787;
+`
+const MobileMoreTeam = styled.p`
+  color:#7b7787;
+  cursor: pointer;
+  font-size:3vw;
+
 `

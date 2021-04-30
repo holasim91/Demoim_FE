@@ -1,7 +1,19 @@
 import React from "react"
 import styled from 'styled-components'
 import { Container, Text } from "../elements";
+import { useMediaQuery } from "react-responsive"
+
 const Footer = () => {
+
+
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)"
+  });
+
+  const isPc = useMediaQuery({
+    query: "(min-width: 769px)"
+  });
+
   return (
     <Wrapper>
       <Container>
@@ -9,8 +21,14 @@ const Footer = () => {
           <Logo>
             <span>De</span>moim
           </Logo>
-          <Text>© 2021 Project Demoim.</Text>
-          <Text margin='5px 0px 0px 0px'>All rights reserved.</Text>
+          {isPc && <React.Fragment>
+            <Text>© 2021 Project Demoim.</Text>
+            <Text margin='5px 0px 0px 0px'>All rights reserved.</Text>
+          </React.Fragment>}
+          {isMobile && <React.Fragment>
+            <Text size="2vw">© 2021 Project Demoim.</Text>
+            <Text size="2vw" margin='5px 0px 0px 0px'>All rights reserved.</Text>
+          </React.Fragment>}
         </Content>
       </Container>
     </Wrapper>
