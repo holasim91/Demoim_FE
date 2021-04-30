@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
 const Pagenation = (props) => {
-  const [page, setPage] = useState(1); //현재페이지, 1부터 시작
-  const [size, setSize] = useState(8); //페이지당 post갯수 = 8개씩(고정값) 사실상 setSize 안써도 됨, 지워도 작동o
-
+   const {currentPage, totalPage, size} = props
+   const [current, setCurrent] = useState(currentPage)
   //pageNumber = [1,2,3,4,5,6,7]
   // 51개는 총 상품 갯수
   const pageNumber = [];
@@ -12,20 +11,19 @@ const Pagenation = (props) => {
     pageNumber.push(i);
   }
 
-  const paginate = (PageNumber) => setPage(PageNumber);
 
   // 오른쪽 화살표 함수
   const forward = () => {
-    if (page < 7) {
-      setPage(page + 1);
+    if (current < 7) {
+      setCurrent(current + 1);
     } else {
       window.alert("마지막 페이지에요!");
     }
   };
   // 왼쪽 화살표 함수
   const backward = () => {
-    if (page > 1) {
-      setPage(page - 1);
+    if (current > 1) {
+      setCurrent(current - 1);
     } else {
       window.alert("첫번째 페이지에요!");
     }
@@ -37,8 +35,8 @@ const Pagenation = (props) => {
             onClick={backward}
           />
           {pageNumber.map((pageNum) => (
-            <li key={pageNum} className="pagination_item" style={{cursor:'pointer'}}>
-              <PageSpan current = {1}onClick={() => paginate(pageNum)}>{pageNum}</PageSpan>
+            <li key={pageNum}  style={{cursor:'pointer'}}>
+              <PageSpan current = {1}>{pageNum}</PageSpan>
             </li>
           ))}
           <RightArrow onClick={forward} />
@@ -82,6 +80,7 @@ const PageSpan = styled.div`
     background-color: #d2d2d21a;
     color: #212121;
   }
+
 `;
 
 export default Pagenation;

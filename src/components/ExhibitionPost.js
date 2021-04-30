@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { history } from "../redux/configStore";
 const ExhibitionPost = (props) => {
   const { data } = props;
+  const styles = {
+    thumbnail: data.thumbnail,
+  }
+
   return (
     <>
       <ExhibitionPostBox
         onClick={() => {
-          console.log(props.data.id);
+          history.push(`/exhibition/detail/${props.data.id}`)
         }}
       >
         <ExhibitionPostBoxContainer>
@@ -17,7 +22,7 @@ const ExhibitionPost = (props) => {
             </HeaderLeft>
             <PostDate>{data.createdAt}</PostDate>
           </PostHeader>
-          <ThumbNail alt="thumbnail" src={data.thumbnail} />
+          <ThumbNail  {...styles}/>
           <Title>{data.title}</Title>
           <Content>
             {data.contents.length > 140
@@ -31,15 +36,22 @@ const ExhibitionPost = (props) => {
 };
 
 const ExhibitionPostBox = styled.div`
-  width: 515px;
+  width: 100%;
+  box-sizing:border-box;
   padding: 15px 20px;
   background-color: ${({ theme }) => theme.main_gray};
   margin-bottom: 10px;
   border-radius: 15px;
   cursor: pointer;
   :hover {
-    background-color: #C4C4C4;
+    transform: translate(0px,-3px);
   }
+  @media ${props => props.theme.mobile}{
+    width: 391px;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+
 `;
 
 const ExhibitionPostBoxContainer = styled.div`
@@ -59,24 +71,35 @@ const HeaderLeft = styled.div`
   align-items: center;
 `;
 const ProfileImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 100px;
 `;
 const UserName = styled.div`
-  margin-left: 5px;
+  margin-left: 10px;
+  font-size:15px;
 `;
-const PostDate = styled.div``;
-const ThumbNail = styled.img`
-  width: 100%;
+const PostDate = styled.div`
+color: #7a7786;
+font-size:15px;
+
+`;
+const ThumbNail = styled.div`
+  width:100%;
   height: 200px;
+  background: url('${(props) => props.thumbnail}') no-repeat;
+  background-size: cover;
+  margin: 0 auto;
 `;
 const Title = styled.div`
   font-size: 25px;
   margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
 `;
 const Content = styled.div`
-  font-size: 16px;
+  font-size: 12px;
   margin-top: 10px;
+  line-height: 1.5;
 `;
 export default ExhibitionPost;
