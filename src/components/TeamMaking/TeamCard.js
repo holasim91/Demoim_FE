@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 import { Button } from "../../elements";
 import moment from "moment";
 
-const TeamCard = (props) => {
+//무한스크롤시 TeamList가 바뀔 때 기존 TeamCard 기억해놓기.
+const TeamCard = React.memo((props) => {
 
   const { title, recruit, begin, end, thumbnail, front, back, designer, planner, id, createdAt } = props;
   const styles = {
@@ -30,7 +31,7 @@ const TeamCard = (props) => {
       <Grid>
         <ImgBox {...styles} />
         <MentBox>
-          <Text className='border'>[프로젝트] {title} </Text>
+          <Text className='more'>[프로젝트] {title} </Text>
           <Text>[모집 기간] {recruitBegin} ~ {recruitEnd}</Text>
           <Text>[프로젝트 기간]{ProjectBegin} ~ {ProjectEnd}</Text>
           <Text>[인원] {front !== 0 && `프론트엔드 ${front}명 `}
@@ -45,7 +46,7 @@ const TeamCard = (props) => {
 
     </React.Fragment>
   )
-}
+});
 
 
 TeamCard.defaultProps = {
@@ -128,11 +129,11 @@ const MentBox = styled.div`
 const Text = styled.div`
   font-size: 0.75em;
   
-
-  &.border{
+  &.more{
     text-overflow:ellipsis;
     overflow: hidden;
     white-space:nowrap;
+    
   }
 `;
 

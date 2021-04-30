@@ -7,10 +7,10 @@ import { ThemeProvider } from 'styled-components';
 import theme from './shared/theme';
 import './css/reset.css';
 import './css/main.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <Provider store ={store}>
+  <Provider store={store}>
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>

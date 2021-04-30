@@ -140,10 +140,10 @@ const TeamList = (props) => {
             <TeamCard {...p} key={p.id} />
           )
         })}
-        <MoreBox>
+        {/* <MoreBox>
           <MobileMome />
           <MobileMoreTeam>더보기</MobileMoreTeam>
-        </MoreBox>
+        </MoreBox> */}
       </Grid>
     </Container>
   )
@@ -167,7 +167,7 @@ const Grid = styled.div`
 
   @media ${props => props.theme.mobile}{
     grid-template-columns: repeat(1,minmax(0,1fr));
-    margin:20px auto 144px auto;
+    margin:20px auto 120px auto;
   }
 `;
 

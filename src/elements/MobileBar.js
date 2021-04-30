@@ -38,7 +38,7 @@ const Wapper = styled.div`
   position: fixed;
   top:0;
   left:0;
-  background-color: rgb(0,0,0,0.6);
+  background-color: rgb(0,0,0,0.5);
 
   @media ${props => props.theme.mobile}{
   display: block;
@@ -61,9 +61,10 @@ const CloseBox = styled.div`
   width: 100%;
   box-sizing:border-box;
   display: flex;
-  justify-content: flex-end;
-  padding: 10px;
+  justify-content: flex-start;
+  padding: 15px 0px 10px 20px;
 `;
+
 
 const CloseIcon = styled(FaTimes)`
   cursor: pointer;
