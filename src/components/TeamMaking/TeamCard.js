@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { css } from "styled-components";
 import { Button } from "../../elements";
-import moment from 'moment';
+import moment from "moment";
 
 const TeamCard = (props) => {
 
@@ -82,8 +82,20 @@ const Grid = styled.div`
   border-radius: 4px;
   padding-top: 20px;
   transition: all 0.3s;
-   :hover{
+  :hover{
     transform: translate(0px,-3px);
+  }
+
+  @media ${props => props.theme.tablet}{
+    min-height:330px;
+  }
+
+  @media ${props => props.theme.mobile}{
+    min-height: 400px;
+  }
+
+  @media (max-width:400px){
+    min-height: 280px;
   }
 `;
 
@@ -93,6 +105,17 @@ const ImgBox = styled.div`
   background: url('${(props) => props.thumbnail}') no-repeat;
   background-size: cover;
   
+  @media ${props => props.theme.tablet}{
+    height:180px;
+  }
+
+  @media ${props => props.theme.mobile}{
+    height: 246px;
+  }
+
+  @media (max-width:400px){
+    height: 132px;
+  }
 `;
 
 const MentBox = styled.div`

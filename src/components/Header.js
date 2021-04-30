@@ -40,7 +40,7 @@ const Header = () => {
             </NavLink>
           </NavMenu>
           <UserMenu>
-            <NoneActiveLink to='/singup'>
+            <NoneActiveLink to='/signup'>
               회원가입
             </NoneActiveLink>
             <NoneActiveLink to='/login'>
@@ -61,7 +61,7 @@ const Header = () => {
               De Talk
             </NoneActiveLink>
             <MobileUserMenu>
-              <NoneActiveLink to='/singup' className='userMenu'>
+              <NoneActiveLink to='/signup' className='userMenu'>
                 회원가입
               </NoneActiveLink>
               <NoneActiveLink to='/login' className='userMenu'>
@@ -154,7 +154,6 @@ const UserMenu = styled.div`
   gap: 35px;
   margin-bottom: 55px;
   position: relative;
-  right: 10px;
   font-size: 0.9em;
   @media ${props => props.theme.mobile}{
     display: none;
