@@ -1,7 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
-// import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../../shared/Cookies";
 import Swal from 'sweetalert2';
 import { produce } from 'immer';
+//import { history } from "../redux/configStore";
 import axios from "axios";
 
 const SET_USER = 'SET_USER';
@@ -23,25 +24,56 @@ const signupAPI = (email,pw,nickname,position) => {
       method: "post",
       url:API,
       data:{
-        username: email,
+        username:email,
         password:pw,
         nickname:nickname,
         position:position,
       },
     })
     .then((res) => {
-      console.log("회원가입ok", res)
-    //   Swal.fire({
-    //     text: "회원가입 성공!",
-    //     icon: "success",
-    //     confirmButtonColor: "#3D825A",
-    // })
+      //console.log("회원가입ok", res)
+      Swal.fire({
+        text: "회원가입 성공!",
+        icon: "success",
+        confirmButtonColor: "#3D825A",
+      })
+      history.push('/');
     })
     .catch((err) => {
       console.log(err)
     })
   }
 }
+
+const loginAPI = (email,pw) => {
+  console.log(email,pw)
+  return function (dispatch, getState, { history }){
+    const API = 'http://54.180.142.197/api/login';
+    axios({
+      method: "post",
+      url:API,
+      data:{
+      username: email,
+      password:pw,
+    }
+    }).then((res) => {
+      console.log(res)
+
+      let token = res.headers.authorization;
+      setCookie('token', token);
+
+      axios.defaults.headers.common['authorization'] = token;
+
+      Swal.fire({
+        text: 'Welcome, Mate!',
+        confirmButtonColor: "#3D825A",
+      })
+      history.push('/');
+    })
+    .catch((err) => console.log(err))
+  }
+}
+
 
 //reducer
 export default handleActions(
@@ -59,7 +91,7 @@ export default handleActions(
   
 const actionCreators = {
   signupAPI,
-  //loginAPI,
+  loginAPI,
   //logout,
   //isLogin
 };

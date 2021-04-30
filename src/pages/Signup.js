@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Swal from "sweetalert2";
 import { emailCheck, nicknameCheck, pwContinuous, pwMatch } from "../shared/Common";
 import { Input, Text, Grid, Button } from "../elements";
-import "../shared/register.css"
+import "../shared/register.css";
 import "../shared/theme";
 
 import { actionCreators } from "../redux/modules/user";
@@ -16,8 +16,8 @@ import axios from "axios";
 const Signup = (props) => {
     const dispatch = useDispatch("");
 
-    const [email, setEmail] = React.useState(" ");
-    const [nickname, setNickname] = React.useState(" ");
+    const [email, setEmail] = React.useState("");
+    const [nickname, setNickname] = React.useState("");
     const [pw, setPw] = React.useState("");
     const [pwCheck, setPwCheck] = React.useState("");
     const [position, setPosition] = React.useState("");
@@ -106,7 +106,7 @@ const Signup = (props) => {
             })
             .then((res) => {
                 console.log(res)
-                if (res.msg === false) {
+                if (res.data.msg === "false") {
                     alert('이미 등록된 이메일입니다!');
                     setEmailDup(false);
                 } else {
@@ -130,7 +130,7 @@ const Signup = (props) => {
             })
             .then((res) => {
                 console.log(res)
-                if(res.msg === false){
+                if(res.data.msg === "false"){
                     alert('이미등록된 닉네임입니다.')
                     setNicknameDup(false);
                 }else{
@@ -186,10 +186,10 @@ const Signup = (props) => {
         <React.Fragment>
             <SignupContainer>
                 <Grid margin="20px auto" center >
-                    <Text size="2.2vw">회원가입</Text></Grid>
+                    <Text size="1.5rem" bold>회원가입</Text></Grid>
                 <SignupForm>
                     <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px">이메일</Text>
+                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>이메일</Text>
                         <Input width="12vw" margin="4px 12px" padding="12px" type="text"
                             placeholder="mate12@naver.com"
                             value={email}
@@ -207,7 +207,7 @@ const Signup = (props) => {
                             }}>중복확인</Button>
                     </Grid>
                     <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px">닉네임</Text>
+                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>닉네임</Text>
                         <Input width="12vw" margin="4px 12px" padding="12px" placeholder="저녁은돈까스"
                             value={nickname}
                             _onClick={() => {
@@ -228,7 +228,7 @@ const Signup = (props) => {
                         <li ref={nickNameInfo}>·한글,영문,숫자만 2~6자리 가능</li>
                     </InfoUl>
                     <Grid flex text-align="left">
-                        <Text width="6vw" margin="4px 20px" padding="12px">비밀번호</Text>
+                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>비밀번호</Text>
                         <Input width="20vw" margin="4px 12px" padding="12px"
                             value={pw}
                             _onClick={() => {
@@ -240,11 +240,11 @@ const Signup = (props) => {
                     </Grid>
                     <InfoUl className="checkPw" ref={pwInfoUl}>
                         <li ref={pwInfoLen}>·글자수는 4~20 글자 </li>
-                        <li ref={pwInfoMatch}>·영문/숫자/특수문자(공백 제외)만 허용,2개 이상의 조합</li>
+                        <li ref={pwInfoMatch}>·영문/숫자만 허용, 2개 이상의 조합</li>
                         <li ref={pwInfoContinuos}>·동일한 문자 3개 이상 연속 사용 불가</li>
                     </InfoUl>
                     <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px">비밀번호확인</Text>
+                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>비밀번호확인</Text>
                         <Input width="20vw" margin="4px 12px" padding="12px" placeholder="비밀번호를 한번 더 입력해주세요"
                             value={pwCheck}
                             // _onClick={() => {
@@ -260,7 +260,7 @@ const Signup = (props) => {
                         <li ref={rePwInfoLiT}>·비밀번호 일치</li>
                     </InfoUl>
                     <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px">희망포지션</Text>
+                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>희망포지션</Text>
                         <Grid margin="4px 12px">
                             <Select className="position-select"
                                 onChange={(e) => {
@@ -273,8 +273,9 @@ const Signup = (props) => {
                             </Select>
                         </Grid>
                     </Grid>
-
-                    <Button margin="12px 0" _onClick={signUp}>회원가입</Button>
+                    <Grid margin="20px 16px" center>
+                        <Button width="100%" _onClick={signUp}>회원가입</Button>
+                    </Grid>
                 </SignupForm>
             </SignupContainer >
         </React.Fragment >
@@ -287,7 +288,7 @@ const Select = styled.select`
 
 const SignupContainer = styled.div`
     width: 30%;
-    margin: 10px auto;
+    margin: 30px auto;
     border: 1px solid lightgray;
     @media ${props => props.theme.mobile}{
         width:97vw;
