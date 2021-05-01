@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 const ExhibitionPost = (props) => {
   const { data } = props;
   const styles = {
     thumbnail: data.thumbnail,
   }
-
   return (
     <>
       <ExhibitionPostBox
