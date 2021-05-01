@@ -5,7 +5,7 @@ import Team from "../images/team.svg";
 import { TeamList } from "../components";
 import { history } from "../redux/configStore";
 import { useMediaQuery } from "react-responsive";
-import { Exhibition } from "../components";
+import { Exhibition, ExhibitionList } from "../components";
 
 const Main = (props) => {
 
@@ -104,6 +104,9 @@ const Main = (props) => {
                      여러분의 프로젝트를 마음껏 뽐내보세요!
                   </DatalkSubTitle>
                </DetalkTitleBox>
+               <ExhibitionList />
+
+
                <DetalkTitleBox>
                   <DetalkTitle>
                      프로젝트 관련 <Point>small talk</Point>

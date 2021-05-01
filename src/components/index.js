@@ -5,4 +5,6 @@ import Footer from "./Footer";
 import TeamList from "./TeamMaking/TeamList";
 import TeamCard from "./TeamMaking/TeamCard";
 import DatePick from "./DatePick";
-export { Editor, Modal, Header, Footer, TeamList, TeamCard, DatePick };
+import ExhibitionList from "./Exhibition/ExhibitionList";
+import ExhibitionPost from "./Exhibition/ExhibitionPost";
+export { Editor, Modal, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost };
