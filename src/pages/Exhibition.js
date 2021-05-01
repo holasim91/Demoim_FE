@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import ExhibitionPost from "../components/ExhibitionPost";
 import { Container, Grid } from "../elements";
-import { history } from "../redux/configStore";
-import DummyExhibition from "../shared/DummyExhibition.json";
-import Pagenation from "../shared/Pagenation";
-const Exhibition = () => {
-  const [page, setPage] = useState(1); //현재페이지, 1부터 시작
+import SubMenus from "../components/SubMenus";
+import ExhibitionList from "../components/Exhibition/ExhibitionList";
 
+const Exhibition = (props) => {
   return (
     <>
+    <SubMenus currentPath = {props.location.pathname.split('/')[1]}/>
+    
       <Container>
         <Grid padding="100px 0 0 0" />
         <ExhibitionBoxWrapper>
-          {DummyExhibition.data.map((dummy) => (
-            <ExhibitionPost data={dummy} key={dummy.id} onClick={()=>history.push(`/detail/${dummy.id}`)} />
-          ))}
+          <ExhibitionList />
         </ExhibitionBoxWrapper>
-        <PagenationWrapper>
-        <Pagenation size={6} currentPage={page} totalPage={51}/>
-        </PagenationWrapper>
       </Container>
     </>
   );
@@ -43,12 +37,5 @@ const ExhibitionBoxWrapper = styled.div`
  }
 `;
 
-const PagenationWrapper = styled.div`
- padding: 30px 0 20px 0;
- @media ${props => props.theme.mobile}{
-    display: none;
- }
-
-`
 
 export default Exhibition;
