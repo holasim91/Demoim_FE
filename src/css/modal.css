@@ -27,6 +27,7 @@
   padding: 12px 64px 16px 16px;
   background-color: #f1f1f1;
   font-weight: 700;
+  text-align: left;
 }
 .modal > section > header button {
   position: absolute;
@@ -40,8 +41,9 @@
   background-color: transparent;
 }
 .modal > section > main {
-  padding: 16px;
+  padding: 20px 25px 16px 25px;
   border-top: 1px solid #dee2e6;
+  text-align: left;
 }
 .modal > section > footer {
   padding: 12px 16px;
@@ -53,6 +55,9 @@
   background-color: #999cda;
   border-radius: 5px;
   font-size: 13px;
+  position: relative;
+  right: 9px;
+  top: -10px;
 }
 .modal.openModal {
   display: flex;

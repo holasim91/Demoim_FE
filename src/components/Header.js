@@ -5,6 +5,9 @@ import { NavLink as Link, Link as ActiveNoneLink } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { MobileBar } from "../elements";
 
+//로그인시 알림아이콘 이거 써주세용~
+import { AiOutlineBell } from "react-icons/ai";
+
 //link 주소 정해지면 정확하게 맞추기!
 const Header = () => {
 
@@ -56,7 +59,7 @@ const Header = () => {
             <NavLink to='/team'>
               팀 메이킹
             </NavLink>
-            <NavLink to='/exhibition'>
+            <NavLink to='/exhibition' className='detalk'>
               De Talk
             </NavLink>
           </NavMenu>
@@ -171,6 +174,7 @@ const NavLink = styled(Link)`
   &.active{
     color: ${props => props.theme.main_color};
   }
+
   @media ${props => props.theme.mobile}{
     &:hover{
       text-decoration: none;

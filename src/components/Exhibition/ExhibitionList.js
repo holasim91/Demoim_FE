@@ -31,7 +31,7 @@ const ExhibitionList = () => {
 };
 
 const ExhibitionBoxWrapper = styled.div`
-  margin: 30px auto 0 auto;
+  margin: 30px auto 100px auto;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

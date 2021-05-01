@@ -105,8 +105,6 @@ const Main = (props) => {
                   </DatalkSubTitle>
                </DetalkTitleBox>
                <ExhibitionList />
-
-
                <DetalkTitleBox>
                   <DetalkTitle>
                      프로젝트 관련 <Point>small talk</Point>

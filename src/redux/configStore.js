@@ -3,11 +3,12 @@ import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 import Exhibition from "./modules/exhibition";
-
+import Team from "./modules/team";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   exhibition: Exhibition,
+  team: Team,
   router: connectRouter(history),
 });
 
@@ -23,10 +24,10 @@ if (env === "development") {
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-      })
-  : compose;
-    
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    })
+    : compose;
+
 const enhancer = composeEnhancers(
   applyMiddleware(...middlewares)
 );
