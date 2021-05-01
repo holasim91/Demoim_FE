@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { Container, Grid } from "../elements";
 import SubMenus from "../components/SubMenus";
 import ExhibitionList from "../components/Exhibition/ExhibitionList";
