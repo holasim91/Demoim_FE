@@ -6,15 +6,15 @@ import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
 
-const ExhibitionList = () => {
+const ExhibitionList = (props) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1); //현재페이지, 1부터 시작
   useEffect(() => {
     dispatch(exhibitionActions.exihibitionAPI(page, 6));
   }, [dispatch, page]);
   const { posts, isLoading } = useSelector((state) => state.exhibition);
-
-  if (isLoading) {
+  
+  if (isLoading && history.location.pathname!=='/') {
     return (
       <>
       <Spinner />

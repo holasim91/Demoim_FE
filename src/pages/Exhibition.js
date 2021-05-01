@@ -1,15 +1,13 @@
 import React from "react";
-import { Container, Grid } from "../elements";
+import { Container } from "../elements";
 import SubMenus from "../components/SubMenus";
 import ExhibitionList from "../components/Exhibition/ExhibitionList";
 
-const Exhibition = (props) => {
+const Exhibition = () => {
   return (
     <>
-      <SubMenus currentPath={props.location.pathname.split("/")[1]} />
-
+      <SubMenus />
       <Container>
-        <Grid padding="100px 0 0 0" />
         <ExhibitionList />
       </Container>
     </>
