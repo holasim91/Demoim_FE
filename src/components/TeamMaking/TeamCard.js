@@ -2,6 +2,7 @@ import React from "react"
 import styled, { css } from "styled-components";
 import { Button } from "../../elements";
 import moment from "moment";
+import { history } from '../../redux/configStore';
 
 //무한스크롤시 TeamList가 바뀔 때 기존 TeamCard 기억해놓기.
 const TeamCard = React.memo((props) => {
@@ -41,7 +42,7 @@ const TeamCard = React.memo((props) => {
           </Text>
         </MentBox>
         {/* _onClick 상세 페이지 이동*/}
-        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)">모집글 보기</Button>
+        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)" _onClick={() => { history.push(`/team/detail/${id}`) }}>모집글 보기</Button>
       </Grid>
 
     </React.Fragment>

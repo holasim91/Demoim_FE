@@ -11,6 +11,7 @@ const Header = () => {
   const [open, setOpen] = React.useState(false);
   const sticky = React.useRef(null);
 
+
   const handleScroll = () => {
     if (sticky.current) {
       if (sticky.current.offsetTop < window.pageYOffset) {
@@ -21,11 +22,9 @@ const Header = () => {
       }
     }
   }
-
   React.useEffect(() => {
 
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", () => handleScroll);
     };
@@ -168,10 +167,10 @@ const LinkStyle = css`
 
 const NavLink = styled(Link)`
   ${LinkStyle}
+
   &.active{
     color: ${props => props.theme.main_color};
   }
-
   @media ${props => props.theme.mobile}{
     &:hover{
       text-decoration: none;

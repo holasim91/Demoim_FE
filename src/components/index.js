@@ -4,4 +4,5 @@ import Header from "./Header";
 import Footer from "./Footer";
 import TeamList from "./TeamMaking/TeamList";
 import TeamCard from "./TeamMaking/TeamCard";
-export { Editor, Modal, Header, Footer, TeamList, TeamCard };
+import DatePick from "./DatePick";
+export { Editor, Modal, Header, Footer, TeamList, TeamCard, DatePick };

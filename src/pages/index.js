@@ -1,7 +1,8 @@
 import Main from "./Main";
 import Signup from "./Signup";
 import Exhibition from "./Exhibition";
-import ExhibitionDetail from "./ExhibitionDetail";
-import TeamAllList from "./TeamAllList";
+import TeamAllList from "./team/TeamAllList";
+import TeamDetail from "./team/TeamDetail";
 import Login from "./Login";
-export { Main, Signup, Exhibition, TeamAllList, Login, ExhibitionDetail };
+import ExhibitionDetail from "./ExhibitionDetail";
+export { Main, Signup, Exhibition, TeamAllList, Login, ExhibitionDetail, TeamDetail };
