@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, Text } from "../elements";
+import { Container } from "../elements";
 import Team from "../images/team.svg";
 import { TeamList } from "../components";
-import { history } from '../redux/configStore';
+import { history } from "../redux/configStore";
 import { useMediaQuery } from "react-responsive";
+import { Exhibition } from "../components";
 
 const Main = (props) => {
 
@@ -89,9 +90,31 @@ const Main = (props) => {
          </MiddleBox>
          <Container>
             <DetalkBox>
-               <Detalk><span>De</span> Talk</Detalk>
-               <p>다른 유저들과 소통할 수 있는 공간입니다.</p>
+               <Detalk>
+                  <Point>De</Point>
+                  Talk
+               </Detalk>
+               <Ment>다른 유저들과 소통할 수 있는 공간입니다.</Ment>
+               <Line />
+               <DetalkTitleBox>
+                  <DetalkTitle>
+                     <Point>프로젝트 자랑</Point> 게시판
+                  </DetalkTitle>
+                  <DatalkSubTitle>
+                     여러분의 프로젝트를 마음껏 뽐내보세요!
+                  </DatalkSubTitle>
+               </DetalkTitleBox>
+               <DetalkTitleBox>
+                  <DetalkTitle>
+                     프로젝트 관련 <Point>small talk</Point>
+                  </DetalkTitle>
+                  <DatalkSubTitle>
+                     다른 유저들과 보다 더 자유롭게 소통해보세요!
+                  </DatalkSubTitle>
+               </DetalkTitleBox>
             </DetalkBox>
+
+
          </Container>
       </React.Fragment>
    )
@@ -309,20 +332,77 @@ const More = styled.p`
 `;
 
 //데톡 영역
-
 const DetalkBox = styled.div`
    display: flex;
    justify-content: center;
    flex-direction: column;
    align-items: center;
    margin-top: 110px;
+   padding:0px 35px;
    
-`
+`;
 const Detalk = styled.p`
    ${props => props.theme.logo};
    font-size:2.06em;
 
-   & span{
-      color:${props => props.theme.main_color};
+   @media ${props => props.theme.mobile}{
+      font-size:5vw;
    }
+`;
+
+const Ment = styled.p`
+   font-size:0.93em;
+   color:#7a7786;
+
+    @media ${props => props.theme.mobile}{
+      font-size:2.2vw;
+   }
+`;
+
+const Line = styled.div`
+   width:610px;
+   height: 1px;
+   background-color: rgba(122, 119, 134, 0.5);
+   margin:10px 0px 100px 0px;
+
+   @media ${props => props.theme.mobile}{
+      width:110%;
+   }
+`
+
+const DetalkTitleBox = styled.div`
+   display: flex;
+   width:100%;
+   flex-direction:column;
+   padding:0px 30px 25px 30px;
+   gap:20px;
+    @media ${props => props.theme.mobile}{
+      gap:12px;
+   }
+`;
+
+
+//데톡 타이틀 박스 
+const DetalkTitle = styled.p`
+   font-size:1.37em;
+   font-weight: bold;
+
+   @media ${props => props.theme.mobile}{
+      font-size:3.5vw;
+   }
+`
+
+const DatalkSubTitle = styled.p`
+font-size: 0.93em;
+font-weight:300;
+
+   @media ${props => props.theme.mobile}{
+      font-size:2.5vw;
+      
+   }
+
+`
+
+const Point = styled.span`
+   color: ${props => props.theme.main_color};
 `

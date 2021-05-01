@@ -2,19 +2,24 @@ import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { Route } from "react-router-dom";
 import { history } from "../redux/configStore";
-import { Exhibition, ExhibitionDetail, Main, TeamAllList, Signup, Login } from "../pages";
+import { Exhibition, ExhibitionDetail, Main, TeamAllList, Signup, Login, TeamDetail } from "../pages";
 import { Header, Footer } from "../components";
 import styled from "styled-components";
+
+
+
 function App() {
 
   return (
     <>
       <Wrapper>
+
         <ContentContainer>
           <ConnectedRouter history={history}>
             <Header />
             <Route path="/" exact component={Main} />
             <Route path="/team" exact component={TeamAllList} />
+            <Route path="/team/detail/:teamId" exact component={TeamDetail} />
             <Route path="/exhibition" exact component={Exhibition} />
             <Route path="/exhibition/detail/:exhibitionId" exact component={ExhibitionDetail} />
             <Route path="/signup" exact component={Signup} />

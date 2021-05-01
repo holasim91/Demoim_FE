@@ -2,9 +2,7 @@ import React from "react"
 import styled from "styled-components";
 import { TeamCard } from "../../components";
 import { Container } from "../../elements";
-import { history } from '../../redux/configStore';
 import { FaChevronDown } from "react-icons/fa";
-import { useMediaQuery } from "react-responsive"
 
 const TeamList = (props) => {
 
