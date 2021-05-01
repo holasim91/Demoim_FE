@@ -42,11 +42,12 @@ const ExhibitionPostBox = styled.div`
   margin-bottom: 10px;
   border-radius: 15px;
   cursor: pointer;
+  transition: all 0.3s;
   :hover {
     transform: translate(0px,-3px);
   }
   @media ${props => props.theme.mobile}{
-    width: 391px;
+    min-height: 400px;
     margin: auto;
     margin-bottom: 10px;
   }
@@ -89,6 +90,10 @@ const ThumbNail = styled.div`
   background: url('${(props) => props.thumbnail}') no-repeat;
   background-size: cover;
   margin: 0 auto;
+  @media ${props => props.theme.mobile}{
+    height: 246px;
+  }
+
 `;
 const Title = styled.div`
   font-size: 25px;

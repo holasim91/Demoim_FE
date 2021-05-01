@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ExhibitionPost from "./ExhibitionPost";
 import { actionCreators as exhibitionActions } from "../../redux/modules/exhibition";
+import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
 
@@ -14,7 +15,11 @@ const ExhibitionList = () => {
   const { posts, isLoading } = useSelector((state) => state.exhibition);
 
   if (isLoading) {
-    return <>로오딩중</>;
+    return (
+      <>
+      <Spinner />
+      </>
+    );
   }
 
   return (
