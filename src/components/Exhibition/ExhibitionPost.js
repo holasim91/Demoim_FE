@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import ExhibitionComment from "./ExhibitionComment";
 const ExhibitionPost = (props) => {
   const { data } = props;
   const styles = {

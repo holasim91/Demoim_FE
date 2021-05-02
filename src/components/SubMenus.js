@@ -5,7 +5,7 @@ import { NavLink as Link } from "react-router-dom";
 const SubMenus = () => {
   return (
     <NavBox>
-        <NavLink to='/exhibition'>프로젝트 자랑글</NavLink>
+        <NavLink to='/exhibition'>프로젝트 자랑</NavLink>
         <NavLink to='/smalltalk'>스몰토크</NavLink>
     </NavBox>
   );
@@ -13,7 +13,6 @@ const SubMenus = () => {
 
 const NavBox = styled.nav`
 padding-top : 50px;
-padding-right: 6%;
   display: flex;
   justify-content: center;
   font-size:20px;
