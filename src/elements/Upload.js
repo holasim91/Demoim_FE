@@ -6,18 +6,13 @@ const Upload = (props) => {
 
   const fileRef = React.useRef();
   const [fileName, setFileName] = React.useState("파일 선택하기");
-
-  const changeFile = () => {
-
-
-
-  }
+  const changeFile = (e) => setFileName(e.target.value);
 
   return (
     <React.Fragment>
       <FileBox>
         <label htmlFor="img-file">업로드</label>
-        <input type="file" id="img-file" ref={fileRef} />
+        <input type="file" id="img-file" ref={fileRef} onChange={changeFile} accept=".gif, .jpg, .png" />
         <input type="text" className="uploadImg" value={fileName} readOnly />
       </FileBox>
     </React.Fragment>
@@ -61,7 +56,16 @@ const FileBox = styled.div`
     border-radius:3px;
     color:gray;
     outline:none;
-  }
+    width:210px;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+    @media (max-width:370px){
+      width:150px;
+    }
+
+
+    }
 
 `;
 
