@@ -5,35 +5,61 @@ import { actionCreators as exhibitionActions } from "../../redux/modules/exhibit
 import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
+import { Button } from "../../elements";
 
-const ExhibitionList = () => {
+const ExhibitionList = (props) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1); //현재페이지, 1부터 시작
   useEffect(() => {
     dispatch(exhibitionActions.exihibitionAPI(page, 6));
   }, [dispatch, page]);
-  const { posts, isLoading } = useSelector((state) => state.exhibition);
+  const { exhibitionPosts, isLoading } = useSelector(
+    (state) => state.exhibition
+  );
 
-  if (isLoading) {
+  if (isLoading && history.location.pathname !== "/") {
     return (
       <>
-      <Spinner />
+        <Spinner />
       </>
     );
   }
 
   return (
-    <ExhibitionBoxWrapper>
-      {posts.map((post) => (
-        <ExhibitionPost
-          data={post}
-          key={post.id}
-          onClick={() => history.push(`/detail/${post.id}`)}
-        />
-      ))}
-    </ExhibitionBoxWrapper>
+    <>
+      <TopBox>
+        <BtnBox>
+          <Button padding="7px 5px" size="15px">
+            글쓰기
+          </Button>
+        </BtnBox>
+      </TopBox>
+
+      <ExhibitionBoxWrapper>
+        {exhibitionPosts.map((post) => (
+          <ExhibitionPost
+            data={post}
+            key={post.id}
+            onClick={() => history.push(`/detail/${post.id}`)}
+          />
+        ))}
+      </ExhibitionBoxWrapper>
+    </>
   );
 };
+
+const TopBox = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0px 50px;
+  margin: 80px 0px 40px 0px;
+  flex-wrap: wrap;
+`;
+const BtnBox = styled.div`
+  width: 100px;
+`;
 
 const ExhibitionBoxWrapper = styled.div`
   margin: 30px auto 100px auto;

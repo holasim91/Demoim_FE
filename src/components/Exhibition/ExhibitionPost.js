@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import ExhibitionComment from "./ExhibitionComment";
 const ExhibitionPost = (props) => {
   const { data } = props;
   const styles = {
@@ -40,7 +41,7 @@ const ExhibitionPostBox = styled.div`
   padding: 15px 20px;
   background-color: ${({ theme }) => theme.main_gray};
   margin-bottom: 10px;
-  border-radius: 15px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
   :hover {
@@ -49,7 +50,7 @@ const ExhibitionPostBox = styled.div`
   @media ${props => props.theme.mobile}{
     min-height: 400px;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
 `;

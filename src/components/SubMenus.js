@@ -1,38 +1,41 @@
 import React from "react";
-import styled from "styled-components";
-import { history } from "../redux/configStore";
+import styled, { css } from "styled-components"
+import { NavLink as Link } from "react-router-dom";
 
-const SubMenus = (props) => {
-  const {currentPath} = props
-  console.log('submenu', currentPath)
+const SubMenus = () => {
   return (
-    <SubMenusWrapper>
-      <SubMenuUl>
-        <li onClick={()=>history.push('/exhibition')}>프로젝트 자랑글</li>
-        <li onClick={()=>history.push('/')}>스몰토크</li>
-      </SubMenuUl>
-    </SubMenusWrapper>
+    <NavBox>
+        <NavLink to='/exhibition'>프로젝트 자랑</NavLink>
+        <NavLink to='/smalltalk'>스몰토크</NavLink>
+    </NavBox>
   );
 };
 
-const SubMenusWrapper = styled.div`
-  padding-top: 20px;
-  padding-left: 55%;
-  @media ${(props) => props.theme.mobile} {
-    /* display: none; */
-  }
-`;
-const SubMenuUl = styled.div`
-  list-style: none;
+const NavBox = styled.nav`
+padding-top : 50px;
   display: flex;
-  li {
-    cursor: pointer;
-    :first-child {
-      padding-right: 20px;
-    }
-    :hover{
-      font-weight:500;
+  justify-content: center;
+  font-size:20px;
+`;
+
+const LinkStyle = css`
+  text-decoration: none;
+  color:${props => props.theme.main_black};
+  cursor: pointer;
+`;
+
+
+const NavLink = styled(Link)`
+  ${LinkStyle}
+padding-right: 20px;
+  &.active{
+    color: ${props => props.theme.main_color};
+  }
+  @media ${props => props.theme.mobile}{
+    &:hover{
+      text-decoration: none;
     }
   }
 `;
+
 export default SubMenus;

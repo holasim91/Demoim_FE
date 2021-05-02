@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { ExhibitionComment } from "../components";
 import { Container, Grid } from "../elements";
 
 const ExhibitionDetail = (props) => {
   const id = props.match.params.exhibitionId;
-  const post = useSelector((state) => state.exhibition.posts).find(
+  const post = useSelector((state) => state.exhibition.exhibitionPosts).find(
     (v) => v.id === id
   );
   return (
@@ -24,6 +25,8 @@ const ExhibitionDetail = (props) => {
           </HeaderRight>
         </ExhibitionDetailHeader>
         <ExhibitionDetailContent>{post.contents}</ExhibitionDetailContent>
+        <ExhibitionComment />
+
       </Container>
     </>
   );
