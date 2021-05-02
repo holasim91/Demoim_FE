@@ -2,19 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import { TeamList } from "../../components";
 import { Container, Button } from "../../elements";
+import { history } from "../../redux/configStore";
+
 const TeamAllList = (props) => {
+
+  const [select, setSelect] = React.useState("프론트엔드");
+
+  const showCategory = (e) => {
+
+    console.log(e.target.value);
+
+  }
+
   return (
     <React.Fragment>
       <Container>
         <TopBox>
-          <SelectBox>
-            <option>프론트엔드</option>
-            <option>백엔드</option>
-            <option>디자이너</option>
-            <option>기획자</option>
+          <SelectBox onChange={(e) => showCategory(e)}>
+            <option value="프론트엔드">프론트엔드</option>
+            <option value="백엔드">백엔드</option>
+            <option value="디자이너">디자이너</option>
+            <option value="기획자">기획자</option>
           </SelectBox>
           <BtnBox>
-            <Button padding='7px 5px' size='15px'>팀 만들기</Button>
+            <Button padding='6px 5px' size='14px' _onClick={() => history.push('/team/write')}>팀 만들기</Button>
           </BtnBox>
         </TopBox>
 

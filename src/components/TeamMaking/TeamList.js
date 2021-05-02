@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import styled from "styled-components";
 import { TeamCard } from "../../components";
 import { Container } from "../../elements";

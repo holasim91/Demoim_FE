@@ -5,5 +5,6 @@ import Button from "./Button";
 import Image from "./Image";
 import Container from "./Container";
 import MobileBar from "./MobileBar";
+import Upload from "./Upload";
 
-export { Input, Text, Grid, Button, Image, Container, MobileBar };
+export { Input, Text, Grid, Button, Image, Container, MobileBar, Upload };

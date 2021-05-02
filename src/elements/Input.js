@@ -17,7 +17,7 @@ const Input = (props) => {
     return (
       <Grid>
         { label && <Text margin="0px 0px 6px 4px">{label}</Text>}
-        <ElTextarea placeholder={placeholder} onChange={_onChange} rows={10} value={value} />
+        <ElTextarea {...styles} placeholder={placeholder} onChange={_onChange} rows={5} value={value} />
       </Grid>
     )
   }
@@ -66,8 +66,9 @@ const ElInput = styled.input`
 const ElTextarea = styled.textarea`
   border:1px solid #ccc;
   border-radius: 3px;
-  width:100%;
-  padding: 12px;
+  width: ${(props) => props.width};
+  padding: ${(props) => props.padding ? `${props.padding};` : '12px;'};
+  ${(props) => props.margin ? `margin:${props.margin};` : ''}
   box-sizing:border-box;
   resize: none;
   outline: none;

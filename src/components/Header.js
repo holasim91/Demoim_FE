@@ -4,43 +4,60 @@ import { Container } from "../elements";
 import { NavLink as Link, Link as ActiveNoneLink } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { MobileBar } from "../elements";
+import { AiOutlineBell } from "react-icons/ai";
+
+//로그인 후 00님의 로그 추가되면 데스크탑 버전 
+//NavMenu에 .addUserLog 클래스 사용해주세요!
+//알림 아이콘은 밑에 만들어놓은 Bell 사용해주세요!
 
 //link 주소 정해지면 정확하게 맞추기!
-const Header = () => {
+const Header = (props) => {
 
   const [open, setOpen] = React.useState(false);
-  const sticky = React.useRef(null);
-
+  const [over, setOver] = React.useState(false);
+  const header = React.useRef(null);
+  const subMenu = React.useRef(null);
 
   const handleScroll = () => {
-    if (sticky.current) {
-      if (sticky.current.offsetTop < window.pageYOffset) {
-        sticky.current.classList.add("sticky");
-
+    if (header.current) {
+      if (header.current.offsetTop < window.pageYOffset) {
+        header.current.classList.add("sticky");
       } else {
-        sticky.current.classList.remove("sticky");
+        header.current.classList.remove("sticky");
       }
     }
   }
   React.useEffect(() => {
 
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", () => handleScroll);
     };
 
   }, []);
 
-  const openBar = () => {
-    setOpen(true);
-  }
+  React.useEffect(() => {
 
-  const closeBar = () => {
-    setOpen(false);
-  }
+    if (header.current && subMenu.current) {
+      if (over === true) {
+        header.current.classList.add('mouseover');
+        subMenu.current.classList.add('showMenu');
+      } else {
+        header.current.classList.remove('mouseover');
+        subMenu.current.classList.remove('showMenu');
+      }
+    }
+  }, [over]);
+
+  const openBar = () => setOpen(true);
+  const closeBar = () => setOpen(false);
+
+  const showMenu = () => setOver(true);
+  const hideMenu = () => setOver(false);
 
   return (
-    <Wrapper ref={sticky}>
+    <Wrapper ref={header}>
       <Container>
         <Bars onClick={openBar} />
         <NavBox>
@@ -56,9 +73,19 @@ const Header = () => {
             <NavLink to='/team'>
               팀 메이킹
             </NavLink>
-            <NavLink to='/exhibition'>
-              De Talk
+            <PcDetalkBox>
+              <NavLink to='/exhibition' onMouseEnter={showMenu}>
+                De Talk
             </NavLink>
+              <SubMenu ref={subMenu} onMouseLeave={hideMenu}>
+                <NoneActiveLink to='/exhibition' className="detalk" >
+                  프로젝트 자랑
+                </NoneActiveLink>
+                <NoneActiveLink to='/' className="detalk">
+                  스몰토크
+                </NoneActiveLink>
+              </SubMenu>
+            </PcDetalkBox>
           </NavMenu>
           <UserMenu>
             <NoneActiveLink to='/signup'>
@@ -74,23 +101,23 @@ const Header = () => {
           <MobileMenu>
             <Logo>
               <span>De</span>moim
-               <Line />
-            </Logo>
 
-            <NoneActiveLink to='/service'>
+            </Logo>
+            <Line />
+            <NoneActiveLink to='/service' onClick={closeBar}>
               서비스소개
             </NoneActiveLink>
-            <NoneActiveLink to='/team'>
+            <NoneActiveLink to='/team' onClick={closeBar}>
               팀 메이킹
             </NoneActiveLink>
-            <NoneActiveLink to='/team'>
+            <NoneActiveLink to='/exhibition' onClick={closeBar}>
               De Talk
             </NoneActiveLink>
             <MobileUserMenu>
-              <NoneActiveLink to='/signup' className='userMenu'>
+              <NoneActiveLink to='/signup' className='userMenu' onClick={closeBar}>
                 회원가입
               </NoneActiveLink>
-              <NoneActiveLink to='/login' className='userMenu'>
+              <NoneActiveLink to='/login' className='userMenu' onClick={closeBar}>
                 로그인
               </NoneActiveLink>
             </MobileUserMenu>
@@ -104,12 +131,13 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled.div`
- width: 100%;
- height: 108px;
- box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.06);
- position: relative;
- z-index:30;
-
+  width: 100%;
+  height: 108px;
+  box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index:30;
+  transition: height .3s;
+  
   &.sticky{
     position: fixed;
     top:0;
@@ -118,8 +146,15 @@ const Wrapper = styled.div`
     z-index:10;
   }
 
+  &.mouseover{
+    height: 135px;
+  }
+
   @media ${props => props.theme.mobile}{
     height: 70px;
+    &.mouseover{
+    height: 70px;
+  }
   }
 `;
 
@@ -171,6 +206,7 @@ const NavLink = styled(Link)`
   &.active{
     color: ${props => props.theme.main_color};
   }
+
   @media ${props => props.theme.mobile}{
     &:hover{
       text-decoration: none;
@@ -186,7 +222,11 @@ const NavMenu = styled.div`
   font-size:1.06em;
   padding:0px 0px 20px 0px;
   color: ${props => props.theme.main_black};
- 
+
+  &.addUserLog{
+    gap:45px;
+  }
+
   @media ${props => props.theme.mobile}{
     display: none;
   }
@@ -205,6 +245,11 @@ const UserMenu = styled.div`
 const NoneActiveLink = styled(ActiveNoneLink)`
   ${LinkStyle}
   font-size:13px;
+
+  &.detalk{
+    margin-right:10px;
+    font-size:14px;
+  }
 
   @media ${props => props.theme.mobile}{
     font-size:3.7vw;
@@ -232,6 +277,12 @@ const MobileUserMenu = styled.div`
   
 `;
 
+const Bell = styled(AiOutlineBell)`
+  font-size: 1.5em;
+  position: relative;
+  top:-5px;
+`;
+
 const Bars = styled(FaBars)`
   
   display: none;
@@ -248,9 +299,22 @@ const Bars = styled(FaBars)`
   }
 `;
 
-const Line = styled.div`
+const Line = styled.p`
   width:100%;
   height: 1px;
   background-color:#f1f1f1;
+`;
+
+const SubMenu = styled.div`
+  position: absolute;
   margin-top:10px;
-`
+  display: none;
+
+  &.showMenu{
+    display: block;
+  }
+  
+`;
+const PcDetalkBox = styled.div`
+  position: relative;
+`;

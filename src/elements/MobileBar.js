@@ -4,6 +4,8 @@ import { FaTimes } from "react-icons/fa";
 const MobileBar = (props) => {
 
   const { open, close, children } = props;
+
+
   return (
     <>
       { open ? (
