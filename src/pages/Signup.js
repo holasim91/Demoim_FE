@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { emailCheck, nicknameCheck, pwContinuous, pwMatch } from "../shared/Common";
-import { Input, Text, Grid, Button } from "../elements";
+import { Text, Grid, Container } from "../elements";
 import "../shared/register.css";
 import "../shared/theme";
 
@@ -14,7 +14,7 @@ import axios from "axios";
 
 //username= email
 const Signup = (props) => {
-    const dispatch = useDispatch("");
+    const dispatch = useDispatch();
 
     const [email, setEmail] = React.useState("");
     const [nickname, setNickname] = React.useState("");
@@ -95,14 +95,13 @@ const Signup = (props) => {
         }
     }
 
-    //checkEmailAPI (username:email)
-    const checkEmailAPI = (email) => {
+    //checkEmailAPI(username:email)
+    const checkEmailAPI= (email) =>{
         console.log(email)
-        
         const API = `http://54.180.142.197/api/signup/usernamedupchk?username=${email}`;
         axios.post(API,
             {
-                username: email,
+                username:email,
             })
             .then((res) => {
                 console.log(res)
@@ -117,30 +116,30 @@ const Signup = (props) => {
             .catch((err) => {
                 console.log(err)
             })
-    }
-
+            console.log(email)
+        }
 
     //checkNicknameAPI
     const checkNicknameAPI = (nickname) => {
-        console.log(nickname)
-        const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
-        axios.post(API,
-            {
-                nickname:nickname,
-            })
-            .then((res) => {
-                console.log(res)
-                if(res.data.msg === "false"){
-                    alert('이미등록된 닉네임입니다.')
-                    setNicknameDup(false);
-                }else{
-                    alert('사용 가능한 닉네임입니다.')
-                    setNicknameDup(true);
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    console.log(nickname)
+    const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
+    axios.post(API,
+        {
+            nickname:nickname,
+        })
+        .then((res) => {
+            console.log(res)
+            if(res.data.msg === "false"){
+                alert('이미등록된 닉네임입니다.')
+                setNicknameDup(false);
+            }else{
+                alert('사용 가능한 닉네임입니다.')
+                setNicknameDup(true);
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     //희망포지션 설렉트박스
@@ -155,7 +154,6 @@ const Signup = (props) => {
 
     //회원가입하기!
     const signUp = () => {
-
         if (email === ' ') {
             alert('이메일을 입력해주세요!')
             return false;
@@ -180,88 +178,91 @@ const Signup = (props) => {
         dispatch(actionCreators.signupAPI(email,pw,nickname,position))
     }
 
-
-
     return (
         <React.Fragment>
+            <Container>
             <SignupContainer>
-                <Grid margin="20px auto" center >
-                    <Text size="1.5rem" bold>회원가입</Text></Grid>
-                <SignupForm>
-                    <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>이메일</Text>
-                        <Input width="12vw" margin="4px 12px" padding="12px" type="text"
-                            placeholder="mate12@naver.com"
-                            value={email}
-                            _onChange={(e) => {
+            <Title>
+                회원가입
+            </Title>
+            <SignupForm>
+                <SignupTable>
+                    <tbody>
+                        <tr>
+                            <td>이메일</td>
+                            <td>
+                            <Input width="12vw" margin="4px 12px" padding="12px" type="text"
+                                placeholder="mate12@naver.com"
+                                value={email}
+                                onChange={(e) => {
                                 setEmail(e.target.value)
-                            }} />
-                        <Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
-                            _onClick={() => {
-                                console.log("email Check");
-                                // if(!emailCheck(email)){
-                                //     alert('이메일형식확인');
-                                //     return false;
-                                // }
+                            }} /></td>
+                            <td><Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
+                            onClick={() => {
                                 checkEmailAPI(email);
-                            }}>중복확인</Button>
-                    </Grid>
-                    <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>닉네임</Text>
-                        <Input width="12vw" margin="4px 12px" padding="12px" placeholder="저녁은돈까스"
-                            value={nickname}
-                            _onClick={() => {
-                                nickNameInfoUl.current.style.display = "block";
-                            }}
-                            _onChange={(e) => {
-                                changeNickname(e, nickNameInfo.current);
-                            }}
-                        />
-                        <Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
-                            _onClick={() => {
+                            }}>중복확인</Button></td>
+                        </tr>
+                        <tr>
+                            <td>닉네임</td>
+                            <td>
+                                <Input width="12vw" margin="4px 12px" padding="12px" placeholder="플젝은데모임"
+                                value={nickname}
+                                onClick={() => {
+                                    nickNameInfoUl.current.style.display = "block";
+                                }}
+                                onChange={(e) => {
+                                    changeNickname(e, nickNameInfo.current);
+                                }}/>
+                                <InfoUl className="checkPw" ref={nickNameInfoUl}>
+                                    <li ref={nickNameInfo}>·한글,영문,숫자만 2~6자리 가능</li>
+                                </InfoUl>
+                            </td>
+                            <td>
+                                <Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
+                            onClick={() => {
                                 //console.log("nickname Check")
                                 checkNicknameAPI(nickname)
                             }}
-                        >중복확인</Button>
-                    </Grid>
-                    <InfoUl className="checkPw" ref={nickNameInfoUl}>
-                        <li ref={nickNameInfo}>·한글,영문,숫자만 2~6자리 가능</li>
-                    </InfoUl>
-                    <Grid flex text-align="left">
-                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>비밀번호</Text>
-                        <Input width="20vw" margin="4px 12px" padding="12px"
-                            value={pw}
-                            _onClick={() => {
-                                pwInfoUl.current.style.display = "block";
-                            }}
-                            _onChange={(e) => {
-                                changePw(e, pwInfoLen.current, pwInfoMatch.current, pwInfoContinuos.current);
-                            }} />
-                    </Grid>
-                    <InfoUl className="checkPw" ref={pwInfoUl}>
-                        <li ref={pwInfoLen}>·글자수는 4~20 글자 </li>
-                        <li ref={pwInfoMatch}>·영문/숫자만 허용, 2개 이상의 조합</li>
-                        <li ref={pwInfoContinuos}>·동일한 문자 3개 이상 연속 사용 불가</li>
-                    </InfoUl>
-                    <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>비밀번호확인</Text>
-                        <Input width="20vw" margin="4px 12px" padding="12px" placeholder="비밀번호를 한번 더 입력해주세요"
+                        >중복확인</Button></td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호</td>
+                            <td>
+                                <Input width="20vw" margin="4px 12px" padding="12px"
+                                value={pw}
+                                onClick={() => {
+                                    pwInfoUl.current.style.display = "block";
+                                }}
+                                onChange={(e) => {
+                                    changePw(e, pwInfoLen.current, pwInfoMatch.current, pwInfoContinuos.current);
+                                }}/>
+                                <InfoUl className="checkPw" ref={pwInfoUl}>
+                                    <li ref={pwInfoLen}>·글자수는 4~20 글자 </li>
+                                    <li ref={pwInfoMatch}>·영문/숫자만 허용, 2개 이상의 조합</li>
+                                    <li ref={pwInfoContinuos}>·동일한 문자 3개 이상 연속 사용 불가</li>
+                                </InfoUl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호확인</td>
+                            <td>
+                            <Input width="20vw" margin="4px 12px" padding="12px" 
                             value={pwCheck}
-                            // _onClick={() => {
-                            //     rePwInfoUl.current.style.display = "block";
-                            // }}
-                            _onChange={(e) => {
+                            onClick={() => {
+                                rePwInfoUl.current.style.display = "block";
+                            }}
+                            onChange={(e) => {
                                 changePwMatch(e, rePwInfoUl,rePwInfoLiT)
                             }}
-
-                        />
-                    </Grid>
-                    <InfoUl className="ReCheckPw" ref={rePwInfoUl}>
-                        <li ref={rePwInfoLiT}>·비밀번호 일치</li>
-                    </InfoUl>
-                    <Grid flex>
-                        <Text width="6vw" margin="4px 20px" padding="12px" size="0.8rem" bold>희망포지션</Text>
-                        <Grid margin="4px 12px">
+                            />
+                            <InfoUl className="ReCheckPw" ref={rePwInfoUl}>
+                                <li ref={rePwInfoLiT}>·비밀번호 일치</li>
+                            </InfoUl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>희망포지션</td>
+                            <td>
                             <Select className="position-select"
                                 onChange={(e) => {
                                     handleOnChange(e)
@@ -271,39 +272,48 @@ const Signup = (props) => {
                                 <option value="디자이너">디자이너</option>
                                 <option value="기획자">기획자</option>
                             </Select>
-                        </Grid>
-                    </Grid>
-                    <Grid margin="20px 16px" center>
-                        <Button width="100%" _onClick={signUp}>회원가입</Button>
-                    </Grid>
-                </SignupForm>
-            </SignupContainer >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <SignupBtn onClick={signUp}>회원가입</SignupBtn>
+                            </td>
+                        </tr>
+                    </tbody>
+                </SignupTable>
+                {/* <SignupBtns>회원가입하기</SignupBtns>*/}
+            </SignupForm>
+            </SignupContainer>
+            </Container>
         </React.Fragment >
     );
 };
 
-const Select = styled.select`
-    width: 20vw;
-`;
 
 const SignupContainer = styled.div`
-    width: 30%;
-    margin: 30px auto;
-    border: 1px solid lightgray;
+    width: 578px;
+    margin: 100px auto;
+    padding: 10px auto;
+    box-sizing:border-box;
+    @media ${props => props.theme.tablet}{
+        width: 430px;
+        margin: 80px auto;
+    }
     @media ${props => props.theme.mobile}{
-        width:97vw;
-}
+        width: 100%;
+        margin: 20px auto;
+    }
+
 `;
 
-// const Grid = styled.div`
-//     box-sizing: border-box;
-//     display: ${(props) => props.color};
-//     ${(props) => (props.width ? `width:${props.width};` : '4px 12px')};
-//     ${(props) => (props.margin ? `margin:${props.margin};` : 'margin:0px')}
-
-// `;
-
 const SignupForm = styled.div`
+    width:100%;
+    color: black;
+    border: solid 1px lightgray;
+    box-sizing:border-box;
+    //rgba(122, 119, 134, 0.5)
 
 `;
 
@@ -311,8 +321,139 @@ const InfoUl = styled.ul`
     font-size:12px;
     color:#666666;
     position: relative;
-    left:135px;
+    left:0;
+    margin-top:4px;
     font-weight: 400;
-`
+    & li{
+        margin-top:4px;
+    }
+`;
+
+const SignupTable = styled.table`
+    margin:20px auto;
+    padding-bottom: 49px;
+    box-sizing:border-box;
+    & tr{
+        text-align: left;
+        font-size: 16px;
+        font-weight: 400;
+    }
+    & td{
+    position: relative;
+    padding-bottom: 16px;
+    @media ${props => props.theme.tablet}{
+        font-size: 14px;
+        }
+    @media ${props => props.theme.mobile}{
+        font-size: 1px;
+        }
+    }
+    & td:nth-child(1){
+    box-sizing: border-box;
+    padding: 15px 30px 0px 18px;
+    @media ${props => props.theme.mobile}{
+        font-size: 4px;
+        padding: 15px 10px 0px 18px;
+        }
+    }
+    
+
+`;
+
+const Title = styled.div`
+    width:100%;
+    padding:20px 10px;
+    text-align: center;
+    box-shadow: 0 0 2px 0 rgba(216, 216, 216, 0.86);
+    background-color: #f2f5fa;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-sizing:border-box;
+    font-size: 1.3vw;
+    font-weight: 500;
+    @media ${props => props.theme.tablet}{
+        font-size: 18px;
+        }
+    @media ${props => props.theme.mobile}{
+        font-size: 16px;
+    }
+`;
+
+const Input = styled.input`
+    width:85%;
+    border:none;
+    border-bottom: 1px solid lightgray;
+    &:focus{
+        outline:none;
+    }
+
+`;
+
+const Button = styled.button`
+    margin: 0 auto;
+    padding: 4px 8px;
+    color: #ffffff;
+    border:none;
+    border-radius: 8.5px;
+    background-color:#999cda;
+    font-size: 9px;
+    &:hover{
+        cursor: pointer;
+    }
+    @media ${props => props.theme.mobile}{
+        font-size: 0.5vw;
+    }
+    
+`;
+
+const SignupBtn = styled.button`
+        margin: 20px auto 0px auto;
+        padding: 6px;
+        border: 1px solid grey;
+        border-radius: 4px;
+        background-color: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        text-align:center;
+        &:hover{
+            cursor: pointer;
+        }
+
+
+ `;
+
+{/* const SignupBtns = styled.div`
+//     margin: 20px 80px;
+//     padding: 18px;
+//     border: 1px solid grey;
+//     border-radius: 4px;
+//     background-color: #ffffff;
+//     font-size: 18px;
+//     font-weight: 600;
+//     text-align:center;
+//     border:1px solid #999cda;
+//     &:hover{
+//         cursor: pointer;
+//     }
+// `; */}
+
+
+
+const Select = styled.select`
+    width:15vw;
+    border:none;
+    border-bottom:1px solid lightgray;
+    &:focus{
+        outline:none;
+    }
+    &option{
+        border:1px solid red;
+    }
+    @media ${props => props.theme.mobile}{
+        width: 38vw;
+    }
+`;
+
+
 
 export default Signup;

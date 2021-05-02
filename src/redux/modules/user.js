@@ -33,8 +33,8 @@ const signupAPI = (email,pw,nickname,position) => {
     .then((res) => {
       //console.log("회원가입ok", res)
       Swal.fire({
-        text: "회원가입 성공!",
         icon: "success",
+        text: "회원가입 성공!",
         confirmButtonColor: "#3D825A",
       })
       history.push('/');
@@ -46,7 +46,7 @@ const signupAPI = (email,pw,nickname,position) => {
 }
 
 const loginAPI = (email,pw) => {
-  console.log(email,pw)
+  console.log("확인",email,pw)
   return function (dispatch, getState, { history }){
     const API = 'http://54.180.142.197/api/login';
     axios({
@@ -57,7 +57,17 @@ const loginAPI = (email,pw) => {
       password:pw,
     }
     }).then((res) => {
-      console.log(res)
+      console.log("로그인성공",res)
+
+      const userInfo = {
+        id:"",
+        username:email,
+        nickname:"",
+        position:"",
+        desc:"",
+        thumbnail:"",
+      }
+      dispatch(setUser(userInfo))
 
       let token = res.headers.authorization;
       setCookie('token', token);
@@ -65,14 +75,24 @@ const loginAPI = (email,pw) => {
       axios.defaults.headers.common['authorization'] = token;
 
       Swal.fire({
-        text: 'Welcome, Mate!',
-        confirmButtonColor: "#3D825A",
+        icon:"success",
+        text: "Welcome Back!",
+        confirmButtonColor: "#683fee",
       })
       history.push('/');
     })
-    .catch((err) => console.log(err))
+    //실패이유 Swal띄어주기 
+    .catch((err) => {
+      Swal.fire({
+        text:`${err.response.data.message}`,
+        icon:'warning',
+        confirmButtonColor: "#3D825A", 
+      })
+  
+    })
   }
 }
+
 
 
 //reducer
