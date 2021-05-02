@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { Input, Text, Grid, Button } from "../elements";
+import { Text,Grid, Button, Container } from "../elements";
 import { history } from "../redux/configStore";
 import "../shared/theme";
 
@@ -32,62 +32,185 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      <LoginContainer>
-        <Grid margin="20px auto" center>
-          <Text size="1.5rem" bold>로그인</Text>
-        </Grid>
-        <LoginForm>
-          <Grid flex center padding="4px 12px">
-            <Text margin="4px 20px" padding="12px" size="0.8rem" bold >이메일</Text>
-            <Input width="20vw" margin="4px 12px" padding="12px" 
-              placeholder="demoin@gmail.com"
-              value={email}
-              _onChange={(e) => {
-                setEmail(e.target.value)
-              }}/>
-          </Grid>
-          <Grid flex center padding="4px 12px">
-            <Text margin="4px 20px" padding="12px" size="0.8rem" bold>비밀번호</Text>
-            <Input width="20vw" margin="4px 12px" padding="12px" 
-              type="password"
-              value={pw}
-              _onChange={(e) => {
-                setPw(e.target.value)
-              }}/>
-          </Grid>
-          <Grid margin="20px" center>
-            <Button width="100%" _onClick={onLogin}>로그인</Button>
-          </Grid>
-          <BtnSignUP onClick={() => history.push("/signup")}>
-            <Text size="0.5vw" >아직 회원이 아니신가요?</Text>
-            <Text size="0.5vw" color="purple">지금 바로 가입해보세요!</Text>
-          </BtnSignUP>
-        </LoginForm>
-      </LoginContainer>
+      <Container>
+        <LoginContainer>
+          <Title>
+            로그인
+          </Title>
+          <LoginForm>
+            <LoginTable>
+              <tbody>
+                <tr>
+                  <td>이메일</td>
+                  <td>
+                  <Input placeholder="demoim@gmail.com"
+                    value={email}
+                    onChange={(e) => {
+                    setEmail(e.target.value)
+                  }}/></td>
+                </tr>
+                <tr>
+                  <td>비밀번호</td>
+                  <td>
+                    <Input type="password"
+                    value={pw}
+                    onChange={(e) => {
+                      setPw(e.target.value)}}/>
+                    </td>
+                </tr>
+              </tbody>
+            </LoginTable>
+            <LoginBtn onClick={onLogin}>로그인</LoginBtn>
+          </LoginForm>
+          <ToSignup onClick={() => history.push("/signup")}>
+            <span>아직 회원이 아니신가요?</span>
+            <span>지금 바로 가입해보세요!</span>
+          </ToSignup>
+        </LoginContainer>
+      </Container>
     </React.Fragment>
   );
 };
 
+
 const LoginContainer = styled.div`
-    width: 30%;
-    margin: 30px auto;
-    border: 1px solid lightgray;
+    width: 578px;
+    margin: 100px auto;
+    padding: 10px auto;
+    box-sizing:border-box;
+    @media ${props => props.theme.tablet}{
+        width: 480px;
+        margin: 80px auto;
+    }
     @media ${props => props.theme.mobile}{
-        width:97vw;
-}
+        /* min-width:500px; */
+        width: 100%;
+        /* margin: 20px auto; */
+        text-align:right;
+        margin-right:10px;
+
+    }
 `;
 
 const LoginForm = styled.div`
+    /* text-align:center; */
+    width:100%;
+    color: black;
+    border: solid 1px lightgray;
+    box-sizing:border-box;
+`;
+
+const LoginTable = styled.table`
+    margin:50px auto 0 auto;
+    padding-bottom: 49px;
+    box-sizing:border-box;
+    & tr{
+        text-align: left;
+        font-size: 16px;
+        font-weight: 400;
+    }
+    & td{
+    position: relative;
+    padding-bottom: 16px;
+    @media ${props => props.theme.tablet}{
+        font-size: 14px;
+        }
+    @media ${props => props.theme.mobile}{
+        font-size: 1px;
+        }
+    }
+    td:nth-child(1){
+    box-sizing: border-box;
+    padding: 15px 30px 0px 18px;
+    @media ${props => props.theme.mobile}{
+        font-size: 4px;
+        padding: 15px 10px 0px 10px;
+        }
+    }
+`;
+
+const Title = styled.div`
+  width:100%;
+    padding:20px 10px;
+    text-align: center;
+    box-shadow: 0 0 2px 0 rgba(216, 216, 216, 0.86);
+    background-color: #f2f5fa;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-sizing:border-box;
+    font-size: 1.3vw;
+    font-weight: 500;
+    @media ${props => props.theme.tablet}{
+        font-size: 18px;
+        }
+    @media ${props => props.theme.mobile}{
+        font-size: 16px;
+    }
 
 `;
 
-const BtnSignUP = styled.div`
-  margin: 20px;
-  display:flex;
-  justify-content:space-evenly;
-  padding: 0 80px;
-  cursor: pointer;
+const Input = styled.input`
+    width: 283px;
+    border:none;
+    border-bottom: 1px solid lightgray;
+    @media ${props => props.theme.tablet}{
+        font-size: 14px;
+        }
+    @media ${props => props.theme.mobile}{
+        width: 180px;
+        font-size: 12px;
+    }
+    &:focus{
+        outline:none;
+    }
+
 `;
+
+
+const LoginBtn = styled.button`
+        margin: 20px 25px 20px 490px;
+        padding: 6px;
+        border: 1px solid grey;
+        border-radius: 4px;
+        background-color: #ffffff;
+        font-size: 10px;
+        text-align:center;
+        box-sizing:border-box;
+  @media ${props => props.theme.tablet}{
+        font-size: 8px;
+        margin-left:400px;
+        }
+  @media ${props => props.theme.mobile}{
+        font-size: 8px;
+        margin-left:240px;
+      }
+        &:hover{
+            cursor: pointer;
+        }
+`;
+
+const ToSignup = styled.div`
+    margin: 20px;
+    /* display:flex;
+    justify-content:space-between; */
+    text-align:right;
+    padding-left:80px;
+    cursor: pointer;
+    font-size:12px;
+    &span{  
+    }
+    & span:nth-child(2){
+      margin-left:10px;
+      color:#683fee;
+      text-decoration:underline;
+    
+    }
+    @media ${props => props.theme.mobile}{
+        text-align:center;
+        padding-left:10px;
+      }
+`;
+
 
 
 export default Login;
