@@ -4,11 +4,15 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 import Exhibition from "./modules/exhibition";
 import Team from "./modules/team";
+import SmallTalk from "./modules/smalltalk";
+
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   exhibition: Exhibition,
   team: Team,
+  smalltalk: SmallTalk,
+
   router: connectRouter(history),
 });
 

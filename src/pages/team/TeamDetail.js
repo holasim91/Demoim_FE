@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Container, Image, Input } from "../../elements";
-import { Modal, ApplyCard } from "../../components";
+import { Modal, ApplyList } from "../../components";
 import { useMediaQuery } from "react-responsive";
 import Swal from 'sweetalert2';
 
@@ -90,10 +90,7 @@ const TeamDetail = () => {
             </ApplyBox>
           </Modal>
         </ModalBox>
-        <ApplicantBox>
-          <ApplyCard />
-        </ApplicantBox>
-
+        <ApplyList />
       </Container>
     </React.Fragment>
   )
@@ -107,17 +104,7 @@ const Flex = css`
 `;
 
 
-//리더인 경우 지원자 확인 영역
-const ApplicantBox = styled.div`
-  
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  width:75%;
-  margin:0px auto;
-  padding:15px;
-  grid-column-gap: 5%;
-  box-sizing:border-box;
-`;
+
 
 //모집글
 const ContentBox = styled.div`
@@ -168,6 +155,7 @@ const InfoText = styled.p`
 `
 const Title = styled.p`
   font-size:20px;
+  line-height: 1.4em;
 
   @media ${props => props.theme.mobile}{
     padding-left:15px;

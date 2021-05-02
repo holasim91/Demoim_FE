@@ -340,7 +340,10 @@ const DetalkBox = styled.div`
    align-items: center;
    margin-top: 110px;
    padding:0px 35px;
-   
+
+   @media ${props => props.theme.mobile}{
+      padding: 0px 10px;
+   }
 `;
 const Detalk = styled.p`
    ${props => props.theme.logo};
