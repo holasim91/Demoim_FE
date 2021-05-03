@@ -11,7 +11,7 @@ const Upload = (props) => {
   return (
     <React.Fragment>
       <FileBox>
-        <label htmlFor="img-file">업로드</label>
+        <label htmlFor="img-file">썸네일 업로드</label>
         <input type="file" id="img-file" ref={fileRef} onChange={changeFile} accept=".gif, .jpg, .png" />
         <input type="text" className="uploadImg" value={fileName} readOnly />
       </FileBox>
@@ -42,6 +42,10 @@ const FileBox = styled.div`
     border:1px solid #ebebeb;
     border-radius: 5px;
     font-size:14px;
+    @media (max-width:380px){
+      font-size:10px;
+      padding:6px 10px;
+    }
   }
 
   & .uploadImg{
@@ -60,8 +64,9 @@ const FileBox = styled.div`
     text-overflow:ellipsis;
     overflow: hidden;
     white-space:nowrap;
-    @media (max-width:370px){
-      width:150px;
+    @media (max-width:380px){
+      width:120px;
+      font-size:10px;
     }
 
 

@@ -6,5 +6,5 @@ import Image from "./Image";
 import Container from "./Container";
 import MobileBar from "./MobileBar";
 import Upload from "./Upload";
-
-export { Input, Text, Grid, Button, Image, Container, MobileBar, Upload };
+import CheckBox from "./Checkbox";
+export { Input, Text, Grid, Button, Image, Container, MobileBar, Upload, CheckBox };

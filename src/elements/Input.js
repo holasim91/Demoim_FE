@@ -59,9 +59,6 @@ const ElInput = styled.input`
     font-weight: 500;
   }
 
-  &:focus{
-    border:1px solid #333333;
-  }
 `
 const ElTextarea = styled.textarea`
   border:1px solid #ccc;

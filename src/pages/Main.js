@@ -97,18 +97,24 @@ const Main = (props) => {
                <Ment>다른 유저들과 소통할 수 있는 공간입니다.</Ment>
                <Line />
                <DetalkTitleBox>
-                  <DetalkTitle>
-                     <Point>프로젝트 자랑</Point> 게시판
+                  <TitleInnerBox>
+                     <DetalkTitle>
+                        <Point>프로젝트 자랑</Point> 게시판
                   </DetalkTitle>
+                     <DetalkMore onClick={() => history.push('/exhibition')}>더보기></DetalkMore>
+                  </TitleInnerBox>
                   <DatalkSubTitle>
                      여러분의 프로젝트를 마음껏 뽐내보세요!
                   </DatalkSubTitle>
                </DetalkTitleBox>
                <ExhibitionList />
                <DetalkTitleBox>
-                  <DetalkTitle>
-                     프로젝트 관련 <Point>small talk</Point>
-                  </DetalkTitle>
+                  <TitleInnerBox>
+                     <DetalkTitle>
+                        프로젝트 관련 <Point>small talk</Point>
+                     </DetalkTitle>
+                     <DetalkMore onClick={() => history.push('/smalltalk')}>더보기></DetalkMore>
+                  </TitleInnerBox>
                   <DatalkSubTitle>
                      다른 유저들과 보다 더 자유롭게 소통해보세요!
                   </DatalkSubTitle>
@@ -332,6 +338,18 @@ const More = styled.p`
    }
 `;
 
+const DetalkMore = styled.p`
+   font-size: 1em;
+   cursor: pointer;
+   margin-right:15px;
+   color:${props => props.theme.main_color};
+
+   @media (max-width:375px){
+      font-size: 0.6em;
+   }
+
+`;
+
 //데톡 영역
 const DetalkBox = styled.div`
    display: flex;
@@ -406,7 +424,10 @@ font-weight:300;
    }
 
 `
-
 const Point = styled.span`
    color: ${props => props.theme.main_color};
 `
+const TitleInnerBox = styled.div`
+   display: flex;
+   justify-content: space-between;
+`;
