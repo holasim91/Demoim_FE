@@ -47,21 +47,21 @@ const TopBox = styled.div`
   padding:0px 50px;
   margin: 80px 0px 40px 0px;
   flex-wrap: wrap;
-`
+`;
 
 const ContentBox = styled.div`
   width:100%;
   box-sizing: border-box;
   margin:0px auto;
-`
+`;
 
 const BtnBox = styled.div`
   width:100px;
-`
+`;
 
 const SelectBox = styled.select`
   padding:0px 25px;
   outline: none;
   border:none;
   border-bottom: 1px solid #000000;
-`
+`;

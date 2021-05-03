@@ -5,7 +5,7 @@ import { NavLink as Link, Link as ActiveNoneLink } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { MobileBar } from "../elements";
 import { AiOutlineBell } from "react-icons/ai";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
 
 
@@ -26,51 +26,12 @@ const Header = (props) => {
   };
 
   const [open, setOpen] = React.useState(false);
-  const [over, setOver] = React.useState(false);
-  const header = React.useRef(null);
-  const subMenu = React.useRef(null);
-
-  const handleScroll = () => {
-    if (header.current) {
-      if (header.current.offsetTop < window.pageYOffset) {
-        header.current.classList.add("sticky");
-      } else {
-        header.current.classList.remove("sticky");
-      }
-    }
-  }
-  React.useEffect(() => {
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", () => handleScroll);
-    };
-
-  }, []);
-
-  React.useEffect(() => {
-
-    if (header.current && subMenu.current) {
-      if (over === true) {
-        header.current.classList.add('mouseover');
-        subMenu.current.classList.add('showMenu');
-      } else {
-        header.current.classList.remove('mouseover');
-        subMenu.current.classList.remove('showMenu');
-      }
-    }
-  }, [over]);
-
   const openBar = () => setOpen(true);
   const closeBar = () => setOpen(false);
 
-  const showMenu = () => setOver(true);
-  const hideMenu = () => setOver(false);
 
-  
   return (
-    <Wrapper ref={header}>
+    <Wrapper>
       <Container>
         <Bars onClick={openBar} />
         <NavBox>
@@ -87,48 +48,38 @@ const Header = (props) => {
               팀 메이킹
             </NavLink>
             <PcDetalkBox>
-              <NavLink to='/exhibition' onMouseEnter={showMenu}>
+              <NavLink to='/exhibition'>
                 De Talk
             </NavLink>
-              <SubMenu ref={subMenu} onMouseLeave={hideMenu}>
-                <NoneActiveLink to='/exhibition' className="detalk" >
-                  프로젝트 자랑
-                </NoneActiveLink>
-                <NoneActiveLink to='/' className="detalk">
-                  스몰토크
-                </NoneActiveLink>
-              </SubMenu>
             </PcDetalkBox>
-            {isLogin ? 
-              (<NavLink to='/mypage'> 닉네임님의 로그 </NavLink>) 
-              :""}
+            {isLogin ?
+              (<NavLink to='/mypage'> 닉네임님의 로그 </NavLink>)
+              : ""}
           </NavMenu>
           {isLogin ? (
-          <UserMenu>
-            <NoneActiveLink to='/'>
-              <Bell/>
+            <UserMenu>
+              <NoneActiveLink to='/'>
+                <Bell />
+              </NoneActiveLink>
+              <NoneActiveLink onClick={LogOut}>
+                로그아웃
             </NoneActiveLink>
-            <NoneActiveLink onClick={LogOut}>
-              로그아웃
-            </NoneActiveLink>
-          </UserMenu>
+            </UserMenu>
           ) : (
             <UserMenu>
-            <NoneActiveLink to='/signup'>
-              회원가입
+              <NoneActiveLink to='/signup'>
+                회원가입
             </NoneActiveLink>
-            <NoneActiveLink to='/login'>
-              로그인
+              <NoneActiveLink to='/login'>
+                로그인
             </NoneActiveLink>
-          </UserMenu>
+            </UserMenu>
           )}
         </NavBox>
-
         <MobileBar open={open} close={closeBar}>
           <MobileMenu>
             <Logo>
               <span>De</span>moim
-
             </Logo>
             <Line />
             <NoneActiveLink to='/service' onClick={closeBar}>
@@ -161,27 +112,15 @@ const Wrapper = styled.div`
   width: 100%;
   height: 108px;
   box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.06);
-  position: relative;
   z-index:30;
-  transition: height .3s;
-  
-  &.sticky{
-    position: fixed;
-    top:0;
-    left:0;
-    background-color: white;
-    z-index:10;
-  }
-
-  &.mouseover{
-    height: 135px;
-  }
+  position: sticky;
+  position:-webkit-sticky;
+  top:0;
+  left:0;
+  background-color: white;
 
   @media ${props => props.theme.mobile}{
     height: 70px;
-    &.mouseover{
-    height: 70px;
-  }
   }
 `;
 
@@ -214,7 +153,6 @@ const Logo = styled.p`
 
   @media ${props => props.theme.mobile}{
     font-size:5vw;
-    //font-size: 1.56em;
     position: relative;
     top:0;
     left:0;
@@ -332,16 +270,6 @@ const Line = styled.p`
   background-color:#f1f1f1;
 `;
 
-const SubMenu = styled.div`
-  position: absolute;
-  margin-top:10px;
-  display: none;
-
-  &.showMenu{
-    display: block;
-  }
-  
-`;
 const PcDetalkBox = styled.div`
   position: relative;
 `;

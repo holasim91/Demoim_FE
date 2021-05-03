@@ -8,6 +8,9 @@ import styled from "styled-components";
 import { setCookie, getCookie, deleteCookie } from "../shared/Cookies";
 import { actionCreators as userAction } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
+import ScrollTop from "./ScrollTop";
+
+
 
 
 function App() {
@@ -17,19 +20,20 @@ function App() {
   console.log(token);
 
   React.useEffect(() => {
-    if(token) {
+    if (token) {
       dispatch(userAction.loginCheckAPI());
     }
 
-  },[]);
+  }, []);
 
   return (
     <>
-      <Wrapper>
 
+      <Wrapper>
         <ContentContainer>
           <ConnectedRouter history={history}>
             <Header />
+            <ScrollTop />
             <Route path="/" exact component={Main} />
             <Route path="/team" exact component={TeamAllList} />
             <Route path="/team/detail/:teamId" exact component={TeamDetail} />
