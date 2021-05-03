@@ -57,14 +57,17 @@ const loginAPI = (email,pw) => {
       password:pw,
     }
     }).then((res) => {
+      console.log("로그인성공", res.data.userInfo);
 
       const userInfo = {
-        id:"",
-        username:email,
+        id:res.data.userInfo.Id,
+        desc:res.data.userInfo.Desc,
+        nickname:res.data.userInfo.Nickname,
+        position:res.data.userInfo.Position,
+        profileImage:res.data.userInfo.ProfileImage,
+        username:res.data.userInfo.Username, //email
       }
       dispatch(setUser(userInfo))
-
-      console.log("로그인성공", userInfo);
       
       let token = res.headers.authorization;
       setCookie('token', token);
