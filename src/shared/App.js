@@ -2,13 +2,26 @@ import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { Route } from "react-router-dom";
 import { history } from "../redux/configStore";
-import { Exhibition, ExhibitionDetail, Main, TeamAllList, Signup, Login, TeamDetail, TeamWrite, SmallTalk } from "../pages";
+import { Exhibition, ExhibitionDetail, Main, TeamAllList, Signup, Login, TeamDetail, TeamWrite, SmallTalk, Mypage } from "../pages";
 import { Header, Footer } from "../components";
 import styled from "styled-components";
-
+import { setCookie, getCookie, deleteCookie } from "../shared/Cookies";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { useDispatch } from "react-redux";
 
 
 function App() {
+
+  const dispatch = useDispatch();
+  const token = getCookie('token') ? true : false;
+  console.log(token);
+
+  React.useEffect(() => {
+    if(token) {
+      dispatch(userAction.loginCheckAPI());
+    }
+
+  },[]);
 
   return (
     <>
@@ -26,6 +39,7 @@ function App() {
             <Route path="/smalltalk" exact component={SmallTalk} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/login" exact component={Login} />
+            <Route path="/mypage" exact component={Mypage} />
           </ConnectedRouter>
         </ContentContainer>
         <Footer />

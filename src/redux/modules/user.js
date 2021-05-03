@@ -24,6 +24,7 @@ const signupAPI = (email,pw,nickname,position) => {
       method: "post",
       url:API,
       data:{
+        id:1,
         username:email,
         password:pw,
         nickname:nickname,
@@ -46,7 +47,6 @@ const signupAPI = (email,pw,nickname,position) => {
 }
 
 const loginAPI = (email,pw) => {
-  console.log("확인",email,pw)
   return function (dispatch, getState, { history }){
     const API = 'http://54.180.142.197/api/login';
     axios({
@@ -57,23 +57,20 @@ const loginAPI = (email,pw) => {
       password:pw,
     }
     }).then((res) => {
-      console.log("로그인성공",res)
 
       const userInfo = {
         id:"",
         username:email,
-        nickname:"",
-        position:"",
-        desc:"",
-        thumbnail:"",
       }
       dispatch(setUser(userInfo))
 
+      console.log("로그인성공", userInfo);
+      
       let token = res.headers.authorization;
       setCookie('token', token);
 
       axios.defaults.headers.common['authorization'] = token;
-
+      
       Swal.fire({
         icon:"success",
         text: "Welcome Back!",
@@ -88,11 +85,52 @@ const loginAPI = (email,pw) => {
         icon:'warning',
         confirmButtonColor: "#3D825A", 
       })
-  
     })
   }
 }
 
+//현재 로그인한 유저정보API
+const loginCheckAPI = () => {
+  return function (dispatch, getState, { history }){
+
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+
+    const API = 'http://54.180.142.197/api/mypage/profile'
+    axios({
+      method: "get",
+      url:API,
+    }).then((res) =>{
+
+      dispatch(setUser({
+        desc:res.data.desc,
+        nickname:res.data.nickname,
+        position:res.data.position,
+        profileImage:res.data.profileImage,
+        username:res.data.username, //email
+        teams:res.data.teams, //[]
+      }))
+      console.log("로그인체크성공:",res.data);
+    
+    }).catch((err) => {
+      console.log('로그인체크에러:', err);
+    })
+  }
+}
+
+const logout = () => {
+  return function (dispatch, getState, { history }){
+    deleteCookie('token');
+    axios.defaults.headers.common['Authorization'] = null;
+    delete axios.defaults.headers.common['Authorization'];
+    Swal.fire({
+      text: "See you soon, Mate!",
+      confirmButtonColor: "#3D825A",
+    })
+    dispatch(logOut());
+    history.replace('/');
+  }
+}
 
 
 //reducer
@@ -100,11 +138,11 @@ export default handleActions(
   {
     [SET_USER]: (state, action) => produce(state, (draft) => {
       draft.user = action.payload.user;
-      draft.is_login = true;
+      draft.isLogin = true;
     }),
     [LOG_OUT]: (state, action) => produce(state, (draft) => {
       draft.user = null;
-      draft.is_login = false;
+      draft.isLogin = false;
     }),
 
   }, initialState);
@@ -112,7 +150,8 @@ export default handleActions(
 const actionCreators = {
   signupAPI,
   loginAPI,
-  //logout,
+  loginCheckAPI,
+  logout,
   //isLogin
 };
 
