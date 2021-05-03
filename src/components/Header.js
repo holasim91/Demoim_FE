@@ -5,6 +5,9 @@ import { NavLink as Link, Link as ActiveNoneLink } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { MobileBar } from "../elements";
 import { AiOutlineBell } from "react-icons/ai";
+import { useSelector,useDispatch } from "react-redux";
+import { actionCreators } from "../redux/modules/user";
+
 
 //로그인 후 00님의 로그 추가되면 데스크탑 버전 
 //NavMenu에 .addUserLog 클래스 사용해주세요!
@@ -12,6 +15,15 @@ import { AiOutlineBell } from "react-icons/ai";
 
 //link 주소 정해지면 정확하게 맞추기!
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.user.isLogin);
+  console.log(isLogin);
+  // const userInfo = useSelector((state) => state.user.user);
+  // console.log("헤더유저인포:",userInfo);
+
+  const LogOut = () => {
+    dispatch(actionCreators.logout());
+  };
 
   const [open, setOpen] = React.useState(false);
   const [over, setOver] = React.useState(false);
@@ -56,6 +68,7 @@ const Header = (props) => {
   const showMenu = () => setOver(true);
   const hideMenu = () => setOver(false);
 
+  
   return (
     <Wrapper ref={header}>
       <Container>
@@ -86,8 +99,21 @@ const Header = (props) => {
                 </NoneActiveLink>
               </SubMenu>
             </PcDetalkBox>
+            {isLogin ? 
+              (<NavLink to='/mypage'> 닉네임님의 로그 </NavLink>) 
+              :""}
           </NavMenu>
+          {isLogin ? (
           <UserMenu>
+            <NoneActiveLink to='/'>
+              <Bell/>
+            </NoneActiveLink>
+            <NoneActiveLink onClick={LogOut}>
+              로그아웃
+            </NoneActiveLink>
+          </UserMenu>
+          ) : (
+            <UserMenu>
             <NoneActiveLink to='/signup'>
               회원가입
             </NoneActiveLink>
@@ -95,6 +121,7 @@ const Header = (props) => {
               로그인
             </NoneActiveLink>
           </UserMenu>
+          )}
         </NavBox>
 
         <MobileBar open={open} close={closeBar}>

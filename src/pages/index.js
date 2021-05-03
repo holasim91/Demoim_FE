@@ -7,6 +7,7 @@ import TeamWrite from "./team/TeamWirte";
 import Login from "./Login";
 import ExhibitionDetail from "./ExhibitionDetail";
 import SmallTalk from "./SmallTalk";
+import Mypage from "./Mypage";
 
-export { Main, Signup, Exhibition, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk };
+export { Main, Signup, Exhibition, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Mypage };
 
