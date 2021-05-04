@@ -11,7 +11,7 @@ const SmallTalkList = () => {
 
   const [page, setPage] = useState(1); //현재페이지, 1부터 시작
   useEffect(() => {
-    dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 3));
+    dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
   }, [dispatch, page]);
   const { smallTalkPosts, isLoading } = useSelector((state) => state.smalltalk);
   

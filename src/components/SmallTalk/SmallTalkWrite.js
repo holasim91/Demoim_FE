@@ -3,29 +3,29 @@ import styled from "styled-components";
 import { Button } from "../../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
-import { getCookie  } from "../../shared/Cookies";
+import { getCookie } from "../../shared/Cookies";
 
 const SmallTalkWrite = () => {
-  const dispatch = useDispatch()
-  const {user, isLogin} = useSelector(state => state.user)
-  const [contents, setContents] = useState('')
-  const token = getCookie('token') ;
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const [contents, setContents] = useState("");
+  const token = getCookie("token");
 
-  const onChangeTextArea = (e) =>{
-    setContents(e.target.value)
-  }
-  const onSubmitSmallTalk = () => {
-    console.log(contents);
-    dispatch(smalltalkActions.addSmallTalkPostAPI(contents, token))
-    setContents('')
+  const onChangeTextArea = (e) => {
+    setContents(e.target.value);
   };
-  if(!isLogin){
-    return ''
-  }
+  const onSubmitSmallTalk = () => {
+    dispatch(smalltalkActions.addSmallTalkPostAPI(contents, token));
+
+    setContents("");
+  };
+
   return (
     <WriteWrapper>
-      <WriteTop>
-      {user.profileImage ? (
+      {user ? (
+        <>
+          <WriteTop>
+            {user.profileImage ? (
               <ProfileImage alt="profile" src={user.profileImage} />
             ) : (
               <ProfileImage
@@ -35,13 +35,42 @@ const SmallTalkWrite = () => {
                 }
               />
             )}
-        <TextArea maxLength="300" placeholder='오늘은 어떤일이 있었나요?!' value={contents} onChange={onChangeTextArea}/>
-      </WriteTop>
-      <WriteBottom>
-        <Button padding="7px 5px" size="13px" width="51px" _onClick={onSubmitSmallTalk}>
-          등록
-        </Button>
-      </WriteBottom>
+            <TextArea
+              maxLength="300"
+              placeholder="오늘은 어떤일이 있었나요?!"
+              value={contents}
+              onChange={onChangeTextArea}
+            />
+          </WriteTop>
+          <WriteBottom>
+            <Button
+              padding="7px 5px"
+              size="13px"
+              width="51px"
+              _onClick={onSubmitSmallTalk}
+            >
+              등록
+            </Button>
+          </WriteBottom>
+        </>
+      ) : (
+        <>
+          <WriteTop>
+            <ProfileImage
+              alt="profile"
+              src={
+                "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+              }
+            />
+            <TextArea
+              maxLength="300"
+              placeholder="로그인 후 입력해주세요!!"
+              disabled={true}
+            />
+          </WriteTop>
+          <WriteBottom />
+        </>
+      )}
     </WriteWrapper>
   );
 };
@@ -62,7 +91,7 @@ const WriteWrapper = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.07);
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 10px;
 `;
 
