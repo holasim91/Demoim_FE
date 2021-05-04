@@ -1,7 +1,7 @@
 import React from "react";
-import { Container } from "../elements";
-import SubMenus from "../components/SubMenus";
-import ExhibitionList from "../components/Exhibition/ExhibitionList";
+import { ExhibitionList } from "../../components";
+import SubMenus from "../../components/SubMenus";
+import { Container } from "../../elements";
 
 const Exhibition = () => {
   return (

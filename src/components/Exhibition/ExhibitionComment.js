@@ -24,7 +24,7 @@ const ExhibitionComment = () => {
 };
 
 const CommentWrapper = styled.div`
-  background-color: ${({ theme }) => theme.main_gray};
+background-color: #f2f5fa;
   min-height: 200px;
   margin: 20px 0;
   padding: 30px;

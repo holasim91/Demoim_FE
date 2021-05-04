@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { ExhibitionComment } from "../components";
-import { Container, Grid } from "../elements";
+import { ExhibitionComment } from "../../components";
+import { Container, Grid } from "../../elements";
 
 const ExhibitionDetail = (props) => {
   const id = props.match.params.exhibitionId;
