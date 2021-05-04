@@ -10,6 +10,6 @@ import DatePick from "./DatePick";
 import ExhibitionList from "./Exhibition/ExhibitionList";
 import ExhibitionPost from "./Exhibition/ExhibitionPost";
 import ExhibitionComment from "./Exhibition/ExhibitionComment";
-
-export { Editor, Modal, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList };
+import TeamDate from "./TeamMaking/TeamDate";
+export { Editor, Modal, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate };
 

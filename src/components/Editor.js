@@ -2,21 +2,25 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../css/editor.css';
+import axios from "axios";
+import { config } from "../shared/config";
+
 class EditorComponent extends Component {
   constructor(props) {
     super(props);
   }
 
   modules = {
-    toolbar: [
-
-      [{ 'header': [1, 2, false] }],
+    toolbar: {
+      container: [[{ 'header': [1, 2, false] }],
       ['bold', 'italic', 'underline', 'blockquote'],
       [{ 'list': 'ordered' }, { 'list': 'bullet' },],
       ['link', 'image'],
-      [{ 'align': [] }, { 'color': [] }, { 'background': [] }],
-
-    ],
+      [{ 'align': [] }, { 'color': [] }, { 'background': [] }]],
+      handlers: {
+        'image': this.imageHandler
+      }
+    }
   }
 
   formats = [
@@ -26,6 +30,38 @@ class EditorComponent extends Component {
     'link', 'image',
     'align', 'color', 'background',
   ]
+
+  imageHandler() {
+    const input = document.createElement('input');
+
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files[0];
+      const formData = new FormData();
+
+      formData.append('file', file);
+      const range = this.quill.getSelection(true);
+
+      this.quill.insertEmbed(range.index, 'image', 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image-300x225.png');
+      this.quill.setSelection(range.index + 1);
+
+      const res = await axios({
+        method: "post",
+        url: `${config.api}/api/upload`,
+        data: formData,
+      }).then((res) => {
+        console.log('서버에서 넘어온 이미지:', res);
+        return res.data;
+      });
+      console.log('quill 들어갈 이미지 잘 왔나!', res);
+      this.quill.deleteText(range.index, 1);
+
+      this.quill.insertEmbed(range.index, 'image', res);
+    };
+  }
   //이미지 핸들러 추가예정.
   render() {
     //height container크기, innerHeight 에디터 크기, onChange,value는 useState로 넣어주세요!
