@@ -427,23 +427,6 @@ const SignupBtn = styled.div`
 `;
 
 
-{/* const SignupBtns = styled.div`
-//     margin: 20px 80px;
-//     padding: 18px;
-//     border: 1px solid grey;
-//     border-radius: 4px;
-//     background-color: #ffffff;
-//     font-size: 18px;
-//     font-weight: 600;
-//     text-align:center;
-//     border:1px solid #999cda;
-//     &:hover{
-//         cursor: pointer;
-//     }
-// `; */}
-
-
-
 const Select = styled.select`
     width:15vw;
     border:none;
