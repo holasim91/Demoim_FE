@@ -84,7 +84,7 @@ const Main = (props) => {
             <Container>
                <MakingBox>
                   <MakingMent>지금 바로 리더가 되어 팀을 모아보세요!</MakingMent>
-                  <MakingBtn>팀 꾸리러 가기</MakingBtn>
+                  <MakingBtn onClick={() => history.push('/team')}>팀 꾸리러 가기</MakingBtn>
                </MakingBox>
             </Container>
          </MiddleBox>

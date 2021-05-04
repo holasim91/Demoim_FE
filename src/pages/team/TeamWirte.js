@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Container, Upload, Input, CheckBox } from "../../elements";
-import { Editor, DatePick } from "../../components";
+import { Editor, TeamDate } from "../../components";
 import { useMediaQuery } from "react-responsive";
 
 const TeamWirte = (props) => {
-
+  //DatePick 참고하기 
   //필요 데이터
   const [title, setTitle] = React.useState("");
   //초기데이터가 있을시엔 contents에서 세팅.
@@ -18,7 +18,12 @@ const TeamWirte = (props) => {
   const [design, setDesign] = React.useState({ member: 0, check: false });
   const [plan, setPlan] = React.useState({ member: 0, check: false });
 
-
+  //날짜 선택
+  const [recruitStart, SetRecrutStart] = React.useState(new Date());
+  const [recruitEnd, setRecruitEnd] = React.useState(new Date());
+  const [projectStart, setProjectStart] = React.useState(new Date());
+  const [projectEnd, setProjectEnd] = React.useState(new Date());
+  console.log(recruitStart)
   //변경 함수
   const onEditorChange = (value) => setContents(value);
   const titleChange = (value) => setTitle(value);
@@ -117,13 +122,12 @@ const TeamWirte = (props) => {
             <tbody>
               <tr>
                 <td>모집기간</td>
-                <td><DatePick />
-                  <Info>모집 마감일을 지정해주세요 :)</Info>
+                <td><TeamDate startDate={recruitStart} endDate={recruitEnd} setStartDate={SetRecrutStart} setEndDate={setRecruitEnd} />
                 </td>
               </tr>
               <tr>
                 <td>프로젝트 기간</td>
-                <td><DatePick isRange /></td>
+                <td><TeamDate startDate={projectStart} endDate={projectEnd} setStartDate={setProjectStart} setEndDate={setProjectEnd} /></td>
               </tr>
               <tr>
                 <td>모집인원</td>

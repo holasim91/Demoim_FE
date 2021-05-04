@@ -11,11 +11,22 @@ const DatePick = (props) => {
   let tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
 
+  //let date = new Date();
+  //let yesterday = new Date(date.setDate(date.getDate()+1))
+  let today = new Date();
+  //밑에서 today는 새로운 객체를 반환하지 않고 변했다.
+  const [startDate, setStartDate] = React.useState(new Date(today.setDate(today.getDate() + 1)));
+  const [endDate, setEndDate] = React.useState(new Date(today.setDate(today.getDate() + 1)));
 
-  const [startDate, setStartDate] = React.useState(new Date().setDate(new Date().getDate() + 1));
-  const [endDate, setEndDate] = React.useState(new Date().setDate(new Date().getDate() + 2));
 
-  //console.log(startDate.getTime());
+
+  //const [endDate, setEndDate] = React.useState(new Date().setDate(new Date().getDate() + 2));
+  //const [startDate, setStartDate] = React.useState(new Date().setDate(new Date().getDate() + 1));
+  console.log('시작일:' + startDate);
+  console.log('마감일:' + endDate);
+
+  console.log('시작일 밀리초:' + startDate.getTime());
+  console.log('마감일 밀리초:' + endDate.getTime());
 
   const ExampleCustomInput = React.forwardRef(
     ({ value, onClick }, ref) => (
