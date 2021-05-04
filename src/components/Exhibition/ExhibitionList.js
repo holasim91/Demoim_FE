@@ -27,13 +27,15 @@ const ExhibitionList = (props) => {
 
   return (
     <>
-      <TopBox>
-        <BtnBox>
-          <Button padding="7px 5px" size="15px">
-            글쓰기
-          </Button>
-        </BtnBox>
-      </TopBox>
+      {history.location.pathname !== "/" && (
+        <TopBox>
+          <BtnBox>
+            <Button padding="7px 5px" size="15px">
+              글쓰기
+            </Button>
+          </BtnBox>
+        </TopBox>
+      )}
 
       <ExhibitionBoxWrapper>
         {exhibitionPosts.map((post) => (
