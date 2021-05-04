@@ -9,5 +9,6 @@ import Login from "./Login";
 import SmallTalk from "./SmallTalk";
 import Mypage from "./Mypage";
 import Practice from "./team/Practice";
+import MyEditpage from "./mypage/MyEditpage";
 
-export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Mypage, Practice };
+export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Mypage, Practice, MyEditpage };

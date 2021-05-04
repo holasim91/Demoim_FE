@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { Text,Grid, Button, Container } from "../elements";
-import { history } from "../redux/configStore";
-import "../shared/theme";
-import { actionCreators as userAction } from "../redux/modules/user";
+import { Text,Grid, Button, Container } from "../../elements";
+import { history } from "../../redux/configStore";
+import "../../shared/theme";
+import { actionCreators as userAction } from "../../redux/modules/user";
+
 
 const Mypage = (props) => {
   const dispatch = useDispatch();
@@ -15,14 +16,13 @@ const Mypage = (props) => {
   },[]);
   
   const userInfo = useSelector((state) => state.user.user)
-  console.log("마이페이지",userInfo);
+  // console.log("마이페이지",userInfo);
   // const projectNum = userInfo?.teams.length
 
   return (
     <React.Fragment>
       <Container>
         <MyPageContainer>
-          
           <Profile>
             <ProfileImg 
             src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage}/>
@@ -31,14 +31,17 @@ const Mypage = (props) => {
             <UserBoxMarks>
               <UserNickName>{userInfo?.nickname}</UserNickName>
               <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
-              <ProfileEditBtn>프로필수정</ProfileEditBtn>
+              <ProfileEditBtn onClick={() => {
+                history.push('/myeditpage')
+              }}>프로필수정</ProfileEditBtn>
             </UserBoxMarks>
             <UserBoxDesc>
               <UserDesc>{userInfo?.desc}</UserDesc>
             </UserBoxDesc>
           </UserBox>
-          
         </MyPageContainer>
+        {/* <MypageSubmenus/> */}
+        
       </Container>
     </React.Fragment>
   );
@@ -60,6 +63,9 @@ const MyPageContainer = styled.div`
   text-align:center;
   margin: 100px auto;
   padding: 10px auto;
+  @media ${props => props.theme.mobile}{
+        margin:20px auto;
+    }
   
 `;
 
@@ -73,6 +79,11 @@ const ProfileImg = styled.img`
     height: 65px;
     padding: 10px;
     border-radius: 100px;
+    @media ${props => props.theme.mobile}{
+      width: 40px;
+      height: 40px;
+      padding:5px;
+    }
 `;
 
 const UserBox = styled.div`
@@ -91,6 +102,9 @@ const UserNickName = styled.div`
   margin: 10px 5px 0 10px;
   font-size: 18px;
   color:#000000;
+  @media ${props => props.theme.mobile}{
+    font-size: 14px;
+    }
 
 `;
 
@@ -101,6 +115,9 @@ const UserProject = styled.div`
   background-color:#999cda;
   color:#fefefe;
   border-radius:8px;
+  @media ${props => props.theme.mobile}{
+    font-size: 10px;
+    }
 
 `;
 
@@ -111,6 +128,9 @@ const ProfileEditBtn = styled.div`
   background-color:#999cda;
   color:#fefefe;
   border-radius:8px;
+  @media ${props => props.theme.mobile}{
+    font-size: 10px;
+    }
   &:hover{
     cursor: pointer;
     background-color:#fefefe;
@@ -124,6 +144,10 @@ const UserBoxDesc = styled.div`
   text-align:left;
   margin-top:5px;
   box-sizing:border-box;
+  @media ${props => props.theme.mobile}{
+        width: 65%;
+        
+    }
 `;
 
 const UserDesc = styled.div`
@@ -133,6 +157,9 @@ const UserDesc = styled.div`
   font-size:16px;
   background-color: #f1f1f1;
   box-sizing:border-box;
+  @media ${props => props.theme.mobile}{
+    font-size: 14px;
+    }
   
 
 `;

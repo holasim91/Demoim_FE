@@ -8,6 +8,8 @@ const SubMenus = () => {
         <NavLink to='/exhibition'>프로젝트 자랑</NavLink>
         <NavLink to='/smalltalk'>스몰토크</NavLink>
     </NavBox>
+
+    
   );
 };
 
