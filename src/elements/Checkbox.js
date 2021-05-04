@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Checkbox = (props) => {
 
-  const { _onClick, checked, label } = props;
+  const { _onChange, checked, label, id, name } = props;
 
   return (
     <Wrapper>
-      <input type="checkbox" id="check" />
-      <label htmlFor="check" >{label}</label>
+      <input type="checkbox" id={id} onChange={_onChange} checked={checked} name={name} />
+      <label htmlFor={id} >{label}</label>
     </Wrapper>
   )
 }
@@ -21,25 +22,32 @@ const Wrapper = styled.div`
   margin: 0.2em;
   cursor: pointer;
   padding: 0.2em;
+  font-size:0.9em;
+  
 }
+
 
 & input[type=checkbox] {
   display: none;
 }
 
 & input[type=checkbox] + label:before {
-  content: "";
+  font-family:"Font Awesome 5 Free";
+  font-weight:900;
+  font-size:10px;
+  content: "\f00c";
   border: 0.1em solid lightgray;
   border-radius: 0.2em;
   display: inline-block;
   width: 12px;
   height: 10px;
-  padding-left: 0.2em;
-  padding-bottom: 0.3em;
-  margin-right: 0.2em;
+  padding: 0.3em 0.1em 0.3em 0.3em;
+  margin-right: 0.4em;
   vertical-align: bottom;
   color: transparent;
   transition: .2s;
+  position: relative;
+  top:2px;
 }
 
 & input[type=checkbox] + label:active:before {
@@ -47,8 +55,8 @@ const Wrapper = styled.div`
 }
 
 & input[type=checkbox]:checked + label:before {
-  background-color: ${props => props.theme.main_color};
-  border-color: ${props => props.theme.main_color};
+  background-color: ${props => props.theme.button_purple};
+  border-color: ${props => props.theme.button_purple};
   color: #fff;
 }
 
