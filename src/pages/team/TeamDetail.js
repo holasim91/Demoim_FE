@@ -83,7 +83,7 @@ const TeamDetail = () => {
           </LeaderBox>
         </ContentBox>
         <ModalBox>
-          <Modal text="지원하기" padding="7px 18px" heading="📢 지원서 보내기" clickName="지원하기" _onClick={applyTeam}>
+          <Modal text="지원하기" padding="7px 18px" heading="📢 지원서 보내기" clickName="지원신청" _onClick={applyTeam}>
             <ApplyBox>
               <Input multiLine label="메세지" placeholder="100자 이내 메세지를 남겨주세요." margin="0px 0px 10px 0px" value={msg} _onChange={(e) => { setMsg(e.target.value) }} />
               <Input label="포트폴리오" placeholder="포트폴리오 참고 사이트를 입력해주세요 :)" padding="10px 10px" value={site} _onChange={(e) => { setSite(e.target.value) }} type="url" />
