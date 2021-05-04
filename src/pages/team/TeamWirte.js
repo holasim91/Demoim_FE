@@ -1,20 +1,81 @@
 import React from "react";
 import styled from "styled-components";
 import { Container, Upload, Input, CheckBox } from "../../elements";
-import { Editor } from "../../components";
+import { Editor, DatePick } from "../../components";
 import { useMediaQuery } from "react-responsive";
 
 const TeamWirte = (props) => {
 
-  const [title, setTitle] = React.useState('');
-  const [contents, setContents] = React.useState('');
+  //필요 데이터
+  const [title, setTitle] = React.useState("");
+  const [contents, setContents] = React.useState("");
+  const [location, setLocation] = React.useState("온라인");
+  const [stack, setStack] = React.useState("");
+  const [positions, setPositions] = React.useState({
+    front: 0,
+    back: 0,
+    design: 0,
+    plan: 0,
+  });
+  const [checks, setChecks] = React.useState({
+    checkFront: false,
+    checkBack: false,
+    checkDesign: false,
+    checkPlan: false,
+  });
 
+  const { front, back, design, plan } = positions;
+  const { checkFront, checkBack, checkDesign, checkPlan } = checks;
+
+  //변경 함수
   const onEditorChange = (value) => setContents(value);
   const titleChange = (value) => setTitle(value);
+  const changePosition = (e) => {
+    const { value, name } = e.target;
+    setPositions({
+      ...positions,
+      [name]: value
+    });
+  }
 
+  const changeChecks = (e) => {
+    const { checked, name } = e.target;
+
+    setChecks({
+      ...checks,
+      [name]: checked
+    });
+
+    /*
+    if (checkFront) {
+      setPositions({
+        ...positions,
+        front: 0,
+      })
+    } if (checkBack) {
+      setPositions({
+        ...positions,
+        back: 0,
+      })
+    } if (checkDesign) {
+      setPositions({
+        ...positions,
+        design: 0,
+      })
+    } if (checkPlan) {
+      setPositions({
+        ...positions,
+        plan: 0,
+      })
+    }
+  */
+  }
+
+  //모바일버전
   const isMobile = useMediaQuery({
     query: "(max-width:768px)"
   });
+
 
   return (
     <Container>
@@ -27,33 +88,55 @@ const TeamWirte = (props) => {
             <tbody>
               <tr>
                 <td>모집기간</td>
-                <td>2021.05.28</td>
+                <td><DatePick />
+                  <Info>모집 마감일을 지정해주세요 :)</Info>
+                </td>
               </tr>
               <tr>
                 <td>프로젝트 기간</td>
-                <td>2021.05.28~2021.06.21</td>
+                <td><DatePick isRange /></td>
               </tr>
               <tr>
                 <td>모집인원</td>
                 <td>
-                  <div>
-                    <CheckBox label="프론트엔드" />
-                    <p>백엔드 0명</p>
-                    <p>디자이너 0명</p>
-                    <p>기획자 0명</p>
+                  <div style={{ marginBottom: "5px" }}>
+                    <PositionBox>
+                      <PositionSelect>
+                        <CheckBox label="프론트엔드" id="1" name="checkFront" checked={checkFront} _onChange={changeChecks} />
+                      </PositionSelect>
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={front} name="front" onChange={changePosition} disabled={!checks.checkFront} />
+                    </PositionBox>
+                    <PositionBox>
+                      <PositionSelect>
+                        <CheckBox label="백엔드" id="2" name="checkBack" checked={checkBack} _onChange={changeChecks} />
+                      </PositionSelect>
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={back} name="back" onChange={changePosition} disabled={!checks.checkBack} />
+                    </PositionBox>
+                    <PositionBox>
+                      <PositionSelect>
+                        <CheckBox label="디자이너" id="3" name="checkDesign" checked={checkDesign} _onChange={changeChecks} />
+                      </PositionSelect>
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={design} name="design" onChange={changePosition} disabled={!checks.checkDesign} />
+                    </PositionBox>
+                    <PositionBox>
+                      <PositionSelect>
+                        <CheckBox label="기획자" id="4" name="checkPlan" checked={checkPlan} _onChange={changeChecks} />
+                      </PositionSelect>
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={plan} name="plan" onChange={changePosition} disabled={!checks.checkPlan} />
+                    </PositionBox>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>선호언어</td>
-                <td><LanguageInput type='text' /></td>
+                <td><LanguageInput type='text' value={stack} onChange={(e) => setStack(e.target.value)} placeholder="react/node.js" /></td>
               </tr>
               <tr>
                 <td>장소</td>
                 <td>
-                  <SelectBox>
-                    <option>온라인</option>
-                    <option>오프라인</option>
+                  <SelectBox onChange={(e) => setLocation(e.target.value)}>
+                    <option value="온라인">온라인</option>
+                    <option value="오프라인">오프라인</option>
                   </SelectBox>
                 </td>
               </tr>
@@ -101,8 +184,8 @@ const TitleBox = styled.div`
 
 const ChoiceBox = styled.div`
   width:500px;
-  height: 250px;
-  //background-color: rgb(0,0,0,0.1);
+  height: 280px;
+ // background-color: rgb(0,0,0,0.1);
   padding:20px;
   box-sizing: border-box;
   margin-bottom: 20px;
@@ -161,15 +244,19 @@ const UploadBox = styled.div`
 const ChoiceTable = styled.table`
   width:100%;
   height: 100%;
-  //border:1px solid red;
   & tr,td{
-    //border:1px solid red;
     vertical-align: middle;
   }
 
   & td:nth-child(1){
     width:30%;
+   
   }
+
+  & tr:nth-child(1){
+    height: 50px;
+  }
+
 
   @media ${props => props.theme.mobile}{
    & td:nth-child(1){
@@ -204,4 +291,36 @@ const LanguageInput = styled.input`
   width:170px;
   border:1px solid lightgray;
   border-radius: 3px;
+
+  &::placeholder{
+    color:#C0C0C0;
+  }
+`;
+
+const PositionBox = styled.div`
+  display: flex;
+  
+`;
+
+const NumberInput = styled.input`
+  outline: none;
+  height: 15px;
+  position: relative;
+  top:7px;
+  width:45px;
+  border:1px solid lightgray;
+  padding:2px 5px;
+  border-radius: 4px;
+`;
+
+const PositionSelect = styled.div`
+  width:100px;
+`;
+
+const Info = styled.p`
+  font-size:0.8em;
+  position: relative;
+  top:4px;
+  left:2px;
+  color:#BDBDBD;
 `;
