@@ -104,6 +104,8 @@ const loginCheckAPI = () => {
       method: "get",
       url:API,
     }).then((res) =>{
+      console.log("로그인체크성공:",res.data);
+      console.log("로그인체크Teams:",res.data.teams);
 
       dispatch(setUser({
         desc:res.data.desc,
@@ -111,9 +113,10 @@ const loginCheckAPI = () => {
         position:res.data.position,
         profileImage:res.data.profileImage,
         username:res.data.username, //email
-        teams:res.data.teams, //[]
+        teams:res.data.teamUserInfos, //[]
       }))
-      console.log("로그인체크성공:",res.data);
+      
+
     
     }).catch((err) => {
       console.log('로그인체크에러:', err);
