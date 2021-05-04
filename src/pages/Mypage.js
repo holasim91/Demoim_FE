@@ -4,28 +4,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { Text,Grid, Button, Container } from "../elements";
 import { history } from "../redux/configStore";
 import "../shared/theme";
+import { actionCreators as userAction } from "../redux/modules/user";
 
 const Mypage = (props) => {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(userAction.loginCheckAPI());
+
+  },[]);
   
   const userInfo = useSelector((state) => state.user.user)
   console.log("마이페이지",userInfo);
-  
+  // const projectNum = userInfo?.teams.length
+
   return (
     <React.Fragment>
       <Container>
         <MyPageContainer>
           
           <Profile>
-            <ProfileImg src={props.profileImage}/>
+            <ProfileImg 
+            src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage}/>
           </Profile>
           <UserBox>
             <UserBoxMarks>
-              <UserNickName>{props.nickname}</UserNickName>
-              <UserProject>프로젝트 1개 진행중</UserProject>
+              <UserNickName>{userInfo?.nickname}</UserNickName>
+              <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
               <ProfileEditBtn>프로필수정</ProfileEditBtn>
             </UserBoxMarks>
             <UserBoxDesc>
-              <UserDesc>안녕하세요! 프론트엔드 개발자 준비중입니다 : )</UserDesc>
+              <UserDesc>{userInfo?.desc}</UserDesc>
             </UserBoxDesc>
           </UserBox>
           

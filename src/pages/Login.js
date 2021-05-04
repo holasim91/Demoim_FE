@@ -167,26 +167,27 @@ const Input = styled.input`
 `;
 
 
-const LoginBtn = styled.button`
-        margin: 20px 25px 20px 490px;
-        padding: 6px;
+const LoginBtn = styled.div`
+        width:100px;
+        margin: 20px auto;
+        padding: 12px;
         border: 1px solid grey;
         border-radius: 4px;
         background-color: #ffffff;
-        font-size: 10px;
+        letter-spacing:0.5px;
+        font-size: 16px;
+        font-weight:500;
         text-align:center;
         box-sizing:border-box;
-  @media ${props => props.theme.tablet}{
-        font-size: 8px;
-        margin-left:400px;
-        }
-  @media ${props => props.theme.mobile}{
-        font-size: 8px;
-        margin-left:240px;
-      }
         &:hover{
             cursor: pointer;
         }
+  @media ${props => props.theme.tablet}{
+        font-size: 12px;
+        }
+  @media ${props => props.theme.mobile}{
+        font-size: 12px;
+      }
 `;
 
 const ToSignup = styled.div`

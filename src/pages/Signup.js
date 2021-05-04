@@ -173,6 +173,11 @@ const Signup = (props) => {
             return false;
         }
 
+        if (position === "선택하기" || position === " "){
+            alert('포지션을 선택해주세요! 마이페이지-회원정보수정에서 변경가능합니다.')
+            return false
+        }
+
         console.log(position)
         //alert('WELCOME MATE!')
         dispatch(actionCreators.signupAPI(email,pw,nickname,position))
@@ -275,16 +280,14 @@ const Signup = (props) => {
                             </Select>
                             </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                             <td></td>
                             <td></td>
-                            <td>
-                                <SignupBtn onClick={signUp}>회원가입</SignupBtn>
-                            </td>
-                        </tr>
+                            <td></td>
+                        </tr> */}
                     </tbody>
                 </SignupTable>
-                {/* <SignupBtns>회원가입하기</SignupBtns>*/}
+                <SignupBtn onClick={signUp}>회원가입하기</SignupBtn>
             </SignupForm>
             </SignupContainer>
             </Container>
@@ -407,21 +410,22 @@ const Button = styled.button`
     
 `;
 
-const SignupBtn = styled.button`
-        margin: 20px auto 0px auto;
-        padding: 6px;
+const SignupBtn = styled.div`
+        width:100px;
+        margin: 20px auto;
+        padding: 12px;
         border: 1px solid grey;
         border-radius: 4px;
         background-color: #ffffff;
-        font-size: 12px;
-        font-weight: 600;
+        letter-spacing: 0.5px;
+        font-size: 16px;
+        font-weight: 500;
         text-align:center;
         &:hover{
             cursor: pointer;
         }
+`;
 
-
- `;
 
 {/* const SignupBtns = styled.div`
 //     margin: 20px 80px;

@@ -94,7 +94,21 @@ const Header = (props) => {
             <NoneActiveLink to='/exhibition' onClick={closeBar}>
               De Talk
             </NoneActiveLink>
-            <MobileUserMenu>
+            {isLogin ? 
+              (<NavLink to='/mypage'> 나의 로그 </NavLink>)
+              :""}
+
+            {isLogin ? (
+              <MobileUserMenu>
+                <NoneActiveLink to='/'>
+                  <Bell/>
+                </NoneActiveLink>
+                <LogOutBtn onClick={LogOut}>
+                  로그아웃
+                </LogOutBtn>
+              </MobileUserMenu>
+            ) : (
+              <MobileUserMenu>
               <NoneActiveLink to='/signup' className='userMenu' onClick={closeBar}>
                 회원가입
               </NoneActiveLink>
@@ -102,6 +116,7 @@ const Header = (props) => {
                 로그인
               </NoneActiveLink>
             </MobileUserMenu>
+            )}
           </MobileMenu>
         </MobileBar>
       </Container>
