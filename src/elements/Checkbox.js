@@ -4,11 +4,11 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Checkbox = (props) => {
 
-  const { _onChange, checked, label, id, name } = props;
+  const { _onChange, checked, label, id } = props;
 
   return (
     <Wrapper>
-      <input type="checkbox" id={id} onChange={_onChange} checked={checked} name={name} />
+      <input type="checkbox" id={id} onChange={_onChange} checked={checked} />
       <label htmlFor={id} >{label}</label>
     </Wrapper>
   )

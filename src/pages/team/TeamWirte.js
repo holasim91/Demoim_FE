@@ -8,67 +8,96 @@ const TeamWirte = (props) => {
 
   //필요 데이터
   const [title, setTitle] = React.useState("");
+  //초기데이터가 있을시엔 contents에서 세팅.
   const [contents, setContents] = React.useState("");
   const [location, setLocation] = React.useState("온라인");
   const [stack, setStack] = React.useState("");
-  const [positions, setPositions] = React.useState({
-    front: 0,
-    back: 0,
-    design: 0,
-    plan: 0,
-  });
-  const [checks, setChecks] = React.useState({
-    checkFront: false,
-    checkBack: false,
-    checkDesign: false,
-    checkPlan: false,
-  });
 
-  const { front, back, design, plan } = positions;
-  const { checkFront, checkBack, checkDesign, checkPlan } = checks;
+  const [front, setFront] = React.useState({ member: 0, check: false });
+  const [back, setBack] = React.useState({ member: 0, check: false });
+  const [design, setDesign] = React.useState({ member: 0, check: false });
+  const [plan, setPlan] = React.useState({ member: 0, check: false });
+
 
   //변경 함수
   const onEditorChange = (value) => setContents(value);
   const titleChange = (value) => setTitle(value);
-  const changePosition = (e) => {
-    const { value, name } = e.target;
-    setPositions({
-      ...positions,
-      [name]: value
-    });
+
+  const changeFront = (e, target) => {
+
+    const { checked, value } = e.target;
+    if (target === "input") {
+      setFront({
+        ...front,
+        member: value,
+      });
+
+    }
+    if (target === "check") {
+      let _member = checked ? front.member : 0;
+      setFront({
+        check: checked,
+        member: _member,
+      });
+    }
   }
 
-  const changeChecks = (e) => {
-    const { checked, name } = e.target;
+  const changeBack = (e, target) => {
 
-    setChecks({
-      ...checks,
-      [name]: checked
-    });
+    const { checked, value } = e.target;
+    if (target === "input") {
+      setBack({
+        ...back,
+        member: value,
+      });
+    }
+    if (target === "check") {
+      let _member = checked ? back.member : 0;
 
-    /*
-    if (checkFront) {
-      setPositions({
-        ...positions,
-        front: 0,
-      })
-    } if (checkBack) {
-      setPositions({
-        ...positions,
-        back: 0,
-      })
-    } if (checkDesign) {
-      setPositions({
-        ...positions,
-        design: 0,
-      })
-    } if (checkPlan) {
-      setPositions({
-        ...positions,
-        plan: 0,
+      setBack({
+        check: checked,
+        member: _member,
       })
     }
-  */
+  }
+
+  const changeDesign = (e, target) => {
+
+    const { checked, value } = e.target;
+
+    if (target === "input") {
+      setDesign({
+        ...design,
+        member: value,
+      });
+    }
+    if (target === "check") {
+      let _member = checked ? design.member : 0;
+      setDesign({
+        check: checked,
+        member: _member,
+      })
+    }
+  }
+
+  const changePlanner = (e, target) => {
+
+    const { checked, value } = e.target;
+
+    if (target === "input") {
+      setPlan({
+        ...plan,
+        member: value,
+      });
+    }
+
+    if (target === "check") {
+      let _member = checked ? plan.member : 0;
+      setPlan({
+        check: checked,
+        member: _member,
+      })
+    }
   }
 
   //모바일버전
@@ -102,27 +131,27 @@ const TeamWirte = (props) => {
                   <div style={{ marginBottom: "5px" }}>
                     <PositionBox>
                       <PositionSelect>
-                        <CheckBox label="프론트엔드" id="1" name="checkFront" checked={checkFront} _onChange={changeChecks} />
+                        <CheckBox label="프론트엔드" id="1" checked={front.check} _onChange={(e) => changeFront(e, "check")} />
                       </PositionSelect>
-                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={front} name="front" onChange={changePosition} disabled={!checks.checkFront} />
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={front.member} onChange={(e) => changeFront(e, "input")} disabled={!front.check} />
                     </PositionBox>
                     <PositionBox>
                       <PositionSelect>
-                        <CheckBox label="백엔드" id="2" name="checkBack" checked={checkBack} _onChange={changeChecks} />
+                        <CheckBox label="백엔드" id="2" checked={back.check} _onChange={(e) => changeBack(e, "check")} />
                       </PositionSelect>
-                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={back} name="back" onChange={changePosition} disabled={!checks.checkBack} />
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={back.member} onChange={(e) => changeBack(e, "input")} disabled={!back.check} />
                     </PositionBox>
                     <PositionBox>
                       <PositionSelect>
-                        <CheckBox label="디자이너" id="3" name="checkDesign" checked={checkDesign} _onChange={changeChecks} />
+                        <CheckBox label="디자이너" id="3" checked={design.check} _onChange={(e) => changeDesign(e, "check")} />
                       </PositionSelect>
-                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={design} name="design" onChange={changePosition} disabled={!checks.checkDesign} />
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={design.member} onChange={(e) => changeDesign(e, "input")} disabled={!design.check} />
                     </PositionBox>
                     <PositionBox>
                       <PositionSelect>
-                        <CheckBox label="기획자" id="4" name="checkPlan" checked={checkPlan} _onChange={changeChecks} />
+                        <CheckBox label="기획자" id="4" checked={plan.check} _onChange={(e) => changePlanner(e, "check")} />
                       </PositionSelect>
-                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={plan} name="plan" onChange={changePosition} disabled={!checks.checkPlan} />
+                      <NumberInput type="number" min="0" max="10" pattern="\d*" value={plan.member} onChange={(e) => changePlanner(e, "input")} disabled={!plan.check} />
                     </PositionBox>
                   </div>
                 </td>
