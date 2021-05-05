@@ -9,7 +9,6 @@ const MypageEdit = (props) => {
   const  dispatch = useDispatch();
   const [position, setPosition] = React.useState("");
   const userInfo = useSelector((state) => state.user.user);
-  console.log("수정하기", userInfo);
   
   //희망포지션 설렉트박스
   const handleOnChange = (e) => {
@@ -24,7 +23,7 @@ const MypageEdit = (props) => {
       <Container>
         <EditContainer>
           <Title>
-            {userInfo.nickname}님의 로그
+            <span>{userInfo.nickname}</span>님의 로그
           </Title>
           <EditContents>
           <ProfileImgBox>
@@ -41,7 +40,7 @@ const MypageEdit = (props) => {
               <tbody>
               <tr>
                 <td>닉네임</td>
-                <td><Input placeholder="이메일"></Input></td>
+                <td><Input placeholder={userInfo.nickname}/></td>
               </tr>
               <tr>
                 <td>희망포지션</td>
@@ -58,7 +57,7 @@ const MypageEdit = (props) => {
               </tr>
               <tr>
                 <td>자기소개</td>
-                <td><TextArea/></td>
+                <td><TextArea placeholder={userInfo.desc}/></td>
               </tr>
               </tbody>
             </EditTable>
@@ -74,10 +73,10 @@ const MypageEdit = (props) => {
 
 MypageEdit.defaultProps = {
   id:1,
-  username:"g0garden@naver.com",
-  nickname:"저녁은불족발",
-  position:"프론트엔드",
-  desc:"안녕하세요!",
+  username:"g0rden@never.com",
+  nickname:"가나다라마바",
+  position:"프론트트트",
+  desc:"안녕하슈",
   profileImage:'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
 }
 
@@ -86,11 +85,22 @@ const EditContainer = styled.div`
   margin:50px auto;
   text-align: center;
   box-sizing:border-box;
+  @media ${props => props.theme.mobile}{
+    width:100%;
+  }
 `;
 
 const Title = styled.div`
   text-align:left;
-  margin-top:50px;
+  margin:50px 0 20px 0;
+  color: black;
+  font-weight:500;
+  span{
+    color:#683fee;
+  }
+  @media ${props => props.theme.mobile}{
+      text-align:center; 
+    }
 `;
 
 const EditContents = styled.div`
@@ -101,7 +111,14 @@ const EditContents = styled.div`
 `;
 const ProfileImgBox = styled.div`
   position:relative;
-  margin:10px;
+  width:100px;
+  margin:10px auto;
+  /* @media ${props => props.theme.tablet}{
+    width:200px;
+        }
+  @media ${props => props.theme.mobile}{
+    width:100px;
+    } */
   
 `;
 
@@ -111,11 +128,11 @@ const ProfileImg = styled.img`
     padding: 10px;
     border-radius: 100px;
     
-    @media ${props => props.theme.mobile}{
+    /* @media ${props => props.theme.mobile}{
       width: 40px;
       height: 40px;
       padding:5px;
-    }
+    } */
 `;
 
 //inputfile
@@ -135,13 +152,24 @@ const ImgEditBtn = styled.div`
     }
     position:absolute;
     top: 70px;
-    left: 260px;
+    left: 70px;
     width: 25px;
     height: 25px;
     border-radius: 40px;
     background-color:#ffffff;
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.17);
     cursor:pointer;
+    @media ${props => props.theme.mobile}{
+      position:absolute;
+      top: 70px;
+      left: 70px;
+      width: 25px;
+      height: 25px;
+      border-radius: 40px;
+      background-color:#ffffff;
+      box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.17);
+      cursor:pointer;
+    }
     
     
 `;
@@ -174,7 +202,7 @@ const EditTable = styled.table`
         font-size: 14px;
         }
     @media ${props => props.theme.mobile}{
-        font-size: 1px;
+        font-size: 4px;
         }
     }
     & td:nth-child(1){
@@ -182,9 +210,9 @@ const EditTable = styled.table`
     padding: 15px 30px 0px 18px;
     text-align:left;
     @media ${props => props.theme.mobile}{
-        font-size: 4px;
-        padding: 15px 10px 0px 18px;
-        }
+      font-size: 14px;
+      padding:15px 10px 0px 0px;
+      }
     }
 `;
 
@@ -194,7 +222,17 @@ const Input = styled.input`
   padding:4px 2px;
   background-color: #f1f1f1;
   font-size:12px;
-
+  @media ${props => props.theme.mobile}{
+    width:150px;
+  }
+  &:focus{
+        outline:none;
+    }
+  &::placeholder{
+    padding-left:4px;
+    font-size:12px;
+    font-weight:500;
+  }
 `;
 
 const Select = styled.select`
@@ -207,10 +245,10 @@ const Select = styled.select`
         outline:none;
     }
     &option{
-        border:1px solid red;
+        
     }
     @media ${props => props.theme.mobile}{
-        width: 38vw;
+      width:150px; 
     }
 `;
 
@@ -218,10 +256,19 @@ const TextArea = styled.textarea`
     resize:none;
     width:250px;
     border:none;
-    padding:4px 2px;
+    padding:2px;
     margin-top:8px;
     background-color: #f1f1f1;
     font-size:12px;
+    @media ${props => props.theme.mobile}{
+      width:150px; 
+    }
+    &:focus{
+        outline:none;
+    }
+    &::placeholder{
+      padding:4px;
+    }
 
 `;
 const EditBtn = styled.div`
@@ -230,6 +277,12 @@ const EditBtn = styled.div`
     padding: 12px;
     border-radius: 4px;
     border: 1px solid #e1e0e6;
+    cursor: pointer;
+    &:hover{
+      color:#ffffff;
+      background-color:#999cda;
+      border:none;
+    }
 `;
 
 
