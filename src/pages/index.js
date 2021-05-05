@@ -7,7 +7,7 @@ import TeamDetail from "./team/TeamDetail";
 import TeamWrite from "./team/TeamWirte";
 import Login from "./Login";
 import SmallTalk from "./SmallTalk";
-import Mypage from "./Mypage";
+import Mypage from "../pages/mypage/Mypage";
 import Practice from "./team/Practice";
 import MyEditpage from "./mypage/MyEditpage";
 
