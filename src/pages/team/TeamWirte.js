@@ -5,7 +5,7 @@ import { Editor, TeamDate } from "../../components";
 import { useMediaQuery } from "react-responsive";
 
 const TeamWirte = (props) => {
-  //DatePick 참고하기 
+
   //필요 데이터
   const [title, setTitle] = React.useState("");
   //초기데이터가 있을시엔 contents에서 세팅.
@@ -18,12 +18,46 @@ const TeamWirte = (props) => {
   const [design, setDesign] = React.useState({ member: 0, check: false });
   const [plan, setPlan] = React.useState({ member: 0, check: false });
 
-  //날짜 선택
-  const [recruitStart, SetRecrutStart] = React.useState(new Date());
-  const [recruitEnd, setRecruitEnd] = React.useState(new Date());
-  const [projectStart, setProjectStart] = React.useState(new Date());
-  const [projectEnd, setProjectEnd] = React.useState(new Date());
-  console.log(recruitStart)
+  const [recruit, setRecruit] = React.useState({
+    start: new Date(),
+    end: new Date(new Date().setDate(new Date().getDate() + 1)),
+  });
+
+  const [project, setProject] = React.useState({
+    start: new Date(),
+    end: new Date(new Date().setDate(new Date().getDate() + 31)),
+  });
+
+  const setRecruitEnd = (date) => {
+    setRecruit({
+      ...recruit,
+      end: date,
+    });
+  }
+
+  const setProjectStart = (date) => {
+    setProject({
+      ...project,
+      start: date,
+    })
+  }
+
+  const setProjectEnd = (date) => {
+    setProject({
+      ...project,
+      end: date
+    })
+
+    if (recruit.end > date) {
+      console.log('작다...')
+      setRecruit({
+        ...recruit,
+        end: date
+      })
+    }
+
+  }
+
   //변경 함수
   const onEditorChange = (value) => setContents(value);
   const titleChange = (value) => setTitle(value);
@@ -36,7 +70,6 @@ const TeamWirte = (props) => {
         ...front,
         member: value,
       });
-
     }
     if (target === "check") {
       let _member = checked ? front.member : 0;
@@ -69,7 +102,6 @@ const TeamWirte = (props) => {
   const changeDesign = (e, target) => {
 
     const { checked, value } = e.target;
-
     if (target === "input") {
       setDesign({
         ...design,
@@ -86,7 +118,6 @@ const TeamWirte = (props) => {
   }
 
   const changePlanner = (e, target) => {
-
     const { checked, value } = e.target;
 
     if (target === "input") {
@@ -95,7 +126,6 @@ const TeamWirte = (props) => {
         member: value,
       });
     }
-
     if (target === "check") {
       let _member = checked ? plan.member : 0;
       setPlan({
@@ -122,12 +152,12 @@ const TeamWirte = (props) => {
             <tbody>
               <tr>
                 <td>모집기간</td>
-                <td><TeamDate startDate={recruitStart} endDate={recruitEnd} setStartDate={SetRecrutStart} setEndDate={setRecruitEnd} />
+                <td><TeamDate startDate={recruit.start} endDate={recruit.end} setEndDate={setRecruitEnd} recruit recruitMaxDate={project.end} />
                 </td>
               </tr>
               <tr>
                 <td>프로젝트 기간</td>
-                <td><TeamDate startDate={projectStart} endDate={projectEnd} setStartDate={setProjectStart} setEndDate={setProjectEnd} /></td>
+                <td><TeamDate startDate={project.start} endDate={project.end} setStartDate={setProjectStart} setEndDate={setProjectEnd} /></td>
               </tr>
               <tr>
                 <td>모집인원</td>
@@ -173,7 +203,6 @@ const TeamWirte = (props) => {
                   </SelectBox>
                 </td>
               </tr>
-
             </tbody>
           </ChoiceTable>
         </ChoiceBox>

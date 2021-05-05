@@ -90,7 +90,9 @@ const TeamDetail = () => {
             </ApplyBox>
           </Modal>
         </ModalBox>
+
         <ApplyList />
+
       </Container>
     </React.Fragment>
   )
@@ -104,7 +106,10 @@ const Flex = css`
 `;
 
 
-
+const ApplyBox2 = styled.div`
+  background-color: skyblue;
+  width:100%;
+`;
 
 //모집글
 const ContentBox = styled.div`

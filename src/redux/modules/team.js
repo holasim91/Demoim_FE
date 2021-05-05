@@ -17,8 +17,47 @@ const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 const initialState = {
   list: [],
   isLoading: false,
-  paging: { start: null, next: null, size: 3 },
+  //paging: { start: null, next: null, size: 3 },
 }
+
+const getTeamMakingAPI = (page, size) => {
+  return function (dispatch, getState, { history }) {
+
+
+  }
+}
+
+const getDetailTeamMakingAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+
+  }
+}
+
+const addTeamMakingAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+
+  }
+}
+
+const deleteTeamMakingAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+
+  }
+}
+
+
+const updateTeamMakingAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+
+  }
+}
+
+
+
 
 export default handleActions(
   {
@@ -43,7 +82,11 @@ export default handleActions(
 
 
 const actionCreators = {
-
+  getTeamMakingAPI,
+  getDetailTeamMakingAPI,
+  addTeamMakingAPI,
+  deleteTeamMakingAPI,
+  updateTeamMakingAPI
 };
 
 export { actionCreators };
