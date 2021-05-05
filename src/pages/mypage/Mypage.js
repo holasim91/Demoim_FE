@@ -64,13 +64,17 @@ const MyPageContainer = styled.div`
   margin: 100px auto;
   padding: 10px auto;
   @media ${props => props.theme.mobile}{
-        margin:20px auto;
+      width:345px;
+      margin:25px auto;
     }
   
 `;
 
 const Profile = styled.div`
   margin:10px;
+  @media ${props => props.theme.mobile}{
+    margin:10px 0;
+    }
 
 `;
 
@@ -128,6 +132,7 @@ const ProfileEditBtn = styled.div`
   background-color:#999cda;
   color:#fefefe;
   border-radius:8px;
+  border:1px solid #999cda;
   @media ${props => props.theme.mobile}{
     font-size: 10px;
     }
@@ -135,7 +140,6 @@ const ProfileEditBtn = styled.div`
     cursor: pointer;
     background-color:#fefefe;
     color:#999cda;
-    border:1px solid purple;
   }
 `;
 
@@ -145,8 +149,7 @@ const UserBoxDesc = styled.div`
   margin-top:5px;
   box-sizing:border-box;
   @media ${props => props.theme.mobile}{
-        width: 65%;
-        
+    width: 270px;
     }
 `;
 
