@@ -5,11 +5,16 @@ import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
 const TeamDate = (props) => {
+  const { startDate, endDate, setStartDate, setEndDate, recruit, recruitMaxDate } = props;
 
-  const { startDate, endDate, setStartDate, setEndDate } = props;
+  //모집일 최소날짜 
+  let _periodinDate = new Date(startDate.valueOf());
+  let periodMinDate = new Date(_periodinDate.setDate(_periodinDate.getDate() + 1))
 
-  //const [startDate, setStartDate] = React.useState(new Date());
-  //const [endDate, setEndDate] = React.useState(new Date());
+  //프로젝트 마감일 최소날짜
+  //let _projectMinDate = new Date(startDate.valueOf());
+  //console.log('복사 date:' + new Date(date.setDate(date.getDate() + 1)))
+  // console.log('지원 끝날 minDate: ' + new Date(startDate.setDate(_startDate.getDate() + 1)))
 
   const ExampleCustomInput = React.forwardRef(
     ({ value, onClick }, ref) => (
@@ -18,6 +23,38 @@ const TeamDate = (props) => {
       </DateBtn>
     ),
   );
+
+  if (recruit) {
+    return (
+      <DateBox>
+        <DatePicker
+          locale={ko}
+          selected={startDate}
+          selectsStart
+          startDate={startDate}
+          minDate={startDate}
+          maxDate={startDate}
+          customInput={<ExampleCustomInput />}
+          closeOnScroll={true}
+          popperPlacement="auto"
+        />
+        <Sign>-</Sign>
+        <DatePicker
+          locale={ko}
+          selected={endDate}
+          onChange={setEndDate}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={periodMinDate}
+          maxDate={recruitMaxDate}
+          customInput={<ExampleCustomInput />}
+          closeOnScroll={true}
+          popperPlacement="auto"
+        />
+      </DateBox>
+    )
+  }
 
   return (
     <DateBox>
@@ -28,7 +65,8 @@ const TeamDate = (props) => {
         selectsStart
         startDate={startDate}
         endDate={endDate}
-        minDate={startDate} //내일부터...startDate 초기값 내일. maxDate는 여부받기.
+        minDate={new Date()}
+        maxDate={endDate}
         customInput={<ExampleCustomInput />}
         closeOnScroll={true}
         popperPlacement="auto"
@@ -41,7 +79,7 @@ const TeamDate = (props) => {
         selectsEnd
         startDate={startDate}
         endDate={endDate}
-        minDate={startDate} //프로젝트 시작일과 겹치면 안됨 하루 더하기.
+        minDate={periodMinDate}
         customInput={<ExampleCustomInput />}
         closeOnScroll={true}
         popperPlacement="auto"
