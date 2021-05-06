@@ -18,8 +18,6 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
   console.log(isLogin);
-  // const userInfo = useSelector((state) => state.user.user);
-  // console.log("헤더유저인포:",userInfo);
 
   const LogOut = () => {
     setOpen(false);
