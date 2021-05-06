@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { TeamCard } from "../../components";
 import { Container } from "../../elements";
 import { FaChevronDown } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../../shared/Spinner";
+import { history } from "../../redux/configStore";
 
 const TeamList = (props) => {
 
@@ -129,11 +132,20 @@ const TeamList = (props) => {
     },
   ]
 
+  const { list, isLoading } = useSelector((state) => state.team);
+
+  if (isLoading && history.location.pathname !== "/") {
+    return (
+      <React.Fragment>
+        <Spinner />
+      </React.Fragment>
+    );
+  }
+
   return (
     <Container>
-
       <Grid>
-        {ProjectList.map((p) => {
+        {list?.map((p) => {
           return (
             <TeamCard {...p} key={p.id} />
           )

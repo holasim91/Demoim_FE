@@ -3,29 +3,60 @@ import styled from "styled-components";
 import { TeamList } from "../../components";
 import { Container, Button } from "../../elements";
 import { history } from "../../redux/configStore";
+import { useSelector, useDispatch } from 'react-redux';
+import Swal from "sweetalert2";
+import TeamIcon from "../../images/teamMaking.svg";
+import Arrow from "../../images/arrow.jpg";
+import { actionCreators as teamActions } from "../../redux/modules/team";
 
 const TeamAllList = (props) => {
 
-  const [select, setSelect] = React.useState("프론트엔드");
+  const [select, setSelect] = React.useState("전체보기");
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
+  React.useEffect(() => {
+
+    dispatch(teamActions.getTeamMakingAPI(1, 9));
+
+  }, []);
+
+
+  //useState() 왜 잡았지? 그냥 e.target.value로
+  //dispatch하면 될듯.
   const showCategory = (e) => {
-
-    console.log(e.target.value);
-
+    setSelect(e.target.value);
   }
 
   return (
     <React.Fragment>
       <Container>
+        {/* <TitleBox>
+          <p>프로젝트 팀원 모집</p>
+        </TitleBox> */}
         <TopBox>
-          <SelectBox onChange={(e) => showCategory(e)}>
-            <option value="프론트엔드">프론트엔드</option>
-            <option value="백엔드">백엔드</option>
-            <option value="디자이너">디자이너</option>
-            <option value="기획자">기획자</option>
-          </SelectBox>
+          <CategoryBox>
+            <Select onChange={(e) => showCategory(e)}>
+              <option value="전체보기">전체보기</option>
+              <option value="프론트엔드">프론트엔드</option>
+              <option value="백엔드">백엔드</option>
+              <option value="디자이너">디자이너</option>
+              <option value="기획자">기획자</option>
+            </Select>
+          </CategoryBox>
           <BtnBox>
-            <Button padding='6px 5px' size='14px' _onClick={() => history.push('/team/write')}>팀 만들기</Button>
+            <TeamIconImg src={TeamIcon} />
+            <MakingBtn onClick={() => {
+              if (!user) {
+                Swal.fire({
+                  text: '로그인 후 사용해주세요 :)',
+                  icon: 'warning',
+                  confirmButtonColor: "#999cda",
+                })
+                return false;
+              }
+              history.push('/team/write')
+            }}>팀 만들기</MakingBtn>
           </BtnBox>
         </TopBox>
 
@@ -33,7 +64,7 @@ const TeamAllList = (props) => {
       <ContentBox>
         <TeamList />
       </ContentBox>
-    </React.Fragment>
+    </React.Fragment >
   )
 }
 
@@ -45,8 +76,31 @@ const TopBox = styled.div`
   display: flex;
   justify-content: space-between;
   padding:0px 50px;
-  margin: 80px 0px 40px 0px;
+  //margin: -20px 0px 40px 0px;
+  margin: 50px 0px 40px 0px;
   flex-wrap: wrap;
+
+
+  @media (max-width:420px){
+      padding:0px 10px;
+   }
+
+`;
+
+const TitleBox = styled.div`
+  width:100%;
+  box-sizing:border-box;
+  padding:0px 50px;
+  margin-top:60px;
+
+  @media (max-width:420px){
+    padding:0px 20px;
+  }
+`;
+
+const CategoryBox = styled.div`
+  display: flex;
+  align-items: flex-end;
 `;
 
 const ContentBox = styled.div`
@@ -59,9 +113,46 @@ const BtnBox = styled.div`
   width:100px;
 `;
 
-const SelectBox = styled.select`
-  padding:0px 25px;
+const TeamIconImg = styled.img`
+  position: relative;
+  top:12px;
+  left:12px;
+`;
+
+const Select = styled.select`
+  padding:7px 25px;
   outline: none;
   border:none;
-  border-bottom: 1px solid #000000;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width:140px;
+  background: url(${Arrow}) no-repeat 98% 50%;
+  background-size:22px;
+  background-color: ${props => props.theme.main_gray};
+  
+  select::-ms-expand {
+    display: none;
+  }
+`;
+
+const MakingBtn = styled.button`
+  width:90%;
+  cursor: pointer;
+  background-color: ${props => props.theme.sub_color};
+  color: ${props => props.theme.main_color};
+  padding:6px 3px;
+  font-size:14px;
+  border: 1px solid ${props => props.theme.sub_color};
+  border-radius: 6px;
+  box-sizing:border-box;
+  outline: none;
+  font-weight: 600;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.27);
+  &:focus{
+    outline: none;
+  }
+  position: relative;
+  z-index:5;
 `;

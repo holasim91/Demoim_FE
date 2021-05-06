@@ -22,6 +22,7 @@ const Header = (props) => {
   // console.log("헤더유저인포:",userInfo);
 
   const LogOut = () => {
+    setOpen(false);
     dispatch(actionCreators.logout());
   };
 
@@ -94,28 +95,28 @@ const Header = (props) => {
             <NoneActiveLink to='/exhibition' onClick={closeBar}>
               De Talk
             </NoneActiveLink>
-            {isLogin ? 
-              (<NavLink to='/mypage'> 나의 로그 </NavLink>)
-              :""}
+            {isLogin ?
+              (<NoneActiveLink to='/mypage' onClick={closeBar}> 나의 로그 </NoneActiveLink>)
+              : ""}
 
             {isLogin ? (
               <MobileUserMenu>
-                <NoneActiveLink to='/'>
-                  <Bell/>
+                <NoneActiveLink to='/' className='userMenu' onClick={closeBar}>
+                  <Bell />
                 </NoneActiveLink>
-                <LogOutBtn onClick={LogOut}>
+                <LogOutBtn onClick={LogOut} className='userMenu'>
                   로그아웃
                 </LogOutBtn>
               </MobileUserMenu>
             ) : (
               <MobileUserMenu>
-              <NoneActiveLink to='/signup' className='userMenu' onClick={closeBar}>
-                회원가입
+                <NoneActiveLink to='/signup' className='userMenu' onClick={closeBar}>
+                  회원가입
               </NoneActiveLink>
-              <NoneActiveLink to='/login' className='userMenu' onClick={closeBar}>
-                로그인
+                <NoneActiveLink to='/login' className='userMenu' onClick={closeBar}>
+                  로그인
               </NoneActiveLink>
-            </MobileUserMenu>
+              </MobileUserMenu>
             )}
           </MobileMenu>
         </MobileBar>

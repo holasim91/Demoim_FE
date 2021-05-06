@@ -6,8 +6,18 @@ import { TeamList } from "../components";
 import { history } from "../redux/configStore";
 import { useMediaQuery } from "react-responsive";
 import { Exhibition, ExhibitionList } from "../components";
+import { actionCreators as teamActions } from "../redux/modules/team";
+import { useDispatch, useSelector } from "react-redux";
 
 const Main = (props) => {
+
+   const dispatch = useDispatch();
+   React.useEffect(() => {
+
+      dispatch(teamActions.getTeamMakingAPI(1, 6));
+
+   }, []);
+
 
    const isTablet = useMediaQuery({
       query: "(min-width:769px) and (max-width:1200px)"
@@ -120,8 +130,6 @@ const Main = (props) => {
                   </DatalkSubTitle>
                </DetalkTitleBox>
             </DetalkBox>
-
-
          </Container>
       </React.Fragment>
    )

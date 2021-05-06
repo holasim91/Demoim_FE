@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { Text,Grid, Button, Container } from "../../elements";
+import { Text, Grid, Button, Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
-
+import { ApplyProjectList, ParticipationProjectList } from "../../components";
 
 const Mypage = (props) => {
   const dispatch = useDispatch();
@@ -13,8 +13,8 @@ const Mypage = (props) => {
   React.useEffect(() => {
     dispatch(userAction.loginCheckAPI());
 
-  },[]);
-  
+  }, []);
+
   const userInfo = useSelector((state) => state.user.user)
   // console.log("마이페이지",userInfo);
   // const projectNum = userInfo?.teams.length
@@ -24,8 +24,8 @@ const Mypage = (props) => {
       <Container>
         <MyPageContainer>
           <Profile>
-            <ProfileImg 
-            src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage}/>
+            <ProfileImg
+              src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage} />
           </Profile>
           <UserBox>
             <UserBoxMarks>
@@ -41,20 +41,32 @@ const Mypage = (props) => {
           </UserBox>
         </MyPageContainer>
         {/* <MypageSubmenus/> */}
-        
+        <ApplyTapBox>
+          <ApplyProjectList />
+        </ApplyTapBox>
+        <ApplyTapBox>
+          <ParticipationProjectList />
+        </ApplyTapBox>
       </Container>
     </React.Fragment>
   );
 };
 
 Mypage.defaultProps = {
-  id:1,
-  username:"g0garden@naver.com",
-  nickname:"저녁은불족발",
-  position:"프론트엔드",
-  desc:"안녕하세요!",
-  profileImage:'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+  id: 1,
+  username: "g0garden@naver.com",
+  nickname: "저녁은불족발",
+  position: "프론트엔드",
+  desc: "안녕하세요!",
+  profileImage: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
 }
+
+//팀메이킹 확인용 박스
+const ApplyTapBox = styled.div`
+  width:100%;
+  margin:0px 0px 70px 0px;
+`;
+
 
 const MyPageContainer = styled.div`
   display: flex;
