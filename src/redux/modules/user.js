@@ -24,7 +24,6 @@ const signupAPI = (email,pw,nickname,position) => {
       method: "post",
       url:API,
       data:{
-        id:1,
         username:email,
         password:pw,
         nickname:nickname,
@@ -123,6 +122,42 @@ const loginCheckAPI = () => {
     })
   }
 }
+//
+
+
+//프로필이미지업로드
+const editProfileAPI = (formData) => {
+  return function (dispatch, getState, { history }){
+    console.log(formData.get('file'));
+    
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+
+    const API = 'http://54.180.142.197/api/mypage/profile'
+    axios({
+      method:"put",
+      url:API,
+      data:formData,       
+      headers : {
+        // 'Content-Type': 'multipart/form-data',
+        'authorization': token, 
+      },
+    })
+    .then((res) => {
+      console.log("프로필이미지업로드ok", res.data);
+      Swal.fire({
+        icon:"success",
+        text: "수정완료!!",
+        confirmButtonColor: "#683fee",
+      })
+      history.push('/');
+    })
+    .catch((err) => {
+      console.log("프로필이미지업로드err:", err);
+    })
+  }
+}
+
 
 const logout = () => {
   return function (dispatch, getState, { history }){
@@ -158,6 +193,7 @@ const actionCreators = {
   loginAPI,
   loginCheckAPI,
   logout,
+  editProfileAPI,
   //isLogin
 };
 
