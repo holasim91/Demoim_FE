@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ChildrenModal from '../elements/ChildrenModal';
+import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
+
 function Modal(props) {
 
+    const user = useSelector((state) => state.user.user);
     const [modalOpen, setModalOpen] = useState(false);
     //text: 모달 버튼 내용, heading: 모달 제목
     //clickName : 모달 하단 버튼 내용
@@ -15,6 +19,15 @@ function Modal(props) {
 
 
     const openModal = () => {
+
+        if (!user) {
+            Swal.fire({
+                text: '로그인 후 사용해주세요 :)',
+                icon: 'warning',
+                confirmButtonColor: "#999cda",
+            })
+            return false;
+        }
         setModalOpen(true);
     }
     const closeModal = () => {

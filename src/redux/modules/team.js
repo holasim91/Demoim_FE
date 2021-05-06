@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
+import { config } from "../../shared/config";
 
 const SET_TEAM = "SET_TEAM";
 const LOADING = "LOADING";
@@ -23,6 +24,16 @@ const initialState = {
 const getTeamMakingAPI = (page, size) => {
   return function (dispatch, getState, { history }) {
 
+    dispatch(loading(true));
+    axios({
+      method: 'get',
+      url: `${config.api}/api/team?page=${page}&size=${size}`,
+    }).then((res) => {
+
+      dispatch(setTeam(res.data));
+    }).catch((error) => {
+      console.log(error);
+    });
 
   }
 }

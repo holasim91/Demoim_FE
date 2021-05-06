@@ -53,12 +53,9 @@ class EditorComponent extends Component {
         url: `${config.api}/api/upload`,
         data: formData,
       }).then((res) => {
-        console.log('서버에서 넘어온 이미지:', res);
         return res.data;
       });
-      console.log('quill 들어갈 이미지 잘 왔나!', res);
       this.quill.deleteText(range.index, 1);
-
       this.quill.insertEmbed(range.index, 'image', res);
     };
   }

@@ -103,8 +103,10 @@ const Grid = styled.div`
   padding:35px; 
   ${Flex}
   align-items:center;
-  box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  background-color:#ffffff;
   gap:10px;
+  border-radius: 5px;
 
   @media ${props => props.theme.mobile}{
       align-items: flex-start;
