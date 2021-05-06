@@ -249,7 +249,7 @@ const LogOutBtn = styled.p`
   cursor:pointer;
   font-size:13px;
   @media ${props => props.theme.mobile}{
-    font-size:3.7vw;
+    font-size:3vw;
     }
 `;
 

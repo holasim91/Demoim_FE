@@ -1,21 +1,69 @@
-import React from 'react';
+import React, { useRef }from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Text, Grid, Container } from "../../elements";
-import { FaCamera } from "react-icons/fa";                 
+import { FaCamera } from "react-icons/fa";     
+import { actionCreators } from "../../redux/modules/user";            
+
 
 const MypageEdit = (props) => {
   const  dispatch = useDispatch();
-  const [position, setPosition] = React.useState("");
   const userInfo = useSelector((state) => state.user.user);
   
+  const [fileName, setFileName] = React.useState(null);
+  const [nickname, setNickName] = React.useState(userInfo?.nickname);
+  const [position, setPosition] = React.useState(userInfo?.position);
+  const [desc, setDesc] = React.useState(userInfo?.desc);
+  
+
+  const fileRef = useRef();
+  const selectFile = (e) => {
+    console.log(e.target.files[0]);
+    console.log("Ref",fileRef.current.files[0]);
+  }
+
+  //프로필이미지수정하기 
+  const profileEdit = () => {
+
+    //닉네임 .. 중복확인..?!
+    if (nickname === ' ') {
+      alert('닉네임을 입력해주세요!')
+      return false;
+    }
+
+    //포지션
+    if (position === "선택하기" || position === " "){
+      alert('포지션을 선택해주세요!')
+      return false
+    }
+    //자기소개 
+    if (desc === ' ') {
+      alert('자기소개를 입력해주세요!')
+      return false;
+    }
+
+    const file = fileRef.current.files[0];
+    console.log(file)
+
+    const userEditInfo = `{nickname:${nickname}, position:${position}, desc:${desc}}`
+
+    //form-data
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('userEditInfo',userEditInfo);
+    console.log(formData.get('file','userEditInfo'))
+
+    dispatch(actionCreators.editProfileAPI(formData));
+    
+
+  };  
+
   //희망포지션 설렉트박스
   const handleOnChange = (e) => {
     const selectedPosition = e.target.value;
-    console.log(selectedPosition)
+    //console.log(selectedPosition)
     setPosition(selectedPosition)
-    //document.getElementById('result').innerText = value;
   }
 
   return (
@@ -31,38 +79,48 @@ const MypageEdit = (props) => {
             {/* 이미지미리보기 */}
             <ImgEditBtn>
               <label htmlFor="img-file"><Camera/></label>
-              <input type="file" id="img-file" accept=".gif, .jpg, .png" />
+              <input type="file" id="img-file" ref={fileRef} onChange={selectFile} accept="image/*" />
+              <input type="text" className="upLoadImg" value={fileName}  readOnly/> 
+              {/* value={fileName} */}
             </ImgEditBtn>
           </ProfileImgBox>
-          
+          {/* <button onClick={uploadImg}>이미지업로드</button> */}
           <EditForm>
           <EditTable>
               <tbody>
               <tr>
                 <td>닉네임</td>
-                <td><Input placeholder={userInfo.nickname}/></td>
+                <td>
+                  <Input placeholder={userInfo.nickname}
+                    value={nickname} 
+                    onChange={(e) => {
+                    setNickName(e.target.value)
+                  }}/></td>
               </tr>
               <tr>
                 <td>희망포지션</td>
-                <td><Select className="position-select"
-                    onChange={(e) => {
-                      handleOnChange(e)
-                  }}>
-                  <option value="선택하기">선택하기</option>
-                  <option value="프론트엔드">프론트엔드</option>
-                  <option value="백엔드">백엔드</option>
-                  <option value="디자이너">디자이너</option>
-                  <option value="기획자">기획자</option>
-              </Select></td>                  
+                <td>
+                  <Select onChange={(e) => {handleOnChange(e)}}>
+                    <option value="선택하기">선택하기</option>
+                    <option value="프론트엔드">프론트엔드</option>
+                    <option value="백엔드">백엔드</option>
+                    <option value="디자이너">디자이너</option>
+                    <option value="기획자">기획자</option>
+                  </Select>
+                </td>                  
               </tr>
               <tr>
                 <td>자기소개</td>
-                <td><TextArea placeholder={userInfo.desc}/></td>
+                <td><TextArea placeholder={userInfo.desc}
+                  value={desc}
+                  onChange={(e) => {
+                    setDesc(e.target.value)
+                  }}/></td>
               </tr>
               </tbody>
             </EditTable>
           </EditForm>
-          <EditBtn>수정하기</EditBtn>
+          <EditBtn onClick={profileEdit}>수정하기</EditBtn>
           </EditContents>
         </EditContainer>
       </Container>
@@ -71,8 +129,8 @@ const MypageEdit = (props) => {
   );
 };
 
+
 MypageEdit.defaultProps = {
-  id:1,
   username:"g0rden@never.com",
   nickname:"가나다라마바",
   position:"프론트트트",
@@ -146,6 +204,9 @@ const ImgEditBtn = styled.div`
       overflow:hidden;
       border:0;
     }
+    & .upLoadImg {
+      display:none;
+    }
     & label{
     display:inline-block;
     
@@ -170,6 +231,7 @@ const ImgEditBtn = styled.div`
       box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.17);
       cursor:pointer;
     }
+    
     
     
 `;
