@@ -14,25 +14,27 @@ const SmallTalkList = () => {
     dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
   }, [dispatch, page]);
   const { smallTalkPosts, isLoading } = useSelector((state) => state.smalltalk);
-  
-  if (isLoading && history.location.pathname!=='/') {
+  let currentPath = history.location.pathname;
+  if (isLoading && currentPath !== "/") {
     return (
       <>
-      <Spinner />
+        <Spinner />
       </>
     );
   }
 
   return (
     <>
-    <SmallTalkListWrapper>
-    {smallTalkPosts.map((data) => <SmallTalkPost data={data} key ={data.id} />)}
-    </SmallTalkListWrapper>
+      <SmallTalkListWrapper>
+        {smallTalkPosts.map((data) => (
+          <SmallTalkPost data={data} key={data.id} location={currentPath} />
+        ))}
+      </SmallTalkListWrapper>
     </>
   );
 };
 const SmallTalkListWrapper = styled.div`
   width: 100%;
   margin-bottom: 20px;
-`
+`;
 export default SmallTalkList;
