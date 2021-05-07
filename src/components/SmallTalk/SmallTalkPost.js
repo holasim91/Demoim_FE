@@ -112,7 +112,7 @@ const SmallTalkPost = (props) => {
         )}
       </PostBoxWrapper>
       {isOpen ? (
-        <SmallTalkComment comments={commentList} className="comment" />
+        <SmallTalkComment profileImg={user.profileImage} comments={commentList} post_id={id}  token={token}  className="comment" />
       ) : (
         ""
       )}

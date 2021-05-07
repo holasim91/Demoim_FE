@@ -1,17 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button } from "../../elements";
 import SmallTalkCommentPost from "./SmallTalkCommentPost";
+import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
 
 const SmallTalkComment = (props) => {
-  const {comments} = props
-  const user = useSelector(state=> state.user)
+  const {comments,token, post_id} = props
+  const dispatch = useDispatch()
+  const {user} = useSelector(state=> state.user)
+  const onChangeComment = (e) =>setComment(e.target.value)
+  const [comment, setComment] = useState('')
+  const addComment = () => {
+    dispatch(smalltalkActions.addSmallTalkCommentAPI(comment, token, post_id));
+    setComment("");
+  };
   return (
     <CommentWrapper>
 
       {comments.map((c) => (
-        <SmallTalkCommentPost data={c} key={c.id} />
+        <SmallTalkCommentPost data={c} key={c.id} post_id={post_id}/>
       ))}
 
 <CommentWriteArea>
@@ -26,14 +34,14 @@ const SmallTalkComment = (props) => {
                 }
               />
             )}
-      <CommentTextArea maxLength={300}/>
+      <CommentTextArea maxLength={300} value={comment} onChange={onChangeComment}/>
       </WriteTop>
       <CommentWriteBottom>
             <Button
               padding="7px 5px"
               size="13px"
               width="51px"
-              _onClick={()=>{console.log('등록!')}}
+              _onClick={addComment}
             >
               등록
             </Button>
