@@ -5,3 +5,16 @@
 .ql-editor em {
   font-style: italic;
 }
+
+.ql-align-center {
+  text-align: center;
+}
+
+ul {
+  list-style-position: inside;
+  list-style-type: disc;
+}
+
+ol {
+  list-style-position: inside;
+}

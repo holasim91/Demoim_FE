@@ -7,15 +7,16 @@ import Team from "./modules/team";
 import SmallTalk from "./modules/smalltalk";
 import user from "./modules/user";
 import Image from "./modules/image";
-
+import Apply from "./modules/apply";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   exhibition: Exhibition,
   team: Team,
   smalltalk: SmallTalk,
-  user:user,
-  image:Image,
+  user: user,
+  image: Image,
+  apply: Apply,
   router: connectRouter(history),
 });
 

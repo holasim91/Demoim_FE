@@ -7,7 +7,7 @@ import { history } from '../../redux/configStore';
 //무한스크롤시 TeamList가 바뀔 때 기존 TeamCard 기억해놓기.
 const TeamCard = React.memo((props) => {
 
-  const { title, recruit, begin, end, thumbnail, front, back, designer, planner, teamId, createdAt } = props;
+  const { title, recruit, begin, end, thumbnail, front, back, designer, planner, teamId, createdAt, recruitState } = props;
 
 
 
@@ -47,8 +47,7 @@ const TeamCard = React.memo((props) => {
             {planner !== 0 && `기획자 ${planner}명 `}
           </Text>
         </MentBox>
-        {/* _onClick 상세 페이지 이동*/}
-        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)" _onClick={() => { history.push(`/team/detail/${teamId}`) }}>모집글 보기</Button>
+        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)" _onClick={() => { history.push(`/team/detail/${teamId}`) }}>{recruitState === 'ACTIVATED' ? '모집글 보기' : '모집 완료'}</Button>
       </Grid>
 
     </React.Fragment>

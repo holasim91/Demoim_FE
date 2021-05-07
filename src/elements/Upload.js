@@ -4,15 +4,17 @@ import styled from "styled-components";
 const Upload = (props) => {
 
 
-  const fileRef = React.useRef();
-  const [fileName, setFileName] = React.useState("파일 선택하기");
-  const changeFile = (e) => setFileName(e.target.value);
+  const { fileRef, fileName, changeFile } = props;
+
+  //const fileRef = React.useRef();
+  //const [fileName, setFileName] = React.useState("파일 선택하기");
+  //const changeFile = (e) => setFileName(e.target.value);
 
   return (
     <React.Fragment>
       <FileBox>
         <label htmlFor="img-file">썸네일 업로드</label>
-        <input type="file" id="img-file" ref={fileRef} onChange={changeFile} accept=".gif, .jpg, .png" />
+        <input type="file" id="img-file" ref={fileRef} onChange={changeFile} accept="image/*" />
         <input type="text" className="uploadImg" value={fileName} readOnly />
       </FileBox>
     </React.Fragment>

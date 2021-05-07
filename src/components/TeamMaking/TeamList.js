@@ -145,15 +145,11 @@ const TeamList = (props) => {
   return (
     <Container>
       <Grid>
-        {list?.map((p) => {
+        {list.map((p) => {
           return (
             <TeamCard {...p} key={p.teamId} />
           )
         })}
-        {/* <MoreBox>
-          <MobileMome />
-          <MobileMoreTeam>더보기</MobileMoreTeam>
-        </MoreBox> */}
       </Grid>
     </Container>
   )
