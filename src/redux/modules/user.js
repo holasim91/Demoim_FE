@@ -17,7 +17,6 @@ const initialState = {
 };
 
 const signupAPI = (email,pw,nickname,position) => {
-  console.log(email,pw,nickname,position)
   return function (dispatch, getState, { history }){
     const API = 'http://54.180.142.197/api/signup'
     axios({
@@ -31,7 +30,6 @@ const signupAPI = (email,pw,nickname,position) => {
       },
     })
     .then((res) => {
-      //console.log("회원가입ok", res)
       Swal.fire({
         icon: "success",
         text: "회원가입 성공!",
@@ -56,7 +54,6 @@ const loginAPI = (email,pw) => {
       password:pw,
     }
     }).then((res) => {
-      console.log("로그인성공", res.data.userInfo);
 
       const userInfo = {
         id:res.data.userInfo.Id,
@@ -103,8 +100,6 @@ const loginCheckAPI = () => {
       method: "get",
       url:API,
     }).then((res) =>{
-      console.log("로그인체크성공:",res.data);
-      console.log("로그인체크Teams:",res.data.teams);
 
       dispatch(setUser({
         desc:res.data.desc,
@@ -128,8 +123,6 @@ const loginCheckAPI = () => {
 //프로필이미지업로드
 const editProfileAPI = (formData) => {
   return function (dispatch, getState, { history }){
-    console.log(formData.get('file'));
-    
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
 
@@ -144,16 +137,25 @@ const editProfileAPI = (formData) => {
       },
     })
     .then((res) => {
-      console.log("프로필이미지업로드ok", res.data);
       Swal.fire({
         icon:"success",
         text: "수정완료!!",
         confirmButtonColor: "#683fee",
       })
-      history.push('/');
+
+      dispatch(setUser({
+        desc:res.data.desc,
+        nickname:res.data.nickname,
+        position:res.data.position,
+        profileImage:res.data.profileImage,
+        username:res.data.username, //email
+        
+      }))
+
+      history.push('/mypage');
     })
     .catch((err) => {
-      console.log("프로필이미지업로드err:", err);
+      console.log("프로필수정err:", err);
     })
   }
 }

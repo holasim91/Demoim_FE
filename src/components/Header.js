@@ -17,7 +17,6 @@ import { actionCreators } from "../redux/modules/user";
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
-  console.log(isLogin);
 
   const LogOut = () => {
     setOpen(false);

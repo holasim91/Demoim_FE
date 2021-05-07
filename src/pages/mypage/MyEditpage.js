@@ -1,29 +1,49 @@
-import React, { useRef }from 'react';
+import React, { useEffect, useRef }from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Text, Grid, Container } from "../../elements";
 import { FaCamera } from "react-icons/fa";     
-import { actionCreators } from "../../redux/modules/user";            
+import { actionCreators } from "../../redux/modules/user"; 
+import { actionCreators as imageActions} from "../../redux/modules/image";
+import { history } from "../../redux/configStore";           
 
 
 const MypageEdit = (props) => {
   const  dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
+  const preview = useSelector((state) => state.image.preview);
+
+  React.useEffect(() => {
+    if(!userInfo){
+      history.goBack();
+      return
+    }
+    
+  }, []);
   
-  const [fileName, setFileName] = React.useState(null);
-  const [nickname, setNickName] = React.useState(userInfo?.nickname);
-  const [position, setPosition] = React.useState(userInfo?.position);
-  const [desc, setDesc] = React.useState(userInfo?.desc);
+  //const [fileName, setFileName] = React.useState(null);
+  const [nickname, setNickName] = React.useState(userInfo? userInfo.nickname : '');
+  const [position, setPosition] = React.useState(userInfo? userInfo.position : '');
+  const [desc, setDesc] = React.useState(userInfo? userInfo.desc : '');
   
 
   const fileRef = useRef();
   const selectFile = (e) => {
-    console.log(e.target.files[0]);
-    console.log("Ref",fileRef.current.files[0]);
-  }
+    //console.log("Ref", fileRef.current.files[0]);
+    //미리보기
+    const reader = new FileReader();
+    const img = fileRef.current.files[0];
 
-  //프로필이미지수정하기 
+  reader.readAsDataURL(img);
+  reader.onloadend = () => {
+    //console.log(reader.result);
+    dispatch(imageActions.setPreview(reader.result));
+    };
+  };
+
+
+  //프로필수정하기 
   const profileEdit = () => {
 
     //닉네임 .. 중복확인..?!
@@ -32,37 +52,31 @@ const MypageEdit = (props) => {
       return false;
     }
 
-    //포지션
     if (position === "선택하기" || position === " "){
       alert('포지션을 선택해주세요!')
       return false
     }
-    //자기소개 
+    
     if (desc === ' ') {
       alert('자기소개를 입력해주세요!')
       return false;
     }
 
     const file = fileRef.current.files[0];
-    console.log(file)
-
     const userEditInfo = `{nickname:${nickname}, position:${position}, desc:${desc}}`
 
-    //form-data
+    //formData
     let formData = new FormData();
     formData.append('file', file);
     formData.append('userEditInfo',userEditInfo);
-    console.log(formData.get('file','userEditInfo'))
+    //console.log(formData.get('file'))
 
     dispatch(actionCreators.editProfileAPI(formData));
-    
-
   };  
 
   //희망포지션 설렉트박스
   const handleOnChange = (e) => {
     const selectedPosition = e.target.value;
-    //console.log(selectedPosition)
     setPosition(selectedPosition)
   }
 
@@ -71,17 +85,17 @@ const MypageEdit = (props) => {
       <Container>
         <EditContainer>
           <Title>
-            <span>{userInfo.nickname}</span>님의 로그
+            <span>{userInfo?.nickname}</span>님의 로그
           </Title>
           <EditContents>
           <ProfileImgBox>
-            <ProfileImg src={ userInfo?.profileImage ? userInfo.profileImage : props.profileImage}/>
-            {/* 이미지미리보기 */}
+            <ProfileImg 
+            src={ preview? preview : (userInfo?.profileImage ? userInfo.profileImage : props.profileImage) }/>
+            
             <ImgEditBtn>
               <label htmlFor="img-file"><Camera/></label>
               <input type="file" id="img-file" ref={fileRef} onChange={selectFile} accept="image/*" />
-              <input type="text" className="upLoadImg" value={fileName}  readOnly/> 
-              {/* value={fileName} */}
+              <input type="text" className="upLoadImg" readOnly/> 
             </ImgEditBtn>
           </ProfileImgBox>
           {/* <button onClick={uploadImg}>이미지업로드</button> */}
@@ -91,7 +105,7 @@ const MypageEdit = (props) => {
               <tr>
                 <td>닉네임</td>
                 <td>
-                  <Input placeholder={userInfo.nickname}
+                  <Input placeholder={nickname}
                     value={nickname} 
                     onChange={(e) => {
                     setNickName(e.target.value)
@@ -100,8 +114,7 @@ const MypageEdit = (props) => {
               <tr>
                 <td>희망포지션</td>
                 <td>
-                  <Select onChange={(e) => {handleOnChange(e)}}>
-                    <option value="선택하기">선택하기</option>
+                  <Select value={position} onChange={(e) => {handleOnChange(e)}}>
                     <option value="프론트엔드">프론트엔드</option>
                     <option value="백엔드">백엔드</option>
                     <option value="디자이너">디자이너</option>
@@ -111,11 +124,15 @@ const MypageEdit = (props) => {
               </tr>
               <tr>
                 <td>자기소개</td>
-                <td><TextArea placeholder={userInfo.desc}
+                <td><TextArea maxLength="100" placeholder={desc}
                   value={desc}
                   onChange={(e) => {
                     setDesc(e.target.value)
                   }}/></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><span>100자이내</span></td>
               </tr>
               </tbody>
             </EditTable>
@@ -231,9 +248,6 @@ const ImgEditBtn = styled.div`
       box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.17);
       cursor:pointer;
     }
-    
-    
-    
 `;
 
 const Camera = styled(FaCamera)`
@@ -253,13 +267,17 @@ const EditForm = styled.div`
 
 const EditTable = styled.table`
   margin:20px auto;
+  /* border:1px solid red; */
   &tr{
     text-align:left;
     font-size:16px;
     font-weight:400;
+    border:1px solid blue;
   }
   & td{
     position: relative;
+    /* border:1px solid green; */
+    vertical-align: middle;
     @media ${props => props.theme.tablet}{
         font-size: 14px;
         }
@@ -269,13 +287,23 @@ const EditTable = styled.table`
     }
     & td:nth-child(1){
     box-sizing: border-box;
-    padding: 15px 30px 0px 18px;
+    width:80px;
+    /* padding: 15px 30px 0px 18px; */
     text-align:left;
     @media ${props => props.theme.mobile}{
       font-size: 14px;
       padding:15px 10px 0px 0px;
       }
     }
+    td:nth-child(2){
+      box-sizing: border-box;
+      height:35px;
+    }
+    td:last-child{
+    text-align:right;
+    font-size:4px;
+    color:red;
+  }
 `;
 
 const Input = styled.input`

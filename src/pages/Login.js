@@ -26,7 +26,6 @@ const Login = () => {
       return
     }
 
-    console.log(email, pw)
     dispatch(actionCreators.loginAPI(email,pw))
   }
 

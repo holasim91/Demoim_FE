@@ -18,14 +18,12 @@ function App() {
 
   const dispatch = useDispatch();
   const token = getCookie('token') ? true : false;
-  console.log(token);
 
   React.useEffect(() => {
     if (token) {
       dispatch(userAction.loginCheckAPI());
     }
   }, []);
-
 
   return (
     <>

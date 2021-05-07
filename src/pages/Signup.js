@@ -10,8 +10,6 @@ import { actionCreators } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-
-
 //username= email
 const Signup = (props) => {
     const dispatch = useDispatch();
@@ -83,7 +81,6 @@ const Signup = (props) => {
     //pwOk && (컴포넌트 보여주기)
     const changePwMatch = (e, rePwInfoUl,rePwInfoLiT) => {
         const checkPw = e.target.value;
-        console.log(checkPw)
         setPwCheck(checkPw);
 
         if (pw === checkPw) {
@@ -97,14 +94,12 @@ const Signup = (props) => {
 
     //checkEmailAPI(username:email)
     const checkEmailAPI= (email) =>{
-        console.log(email)
         const API = `http://54.180.142.197/api/signup/usernamedupchk?username=${email}`;
         axios.post(API,
             {
                 username:email,
             })
             .then((res) => {
-                console.log(res)
                 if (res.data.msg === "false") {
                     alert('이미 등록된 이메일입니다!');
                     setEmailDup(false);
@@ -116,19 +111,18 @@ const Signup = (props) => {
             .catch((err) => {
                 console.log(err)
             })
-            console.log(email)
+            
         }
 
     //checkNicknameAPI
     const checkNicknameAPI = (nickname) => {
-    console.log(nickname)
+    
     const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
     axios.post(API,
         {
             nickname:nickname,
         })
         .then((res) => {
-            console.log(res)
             if(res.data.msg === "false"){
                 alert('이미등록된 닉네임입니다.')
                 setNicknameDup(false);
@@ -145,9 +139,7 @@ const Signup = (props) => {
     //희망포지션 설렉트박스
     const handleOnChange = (e) => {
         const selectedPosition = e.target.value;
-        console.log(selectedPosition)
         setPosition(selectedPosition)
-        //document.getElementById('result').innerText = value;
     }
 
 
@@ -178,8 +170,7 @@ const Signup = (props) => {
             return false
         }
 
-        console.log(position)
-        //alert('WELCOME MATE!')
+        //회원가입API
         dispatch(actionCreators.signupAPI(email,pw,nickname,position))
     }
 
@@ -225,7 +216,6 @@ const Signup = (props) => {
                             <td>
                                 <Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
                             onClick={() => {
-                                //console.log("nickname Check")
                                 checkNicknameAPI(nickname)
                             }}
                         >중복확인</Button></td>
@@ -233,7 +223,7 @@ const Signup = (props) => {
                         <tr>
                             <td>비밀번호</td>
                             <td>
-                                <Input width="20vw" margin="4px 12px" padding="12px"
+                                <Input width="20vw" margin="4px 12px" padding="12px" type="password"
                                 value={pw}
                                 onClick={() => {
                                     pwInfoUl.current.style.display = "block";
@@ -251,7 +241,7 @@ const Signup = (props) => {
                         <tr>
                             <td>비밀번호확인</td>
                             <td>
-                            <Input width="20vw" margin="4px 12px" padding="12px" 
+                            <Input width="20vw" margin="4px 12px" padding="12px" type="password"
                             value={pwCheck}
                             onClick={() => {
                                 rePwInfoUl.current.style.display = "block";
