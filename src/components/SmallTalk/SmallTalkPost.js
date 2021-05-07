@@ -9,10 +9,17 @@ import { getCookie } from "../../shared/Cookies";
 const SmallTalkPost = (props) => {
   const dispatch = useDispatch();
   const token = getCookie("token");
-  const { contents, createdAt, user, id } = props.data;
+  const { location } = props;
+  const { contents, createdAt, user, id, commentList } = props.data;
   const [isOpen, setIsOpen] = useState(false); //댓글 창 토글
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
-  const onClickToggle = () => setIsOpen((state) => !state);
+  const onClickToggle = () => {
+    if (!isOpen) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  };
   const onClickUpdate = () => setIsEdit((state) => !state);
   const onDeletePost = () =>
     dispatch(smalltalkActions.deleteSmallTalkPostAPI(id, token));
@@ -70,6 +77,8 @@ const SmallTalkPost = (props) => {
               수정하기
             </div>
           </UpdatePostBoxBottom>
+        ) : location === "/" ? (
+          ""
         ) : (
           <PostBoxBottom>
             <CommentToggle onClick={onClickToggle}>
@@ -102,7 +111,11 @@ const SmallTalkPost = (props) => {
           </PostBoxBottom>
         )}
       </PostBoxWrapper>
-      {isOpen ? <SmallTalkComment className="comment" /> : ""}
+      {isOpen ? (
+        <SmallTalkComment comments={commentList} className="comment" />
+      ) : (
+        ""
+      )}
     </>
   );
 };

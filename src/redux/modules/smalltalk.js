@@ -120,23 +120,19 @@ export default handleActions(
     [SET_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.smallTalkPosts = action.payload.post_list;
-        draft.is_loading = false;
       }),
     [ADD_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.smallTalkPosts.unshift(action.payload.post_list);
-        draft.is_loading = false;
       }),
     [DELETE_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.smallTalkPosts = draft.smallTalkPosts.filter(
           (p) => p.id !== action.payload.post_id
         );
-        draft.is_loading = false;
       }),
     [UPDATE_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log('됐냐?')
         const current_id = action.payload.post_id;
         const updated_idx = draft.smallTalkPosts.findIndex(
           (v) => v.id === current_id
@@ -146,7 +142,6 @@ export default handleActions(
           contents: action.payload.updated_contents,
         };
 
-        draft.is_loading = false;
       }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {

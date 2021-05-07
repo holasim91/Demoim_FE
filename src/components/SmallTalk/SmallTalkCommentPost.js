@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const SmallTalkCommentPost = (props) => {
-  const {comments, user } = props.data;
+  const {comments, user, createdAt } = props.data;
+  console.log(comments)
   const ChangeTimeType = (time) => time.split("T")[0];
 
   return (
@@ -20,10 +21,10 @@ const SmallTalkCommentPost = (props) => {
             />
           )}
 
-          <UserName>닉네임 없음</UserName>
+          <UserName>{user.nickname}</UserName>
         </HeaderLeft>
         <HeaderRight>
-          <PostDate>{ChangeTimeType("2021-05-03T00:35:23.661")}</PostDate>
+          <PostDate>{ChangeTimeType(createdAt)}</PostDate>
         </HeaderRight>
       </CommentHeader>
       <PostContents>{comments}</PostContents>

@@ -13,11 +13,11 @@ const ExhibitionList = (props) => {
   useEffect(() => {
     dispatch(exhibitionActions.exihibitionAPI(page, 6));
   }, [dispatch, page]);
-  const { exhibitionPosts, isLoading } = useSelector(
+  const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
 
-  if (isLoading && history.location.pathname !== "/") {
+  if (exihibitionLoading && history.location.pathname !== "/") {
     return (
       <>
         <Spinner />
