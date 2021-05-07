@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, Upload, Input, CheckBox } from "../../elements";
+import { Container, Input, CheckBox } from "../../elements";
+import { useDispatch } from "react-redux";
+import { actionCreators as teamActions } from "../../redux/modules/team";
 import { Editor, TeamDate } from "../../components";
 import { useMediaQuery } from "react-responsive";
+import Arrow from "../../images/arrow.jpg";
+import Swal from "sweetalert2";
 
 const TeamWirte = (props) => {
+
+  const dispatch = useDispatch();
+  const thumbnailRef = React.useRef();
 
   //필요 데이터
   const [title, setTitle] = React.useState("");
@@ -17,7 +24,6 @@ const TeamWirte = (props) => {
   const [back, setBack] = React.useState({ member: 0, check: false });
   const [design, setDesign] = React.useState({ member: 0, check: false });
   const [plan, setPlan] = React.useState({ member: 0, check: false });
-
   const [recruit, setRecruit] = React.useState({
     start: new Date(),
     end: new Date(new Date().setDate(new Date().getDate() + 1)),
@@ -27,6 +33,10 @@ const TeamWirte = (props) => {
     start: new Date(),
     end: new Date(new Date().setDate(new Date().getDate() + 31)),
   });
+
+  //파일 이름 미리보기 용..
+  const [fileName, setFileName] = React.useState("파일 선택하기");
+  const changeFile = (e) => setFileName(e.target.value);
 
   const setRecruitEnd = (date) => {
     setRecruit({
@@ -49,7 +59,6 @@ const TeamWirte = (props) => {
     })
 
     if (recruit.end > date) {
-      console.log('작다...')
       setRecruit({
         ...recruit,
         end: date
@@ -57,7 +66,6 @@ const TeamWirte = (props) => {
     }
 
   }
-
   //변경 함수
   const onEditorChange = (value) => setContents(value);
   const titleChange = (value) => setTitle(value);
@@ -135,6 +143,86 @@ const TeamWirte = (props) => {
     }
   }
 
+
+  const randomThumbnail = () => {
+    const images = [
+      "https://cdn.pixabay.com/photo/2015/01/09/11/08/startup-594090_1280.jpg",
+      "https://cdn.pixabay.com/photo/2018/03/10/12/00/paper-3213924_1280.jpg",
+      "https://cdn.pixabay.com/photo/2015/01/08/18/27/startup-593341_1280.jpg",
+      "https://cdn.pixabay.com/photo/2019/09/25/09/36/team-4503157_1280.jpg"
+    ];
+
+    const idx = Math.floor(Math.random() * images.length);
+    return images[idx];
+  }
+
+  const addTeam = () => {
+
+    if (title === '') {
+
+      Swal.fire({
+        icon: "warning",
+        text: "제목을 입력해주세요.",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+    if (contents === '') {
+      Swal.fire({
+        icon: "warning",
+        text: "내용을 입력해주세요.",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+    if (stack === '') {
+      Swal.fire({
+        icon: "warning",
+        text: "선호언어를 입력해주세요.",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+    if (front.member === 0 && back.member === 0 && design.member === 0 && plan.member === 0) {
+      Swal.fire({
+        icon: "warning",
+        text: "모집 인원을 체크해주세요.",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+    let allMember = Number(front.member) + Number(back.member) + Number(design.member) + Number(plan.member);
+    if (allMember >= 10) {
+      Swal.fire({
+        icon: "warning",
+        text: "모집인원은 리더 포함 10명을 넘길 수 없습니다.",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+    let thumbnailFile = thumbnailRef.current.files[0];
+    if (thumbnailFile === null || thumbnailFile === undefined) {
+      thumbnailFile = randomThumbnail();
+    }
+
+    const requestBody = `{ 'title':'${title}', 'recruit':'${recruit.end.getTime()}',
+    'begin':'${project.start.getTime()}', 'end':'${project.end.getTime()}', 'location':'${location}',
+    'front':'${front.member}', 'back':'${back.member}', 'designer':'${design.member}', 'planner':'${plan.member}',
+    'stack':'${stack}', 'contents':'${contents}'}`;
+
+    let formData = new FormData();
+    formData.append("file", thumbnailFile);
+    formData.append("requestBody", requestBody);
+
+    dispatch(teamActions.addTeamMakingAPI(formData));
+  }
+
+
   //모바일버전
   const isMobile = useMediaQuery({
     query: "(max-width:768px)"
@@ -146,6 +234,7 @@ const TeamWirte = (props) => {
       <Wrapper>
         <TitleBox>
           <p>📝 팀 만들기</p>
+          <Line />
         </TitleBox>
         <ChoiceBox>
           <ChoiceTable>
@@ -197,7 +286,7 @@ const TeamWirte = (props) => {
               <tr>
                 <td>장소</td>
                 <td>
-                  <SelectBox onChange={(e) => setLocation(e.target.value)}>
+                  <SelectBox value={location} onChange={(e) => setLocation(e.target.value)}>
                     <option value="온라인">온라인</option>
                     <option value="오프라인">오프라인</option>
                   </SelectBox>
@@ -207,7 +296,7 @@ const TeamWirte = (props) => {
           </ChoiceTable>
         </ChoiceBox>
         <ConentesBox>
-          <Input placeholder="제목을 입력해주세요." padding="10px" _onChange={(e) => titleChange(e.target.value)} value={title} />
+          <Input placeholder="제목을 입력해주세요." padding="10px" _onChange={(e) => titleChange(e.target.value)} value={title} bg="#f2f5fa" margin="0px 0px 10px 0px" />
           {isMobile ? (<React.Fragment>
             <Editor value={contents} onChange={onEditorChange} height="450px" innerHeight="400px" />
           </React.Fragment>) : (<React.Fragment>
@@ -215,11 +304,15 @@ const TeamWirte = (props) => {
           </React.Fragment>)}
 
           <UploadBox>
-            <Upload />
+            <FileBox>
+              <label htmlFor="img-file">썸네일 업로드</label>
+              <input type="file" id="img-file" ref={thumbnailRef} onChange={changeFile} accept="image/*" />
+              <input type="text" className="uploadImg" value={fileName} readOnly />
+            </FileBox>
           </UploadBox>
         </ConentesBox>
         <BtnBox>
-          <WriteBtn>
+          <WriteBtn onClick={addTeam}>
             작성완료
           </WriteBtn>
         </BtnBox>
@@ -234,31 +327,29 @@ const Wrapper = styled.div`
   margin:50px 0px 50px 0px;
   padding:0px 20px;
   box-sizing: border-box;
-  
 `;
 
 const TitleBox = styled.div`
   width:100%;
   text-align: center;
   font-size:1.37em;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 `;
 
 const ChoiceBox = styled.div`
-  width:500px;
-  height: 280px;
- // background-color: rgb(0,0,0,0.1);
+  width:315px;  
   padding:20px;
   box-sizing: border-box;
-  margin-bottom: 20px;
-
+  margin:0px auto 25px auto;
 
   @media ${props => props.theme.mobile}{
-    width:100%;
+    margin:0px auto 30px auto;
   }
 
   @media (max-width:380px){
     padding:0px;
+    width:auto;
+    margin:0px auto 15px auto;
   }
 `;
 
@@ -271,18 +362,19 @@ const ConentesBox = styled.div`
 const BtnBox = styled.div`
   width:100%;
   text-align: center;
-
+  margin:40px 0px 70px 0px;
   @media ${props => props.theme.mobile}{
-   margin-top:20px;
+    margin:40px 0px 30px 0px;
   }
 `;
 
 const WriteBtn = styled.button`
-  border:1px solid ${props => props.theme.button_purple};
-  background-color: ${props => props.theme.button_purple};
-  color:#ffffff;
-  border-radius: 4px;
-  padding:7px 15px;
+  background-color: #ffffff;
+  border: 2px solid #979797;
+  border-radius: 11px;
+  font-weight: 600;
+  padding:5px 12px;
+  color:#595858;
   font-size:1em;
   cursor: pointer;
   outline: none;
@@ -291,9 +383,9 @@ const WriteBtn = styled.button`
     font-size:0.9em;
   }
 
-    @media (max-width:380px){
-      font-size:0.7em;
-    }
+  @media (max-width:380px){
+    font-size:0.7em;
+  }
 `;
 
 const UploadBox = styled.div`
@@ -309,22 +401,20 @@ const ChoiceTable = styled.table`
   & tr,td{
     vertical-align: middle;
   }
-
   & td:nth-child(1){
-    width:30%;
-   
+    width:40%;
   }
-
   & tr:nth-child(1){
     height: 50px;
   }
+  & tr:last-child{
+    height: 50px;
+  }
 
-
-  @media ${props => props.theme.mobile}{
+@media ${props => props.theme.mobile}{
    & td:nth-child(1){
     width:35%;
     }
-
     font-size:0.9em;
   }
 
@@ -332,18 +422,34 @@ const ChoiceTable = styled.table`
     &td:nth-child(1){
       width:50%;
     }
+    & tr:nth-child(1){
+      height: auto;
+    }
     font-size:0.8em;
   }
 `;
 
 const SelectBox = styled.select`
-  padding:4px 25px;
+  padding:7px 6px;
   outline: none;
   border:none;
-  border-bottom: 1px solid #000000;
-  width:170px;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
-  font-size:0.9em;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width:140px;
+  background: url(${Arrow}) no-repeat 98% 50%;
+  background-size:22px;
+  background-color: ${props => props.theme.main_gray};
+  width:98%;
+  font-size:12px;
+  select::-ms-expand {
+    display: none;
+  }
+
+    @media (max-width:380px){
+      font-size:11px;
+  }
 `;
 
 const LanguageInput = styled.input`
@@ -386,3 +492,69 @@ const Info = styled.p`
   left:2px;
   color:#BDBDBD;
 `;
+
+const Line = styled.div`
+  width:380px;
+  height: 1px;
+  background-color: #d8d8d8;
+  margin:20px auto 0px auto;
+
+  @media ${props => props.theme.mobile}{
+    width:80%;
+  }
+  @media (max-width:380px){
+    width:100%;
+    }
+  `;
+
+//파일
+const FileBox = styled.div`
+
+  & input[type="file"]{
+    position: absolute;
+    width:0;
+    height:0;
+    padding:0;
+    overflow:hidden;
+    border:0;
+  }
+
+  & label{
+    display: inline-block;
+    padding:6px 17px;
+    color:#999;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border:1px solid #ebebeb;
+    border-radius: 5px;
+    font-size:14px;
+    @media (max-width:380px){
+      font-size:10px;
+      padding:6px 10px;
+    }
+  }
+
+  & .uploadImg{
+    display: inline-block;
+    height: 25px;
+    font-size:14px;
+    padding:0 10px;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    border:1px solid #ebebeb;
+    margin-left: 4px;
+    border-radius:3px;
+    color:gray;
+    outline:none;
+    width:210px;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+    @media (max-width:380px){
+      width:120px;
+      font-size:10px;
+    }
+  }
+`;
+

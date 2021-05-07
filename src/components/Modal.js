@@ -51,13 +51,19 @@ export default Modal;
 
 
 const ModalButton = styled.button`
-    background-color: ${props => props.theme.button_purple};
+    background-color: #ffffff;
     outline: none;
-    border:1px solid ${props => props.theme.button_purple};
-    border-radius: 3px;
+    border:2px solid #979797;
+    border-radius: 12px;
     padding:${(props) => props.padding};
     cursor: pointer;
-    color:white;
+    color:#595858;
+    font-size:1em;
+    font-weight: 600;
+
+    @media ${props => props.theme.mobile}{
+      font-size:0.85em;  
+   }
 `
 
 

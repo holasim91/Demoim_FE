@@ -31,9 +31,9 @@ const TeamAllList = (props) => {
   return (
     <React.Fragment>
       <Container>
-        {/* <TitleBox>
-          <p>프로젝트 팀원 모집</p>
-        </TitleBox> */}
+        <TitleBox>
+          <p>📢 프로젝트 팀원 모집</p>
+        </TitleBox>
         <TopBox>
           <CategoryBox>
             <Select onChange={(e) => showCategory(e)}>
@@ -76,10 +76,14 @@ const TopBox = styled.div`
   display: flex;
   justify-content: space-between;
   padding:0px 50px;
-  //margin: -20px 0px 40px 0px;
-  margin: 50px 0px 40px 0px;
+  margin: -20px 0px 40px 0px;
+  //margin: 50px 0px 40px 0px;
   flex-wrap: wrap;
 
+ @media ${props => props.theme.mobile}{
+
+    padding:0px 15px;
+ }
 
   @media (max-width:420px){
       padding:0px 10px;
@@ -93,9 +97,22 @@ const TitleBox = styled.div`
   padding:0px 50px;
   margin-top:60px;
 
-  @media (max-width:420px){
-    padding:0px 20px;
+  p{
+    font-size:1.3em;
   }
+
+  @media (max-width:420px){
+    padding:0px 5px;
+  }
+
+  @media ${props => props.theme.mobile}{
+    
+    padding:0px 15px;
+    p{
+      font-size:1.1em;
+    }
+    
+  }  
 `;
 
 const CategoryBox = styled.div`

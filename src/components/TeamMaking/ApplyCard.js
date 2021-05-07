@@ -26,45 +26,7 @@ const ApplyCard = (props) => {
               </InfoText>
             </UserInfo>
           </MobileUserInfoBox>
-          <Line />
-          <MsgMentBox>
-            <InfoText className="apply">
-              메세지
-            </InfoText>
-            <MsgBox>
-              {props.message}
-            </MsgBox>
-          </MsgMentBox>
-          <MsgMentBox>
-            <InfoText className="apply">
-              포트폴리오
-            </InfoText>
-            <MsgBox>
-              {props.portfolio}
-            </MsgBox>
-          </MsgMentBox>
-          <MobileBtnBox>
-            <Button size="11" width="95px" padding="5px 0px">선택하기</Button>
-          </MobileBtnBox>
-        </React.Fragment>) : (<React.Fragment>
-          <Image size="75" src={props.user.profileimage} />
-          {/* 클릭시 해당 유저 페이지 이동 */}
-          <UserInfoBpx>
-            <InfoText className="user">
-              {props.user.nickname}
-            </InfoText>
-          </UserInfoBpx>
-          <UserInfoBpx>
-            <InfoText className="position">
-              {props.user.position}
-            </InfoText>
-          </UserInfoBpx>
-          <UserInfoBpx>
-            <InfoText className="desc intro">
-              {props.user.desc.length > 75 ? props.user.desc.slice(0, 75) + "..." : props.user.desc}
-            </InfoText>
-          </UserInfoBpx>
-          <ApplyBox>
+          <MobileMsgBox >
             <MsgMentBox>
               <InfoText className="apply">
                 메세지
@@ -77,12 +39,57 @@ const ApplyCard = (props) => {
               <InfoText className="apply">
                 포트폴리오
             </InfoText>
-              <MsgBox className="portfolio">
+              <MsgBox>
                 {props.portfolio}
               </MsgBox>
             </MsgMentBox>
-          </ApplyBox>
-          <SelectBtn>선택하기</SelectBtn>
+            <MobileBtnBox>
+              <SelectBtn>선택하기</SelectBtn>
+            </MobileBtnBox>
+          </MobileMsgBox>
+        </React.Fragment>) : (<React.Fragment>
+          <Image size="75" src={props.user.profileimage} />
+          {/* 클릭시 해당 유저 페이지 이동 */}
+          <InfoBox>
+            <UserInfoBpx>
+              <InfoText className="user">
+                {props.user.nickname}
+              </InfoText>
+            </UserInfoBpx>
+            <UserInfoBpx>
+              <InfoText className="position">
+                {props.user.position}
+              </InfoText>
+            </UserInfoBpx>
+            <UserInfoBpx>
+              <InfoText className="desc intro">
+                {props.user.desc.length > 75 ? props.user.desc.slice(0, 75) + "..." : props.user.desc}
+              </InfoText>
+            </UserInfoBpx>
+          </InfoBox>
+          <InfoBox className="msg">
+            <ApplyBox>
+              <MsgMentBox>
+                <InfoText className="apply">
+                  메세지
+            </InfoText>
+                <MsgBox>
+                  {props.message}
+                </MsgBox>
+              </MsgMentBox>
+              <MsgMentBox>
+                <InfoText className="apply">
+                  포트폴리오
+            </InfoText>
+                <MsgBox className="portfolio">
+                  {props.portfolio}
+                </MsgBox>
+              </MsgMentBox>
+            </ApplyBox>
+            <BtnBox>
+              <SelectBtn>선택하기</SelectBtn>
+            </BtnBox>
+          </InfoBox>
         </React.Fragment>)}
       </Grid>
     </React.Fragment>
@@ -98,22 +105,36 @@ const Flex = css`
 
 const Grid = styled.div`
   width:100%;
+  padding-top:35px;
   min-height: 200px;
   box-sizing:border-box;
-  padding:35px; 
   ${Flex}
   align-items:center;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   background-color:#ffffff;
   gap:10px;
   border-radius: 5px;
-
+  
   @media ${props => props.theme.mobile}{
       align-items: flex-start;
-      padding:15px;
       gap:1px;
-   }
+      padding:0px;
+}
 
+`;
+
+const InfoBox = styled.div`
+  padding:0px 35px 0px 35px;
+  width:100%;
+  box-sizing:border-box;
+  
+  &.msg{
+    padding-top:15px;
+    padding-bottom: 25px;
+    background-color: #e5ecf7;
+    border-top:1px solid #d8d8d8;
+    flex:2;
+  }
 `;
 
 const InfoText = styled.p`
@@ -121,6 +142,9 @@ const InfoText = styled.p`
 
   &.user{
     cursor: pointer;
+    font-size:19px;
+    font-weight: 600;
+    margin-bottom: 5px;
   }
 
   &.desc{
@@ -133,14 +157,22 @@ const InfoText = styled.p`
     border-radius: 20px;
     color:white;
     display: inline-block;
+    font-size:0.8em;
+    margin-bottom: 11px;
   }
   &.apply{
     margin:0px 0px 8px 3px;
     font-size:15px;
+    font-weight: 600;
   }
 
   @media ${props => props.theme.mobile}{
     
+    &.user{
+      font-weight:600 ;
+      font-size:16px;
+    }
+
     &.desc{
       margin-top:8px;
       line-height: 1.2em;
@@ -150,7 +182,7 @@ const InfoText = styled.p`
     margin:0px 0px 0px 3px;
     font-size:15px;
     }
-  }
+}
 `;
 
 const ApplyBox = styled.div`
@@ -169,20 +201,17 @@ const UserInfoBpx = styled.div`
 
 const MsgBox = styled.div`
   width:100%;
-  min-height: 80px;
-  background-color: #F2F2F2;
   border-radius: 4px;
+  min-height: 60px;
   padding:10px;
   box-sizing:border-box;
   font-size:14px;
-
   &.portfolio{
     min-height: 30px; 
   }
 
   @media ${props => props.theme.mobile}{
     min-height: auto;
-    background-color: white;
   }
 `;
 
@@ -191,11 +220,11 @@ const MsgMentBox = styled.div`
 `;
 
 const SelectBtn = styled.button`
-  width:70px;
-  height: 70px;
-  border-radius: 100%;
-  border:1px solid ${props => props.theme.main_gray};
-  background-color:${props => props.theme.main_gray};
+  
+  border-radius: 9px;
+  border:2px solid rgba(122, 119, 134, 0.5);
+  padding:4px 9px;
+  background-color:#ffffff;
   cursor: pointer;
   font-weight: bold;
   margin-top:20px;
@@ -204,9 +233,19 @@ const SelectBtn = styled.button`
 
   &:hover{
     background-color: ${props => props.theme.button_purple};
-    border:1px solid ${props => props.theme.button_purple};
+    border:2px solid ${props => props.theme.button_purple};
     color:white;
   }
+
+  @media ${props => props.theme.mobile}{
+    margin-top:0px;
+  }
+
+`;
+
+const BtnBox = styled.div`
+  width:100%;
+  text-align: center;
 `;
 
 const Position = styled.span`
@@ -216,6 +255,7 @@ const Position = styled.span`
   padding:0px 7px;
   margin-left:7px;
   color:white;
+  font-weight: 400;
 `;
 
 //모바일 버전
@@ -223,18 +263,24 @@ const MobileUserInfoBox = styled.div`
   display: flex;
   gap:10px;
   width:100%;
+  padding:15px;
+  box-sizing: border-box;
 `;
 const UserInfo = styled.div`
   padding-top:10px;
 `;
 
-const Line = styled.div`
-  width:100%;
-  height: 1px;
-  background-color: ${props => props.theme.main_gray};
-  margin-top:7px;
-`;
+
 
 const MobileBtnBox = styled.div`
-  align-self: flex-end;
+  width:100%;
+  text-align:right;
+`;
+
+const MobileMsgBox = styled.div`
+  background-color: #e5ecf7;
+  width:100%;
+  padding:15px;
+  box-sizing:border-box;
+  border-top:1px solid #d8d8d8;
 `;
