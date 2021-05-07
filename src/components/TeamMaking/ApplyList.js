@@ -59,14 +59,16 @@ const ApplyList = (props) => {
 
 
   return (
-
-    <ApplicantBox>
-      {applyList.map((a) => {
-        return (
-          <ApplyCard {...a} key={a.id} />
-        )
-      })}
-    </ApplicantBox>
+    <React.Fragment>
+      <TitleBox>지원자 목록</TitleBox>
+      <ApplicantBox>
+        {applyList.map((a) => {
+          return (
+            <ApplyCard {...a} key={a.id} />
+          )
+        })}
+      </ApplicantBox>
+    </React.Fragment>
 
   )
 }
@@ -81,7 +83,7 @@ const ApplicantBox = styled.div`
   margin:0px auto 100px auto;
   padding:15px;
   grid-column-gap: 5%;
-  grid-row-gap: 2%;
+  grid-row-gap: 50px;
   box-sizing:border-box;
 
 
@@ -92,5 +94,27 @@ const ApplicantBox = styled.div`
   @media ${props => props.theme.mobile}{
    width:100%;
    grid-template-columns: repeat(1,minmax(0,1fr));
+   grid-row-gap: 30px;
   }
+`;
+
+const TitleBox = styled.div`
+  width:100%;
+  text-align: center;
+  margin:70px 0px 50px 0px;
+  font-size:27px;
+  font-weight: 600;
+  box-sizing:border-box;
+
+  @media ${props => props.theme.tablet}{
+    font-size:22px;
+  }
+
+  @media ${props => props.theme.mobile}{
+   font-size:20px;
+   text-align:left;
+   margin:50px 0px 10px 0px;
+   padding-left: 30px;
+  }
+
 `;

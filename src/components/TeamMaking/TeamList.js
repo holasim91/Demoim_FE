@@ -11,7 +11,7 @@ const TeamList = (props) => {
 
   const ProjectList = [
     {
-      "id": 1,
+      "teamid": 1,
       "title": "아기자기한 타로카드 앱을 만드실 분을 찾습니다.",
       "recruit ": "2021-04-28T19:54:09.546",
       "begin": "2021-05-04T19:54:09.546",
@@ -35,7 +35,7 @@ const TeamList = (props) => {
       }
     },
     {
-      "id": 2,
+      "teamid": 2,
       "title": "함께 고민을 풀어가는 상담 채팅 사이트를 만들어봐요",
       "recruit": "2021-05-01T19:54:09.546",
       "begin": "2021-05-10T19:54:09.546",
@@ -59,7 +59,7 @@ const TeamList = (props) => {
       }
     },
     {
-      "id": 3,
+      "teamid": 3,
       "title": "식사 후 디저트는 어디서? 디저트 카페 소개 사이트를 만들어봐요!",
       "recruit": "2021-05-01T19:54:09.546",
       "begin": "2021-05-10T19:54:09.546",
@@ -83,7 +83,7 @@ const TeamList = (props) => {
       }
     },
     {
-      "id": 4,
+      "teamid": 4,
       "title": "내 돈이 어디로 나가나.. 가계부 앱",
       "recruit": "2021-04-27T19:54:09.546",
       "begin": "2021-05-01T19:54:09.546",
@@ -107,7 +107,7 @@ const TeamList = (props) => {
       }
     },
     {
-      "id": 5,
+      "teamid": 5,
       "title": "랜덤 음악 추천 사이트",
       "recruit": "2021-04-25T19:54:09.546",
       "begin": "2021-06-01T19:54:09.546",
@@ -147,7 +147,7 @@ const TeamList = (props) => {
       <Grid>
         {list?.map((p) => {
           return (
-            <TeamCard {...p} key={p.id} />
+            <TeamCard {...p} key={p.teamId} />
           )
         })}
         {/* <MoreBox>

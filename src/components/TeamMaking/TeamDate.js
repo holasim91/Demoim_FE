@@ -95,7 +95,7 @@ const DateBtn = styled.button`
   outline: none;
   border:none;
   background-color: transparent;
-  font-size:0.9em;
+  font-size:1em;
 `;
 
 const DateBox = styled.div`

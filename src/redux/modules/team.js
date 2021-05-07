@@ -2,22 +2,51 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
+import { getCookie } from "../../shared/Cookies";
 
 const SET_TEAM = "SET_TEAM";
 const LOADING = "LOADING";
 const ADD_TEAM = "ADD_TEAM";
 const UPDATE_TEAM = "UPDATE_TEAM";
 const DELETE_TEAM = "DELETE_TEAM";
+const SET_DETAIL_TEAM = "SET_DETAIL_TEAM";
 
 const setTeam = createAction(SET_TEAM, (teamList) => ({ teamList }));
 const addTeam = createAction(ADD_TEAM, (team) => ({ team }));
 const deleteTeam = createAction(DELETE_TEAM, (teamId) => ({ teamId }));
 const updateTeam = createAction(UPDATE_TEAM, (teamId, team) => ({ teamId, team }));
 const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
+const setDetailTeam = createAction(SET_DETAIL_TEAM, (teamInfo) => ({ teamInfo }));
 
 const initialState = {
-  list: [],
+  list: [{
+    "teamId": 1,
+    "title": "아기자기한 타로카드 앱을 만드실 분을 찾습니다.",
+    "recruit ": "2021-04-28T19:54:09.546",
+    "begin": "2021-05-04T19:54:09.546",
+    "end": "2021-05-31T19:54:09.546",
+    "location ": "오프라인",
+    "thumbnail": "https://cdn.pixabay.com/photo/2017/09/08/09/49/craft-2728227__340.jpg",
+    "front": 2,
+    "back": 2,
+    "designer": 1,
+    "planner": 0,
+    "stack": "React Native/Node.js",
+    "contents": "<p>제목 그대로 입니다.</p>",
+    "createdAt": "2021-04-20T19:54:09.546",
+    "modifiedAt": "2021-04-20T19:54:09.546",
+    "recruitState": "ACTIVATED",
+    "projectState": "YET",
+    "leader": {
+      id: 2,
+      nickname: "아톰",
+      position: "프론트엔드",
+      profileimage: "https://post-phinf.pstatic.net/MjAxNzA2MjlfMjU5/MDAxNDk4NzM5NzI3MjA0.Aon2aPyhufiwt9-Y21w0v1luZzlYnihR7Xcozypyf8Qg.QLFNlJRzJzd1TqWWSN0DyVeHxe8zsAxGc7PHwkNHy8gg.PNG/1483309553699.png?type=w1200",
+      desc: "탄탄한 포트폴리오를 만들고 싶습니다!"
+    }
+  },],
   isLoading: false,
+  teamInfo: {},
   //paging: { start: null, next: null, size: 3 },
 }
 
@@ -38,16 +67,48 @@ const getTeamMakingAPI = (page, size) => {
   }
 }
 
-const getDetailTeamMakingAPI = () => {
+const getDetailTeamMakingAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
+    axios({
+      method: 'get',
+      url: `${config.api}/api/team/detail?team_id=${teamId}`,
+    }).then((res) => {
+
+      dispatch(setDetailTeam(res.data));
+    }).catch((error) => {
+      console.log(error);
+    })
 
   }
 }
 
-const addTeamMakingAPI = () => {
+const addTeamMakingAPI = (formdata) => {
   return function (dispatch, getState, { history }) {
 
+    const token = getCookie('token');
+    console.log(formdata.get('requestBody'))
+    console.log(formdata.get('file'))
+
+    if (!formdata) {
+      return false;
+    }
+
+    axios({
+      method: "post",
+      header: {
+        authorization: token,
+      },
+      url: `${config.api}/api/team`,
+      data: formdata,
+    }).then((res) => {
+
+      dispatch(addTeam(res.data));
+      history.push("/team");
+
+    }).catch((err) => {
+      console.log("팀메이킹 글작성 에러:", err);
+    })
 
   }
 }
@@ -77,7 +138,7 @@ export default handleActions(
       draft.isLoading = false;
     }),
     [ADD_TEAM]: (state, action) => produce(state, (draft) => {
-
+      draft.list.push(action.payload.team);
     }),
     [UPDATE_TEAM]: (state, action) => produce(state, (draft) => {
 
@@ -85,8 +146,11 @@ export default handleActions(
     [DELETE_TEAM]: (state, action) => produce(state, (draft) => {
 
     }),
-    [loading]: (state, action) => produce(state, (draft) => {
+    [LOADING]: (state, action) => produce(state, (draft) => {
       draft.isLoading = action.payload.isLoading;
+    }),
+    [SET_DETAIL_TEAM]: (state, action) => produce(state, (draft) => {
+      draft.teamInfo = action.payload.teamInfo;
     }),
 
   }, initialState);

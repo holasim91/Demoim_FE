@@ -7,10 +7,16 @@ import { history } from '../../redux/configStore';
 //무한스크롤시 TeamList가 바뀔 때 기존 TeamCard 기억해놓기.
 const TeamCard = React.memo((props) => {
 
-  const { title, recruit, begin, end, thumbnail, front, back, designer, planner, id, createdAt } = props;
+  const { title, recruit, begin, end, thumbnail, front, back, designer, planner, teamId, createdAt } = props;
+
+
+
+
   const styles = {
     thumbnail: thumbnail,
   }
+
+  console.log(thumbnail)
 
   //momment 날짜 계산
   let _begin = new Date(begin);
@@ -20,7 +26,7 @@ const TeamCard = React.memo((props) => {
   let ProjectEnd = moment(_end).format('YYYY.MM.DD');
 
   let _createdAt = new Date(createdAt);
-  let recruitBegin = moment(_createdAt).format('YYY.MM.DD');
+  let recruitBegin = moment(_createdAt).format('YYYY.MM.DD');
 
   let _recruit = new Date(recruit);
   let recruitEnd = moment(_recruit).format('YYYY.MM.DD');
@@ -42,7 +48,7 @@ const TeamCard = React.memo((props) => {
           </Text>
         </MentBox>
         {/* _onClick 상세 페이지 이동*/}
-        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)" _onClick={() => { history.push(`/team/detail/${id}`) }}>모집글 보기</Button>
+        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)" _onClick={() => { history.push(`/team/detail/${teamId}`) }}>모집글 보기</Button>
       </Grid>
 
     </React.Fragment>
@@ -65,7 +71,7 @@ TeamCard.defaultProps = {
 
 
 
-export default TeamCard
+export default TeamCard;
 
 const Flex = css`
   display: flex;

@@ -5,12 +5,14 @@ import { Text, Grid } from './index';
 
 const Input = (props) => {
 
-  const { label, placeholder, multiLine, _onChange, type, width, margin, padding, _onClick, value } = props;
+  const { label, placeholder, multiLine, _onChange, type, width, margin, padding, _onClick, value, modal, bg } = props;
 
   const styles = {
     width: width,
     margin: margin,
     padding: padding,
+    modal: modal,
+    bg: bg,
   }
 
   if (multiLine) {
@@ -41,7 +43,8 @@ Input.defaultProps = {
   padding: false,
   label: false,
   multiLine: false,
-
+  modal: false,
+  bg: false,
 }
 
 const ElInput = styled.input`
@@ -53,9 +56,10 @@ const ElInput = styled.input`
   width: ${(props) => props.width};
   box-sizing: border-box;
   ${(props) => props.margin ? `margin:${props.margin};` : ''}
-
+  ${(props) => props.modal ? 'background-color:#f1f1f1;border:1px solid #f1f1f1;' : ''}
+  ${(props) => props.bg ? `background-color:${props.bg}; border:1px solid ${props.bg};` : ''}
   &::placeholder{
-    color:#B1B1B1;
+    color:#8E8E8E;
     font-weight: 500;
   }
 
@@ -69,9 +73,12 @@ const ElTextarea = styled.textarea`
   box-sizing:border-box;
   resize: none;
   outline: none;
-  &:focus{
-   border:1px solid #333333;
+  ${(props) => props.modal ? 'background-color:#f1f1f1;border:1px solid #f1f1f1;' : ''}
+  &::placeholder{
+    color:#8E8E8E;
+    font-weight: 500;
   }
+
 `;
 
 
