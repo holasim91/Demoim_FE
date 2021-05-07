@@ -13,7 +13,6 @@ const Main = (props) => {
 
    const dispatch = useDispatch();
    React.useEffect(() => {
-
       dispatch(teamActions.getTeamMakingAPI(1, 6));
 
    }, []);

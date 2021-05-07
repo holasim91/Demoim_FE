@@ -58,7 +58,7 @@ const getTeamMakingAPI = (page, size) => {
       method: 'get',
       url: `${config.api}/api/team?page=${page}&size=${size}`,
     }).then((res) => {
-
+      console.log(res.data);
       dispatch(setTeam(res.data));
     }).catch((error) => {
       console.log(error);
@@ -70,11 +70,15 @@ const getTeamMakingAPI = (page, size) => {
 const getDetailTeamMakingAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
+    if (teamId === null) {
+      return false;
+    }
+
     axios({
       method: 'get',
       url: `${config.api}/api/team/detail?team_id=${teamId}`,
     }).then((res) => {
-
+      console.log(res.data);
       dispatch(setDetailTeam(res.data));
     }).catch((error) => {
       console.log(error);
@@ -87,8 +91,6 @@ const addTeamMakingAPI = (formdata) => {
   return function (dispatch, getState, { history }) {
 
     const token = getCookie('token');
-    console.log(formdata.get('requestBody'))
-    console.log(formdata.get('file'))
 
     if (!formdata) {
       return false;
@@ -113,17 +115,47 @@ const addTeamMakingAPI = (formdata) => {
   }
 }
 
-const deleteTeamMakingAPI = () => {
+const deleteTeamMakingAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
+    if (teamId === null) {
+      return false;
+    }
+
+    axios({
+      method: 'delete',
+      url: `${config.api}/api/team/detail?team_id=${teamId}`,
+    }).then((res) => {
+
+      dispatch(deleteTeam(teamId));
+      history.replace('/');
+
+    }).catch((err) => {
+      console.log('팀메이킹 글삭제 에러:', err);
+    })
 
   }
 }
 
 
-const updateTeamMakingAPI = () => {
+const updateTeamMakingAPI = (teamId, formData) => {
   return function (dispatch, getState, { history }) {
 
+    if (teamId === null || formData === null) {
+      return false;
+    }
+
+    axios({
+      method: 'put',
+      url: `${config.api}/api/team/detail?team_id=${teamId}`,
+      data: formData,
+    }).then((res) => {
+
+      dispatch(updateTeam(teamId, res.data));
+
+    }).catch((err) => {
+      console.log('팀메이킹 글수정 에러:', err);
+    })
 
   }
 }
@@ -141,10 +173,11 @@ export default handleActions(
       draft.list.push(action.payload.team);
     }),
     [UPDATE_TEAM]: (state, action) => produce(state, (draft) => {
-
+      let idx = draft.list.findIndex((t) => t.teamId === action.payload.teamId);
+      draft.list[idx] = { ...draft.list[idx], ...action.payload.team };
     }),
     [DELETE_TEAM]: (state, action) => produce(state, (draft) => {
-
+      draft.list = draft.list.filter((t) => t.teamId !== action.payload.teamId);
     }),
     [LOADING]: (state, action) => produce(state, (draft) => {
       draft.isLoading = action.payload.isLoading;

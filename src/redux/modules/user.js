@@ -12,85 +12,85 @@ const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 
 const initialState = {
-  user:null,
-  isLogin:false,
+  user: null,
+  isLogin: false,
 };
 
-const signupAPI = (email,pw,nickname,position) => {
-  return function (dispatch, getState, { history }){
+const signupAPI = (email, pw, nickname, position) => {
+  return function (dispatch, getState, { history }) {
     const API = 'http://54.180.142.197/api/signup'
     axios({
       method: "post",
-      url:API,
-      data:{
-        username:email,
-        password:pw,
-        nickname:nickname,
-        position:position,
+      url: API,
+      data: {
+        username: email,
+        password: pw,
+        nickname: nickname,
+        position: position,
       },
     })
-    .then((res) => {
-      Swal.fire({
-        icon: "success",
-        text: "회원가입 성공!",
-        confirmButtonColor: "#3D825A",
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          text: "회원가입 성공!",
+          confirmButtonColor: "#3D825A",
+        })
+        history.push('/');
       })
-      history.push('/');
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }
 
-const loginAPI = (email,pw) => {
-  return function (dispatch, getState, { history }){
+const loginAPI = (email, pw) => {
+  return function (dispatch, getState, { history }) {
     const API = 'http://54.180.142.197/api/login';
     axios({
       method: "post",
-      url:API,
-      data:{
-      username: email,
-      password:pw,
-    }
+      url: API,
+      data: {
+        username: email,
+        password: pw,
+      }
     }).then((res) => {
 
       const userInfo = {
-        id:res.data.userInfo.Id,
-        desc:res.data.userInfo.Desc,
-        nickname:res.data.userInfo.Nickname,
-        position:res.data.userInfo.Position,
-        profileImage:res.data.userInfo.ProfileImage,
-        username:res.data.userInfo.Username, //email
+        id: Number(res.data.userInfo.Id),
+        desc: res.data.userInfo.Desc,
+        nickname: res.data.userInfo.Nickname,
+        position: res.data.userInfo.Position,
+        profileImage: res.data.userInfo.ProfileImage,
+        username: res.data.userInfo.Username, //email
       }
       dispatch(setUser(userInfo))
-      
+
       let token = res.headers.authorization;
       setCookie('token', token);
 
       axios.defaults.headers.common['authorization'] = token;
-      
+
       Swal.fire({
-        icon:"success",
+        icon: "success",
         text: "Welcome Back!",
         confirmButtonColor: "#683fee",
       })
       history.push('/');
     })
-    //실패이유 Swal띄어주기 
-    .catch((err) => {
-      Swal.fire({
-        text:`${err.response.data.message}`,
-        icon:'warning',
-        confirmButtonColor: "#3D825A", 
+      //실패이유 Swal띄어주기 
+      .catch((err) => {
+        Swal.fire({
+          text: `${err.response.data.message}`,
+          icon: 'warning',
+          confirmButtonColor: "#3D825A",
+        })
       })
-    })
   }
 }
 
 //현재 로그인한 유저정보API
 const loginCheckAPI = () => {
-  return function (dispatch, getState, { history }){
+  return function (dispatch, getState, { history }) {
 
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
@@ -98,20 +98,21 @@ const loginCheckAPI = () => {
     const API = 'http://54.180.142.197/api/mypage/profile'
     axios({
       method: "get",
-      url:API,
-    }).then((res) =>{
+      url: API,
+    }).then((res) => {
 
       dispatch(setUser({
-        desc:res.data.desc,
-        nickname:res.data.nickname,
-        position:res.data.position,
-        profileImage:res.data.profileImage,
-        username:res.data.username, //email
-        teams:res.data.teamUserInfos, //[]
+        id: Number(res.data.id),
+        desc: res.data.desc,
+        nickname: res.data.nickname,
+        position: res.data.position,
+        profileImage: res.data.profileImage,
+        username: res.data.username, //email
+        teams: res.data.teamUserInfos, //[]
       }))
-      
 
-    
+
+
     }).catch((err) => {
       console.log('로그인체크에러:', err);
     })
@@ -122,47 +123,47 @@ const loginCheckAPI = () => {
 
 //프로필이미지업로드
 const editProfileAPI = (formData) => {
-  return function (dispatch, getState, { history }){
+  return function (dispatch, getState, { history }) {
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
 
     const API = 'http://54.180.142.197/api/mypage/profile'
     axios({
-      method:"put",
-      url:API,
-      data:formData,       
-      headers : {
+      method: "put",
+      url: API,
+      data: formData,
+      headers: {
         // 'Content-Type': 'multipart/form-data',
-        'authorization': token, 
+        'authorization': token,
       },
     })
-    .then((res) => {
-      Swal.fire({
-        icon:"success",
-        text: "수정완료!!",
-        confirmButtonColor: "#683fee",
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          text: "수정완료!!",
+          confirmButtonColor: "#683fee",
+        })
+
+        dispatch(setUser({
+          desc: res.data.desc,
+          nickname: res.data.nickname,
+          position: res.data.position,
+          profileImage: res.data.profileImage,
+          username: res.data.username, //email
+
+        }))
+
+        history.push('/mypage');
       })
-
-      dispatch(setUser({
-        desc:res.data.desc,
-        nickname:res.data.nickname,
-        position:res.data.position,
-        profileImage:res.data.profileImage,
-        username:res.data.username, //email
-        
-      }))
-
-      history.push('/mypage');
-    })
-    .catch((err) => {
-      console.log("프로필수정err:", err);
-    })
+      .catch((err) => {
+        console.log("프로필수정err:", err);
+      })
   }
 }
 
 
 const logout = () => {
-  return function (dispatch, getState, { history }){
+  return function (dispatch, getState, { history }) {
     deleteCookie('token');
     axios.defaults.headers.common['Authorization'] = null;
     delete axios.defaults.headers.common['Authorization'];
@@ -189,7 +190,7 @@ export default handleActions(
     }),
 
   }, initialState);
-  
+
 const actionCreators = {
   signupAPI,
   loginAPI,

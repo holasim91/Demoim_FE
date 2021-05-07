@@ -15,7 +15,7 @@ const TeamDetail = (props) => {
   const dispatch = useDispatch();
   const id = props.match.params.teamId;
   const team = useSelector((state) => state.team.teamInfo);
-
+  const user = useSelector((state) => state.user.user);
 
   React.useEffect(() => {
     dispatch(teamActions.getDetailTeamMakingAPI(id));
@@ -32,6 +32,7 @@ const TeamDetail = (props) => {
   const [msg, setMsg] = React.useState("");
   const [site, setSite] = React.useState("");
 
+  //지원하기 함수.
   const applyTeam = () => {
     if (msg === "" || site === "") {
       return false;
@@ -78,12 +79,12 @@ const TeamDetail = (props) => {
             <LeaderMent>
               <Line />
               <LeaderIntro>팀 리더 소개</LeaderIntro>
-
             </LeaderMent>
             <LeaderInnerBox>
               <LeaderContent>
                 <ImageBox>
-                  {isMobile ? (<Image shape="circle" size="50" src={team?.leader?.profileImage ? team?.leader?.profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />) :
+                  {isMobile ?
+                    (<Image shape="circle" size="50" src={team?.leader?.profileImage ? team?.leader?.profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />) :
                     (<Image shape="circle" size="75" src={team?.leader?.profileImage ? team?.leader?.profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />)}
                 </ImageBox>
                 <LeaderInfo>
@@ -104,12 +105,17 @@ const TeamDetail = (props) => {
           </LeaderBox>
         </ContentBox>
         <ModalBox>
-          <Modal text="지원하기" padding="5px 16px" heading="📢 지원서 보내기" clickName="지원신청" _onClick={applyTeam}>
-            <ApplyBox>
-              <Input multiLine label="메세지" placeholder="리더에게 연락처 및 메세지를 남겨주세요(100자 이내)" modal margin="0px 0px 10px 0px" value={msg} _onChange={(e) => { setMsg(e.target.value) }} />
-              <Input label="포트폴리오" placeholder="포트폴리오 참고 사이트를 입력해주세요 :)" padding="10px 10px" modal value={site} _onChange={(e) => { setSite(e.target.value) }} type="url" />
-            </ApplyBox>
-          </Modal>
+          {team?.leader?.id !== user?.id || user === null ? (
+            team.recruitState === "ACTIVATED" ?
+              (<Modal text="지원하기" padding="5px 16px" heading="📢 지원서 보내기" clickName="지원신청" _onClick={applyTeam}>
+                <ApplyBox>
+                  <Input multiLine label="메세지" placeholder="리더에게 연락처 및 메세지를 남겨주세요(100자 이내)" modal margin="0px 0px 10px 0px" value={msg} _onChange={(e) => { setMsg(e.target.value) }} />
+                  <Input label="포트폴리오" placeholder="포트폴리오 참고 사이트를 입력해주세요 :)" padding="10px 10px" modal value={site} _onChange={(e) => { setSite(e.target.value) }} type="url" />
+                </ApplyBox>
+              </Modal>) : (
+                <RecruitFinishBtn>모집완료</RecruitFinishBtn>
+              )
+          ) : ('')}
         </ModalBox>
 
         <ApplyList />
@@ -126,14 +132,7 @@ const Flex = css`
   flex-direction: column;
 `;
 
-
-const ApplyBox2 = styled.div`
-  background-color: skyblue;
-  width:100%;
-`;
-
 //모집글
-
 const TitleBox = styled.div`
   margin-top:70px;
   padding-left:40px;
@@ -235,18 +234,26 @@ const ProjectCotentsBox = styled.div`
   box-sizing:border-box;
   padding-top:15px;
   min-height: 150px;
-  line-height: 1.2em;
+  
 
   & img{
     width:70%;
   }
 
+  & p{
+    line-height: 1.3em;
+  }
+
+  & h1,h2,h3{
+    line-height: 1.5em;
+  }
+
   @media (max-width:420px){
   
-    & p{
+    & p,ol,ul{
       font-size:0.9em;
+      line-height: 1.3em;
     }
-  
   }
 `;
 
@@ -264,7 +271,6 @@ const ContentText = styled.p`
 
 //리더 프로필 
 const LeaderBox = styled.div`
-  //background-color: lightpink;
   width:30%;
   margin-top:-30px;
   @media ${props => props.theme.tablet}{
@@ -283,12 +289,6 @@ const LeaderContent = styled.div`
   ${Flex}
   align-items:center;
   gap:20px;
-
-  /* @media ${props => props.theme.mobile}{
-    flex-direction: row;
-    align-items: flex-start;
-    gap:15px;
-  } */
 `;
 
 const LeaderInfo = styled.div`
@@ -312,23 +312,22 @@ const LeaderInfoText = styled.p`
     padding:10px 40px 0px 40px;
     font-size:0.85em;
     text-align: center;
- }
+  }
 
   &.position{
     font-size:0.85em;
-   
-   & span{
+  & span{
       background-color: ${props => props.theme.button_purple};
       padding:2px 8px;
       border-radius: 12px;
       color:#ffffff;
     }
-
   }
 
   &.nickname{
     font-size:19px;
     font-weight: 600;
+    cursor: pointer;
   }
 
   @media ${props => props.theme.mobile}{
@@ -352,9 +351,7 @@ const LeaderInfoText = styled.p`
       border-radius: 12px;
       color:#ffffff;
     }
-
   }
-
   }
 `;
 
@@ -384,9 +381,7 @@ const LeaderMent = styled.div`
   margin-bottom: 20px;
 
   @media ${props => props.theme.mobile}{
-  
     margin:20px 0px 30px 0px;
-  
   }
 
 `;
@@ -399,7 +394,6 @@ const Line = styled.div`
   position: relative;
   top:8px;
   @media ${props => props.theme.mobile}{
-
     display:block;
   }
 `;
@@ -412,7 +406,6 @@ const LeaderIntro = styled.span`
 `;
 
 //모달
-
 const ModalBox = styled.div`
   width:100%;
   text-align: center;
@@ -426,4 +419,18 @@ const ModalBox = styled.div`
 const ApplyBox = styled.div`
   width:95%;
   margin:0px auto;
+`;
+
+const RecruitFinishBtn = styled.button`
+  border:2px solid #979797;
+  background-color: #979797;
+  color:#ffffff;
+  outline: none;
+  border-radius: 12px;
+  font-size: 1em;
+  padding:5px 16px;
+
+    @media ${props => props.theme.mobile}{
+      font-size:0.85em;
+    }
 `;
