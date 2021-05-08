@@ -17,6 +17,8 @@ import { actionCreators } from "../redux/modules/user";
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
+  const userCheck = useSelector((state) => state.user.user);
+  //console.log(userCheck);
 
   const LogOut = () => {
     setOpen(false);
@@ -52,7 +54,7 @@ const Header = (props) => {
             </NavLink>
             </PcDetalkBox>
             {isLogin ?
-              (<NavLink to='/mypage'> 나의 로그 </NavLink>)
+              (<NavLink to={`/mypage/${userCheck?.id}`}> 나의 로그 </NavLink>)
               : ""}
           </NavMenu>
           {isLogin ? (
@@ -93,7 +95,7 @@ const Header = (props) => {
               De Talk
             </NoneActiveLink>
             {isLogin ?
-              (<NoneActiveLink to='/mypage' onClick={closeBar}> 나의 로그 </NoneActiveLink>)
+              (<NoneActiveLink to={`/mypage/${userCheck?.id}`} onClick={closeBar}> 나의 로그 </NoneActiveLink>)
               : ""}
 
             {isLogin ? (
