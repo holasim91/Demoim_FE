@@ -19,6 +19,10 @@ const MypageEdit = (props) => {
       history.goBack();
       return
     }
+    //미리보기 초기화
+    if(preview){
+      dispatch(imageActions.setPreview(null));
+    }
     
   }, []);
   

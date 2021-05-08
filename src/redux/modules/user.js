@@ -54,7 +54,7 @@ const loginAPI = (email, pw) => {
         password: pw,
       }
     }).then((res) => {
-
+      console.log("로그인:", res.data);
       const userInfo = {
         id: Number(res.data.userInfo.Id),
         desc: res.data.userInfo.Desc,
@@ -100,18 +100,17 @@ const loginCheckAPI = () => {
       method: "get",
       url: API,
     }).then((res) => {
-
+      console.log("로그인체크!:",res.data);
       dispatch(setUser({
-        id: Number(res.data.id),
+        id: res.data.id, 
         desc: res.data.desc,
         nickname: res.data.nickname,
         position: res.data.position,
         profileImage: res.data.profileImage,
         username: res.data.username, //email
-        teams: res.data.teamUserInfos, //[]
+        teams: res.data.teamUserInfos, //진행중인 프로젝트 개수로(int)
       }))
-
-
+      
 
     }).catch((err) => {
       console.log('로그인체크에러:', err);
@@ -121,7 +120,7 @@ const loginCheckAPI = () => {
 //
 
 
-//프로필이미지업로드
+//프로필수정
 const editProfileAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     const token = getCookie('token');
@@ -138,6 +137,8 @@ const editProfileAPI = (formData) => {
       },
     })
       .then((res) => {
+        console.log("수정완료", res.data)
+        
         Swal.fire({
           icon: "success",
           text: "수정완료!!",
@@ -145,6 +146,7 @@ const editProfileAPI = (formData) => {
         })
 
         dispatch(setUser({
+          id: res.data.id, 
           desc: res.data.desc,
           nickname: res.data.nickname,
           position: res.data.position,
@@ -152,8 +154,8 @@ const editProfileAPI = (formData) => {
           username: res.data.username, //email
 
         }))
-
-        history.push('/mypage');
+        //mypage로 넘어가야하는데
+        history.push(`/mypage/${res.data.id}`); 
       })
       .catch((err) => {
         console.log("프로필수정err:", err);

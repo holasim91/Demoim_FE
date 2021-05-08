@@ -43,7 +43,7 @@ function App() {
             <Route path="/smalltalk" exact component={SmallTalk} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/login" exact component={Login} />
-            <Route path="/mypage" exact component={Mypage} />
+            <Route path="/mypage/:userId" exact component={Mypage} />
             <Route path="/practice" exact component={Practice} />
             <Route path="/MyEditpage" exact component={MyEditpage} />
           </ConnectedRouter>
