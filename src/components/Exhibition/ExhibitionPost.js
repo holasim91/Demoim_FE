@@ -4,6 +4,7 @@ import { history } from "../../redux/configStore";
 import ExhibitionComment from "./ExhibitionComment";
 const ExhibitionPost = (props) => {
   const { data } = props;
+  console.log(data)
   const styles = {
     thumbnail: data.thumbnail,
   }
@@ -17,8 +18,13 @@ const ExhibitionPost = (props) => {
         <ExhibitionPostBoxContainer>
           <PostHeader>
             <HeaderLeft>
-              <ProfileImage alt="profile" src={data.User[0].profile_img} />
-              <UserName>{data.User[0].username}</UserName>
+             {data.user.profileImg?
+              <ProfileImage alt="profile" src={data.user.profileImg} />
+            :
+            <ProfileImage alt="profile" src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} />
+
+            }
+              <UserName>{data.user.username}</UserName>
             </HeaderLeft>
             <PostDate>{data.createdAt}</PostDate>
           </PostHeader>

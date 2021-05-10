@@ -103,9 +103,7 @@ const SmallTalkPost = (props) => {
               수정하기
             </div>
           </UpdatePostBoxBottom>
-        ) : location === "/" ? (
-          ""
-        ) : (
+        ) :  (
           <PostBoxBottom>
             <CommentToggle onClick={onClickToggle}>
               {isOpen ? (

@@ -1,6 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
+import { config } from "../../shared/config";
+import { getCookie } from "../../shared/Cookies";
 
 const SET_EXHIBITION_POST = "SET_EXHIBITION_POST";
 const EXHIBITION_LOADING = "EXHIBITION_LOADING";
@@ -17,15 +19,13 @@ const initialState = {
   exihibitionLoading: false,
 };
 
-const exhibitionMockAPI = 'https://run.mocky.io/v3/927b3e00-e602-45a7-ba79-86fb41418e87'
-const exihibitionAPI = (page, size) => {
-
+// const exhibitionMockAPI = 'https://run.mocky.io/v3/927b3e00-e602-45a7-ba79-86fb41418e87'
+const exhibitionAPI =  `${config.api}/api/exhibition`
+const token = getCookie("token");
+const getExihibitionAPI = (page, size) => {
   return function (dispatch, getState, { history }) {
     dispatch(exihibitionLoading(true))
-    axios({
-      method: 'GET',
-      url: exhibitionMockAPI,
-    }, {
+    axios(exhibitionAPI, {
       params: {
         page: page,
         size: size,
@@ -34,8 +34,24 @@ const exihibitionAPI = (page, size) => {
     )
       .then((res) => {
         dispatch(setPost(res.data))
-        
+              })
+      .catch((err) => {
+        console.log(err)
       })
+  }
+}
+const getOneExihibitionAPI = (id) => {
+  return function (dispatch, getState, { history }) {
+    dispatch(exihibitionLoading(true))
+    axios(exhibitionAPI, {
+      params: {
+        exhibition_id: id
+      }
+    }
+    )
+      .then((res) => {
+        dispatch(setPost(res.data))
+              })
       .catch((err) => {
         console.log(err)
       })
@@ -60,7 +76,8 @@ export default handleActions(
 
 const actionCreators = {
   setPost,
-  exihibitionAPI,
+  getExihibitionAPI,
+  getOneExihibitionAPI,
   exihibitionLoading
 };
 
