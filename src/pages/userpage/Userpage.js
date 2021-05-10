@@ -6,6 +6,7 @@ import { history } from "../../redux/configStore";
 import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { ApplyProjectList, ParticipationProjectList } from "../../components";
+//import TabSmallTalkList from "../../components/Userpage/TabSmallTalkList";
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -55,7 +56,8 @@ const Userpage = (props) => {
           <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
         </Tabs>
         <Content active={active === 0}>
-          <h1>스몰토크</h1>
+          <h4>스몰토크</h4>
+          {/* <TabSmallTalkList/> */}
         </Content>
         <Content active={active === 1}>
           <h1>프로젝트자랑글</h1>
@@ -84,9 +86,14 @@ Userpage.defaultProps = {
 
 const Tabs = styled.div`
   margin:0 auto;
-  width:50%;
+  width:500px;
   /* border:1px solid lightgray; */
   text-align:center;
+  box-sizing:border-box;
+  @media ${props => props.theme.mobile}{
+    margin:0 auto;
+    width:380px;
+    }
 `;
 
 const Tab = styled.button`
@@ -102,6 +109,14 @@ const Tab = styled.button`
   background-color: ${props => (props.active ? "white" : "white")};
   height: ${props => (props.active ? "3em" : "2.6em; top:.4em")};
   transition: background-color 0.5s ease-in-out;
+  @media ${props => props.theme.tablet}{
+    font-size:14px;
+    width:130px;
+    }
+  @media ${props => props.theme.mobile}{
+    font-size:12px;
+    width:115px;
+    }
   /* :hover {
     background-color:yellow;
   } */
@@ -128,7 +143,7 @@ const MyPageContainer = styled.div`
   padding: 10px auto;
   @media ${props => props.theme.mobile}{
       width:345px;
-      margin:25px auto;
+      margin:25px auto 0 auto;
     }
   
 `;

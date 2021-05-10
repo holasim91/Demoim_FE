@@ -4,6 +4,9 @@ import Swal from 'sweetalert2';
 import { produce } from 'immer';
 //import { history } from "../redux/configStore";
 import axios from "axios";
+import { actionCreators as SmallTalkActions } from "../modules/smalltalk";
+
+
 
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
@@ -15,6 +18,7 @@ const initialState = {
   user: null,
   isLogin: false,
 };
+
 
 const signupAPI = (email, pw, nickname, position) => {
   return function (dispatch, getState, { history }) {
@@ -100,7 +104,7 @@ const loginCheckAPI = () => {
       method: "get",
       url: API,
     }).then((res) => {
-      console.log("로그인체크!:",res.data);
+      //console.log("로그인체크!:",res.data);
 
       dispatch(setUser({
         id: res.data.id, 
@@ -120,7 +124,7 @@ const loginCheckAPI = () => {
 //
 
 
-//프로필수정
+//프로필수정하기
 const editProfileAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     const token = getCookie('token');
@@ -152,7 +156,6 @@ const editProfileAPI = (formData) => {
           position: res.data.position,
           profileImage: res.data.profileImage,
           username: res.data.username, //email
-
         }))
         history.push(`/userpage/${res.data.id}`); 
       })
@@ -161,6 +164,30 @@ const editProfileAPI = (formData) => {
       })
   }
 }
+
+//TabSmallTalk
+//현재로그인한 사용자가 작성했던 SmallTalk반환
+
+const TabSmallTalkAPI = () => {
+  return function (dispatch, getState, { history }) {
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+    const API = 'http://54.180.142.197/api/mypage/smalltalk'
+    axios({
+      method: "get",
+      url: API,
+      headers: {
+        'authorization': token,
+      },
+    }).then((res) => {
+      console.log("스몰토크탭:", res)
+      //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+}
+
 
 
 const logout = () => {
@@ -198,6 +225,7 @@ const actionCreators = {
   loginCheckAPI,
   logout,
   editProfileAPI,
+  TabSmallTalkAPI,
   //isLogin
 };
 
