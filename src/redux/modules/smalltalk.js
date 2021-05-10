@@ -109,7 +109,6 @@ const addSmallTalkCommentAPI = (comment, token, post_id) => {
     })
       .then((res) => {
         console.log(res);
-        console.log(post_id);
         dispatch(addComment(post_id, res.data));
       })
       .catch((e) => console.error(e));

@@ -34,7 +34,12 @@ const SmallTalkComment = (props) => {
                 }
               />
             )}
+        {user?
       <CommentTextArea maxLength={300} value={comment} onChange={onChangeComment}/>
+        :
+        <CommentTextArea maxLength={300} disabled placeholder='로그인을 해주세요!'/>
+
+        }
       </WriteTop>
       <CommentWriteBottom>
             <Button
