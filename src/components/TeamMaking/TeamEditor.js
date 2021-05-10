@@ -23,12 +23,13 @@ export const ChoiceBox = styled.div`
 
   @media ${props => props.theme.mobile}{
     margin:0px auto 30px auto;
+    padding:0px;
+    width:305px;
   }
 
   @media (max-width:380px){
     padding:0px;
     width:auto;
-    margin:0px auto 15px auto;
   }
 `;
 
@@ -89,6 +90,11 @@ export const ChoiceTable = styled.table`
 
   & tr:nth-child(5){
     height: 50px;
+  }
+
+  & .thumbnail{
+    color:rgba(255, 83, 83, 0.86);
+    font-size:12px;
   }
   
 

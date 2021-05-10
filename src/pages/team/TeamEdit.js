@@ -332,8 +332,8 @@ const TeamEdit = (props) => {
                 </td>
               </tr>
               <tr>
-                <td>썸네일</td>
-                <td>
+                <td colSpan="2">
+                  썸네일<span className="thumbnail"> (선택)</span>
                   <Upload fileRef={thumbnailRef} changeFile={changeFile} />
                 </td>
               </tr>

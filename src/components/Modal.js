@@ -38,7 +38,10 @@ function Modal(props) {
         <React.Fragment>
             <ModalButton {...styles} onClick={openModal}>{text}</ModalButton>
 
-            <ChildrenModal open={modalOpen} close={closeModal} header={heading ? heading : 'Domoim'} _onClick={_onClick} clickName={clickName}>
+            <ChildrenModal open={modalOpen} close={closeModal} header={heading ? heading : 'Domoim'} _onClick={() => {
+                _onClick();
+                closeModal();
+            }} clickName={clickName}>
 
                 <main> {props.children} </main>
 

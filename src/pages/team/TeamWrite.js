@@ -283,8 +283,8 @@ const TeamWrite = (props) => {
                 </td>
               </tr>
               <tr>
-                <td>썸네일<p>(선택)</p></td>
-                <td>
+                <td colSpan="2">
+                  썸네일<span className="thumbnail"> (선택)</span>
                   <Upload fileRef={thumbnailRef} changeFile={changeFile} />
                 </td>
               </tr>
