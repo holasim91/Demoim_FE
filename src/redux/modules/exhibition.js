@@ -5,16 +5,21 @@ import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
 
 const SET_EXHIBITION_POST = "SET_EXHIBITION_POST";
+const SET_ONE_EXHIBITION_POST = "SET_ONE_EXHIBITION_POST";
 const EXHIBITION_LOADING = "EXHIBITION_LOADING";
 
-const setPost = createAction(SET_EXHIBITION_POST, (post_list) => ({
+const setExihibition = createAction(SET_EXHIBITION_POST, (post_list) => ({
   post_list,
+}));
+const setOneExihibition = createAction(SET_ONE_EXHIBITION_POST, (post) => ({
+  post,
 }));
 const exihibitionLoading = createAction(EXHIBITION_LOADING, (is_loading) => ({ is_loading }));
 
 
 const initialState = {
   exhibitionPosts: [],
+  exhibitionPostDetail:null,
   page: 1,
   exihibitionLoading: false,
 };
@@ -33,24 +38,28 @@ const getExihibitionAPI = (page, size) => {
     }
     )
       .then((res) => {
-        dispatch(setPost(res.data))
+        dispatch(setExihibition(res.data))
               })
       .catch((err) => {
         console.log(err)
       })
   }
 }
+const exhibitionDetailAPI =  `${config.api}/api/exhibition/detail`
+
 const getOneExihibitionAPI = (id) => {
+  console.log('API CALL', id)
   return function (dispatch, getState, { history }) {
     dispatch(exihibitionLoading(true))
-    axios(exhibitionAPI, {
+    axios(exhibitionDetailAPI, {
       params: {
         exhibition_id: id
       }
     }
     )
       .then((res) => {
-        dispatch(setPost(res.data))
+        console.log(res)
+        dispatch(setOneExihibition(res.data))
               })
       .catch((err) => {
         console.log(err)
@@ -66,6 +75,11 @@ export default handleActions(
         draft.exhibitionPosts = action.payload.post_list;
         draft.exihibitionLoading = false
       }),
+    [SET_ONE_EXHIBITION_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.exhibitionPostDetail = action.payload.post;
+        draft.exihibitionLoading = false
+      }),
     [EXHIBITION_LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.exihibitionLoading = action.payload.is_loading;
@@ -75,7 +89,7 @@ export default handleActions(
   }, initialState);
 
 const actionCreators = {
-  setPost,
+  setExihibition,
   getExihibitionAPI,
   getOneExihibitionAPI,
   exihibitionLoading

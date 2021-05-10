@@ -1,55 +1,82 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { ExhibitionComment } from "../../components";
+import { actionCreators as exhibitionActions } from "../../redux/modules/exhibition";
+import SubMenus from "../../components/SubMenus";
 import { Container, Grid } from "../../elements";
+import '../../css/editor.css';
 
 const ExhibitionDetail = (props) => {
+  const dispatch = useDispatch();
   const id = props.match.params.exhibitionId;
-  const post = useSelector((state) => state.exhibition.exhibitionPosts).find(
-    (v) => v.id === id
-  );
-  console.log(post)
+  useEffect(() => {
+    dispatch(exhibitionActions.getOneExihibitionAPI(Number(id)));
+  }, [id]);
+
+  const post = useSelector((state) => state.exhibition.exhibitionPostDetail);
+  console.log(post);
+  const ChangeTimeType = (time) => time.split("T")[0];
+
+  if (!post) {
+    return <>No DATA</>;
+  }
+
   return (
     <>
+      <SubMenus />
+
       <Container>
-        <Grid padding="100px 0 0 0" />
+        <DetailWrapper>
+          <Grid padding="100px 0 0 0" />
 
-        <ExhibitionDetailHeader>
           <Title>{post.title}</Title>
-          <HeaderRight>
-            <ProfileImage alt="profile" src={post.User[0].profile_img} />
+          <UserInfo>
+            {post.user.profileImage ? (
+              <ProfileImage alt="profile" src={post.user.profileImage} />
+            ) : (
+              <ProfileImage
+                alt="profile"
+                src={
+                  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+                }
+              />
+            )}
             <TextBlock>
-              <UserName>{post.User[0].username}</UserName>
-              <PostDate>{post.createdAt}</PostDate>
+              <UserName>{post.user.nickname} 님</UserName>
+              <PostDate>{ChangeTimeType(post.createAt)}</PostDate>
             </TextBlock>
-          </HeaderRight>
-        </ExhibitionDetailHeader>
-        <ExhibitionDetailContent>{post.contents}</ExhibitionDetailContent>
-        <ExhibitionComment />
-
+          </UserInfo>
+          <ExhibitionDetailContent>
+            <ExhibitionDetailContentContainer>
+              {post.contents}
+            </ExhibitionDetailContentContainer>
+          </ExhibitionDetailContent>
+          <ExhibitionComment />
+        </DetailWrapper>
       </Container>
     </>
   );
 };
-const ExhibitionDetailHeader = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
+const DetailWrapper = styled.div`
+  width: 80%;
 `;
 const Title = styled.div`
-  font-size: 48px;
+  background-color: #f2f5fa;
+  font-size: 22px;
+  padding: 5px 0 5px 15px;
 `;
-const HeaderRight = styled.div`
+const UserInfo = styled.div`
+  margin-top: 67px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
-  padding-left: 10px;
 `;
 const ProfileImage = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 100px;
+  margin-right: 10px;
 `;
 const TextBlock = styled.div`
   display: flex;
@@ -62,13 +89,14 @@ const PostDate = styled.div`
   color: #7a7786;
   font-size: 15px;
 `;
-
+const ExhibitionDetailContentContainer = styled.div`
+  padding: 35px;
+`;
 const ExhibitionDetailContent = styled.div`
   width: 100%;
-  min-height: 695px;
-  border: 1px solid;
+  min-height: 485px;
+  border: solid 1px #d8d8d8;
   line-height: 1.5;
-
 `;
 
 export default ExhibitionDetail;

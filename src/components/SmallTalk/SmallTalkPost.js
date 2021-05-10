@@ -34,6 +34,10 @@ const SmallTalkPost = (props) => {
 
   const ChangeTimeType = (time) => time.split("T")[0];
   const currentUser = useSelector((state) => state.user);
+  console.log( location.split('/'))
+
+
+
   if (location === "/") {
     return (
       <PostBoxWrapperForMain>
@@ -59,6 +63,33 @@ const SmallTalkPost = (props) => {
       </PostBoxWrapperForMain>
     );
   }
+
+  if (location.split('/')[1] === 'userpage') {
+    return (
+      <PostBoxWrapper>
+        <PostBoxHeader>
+          <HeaderLeft>
+            {user.profileImage ? (
+              <ProfileImage alt="profile" src={user.profileImage} />
+            ) : (
+              <ProfileImage
+                alt="profile"
+                src={
+                  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+                }
+              />
+            )}
+            <UserName>{user.nickname}</UserName>
+          </HeaderLeft>
+          <HeaderRight>
+            <PostDate>{ChangeTimeType(createdAt)}</PostDate>
+          </HeaderRight>
+        </PostBoxHeader>
+        <PostContents>{contents}</PostContents>
+      </PostBoxWrapper>
+    );
+  }
+
 
   return (
     <>
