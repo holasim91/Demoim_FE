@@ -21,7 +21,31 @@ const setDetailTeam = createAction(SET_DETAIL_TEAM, (teamInfo) => ({ teamInfo })
 const initialState = {
   list: [],
   isLoading: false,
-  teamInfo: {},
+  teamInfo: {
+    teamId: 0,
+    title: "",
+    createdAt: 1620627320595,
+    recruit: 1620713709368,
+    begin: 1620627309368,
+    end: 1623305709368,
+    location: "온라인",
+    thumbnail: "https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    front: 0,
+    back: 0,
+    designer: 0,
+    planner: 0,
+    stack: "",
+    contents: "",
+    recruitState: "",
+    projectState: "",
+    leader: {
+      id: 0,
+      nickname: "",
+      position: "",
+      desc: "",
+      profileImage: null
+    }
+  },
   paging: { start: null, next: null, size: 9 },
 }
 //start는 page 번호 
@@ -62,8 +86,13 @@ const getTeamMakingAPI = (page, size = 9) => {
       method: 'get',
       url: `${config.api}/api/team?page=${page}&size=${size}`,
     }).then((res) => {
-      console.log('얍얍!');
-      dispatch(setTeam(res.data));
+      console.log(res.data);
+      if (typeof res.data === 'object') {
+        dispatch(setTeam(res.data));
+      }
+      //우선 해결법..typeof로 string 확인해서 막기..
+      //서버에서 해결을 해줘야함. 프론트쪽에선 typeof로 일단 막자!
+      //로그인 문제가 일어나면 프론트쪽에서 쿠키를 지워서 로그아웃 해주자.
     }).catch((error) => {
       console.log(error);
     });

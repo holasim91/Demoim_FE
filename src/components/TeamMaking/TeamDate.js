@@ -23,7 +23,6 @@ const TeamDate = (props) => {
     ),
   );
 
-  console.log('프로젝트 최소날짜::', projectMindate)
 
   if (recruit) {
     return (
