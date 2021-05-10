@@ -9,14 +9,9 @@ const TeamCard = React.memo((props) => {
 
   const { title, recruit, begin, end, thumbnail, front, back, designer, planner, teamId, createdAt, recruitState } = props;
 
-
-
-
   const styles = {
     thumbnail: thumbnail,
   }
-
-  console.log(thumbnail)
 
   //momment 날짜 계산
   let _begin = new Date(begin);
@@ -35,7 +30,7 @@ const TeamCard = React.memo((props) => {
   return (
 
     <React.Fragment>
-      <Grid>
+      <Grid onClick={() => { history.push(`/team/detail/${teamId}`) }} >
         <ImgBox {...styles} />
         <MentBox>
           <Text className='more'>[프로젝트] {title} </Text>
@@ -47,7 +42,7 @@ const TeamCard = React.memo((props) => {
             {planner !== 0 && `기획자 ${planner}명 `}
           </Text>
         </MentBox>
-        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)" _onClick={() => { history.push(`/team/detail/${teamId}`) }}>{recruitState === 'ACTIVATED' ? '모집글 보기' : '모집 완료'}</Button>
+        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)">{recruitState === 'ACTIVATED' ? '모집 중' : '모집 완료'}</Button>
       </Grid>
 
     </React.Fragment>
@@ -89,6 +84,7 @@ const Grid = styled.div`
   border-radius: 4px;
   padding-top: 20px;
   transition: all 0.3s;
+  cursor: pointer;
   :hover{
     transform: translate(0px,-3px);
   }
@@ -111,6 +107,7 @@ const ImgBox = styled.div`
   height: 132px;
   background: url('${(props) => props.thumbnail}') no-repeat;
   background-size: cover;
+  background-position: center center;
   
   @media ${props => props.theme.tablet}{
     height:180px;

@@ -9,21 +9,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
 
 
-//로그인 후 00님의 로그 추가되면 데스크탑 버전 
-//NavMenu에 .addUserLog 클래스 사용해주세요!
-//알림 아이콘은 밑에 만들어놓은 Bell 사용해주세요!
 
-//link 주소 정해지면 정확하게 맞추기!
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
   const userCheck = useSelector((state) => state.user.user);
-  //console.log(userCheck);
 
   const LogOut = () => {
     setOpen(false);
     dispatch(actionCreators.logout());
   };
+
 
   const [open, setOpen] = React.useState(false);
   const openBar = () => setOpen(true);

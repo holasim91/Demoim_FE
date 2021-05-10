@@ -57,9 +57,16 @@ const ModalButton = styled.button`
     border-radius: 12px;
     padding:${(props) => props.padding};
     cursor: pointer;
-    color:#595858;
+    color:#8166d6;
     font-size:1em;
     font-weight: 600;
+    transition: all .3s;
+
+    &:hover{
+        color:#ffffff;
+        border:2px solid ${(props) => props.theme.button_purple};
+        background-color: ${(props) => props.theme.button_purple};
+    }
 
     @media ${props => props.theme.mobile}{
       font-size:0.85em;  

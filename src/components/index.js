@@ -15,5 +15,6 @@ import ExhibitionList from "./Exhibition/ExhibitionList";
 import ExhibitionPost from "./Exhibition/ExhibitionPost";
 import ExhibitionComment from "./Exhibition/ExhibitionComment";
 import TeamDate from "./TeamMaking/TeamDate";
-export { Editor, Modal, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList };
+import SmallTalkList from "./SmallTalk/SmallTalkList";
+export { Editor, Modal, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList, SmallTalkList };
 

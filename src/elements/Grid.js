@@ -3,20 +3,20 @@ import styled from 'styled-components';
 
 const Grid = (props) => {
 
-const {flex,gridBox,width,margin,padding,bg,children,center,height} = props;
+  const { flex, gridBox, width, margin, padding, bg, children, center, height } = props;
 
-const styles = {
-   flex: flex,
-   width: width,
-   margin: margin,
-   padding: padding,
-   bg: bg,
-   center: center,
-   gridBox: gridBox,
-   height: height,
- } 
- 
- if (gridBox) {
+  const styles = {
+    flex: flex,
+    width: width,
+    margin: margin,
+    padding: padding,
+    bg: bg,
+    center: center,
+    gridBox: gridBox,
+    height: height,
+  }
+
+  if (gridBox) {
     return (
       <React.Fragment>
         <ParentsGridbox {...styles}>
@@ -45,7 +45,6 @@ Grid.defaultProp = {
   center: false,
   gridBox: false,
   height: false,
-
 }
 
 
@@ -57,7 +56,7 @@ const GridBox = styled.div`
   ${(props) => (props.margin ? `margin:${props.margin}` : '')};
   ${(props) => (props.bg ? `background-color:${props.bg}` : '')};
   ${(props) => props.flex ? `display:flex; align-items:center; justify-content:space-between;` : ''}
-  ${(props)=>(props.height?`height:${props.height};`:'')}
+  ${(props) => (props.height ? `height:${props.height};` : '')}
     `
 
 const ParentsGridbox = styled.div`

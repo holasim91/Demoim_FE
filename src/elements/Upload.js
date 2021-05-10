@@ -1,27 +1,52 @@
 import React from "react";
 import styled from "styled-components";
+import DefaultPriview from "../images/preview.png";
+import { actionCreators as imageActions } from "../redux/modules/image";
+import { useDispatch, useSelector } from "react-redux";
 
 const Upload = (props) => {
 
 
-  const { fileRef, fileName, changeFile } = props;
+  //src 경로!
+  const { fileRef, changeFile } = props;
+  const preview = useSelector((state) => state.image.preview);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
 
-  //const fileRef = React.useRef();
-  //const [fileName, setFileName] = React.useState("파일 선택하기");
-  //const changeFile = (e) => setFileName(e.target.value);
+    if (preview) {
+      dispatch(imageActions.setPreview(null));
+    }
+
+  }, []);
 
   return (
     <React.Fragment>
       <FileBox>
-        <label htmlFor="img-file">썸네일 업로드</label>
+        <Preview>
+          <PreviewImg src={preview ? preview : DefaultPriview} />
+        </Preview>
+        <label htmlFor="img-file">파일 업로드</label>
         <input type="file" id="img-file" ref={fileRef} onChange={changeFile} accept="image/*" />
-        <input type="text" className="uploadImg" value={fileName} readOnly />
       </FileBox>
     </React.Fragment>
   )
 }
 
 export default Upload;
+
+const Preview = styled.div`
+width: 170px;
+height: 100px;
+background-color: rgb(0,0,0,0.05);
+margin-bottom: 6px;
+
+`;
+
+const PreviewImg = styled.img`
+  width:100%;
+  height: 100%;
+  border:none;
+`;
 
 const FileBox = styled.div`
 
@@ -43,7 +68,7 @@ const FileBox = styled.div`
     cursor: pointer;
     border:1px solid #ebebeb;
     border-radius: 5px;
-    font-size:14px;
+    font-size:12px;
     @media (max-width:380px){
       font-size:10px;
       padding:6px 10px;
@@ -70,9 +95,6 @@ const FileBox = styled.div`
       width:120px;
       font-size:10px;
     }
-
-
     }
-
 `;
 
