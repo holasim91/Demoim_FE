@@ -11,7 +11,7 @@ const ExhibitionList = (props) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1); //현재페이지, 1부터 시작
   useEffect(() => {
-    dispatch(exhibitionActions.exihibitionAPI(page, 6));
+    dispatch(exhibitionActions.getExihibitionAPI(page, 6));
   }, [dispatch, page]);
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition

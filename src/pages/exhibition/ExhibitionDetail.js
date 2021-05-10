@@ -9,6 +9,7 @@ const ExhibitionDetail = (props) => {
   const post = useSelector((state) => state.exhibition.exhibitionPosts).find(
     (v) => v.id === id
   );
+  console.log(post)
   return (
     <>
       <Container>
