@@ -365,7 +365,7 @@ const DetalkBox = styled.div`
    flex-direction: column;
    align-items: center;
    margin-top: 110px;
-   margin-bottom: 150px;
+   margin-bottom: 100px;
    padding:0px 35px;
 
    @media ${props => props.theme.mobile}{

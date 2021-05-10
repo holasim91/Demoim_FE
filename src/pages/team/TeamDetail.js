@@ -6,6 +6,9 @@ import { useMediaQuery } from "react-responsive";
 import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as teamActions } from "../../redux/modules/team";
+import { actionCreators as applyActions } from "../../redux/modules/apply";
+import Swal from 'sweetalert2';
+
 import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
 //quill css 찾아서 적용해놓기. 가운데 정렬 등등 나오려면 찾아야함. 
@@ -36,9 +39,27 @@ const TeamDetail = (props) => {
 
   //지원하기 함수.
   const applyTeam = () => {
-    if (msg === "" || site === "") {
+    if (msg === "") {
+
+      Swal.fire({
+        icon: "warning",
+        text: "리더에게 보낼 메세지를 입력해주세요!",
+        confirmButtonColor: "#999cda",
+      })
       return false;
     }
+
+    if (site === "") {
+      Swal.fire({
+        icon: "warning",
+        text: "포트폴리오 사이트를 입력해주세요!",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+    dispatch(applyActions.addApplyAPI(id, msg, site));
+
   }
 
   const isMobile = useMediaQuery({
@@ -115,7 +136,6 @@ const TeamDetail = (props) => {
               <ProjectCotentsBox dangerouslySetInnerHTML={{ __html: team.contents }} />
             </ContentInnerBox>
           </TeamPostBox>
-          <LeaderBtn onClick={() => history.push(`/team/edit/${id}`)}>수정</LeaderBtn>
           {team?.leader?.id === user?.id &&
             (<LeaderMenu>
               {team.recruitState !== "FINISHED" && (

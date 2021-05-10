@@ -18,14 +18,14 @@ const TeamEdit = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-
+    //ux 개선은 후에.. 수정페이지 들어오자마자 teamInfo 불러오기.
     if (teamInfo?.teamId !== teamId) {
       Swal.fire({
         text: '새로고침시 프로젝트 수정을 다시 시도해주세요!',
         icon: 'warning',
         confirmButtonColor: "#999cda",
       });
-      history.goBack();
+      history.push(`/team/detail/${teamId}`);
       return false;
     }
 
@@ -33,8 +33,6 @@ const TeamEdit = (props) => {
     if (teamInfo) {
       dispatch(imageActions.setPreview(teamInfo.thumbnail));
     }
-
-
   }, []);
 
 
