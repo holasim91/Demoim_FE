@@ -29,7 +29,7 @@ const UserEditpage = (props) => {
   //const [fileName, setFileName] = React.useState(null);
   const [nickname, setNickName] = React.useState(userInfo? userInfo.nickname : '');
   const [position, setPosition] = React.useState(userInfo? userInfo.position : '');
-  const [desc, setDesc] = React.useState(userInfo? userInfo.desc : '');
+  const [description, setDesc] = React.useState(userInfo? userInfo.description : '');
   
 
   const fileRef = useRef();
@@ -61,13 +61,13 @@ const UserEditpage = (props) => {
       return false
     }
     
-    if (desc === ' ') {
+    if (description === ' ') {
       alert('자기소개를 입력해주세요!')
       return false;
     }
 
     const file = fileRef.current.files[0];
-    const userEditInfo = `{nickname:${nickname}, position:${position}, desc:${desc}}`
+    const userEditInfo = `{nickname:${nickname}, position:${position}, description:${description}}`
 
     //formData
     let formData = new FormData();
@@ -128,8 +128,8 @@ const UserEditpage = (props) => {
               </tr>
               <tr>
                 <td>자기소개</td>
-                <td><TextArea maxLength="100" placeholder={desc}
-                  value={desc}
+                <td><TextArea maxLength="100" placeholder={description}
+                  value={description}
                   onChange={(e) => {
                     setDesc(e.target.value)
                   }}/></td>
