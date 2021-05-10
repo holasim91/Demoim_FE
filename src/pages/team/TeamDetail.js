@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { actionCreators as applyActions } from "../../redux/modules/apply";
 import Swal from 'sweetalert2';
-
 import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
 //quill css 찾아서 적용해놓기. 가운데 정렬 등등 나오려면 찾아야함. 
@@ -59,7 +58,8 @@ const TeamDetail = (props) => {
     }
 
     dispatch(applyActions.addApplyAPI(id, msg, site));
-
+    setMsg("");
+    setSite("");
   }
 
   const isMobile = useMediaQuery({

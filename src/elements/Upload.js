@@ -35,21 +35,32 @@ const Upload = (props) => {
 export default Upload;
 
 const Preview = styled.div`
-width: 170px;
-height: 100px;
+//width: 170px;
+width:85%;
+height: 145px;
 background-color: rgb(0,0,0,0.05);
 margin-bottom: 6px;
+margin:0 auto;
+border:1px solid #d8d8d8;
 
+
+@media ${props => props.theme.mobile}{
+  width:100%;
+  height: 170px;
+}
 `;
 
 const PreviewImg = styled.img`
   width:100%;
   height: 100%;
   border:none;
+
 `;
 
 const FileBox = styled.div`
 
+  margin-top:12px;
+  text-align: right;
   & input[type="file"]{
     position: absolute;
     width:0;
@@ -61,14 +72,22 @@ const FileBox = styled.div`
 
   & label{
     display: inline-block;
-    padding:6px 17px;
-    color:#999;
+    padding:4px 15px;
     vertical-align: middle;
     background-color: #fdfdfd;
     cursor: pointer;
-    border:1px solid #ebebeb;
-    border-radius: 5px;
+    border:1px solid rgba(122, 119, 134, 0.5);
+    border-radius: 4px;
     font-size:12px;
+    position: relative;
+    top:8px;
+    right:22px;
+
+    @media ${props => props.theme.mobile}{
+      right:0px;
+
+    }
+
     @media (max-width:380px){
       font-size:10px;
       padding:6px 10px;

@@ -111,7 +111,7 @@ const getDetailTeamMakingAPI = (teamId) => {
       method: 'get',
       url: `${config.api}/api/team/detail?team_id=${teamId}`,
     }).then((res) => {
-      console.log(res.data);
+
       dispatch(setDetailTeam(res.data));
     }).catch((error) => {
       console.log(error);

@@ -19,31 +19,35 @@ const initialState = {
 const addApplyAPI = (teamId, msg, site) => {
   return function (dispatch, getState, { history }) {
 
+    console.log('메세지:', msg, '사이트:', site);
+
     if (!teamId) {
       return false;
     }
 
     axios({
       method: 'post',
-      url: `${config.api}/apply?team_id=${teamId}`,
+      url: `${config.api}/api/apply?team_id=${teamId}`,
       data: {
         message: msg,
         portfolio: site,
       }
     }).then((res) => {
 
-      console.log(res)
-      /*Swal.fire({
-        text: '로그인 후 사용해주세요 :)',
+      Swal.fire({
+        text: `${res.data.msg}`,
+        icon: 'success',
+        confirmButtonColor: "#999cda",
+      })
+
+    }).catch((err) => {
+      console.log("지원하기 에러:", err.response.data.msg);
+      Swal.fire({
+        text: `${err.response.data.msg}`,
         icon: 'warning',
         confirmButtonColor: "#999cda",
       })
-*/
-    }).catch((err) => {
-      console.log("지원하기 에러:", err);
     })
-
-
   }
 }
 
