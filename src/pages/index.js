@@ -8,7 +8,7 @@ import TeamWrite from "./team/TeamWrite";
 import TeamEdit from "./team/TeamEdit";
 import Login from "./Login";
 import SmallTalk from "./SmallTalk";
-import Mypage from "../pages/mypage/Mypage";
-import MyEditpage from "./mypage/MyEditpage";
+import Userpage from "../pages/userpage/Userpage";
+import UserEditpage from "./userpage/UserEditpage";
 
-export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Mypage, MyEditpage, TeamEdit };
+export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Userpage, UserEditpage, TeamEdit };

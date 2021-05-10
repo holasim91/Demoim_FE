@@ -9,7 +9,7 @@ import { actionCreators as imageActions} from "../../redux/modules/image";
 import { history } from "../../redux/configStore";           
 
 
-const MypageEdit = (props) => {
+const UserEditpage = (props) => {
   const  dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
   const preview = useSelector((state) => state.image.preview);
@@ -151,7 +151,7 @@ const MypageEdit = (props) => {
 };
 
 
-MypageEdit.defaultProps = {
+UserEditpage.defaultProps = {
   username:"g0rden@never.com",
   nickname:"가나다라마바",
   position:"프론트트트",
@@ -381,4 +381,4 @@ const EditBtn = styled.div`
 
 
 
-export default MypageEdit;
+export default UserEditpage;
