@@ -50,7 +50,7 @@ const Header = (props) => {
             </NavLink>
             </PcDetalkBox>
             {isLogin ?
-              (<NavLink to={`/mypage/${userCheck?.id}`}> 나의 로그 </NavLink>)
+              (<NavLink to={`/userpage/${userCheck?.id}`}> 나의 로그 </NavLink>)
               : ""}
           </NavMenu>
           {isLogin ? (
@@ -91,7 +91,7 @@ const Header = (props) => {
               De Talk
             </NoneActiveLink>
             {isLogin ?
-              (<NoneActiveLink to={`/mypage/${userCheck?.id}`} onClick={closeBar}> 나의 로그 </NoneActiveLink>)
+              (<NoneActiveLink to={`/userpage/${userCheck?.id}`} onClick={closeBar}> 나의 로그 </NoneActiveLink>)
               : ""}
 
             {isLogin ? (

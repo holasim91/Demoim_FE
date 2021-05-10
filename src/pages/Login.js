@@ -18,11 +18,19 @@ const Login = () => {
   const onLogin = () => {
 
     if (email === ""){
-      window.alert("이메일과 비밀번호를 입력해주세요!")
+      Swal.fire({
+        text: "이메일을 입력해주세요!",
+        icon: "warning",
+        confirmButtonColor: "#999cda",
+      })
       return
     } 
     if (pw === "") {
-      window.alert("이메일과 비밀번호를 입력해주세요!")
+      Swal.fire({
+        text: "비밀번호를 입력해주세요!",
+        icon: "warning",
+        confirmButtonColor: "#999cda",
+      })
       return
     }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState }from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Grid, Button, Container } from "../../elements";
@@ -7,17 +7,25 @@ import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { ApplyProjectList, ParticipationProjectList } from "../../components";
 
-const Mypage = (props) => {
+const Userpage = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(userAction.loginCheckAPI());
-
   }, []);
 
   const userInfo = useSelector((state) => state.user.user)
-  // console.log("마이페이지",userInfo);
-  // const projectNum = userInfo?.teams.length
+
+
+  //Tab Menu
+  const [active, setActive] = useState(0)
+  const handleClick = e => {
+    const index = parseInt(e.target.id, 0);
+    if(index !== active){
+      setActive(index);
+    }
+  };
+
 
   return (
     <React.Fragment>
@@ -32,7 +40,7 @@ const Mypage = (props) => {
               <UserNickName>{userInfo?.nickname}</UserNickName>
               <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
               <ProfileEditBtn onClick={() => {
-                history.push('/myeditpage')
+                history.push('/userEditpage')
               }}>프로필수정</ProfileEditBtn>
             </UserBoxMarks>
             <UserBoxDesc>
@@ -40,26 +48,69 @@ const Mypage = (props) => {
             </UserBoxDesc>
           </UserBox>
         </MyPageContainer>
-        {/* <MypageSubmenus/> */}
-        <ApplyTapBox>
+        {/* Tab Menu */}
+        <Tabs>
+          <Tab onClick={handleClick} active={active === 0} id={0}>스몰토크</Tab>
+          <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
+          <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
+        </Tabs>
+        <Content active={active === 0}>
+          <h1>스몰토크</h1>
+        </Content>
+        <Content active={active === 1}>
+          <h1>프로젝트자랑글</h1>
+        </Content>
+        <Content active={active === 2}>
+          <h1>프로젝트히스토리</h1>
+        </Content>
+
+        {/* <ApplyTapBox>
           <ApplyProjectList />
         </ApplyTapBox>
         <ApplyTapBox>
           <ParticipationProjectList />
-        </ApplyTapBox>
+        </ApplyTapBox> */}
       </Container>
     </React.Fragment>
   );
 };
 
-Mypage.defaultProps = {
-  id: 1,
-  username: "g0garden@naver.com",
-  nickname: "저녁은불족발",
-  position: "프론트엔드",
+Userpage.defaultProps = {
   desc: "안녕하세요!",
   profileImage: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
 }
+
+//TabMenu
+
+const Tabs = styled.div`
+  margin:0 auto;
+  width:50%;
+  /* border:1px solid lightgray; */
+  text-align:center;
+`;
+
+const Tab = styled.button`
+  border:none;
+  outline: none;
+  cursor:pointer;
+  width:150px;
+  margin:2px;
+  font-size: 16px;
+  font-weight: 600;
+  /* border: ${props => (props.active ? "1px solid red" : "")}; */
+  border-bottom: ${props => (props.active ? "4px solid #999cda" : "none")};
+  background-color: ${props => (props.active ? "white" : "white")};
+  height: ${props => (props.active ? "3em" : "2.6em; top:.4em")};
+  transition: background-color 0.5s ease-in-out;
+  /* :hover {
+    background-color:yellow;
+  } */
+`;
+
+const Content = styled.div`
+  ${props => (props.active ? "" : "display:none")}
+`;
+
 
 //팀메이킹 확인용 박스
 const ApplyTapBox = styled.div`
@@ -73,7 +124,7 @@ const MyPageContainer = styled.div`
   width:600px;
   height:150px;
   text-align:center;
-  margin: 100px auto;
+  margin: 100px auto 10px auto;
   padding: 10px auto;
   @media ${props => props.theme.mobile}{
       width:345px;
@@ -182,4 +233,4 @@ const UserDesc = styled.div`
 
 
 
-export default Mypage;
+export default Userpage;

@@ -33,7 +33,7 @@ const signupAPI = (email, pw, nickname, position) => {
         Swal.fire({
           icon: "success",
           text: "회원가입 성공!",
-          confirmButtonColor: "#3D825A",
+          confirmButtonColor: "#999cda",
         })
         history.push('/');
       })
@@ -72,8 +72,8 @@ const loginAPI = (email, pw) => {
 
       Swal.fire({
         icon: "success",
-        text: "Welcome Back!",
-        confirmButtonColor: "#683fee",
+        text: "Welcome Mate!",
+        confirmButtonColor: " #999cda",
       })
       history.push('/');
     })
@@ -82,7 +82,7 @@ const loginAPI = (email, pw) => {
         Swal.fire({
           text: `${err.response.data.message}`,
           icon: 'warning',
-          confirmButtonColor: "#3D825A",
+          confirmButtonColor: "#999cda",
         })
       })
   }
@@ -101,6 +101,7 @@ const loginCheckAPI = () => {
       url: API,
     }).then((res) => {
       console.log("로그인체크!:",res.data);
+
       dispatch(setUser({
         id: res.data.id, 
         desc: res.data.desc,
@@ -111,7 +112,6 @@ const loginCheckAPI = () => {
         teams: res.data.teamUserInfos, //진행중인 프로젝트 개수로(int)
       }))
       
-
     }).catch((err) => {
       console.log('로그인체크에러:', err);
     })
@@ -142,7 +142,7 @@ const editProfileAPI = (formData) => {
         Swal.fire({
           icon: "success",
           text: "수정완료!!",
-          confirmButtonColor: "#683fee",
+          confirmButtonColor: "#999cda",
         })
 
         dispatch(setUser({
@@ -154,8 +154,7 @@ const editProfileAPI = (formData) => {
           username: res.data.username, //email
 
         }))
-        //mypage로 넘어가야하는데
-        history.push(`/mypage/${res.data.id}`); 
+        history.push(`/userpage/${res.data.id}`); 
       })
       .catch((err) => {
         console.log("프로필수정err:", err);
@@ -171,7 +170,7 @@ const logout = () => {
     delete axios.defaults.headers.common['Authorization'];
     Swal.fire({
       text: "See you soon, Mate!",
-      confirmButtonColor: "#3D825A",
+      confirmButtonColor: "#999cda",
     })
     dispatch(logOut());
     history.replace('/');

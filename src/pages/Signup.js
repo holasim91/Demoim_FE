@@ -101,23 +101,36 @@ const Signup = (props) => {
             })
             .then((res) => {
                 if (res.data.msg === "false") {
-                    alert('이미 등록된 이메일입니다!');
+                    Swal.fire({
+                        text:'이미 등록된 이메일입니다!',
+                        icon:'warning',
+                        confirmButtonColor:"#999cda",
+                    })
                     setEmailDup(false);
                 } else {
-                    alert('사용이 가능합니다.');
+                    Swal.fire({
+                        text:'사용 가능한 이메일 입니다.',
+                        icon:'success',
+                        confirmButtonColor:"#999cda",
+                    })
                     setEmailDup(true);
                 }
             })
             .catch((err) => {
-                console.log(err)
+                //console.log(err.response.data.msg);
+                Swal.fire({
+                    text:`${err.response.data.msg}`,
+                    icon:'warning',
+                    confirmButtonColor:"#999cda",
+                })
             })
-            
         }
 
     //checkNicknameAPI
     const checkNicknameAPI = (nickname) => {
     
     const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
+    console.log(nickname);
     axios.post(API,
         {
             nickname:nickname,
@@ -202,6 +215,7 @@ const Signup = (props) => {
                             <td>닉네임</td>
                             <td>
                                 <Input width="12vw" margin="4px 12px" padding="12px" placeholder="플젝은데모임"
+                                maxLength="6"
                                 value={nickname}
                                 onClick={() => {
                                     nickNameInfoUl.current.style.display = "block";
