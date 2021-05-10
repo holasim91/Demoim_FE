@@ -22,10 +22,19 @@ const TeamAllList = (props) => {
   }, []);
 
 
-  //useState() 왜 잡았지? 그냥 e.target.value로
-  //dispatch하면 될듯.
   const showCategory = (e) => {
-    setSelect(e.target.value);
+
+    if (e.target.value === "전체보기") {
+      dispatch(teamActions.getTeamMakingAPI(1, 9));
+    } else if (e.target.value === "프론트엔드") {
+      dispatch(teamActions.getFrontTeamMaking(1, 9));
+    } else if (e.target.value === "백엔드") {
+      dispatch(teamActions.getBackTeamMaking(1, 9));
+    } else if (e.target.value === "디자이너") {
+      dispatch(teamActions.getDesignerTeamMaking(1, 9));
+    } else if (e.target.value === "기획자") {
+      dispatch(teamActions.getPlannerTeamMaking(1, 9));
+    }
   }
 
   return (

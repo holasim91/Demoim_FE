@@ -1,42 +1,94 @@
 import React from "react";
-import styled from "styled-components";
 import { Container, Input, CheckBox, Upload } from "../../elements";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { Editor, TeamDate } from "../../components";
 import { useMediaQuery } from "react-responsive";
-import Arrow from "../../images/arrow.jpg";
 import Swal from "sweetalert2";
+import { actionCreators as imageActions } from "../../redux/modules/image";
+import { Wrapper, TitleBox, ChoiceBox, ConentesBox, BtnBox, WriteBtn, ChoiceTable, SelectBox, LanguageInput, PositionBox, NumberInput, PositionSelect, Line } from "../../components/TeamMaking/TeamEditor";
+import { history } from "../../redux/configStore";
 
-const TeamWirte = (props) => {
+//팀메이킹 글수정 컴포넌트 입니다.
+//상세페이지에서 불러온 teamInfo를 사용해 해당 팀메이킹 포스트 내역을 세팅합니다.
+const TeamEdit = (props) => {
 
+  const teamId = Number(props.match.params.teamId);
+  const teamInfo = useSelector((state) => state.team.teamInfo);
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+
+    if (teamInfo?.teamId !== teamId) {
+      Swal.fire({
+        text: '새로고침시 프로젝트 수정을 다시 시도해주세요!',
+        icon: 'warning',
+        confirmButtonColor: "#999cda",
+      });
+      history.goBack();
+      return false;
+    }
+
+    //teamInfo가 있다면 썸네일을 미리보기에 세팅해줍니다.
+    if (teamInfo) {
+      dispatch(imageActions.setPreview(teamInfo.thumbnail));
+    }
+
+
+  }, []);
+
+
+  let projectMindate;
+  if (teamInfo) {
+
+    if (new Date(teamInfo.begin) > new Date()) {
+      projectMindate = new Date();
+    } else {
+      projectMindate = new Date(teamInfo.begin);
+    }
+  }
   const thumbnailRef = React.useRef();
 
-  //필요 데이터
-  const [title, setTitle] = React.useState("");
-  //초기데이터가 있을시엔 contents에서 세팅.
-  const [contents, setContents] = React.useState("");
-  const [location, setLocation] = React.useState("온라인");
-  const [stack, setStack] = React.useState("");
+  const [title, setTitle] = React.useState(teamInfo ? teamInfo.title : "");
+  const [contents, setContents] = React.useState(teamInfo ? teamInfo.contents : "");
+  const [location, setLocation] = React.useState(teamInfo ? teamInfo.location : "");
+  const [stack, setStack] = React.useState(teamInfo ? teamInfo.stack : "");
 
-  const [front, setFront] = React.useState({ member: 0, check: false });
-  const [back, setBack] = React.useState({ member: 0, check: false });
-  const [design, setDesign] = React.useState({ member: 0, check: false });
-  const [plan, setPlan] = React.useState({ member: 0, check: false });
-  const [recruit, setRecruit] = React.useState({
-    start: new Date(),
-    end: new Date(new Date().setDate(new Date().getDate() + 1)),
-  });
+  //직군별로 인원수를 확인해 체크박스를 활성화합니다.
+  const [front, setFront] = React.useState(teamInfo ? (
+    teamInfo.front !== 0 ? { member: teamInfo.front, check: true } : {
+      member: 0, check: false
+    }
+  ) : ({}));
+  const [back, setBack] = React.useState(teamInfo ? (
+    teamInfo.back !== 0 ? { member: teamInfo.back, check: true } : {
+      member: 0, check: false
+    }
+  ) : ({}));
+  const [design, setDesign] = React.useState(teamInfo ? (
+    teamInfo.designer !== 0 ? { member: teamInfo.designer, check: true } : {
+      member: 0, check: false
+    }
+  ) : ({}));
+  const [plan, setPlan] = React.useState(teamInfo ? (
+    teamInfo.planner !== 0 ? { member: teamInfo.planner, check: true } : {
+      member: 0, check: false
+    }
+  ) : ({}));
 
-  const [project, setProject] = React.useState({
-    start: new Date(),
-    end: new Date(new Date().setDate(new Date().getDate() + 31)),
-  });
+  //기간 설정.
+  const [recruit, setRecruit] = React.useState(teamInfo ? ({
+    start: new Date(teamInfo.createdAt),
+    end: new Date(teamInfo.recruit),
+  }) : ({
+  }));
 
-  //파일 이름 미리보기 용..
-  const [fileName, setFileName] = React.useState("파일 선택하기");
-  const changeFile = (e) => setFileName(e.target.value);
+  //마감일이 지났을 경우는 수정페이지에 애초 들어올 수 없음.
+  const [project, setProject] = React.useState(teamInfo ? ({
+    start: new Date(teamInfo.begin),
+    end: new Date(teamInfo.end),
+  }) : ({
+  }));
 
   const setRecruitEnd = (date) => {
     setRecruit({
@@ -44,18 +96,16 @@ const TeamWirte = (props) => {
       end: date,
     });
   }
-
   const setProjectStart = (date) => {
     setProject({
       ...project,
       start: date,
     })
   }
-
   const setProjectEnd = (date) => {
     setProject({
       ...project,
-      end: date
+      end: date,
     })
 
     if (recruit.end > date) {
@@ -64,9 +114,16 @@ const TeamWirte = (props) => {
         end: date
       })
     }
-
   }
-  //변경 함수
+  //썸네일이 변경될 때마다 미리보기 세팅.
+  const changeFile = (e) => {
+    const reader = new FileReader();
+    const img = thumbnailRef.current.files[0];
+    reader.readAsDataURL(img);
+    reader.onloadend = () => {
+      dispatch(imageActions.setPreview(reader.result));
+    }
+  };
   const onEditorChange = (value) => setContents(value);
   const titleChange = (value) => setTitle(value);
 
@@ -142,21 +199,8 @@ const TeamWirte = (props) => {
       })
     }
   }
-
-
-  const randomThumbnail = () => {
-    const images = [
-      "https://cdn.pixabay.com/photo/2015/01/09/11/08/startup-594090_1280.jpg",
-      "https://cdn.pixabay.com/photo/2018/03/10/12/00/paper-3213924_1280.jpg",
-      "https://cdn.pixabay.com/photo/2015/01/08/18/27/startup-593341_1280.jpg",
-      "https://cdn.pixabay.com/photo/2019/09/25/09/36/team-4503157_1280.jpg"
-    ];
-
-    const idx = Math.floor(Math.random() * images.length);
-    return images[idx];
-  }
-
-  const addTeam = () => {
+  //editTeam 수정하기.
+  const editTeam = () => {
 
     if (title === '') {
 
@@ -206,10 +250,6 @@ const TeamWirte = (props) => {
     }
 
     let thumbnailFile = thumbnailRef.current.files[0];
-    if (thumbnailFile === null || thumbnailFile === undefined) {
-      thumbnailFile = randomThumbnail();
-    }
-
     const requestBody = `{ 'title':'${title}', 'recruit':'${recruit.end.getTime()}',
     'begin':'${project.start.getTime()}', 'end':'${project.end.getTime()}', 'location':'${location}',
     'front':'${front.member}', 'back':'${back.member}', 'designer':'${design.member}', 'planner':'${plan.member}',
@@ -219,7 +259,7 @@ const TeamWirte = (props) => {
     formData.append("file", thumbnailFile);
     formData.append("requestBody", requestBody);
 
-    dispatch(teamActions.addTeamMakingAPI(formData));
+    dispatch(teamActions.updateTeamMakingAPI(teamId, formData));
   }
 
 
@@ -241,12 +281,13 @@ const TeamWirte = (props) => {
             <tbody>
               <tr>
                 <td>모집기간</td>
-                <td><TeamDate startDate={recruit.start} endDate={recruit.end} setEndDate={setRecruitEnd} recruit recruitMaxDate={project.end} />
+                <td>
+                  <TeamDate startDate={recruit.start} endDate={recruit.end} setEndDate={setRecruitEnd} recruit recruitMaxDate={project.end} />
                 </td>
               </tr>
               <tr>
                 <td>프로젝트 기간</td>
-                <td><TeamDate startDate={project.start} endDate={project.end} setStartDate={setProjectStart} setEndDate={setProjectEnd} /></td>
+                <td><TeamDate startDate={project.start} endDate={project.end} setStartDate={setProjectStart} setEndDate={setProjectEnd} edit projectMindate={projectMindate} /></td>
               </tr>
               <tr>
                 <td>모집인원</td>
@@ -292,6 +333,12 @@ const TeamWirte = (props) => {
                   </SelectBox>
                 </td>
               </tr>
+              <tr>
+                <td>썸네일</td>
+                <td>
+                  <Upload fileRef={thumbnailRef} changeFile={changeFile} />
+                </td>
+              </tr>
             </tbody>
           </ChoiceTable>
         </ChoiceBox>
@@ -302,13 +349,9 @@ const TeamWirte = (props) => {
           </React.Fragment>) : (<React.Fragment>
             <Editor value={contents} onChange={onEditorChange} />
           </React.Fragment>)}
-
-          <UploadBox>
-            <Upload fileRef={thumbnailRef} fileName={fileName} changeFile={changeFile} />
-          </UploadBox>
         </ConentesBox>
         <BtnBox>
-          <WriteBtn onClick={addTeam}>
+          <WriteBtn onClick={editTeam}>
             작성완료
           </WriteBtn>
         </BtnBox>
@@ -317,189 +360,4 @@ const TeamWirte = (props) => {
   )
 }
 
-export default TeamWirte;
-
-const Wrapper = styled.div`
-  margin:50px 0px 50px 0px;
-  padding:0px 20px;
-  box-sizing: border-box;
-`;
-
-const TitleBox = styled.div`
-  width:100%;
-  text-align: center;
-  font-size:1.37em;
-  margin-bottom: 15px;
-`;
-
-const ChoiceBox = styled.div`
-  width:315px;  
-  padding:20px;
-  box-sizing: border-box;
-  margin:0px auto 25px auto;
-
-  @media ${props => props.theme.mobile}{
-    margin:0px auto 30px auto;
-  }
-
-  @media (max-width:380px){
-    padding:0px;
-    width:auto;
-    margin:0px auto 15px auto;
-  }
-`;
-
-const ConentesBox = styled.div`
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  width:100%;
-`;
-
-const BtnBox = styled.div`
-  width:100%;
-  text-align: center;
-  margin:40px 0px 70px 0px;
-  @media ${props => props.theme.mobile}{
-    margin:40px 0px 30px 0px;
-  }
-`;
-
-const WriteBtn = styled.button`
-  background-color: #ffffff;
-  border: 2px solid #979797;
-  border-radius: 11px;
-  font-weight: 600;
-  padding:5px 12px;
-  color:#595858;
-  font-size:1em;
-  cursor: pointer;
-  outline: none;
-
-  @media ${props => props.theme.mobile}{
-    font-size:0.9em;
-  }
-
-  @media (max-width:380px){
-    font-size:0.7em;
-  }
-`;
-
-const UploadBox = styled.div`
-  @media (max-width:615px){
-    width:100%;
-    margin-top:30px;
-  }
-`;
-
-const ChoiceTable = styled.table`
-  width:100%;
-  height: 100%;
-  & tr,td{
-    vertical-align: middle;
-  }
-  & td:nth-child(1){
-    width:40%;
-  }
-  & tr:nth-child(1){
-    height: 50px;
-  }
-  & tr:last-child{
-    height: 50px;
-  }
-
-@media ${props => props.theme.mobile}{
-   & td:nth-child(1){
-    width:35%;
-    }
-    font-size:0.9em;
-  }
-
-  @media (max-width:380px){
-    &td:nth-child(1){
-      width:50%;
-    }
-    & tr:nth-child(1){
-      height: auto;
-    }
-    font-size:0.8em;
-  }
-`;
-
-const SelectBox = styled.select`
-  padding:7px 6px;
-  outline: none;
-  border:none;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width:140px;
-  background: url(${Arrow}) no-repeat 98% 50%;
-  background-size:22px;
-  background-color: ${props => props.theme.main_gray};
-  width:98%;
-  font-size:12px;
-  select::-ms-expand {
-    display: none;
-  }
-
-    @media (max-width:380px){
-      font-size:11px;
-  }
-`;
-
-const LanguageInput = styled.input`
-  padding:4px 5px;
-  box-sizing: border-box;
-  outline: none;
-  width:170px;
-  border:1px solid lightgray;
-  border-radius: 3px;
-
-  &::placeholder{
-    color:#C0C0C0;
-  }
-`;
-
-const PositionBox = styled.div`
-  display: flex;
-  
-`;
-
-const NumberInput = styled.input`
-  outline: none;
-  height: 15px;
-  position: relative;
-  top:7px;
-  width:45px;
-  border:1px solid lightgray;
-  padding:2px 5px;
-  border-radius: 4px;
-`;
-
-const PositionSelect = styled.div`
-  width:100px;
-`;
-
-const Info = styled.p`
-  font-size:0.8em;
-  position: relative;
-  top:4px;
-  left:2px;
-  color:#BDBDBD;
-`;
-
-const Line = styled.div`
-  width:380px;
-  height: 1px;
-  background-color: #d8d8d8;
-  margin:20px auto 0px auto;
-
-  @media ${props => props.theme.mobile}{
-    width:80%;
-  }
-  @media (max-width:380px){
-    width:100%;
-    }
-  `;
-
+export default TeamEdit;

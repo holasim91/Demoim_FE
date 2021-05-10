@@ -5,16 +5,15 @@ import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
 const TeamDate = (props) => {
-  const { startDate, endDate, setStartDate, setEndDate, recruit, recruitMaxDate } = props;
+  //edit 팀 수정시 사용
+  const { startDate, endDate, setStartDate, setEndDate, recruit, recruitMaxDate, edit, projectMindate } = props;
 
   //모집일 최소날짜 
-  let _periodinDate = new Date(startDate.valueOf());
-  let periodMinDate = new Date(_periodinDate.setDate(_periodinDate.getDate() + 1))
-
-  //프로젝트 마감일 최소날짜
-  //let _projectMinDate = new Date(startDate.valueOf());
-  //console.log('복사 date:' + new Date(date.setDate(date.getDate() + 1)))
-  // console.log('지원 끝날 minDate: ' + new Date(startDate.setDate(_startDate.getDate() + 1)))
+  let _periodMinDate = new Date(startDate);
+  let periodMinDate = new Date(_periodMinDate.setDate(_periodMinDate.getDate() + 1));
+  //프로젝트 시작일 최대날짜
+  let _projectMaxDate = new Date(endDate);
+  let projectMaxDate = new Date(_projectMaxDate.setDate(_projectMaxDate.getDate() - 1));
 
   const ExampleCustomInput = React.forwardRef(
     ({ value, onClick }, ref) => (
@@ -23,6 +22,8 @@ const TeamDate = (props) => {
       </DateBtn>
     ),
   );
+
+  console.log('프로젝트 최소날짜::', projectMindate)
 
   if (recruit) {
     return (
@@ -46,8 +47,8 @@ const TeamDate = (props) => {
           selectsEnd
           startDate={startDate}
           endDate={endDate}
-          minDate={periodMinDate}
-          maxDate={recruitMaxDate}
+          minDate={periodMinDate}//최소 하루 더한날!
+          maxDate={recruitMaxDate}//프로젝트 마감일을 넘어서면 안됨.
           customInput={<ExampleCustomInput />}
           closeOnScroll={true}
           popperPlacement="auto"
@@ -65,8 +66,8 @@ const TeamDate = (props) => {
         selectsStart
         startDate={startDate}
         endDate={endDate}
-        minDate={new Date()}
-        maxDate={endDate}
+        minDate={edit ? projectMindate : new Date()}
+        maxDate={projectMaxDate}
         customInput={<ExampleCustomInput />}
         closeOnScroll={true}
         popperPlacement="auto"
@@ -91,11 +92,13 @@ const TeamDate = (props) => {
 export default TeamDate;
 
 const DateBtn = styled.button`
+
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   padding:3px 6px;
   outline: none;
   border:none;
   background-color: transparent;
-  font-size:1em;
+  font-size:0.9em;
 `;
 
 const DateBox = styled.div`
@@ -107,6 +110,8 @@ const DateBox = styled.div`
 `;
 
 const Sign = styled.p`
+
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   position: relative;
-  top:2px;
+  top:5px;
 `;

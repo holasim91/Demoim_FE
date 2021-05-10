@@ -5,7 +5,7 @@ import Team from "../images/team.svg";
 import { TeamList } from "../components";
 import { history } from "../redux/configStore";
 import { useMediaQuery } from "react-responsive";
-import { Exhibition, ExhibitionList } from "../components";
+import { Exhibition, ExhibitionList, SmallTalkList } from "../components";
 import { actionCreators as teamActions } from "../redux/modules/team";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -128,6 +128,7 @@ const Main = (props) => {
                      다른 유저들과 보다 더 자유롭게 소통해보세요!
                   </DatalkSubTitle>
                </DetalkTitleBox>
+               <SmallTalkList />
             </DetalkBox>
          </Container>
       </React.Fragment>
@@ -364,6 +365,7 @@ const DetalkBox = styled.div`
    flex-direction: column;
    align-items: center;
    margin-top: 110px;
+   margin-bottom: 150px;
    padding:0px 35px;
 
    @media ${props => props.theme.mobile}{

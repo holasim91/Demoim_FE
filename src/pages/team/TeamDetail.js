@@ -3,8 +3,10 @@ import styled, { css } from "styled-components";
 import { Container, Image, Input } from "../../elements";
 import { Modal, ApplyList } from "../../components";
 import { useMediaQuery } from "react-responsive";
+import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as teamActions } from "../../redux/modules/team";
+import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
 //quill css 찾아서 적용해놓기. 가운데 정렬 등등 나오려면 찾아야함. 
 
@@ -50,6 +52,44 @@ const TeamDetail = (props) => {
           <Title>[프로젝트] {team.title}</Title>
         </TitleBox>
         <ContentBox>
+          <LeaderBox>
+            <LeaderMent>
+              <LeaderIntro>TEAM LEADER</LeaderIntro>
+            </LeaderMent>
+            <LeaderInnerBox>
+              <LeaderContent>
+                <ImageBox>
+                  <Image shape="circle" size="60" src={team?.leader?.profileImage ? team?.leader?.profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
+                  <LeaderIcon src={Leader} />
+                </ImageBox>
+                <LeaderInfo>
+                  {isMobile ? (<React.Fragment>
+                    <LeaderInfoText className="nickname">
+                      {team?.leader?.nickname}
+                    </LeaderInfoText>
+                    <LeaderInfoText className="position">
+                      <span>
+                        {team?.leader?.position}
+                      </span>
+                    </LeaderInfoText>
+                  </React.Fragment>) : (
+                    <LeaderInfoTop>
+                      <LeaderInfoText className="nickname">
+                        {team?.leader?.nickname}
+                      </LeaderInfoText>
+                      <LeaderInfoText className="position">
+                        <span>
+                          {team?.leader?.position}
+                        </span>
+                      </LeaderInfoText>
+                    </LeaderInfoTop>)}
+                  <LeaderInfoText className='introduce'>
+                    {team?.leader?.desc}
+                  </LeaderInfoText>
+                </LeaderInfo>
+              </LeaderContent>
+            </LeaderInnerBox>
+          </LeaderBox>
           <TeamPostBox>
             <ContentInnerBox>
               <InfoBox>
@@ -75,34 +115,14 @@ const TeamDetail = (props) => {
               <ProjectCotentsBox dangerouslySetInnerHTML={{ __html: team.contents }} />
             </ContentInnerBox>
           </TeamPostBox>
-          <LeaderBox>
-            <LeaderMent>
-              <Line />
-              <LeaderIntro>팀 리더 소개</LeaderIntro>
-            </LeaderMent>
-            <LeaderInnerBox>
-              <LeaderContent>
-                <ImageBox>
-                  {isMobile ?
-                    (<Image shape="circle" size="50" src={team?.leader?.profileImage ? team?.leader?.profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />) :
-                    (<Image shape="circle" size="75" src={team?.leader?.profileImage ? team?.leader?.profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />)}
-                </ImageBox>
-                <LeaderInfo>
-                  <LeaderInfoText className="nickname">
-                    {team?.leader?.nickname}
-                  </LeaderInfoText>
-                  <LeaderInfoText className="position">
-                    <span>
-                      {team?.leader?.position}
-                    </span>
-                  </LeaderInfoText>
-                  <LeaderInfoText className='introduce'>
-                    {team?.leader?.desc}
-                  </LeaderInfoText>
-                </LeaderInfo>
-              </LeaderContent>
-            </LeaderInnerBox>
-          </LeaderBox>
+          <LeaderBtn onClick={() => history.push(`/team/edit/${id}`)}>수정</LeaderBtn>
+          {team?.leader?.id === user?.id &&
+            (<LeaderMenu>
+              {team.recruitState !== "FINISHED" && (
+                <LeaderBtn onClick={() => history.push(`/team/edit/${id}`)}>수정</LeaderBtn>
+              )}
+              <LeaderBtn onClick={() => dispatch(teamActions.deleteTeamMakingAPI(team.teamId))}>삭제</LeaderBtn>
+            </LeaderMenu>)}
         </ContentBox>
         <ModalBox>
           {team?.leader?.id !== user?.id || user === null ? (
@@ -138,23 +158,24 @@ const TitleBox = styled.div`
   padding-left:40px;
   
   @media ${props => props.theme.mobile}{
-    padding: 0px 0px 20px 20px;
+    padding: 0px 0px 0px 20px;
     
   }
 `;
 
 const ContentBox = styled.div`
-  width:93%;
+  width:90%;
   box-sizing: border-box;
   padding: 20px 30px 30px 30px;
   display: flex;
-  gap:7%;
-  margin:15px auto 0px auto;
-  align-items: center; //이거빼면 내용,리더박스 위로 정렬.
+  flex-direction: column;
+  align-items: center;
+  //gap:7%;
+  margin:35px auto 0px auto;
+  //align-items: center; //이거빼면 내용,리더박스 위로 정렬.
   
  
   @media ${props => props.theme.mobile}{
-    flex-direction: column;
     min-height: auto;
     padding:0px;
     margin-bottom: 15px;
@@ -164,18 +185,12 @@ const ContentBox = styled.div`
 `;
 
 const TeamPostBox = styled.div`
-  width:55%;
+  width:100%;
   ${Flex}
-  gap:30px;
 
   @media ${props => props.theme.tablet}{
-    width:66%;
-  }
-
-  @media ${props => props.theme.mobile}{
     width:100%;
   }
-
 `;
 
 const ContentInnerBox = styled.div`
@@ -184,6 +199,12 @@ const ContentInnerBox = styled.div`
   padding:20px;
    border-radius: 2px;
 
+`;
+
+const LeaderIcon = styled.img`
+  position: absolute;
+  top:-8px;
+  left:25px;
 `;
 
 const InfoBox = styled.div`
@@ -218,7 +239,7 @@ const Title = styled.p`
   font-size:21px;
   line-height: 1.4em;
   font-weight: 600;
-
+  padding-left:10px;
   @media ${props => props.theme.mobile}{
     font-size:18px;
     padding-left:10px;
@@ -239,15 +260,12 @@ const ProjectCotentsBox = styled.div`
   & img{
     width:70%;
   }
-
   & p{
     line-height: 1.3em;
   }
-
   & h1,h2,h3{
     line-height: 1.5em;
   }
-
   @media (max-width:420px){
   
     & p,ol,ul{
@@ -257,75 +275,63 @@ const ProjectCotentsBox = styled.div`
   }
 `;
 
-const ContentText = styled.p`
-  box-sizing: border-box;
-  font-size:15px;
-  padding-top:15px;
-  line-height: 1.5em;
-
-  @media (max-width:420px){
-      font-size:12px;
-  }
-  
-`;
 
 //리더 프로필 
 const LeaderBox = styled.div`
-  width:30%;
-  margin-top:-30px;
+  width:60%;
+  margin-bottom: 40px;
   @media ${props => props.theme.tablet}{
-    margin:0px;
-    width:34%;
+    
+    width:75%;
   }
   @media ${props => props.theme.mobile}{
     width:100%;
     padding-top:20px;
     border:none;
-    border-top:1px solid lightgray;
+    margin-bottom: 20px;
   }
 `;
 
 const LeaderContent = styled.div`
-  ${Flex}
-  align-items:center;
+  display: flex;
   gap:20px;
+  justify-content: flex-start;
+  align-items: center;
+
+   @media ${props => props.theme.mobile}{
+    flex-direction:column;
+    gap:10px;
+  }
 `;
 
 const LeaderInfo = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap:10px;
-
-  @media ${props => props.theme.mobile}{
-    
-    gap:8px;
-    padding:0px 30px;
-    margin-top:-8px;
-  }
 `;
 const LeaderInfoText = styled.p`
   font-size:16px;
 
   &.introduce{
     line-height: 1.4em;
-    padding:10px 40px 0px 40px;
     font-size:0.85em;
-    text-align: center;
+    margin-top:10px;
   }
 
   &.position{
-    font-size:0.85em;
+    font-size:0.7em;
   & span{
       background-color: ${props => props.theme.button_purple};
       padding:2px 8px;
       border-radius: 12px;
       color:#ffffff;
+      position: relative;
+      top:3px;
+      left:7px;
     }
   }
 
   &.nickname{
-    font-size:19px;
+    font-size:17px;
     font-weight: 600;
     cursor: pointer;
   }
@@ -336,34 +342,37 @@ const LeaderInfoText = styled.p`
     
     &.introduce{
       padding:0px;
-      margin-top:14px;
+      margin-top:20px;
     }
     &.nickname{
     font-size:1em;
+    text-align: center;
   }
 
   &.position{
     font-size:0.8em;
+    text-align: center;
 
     & span{
       background-color: ${props => props.theme.button_purple};
       padding:0px 8px;
       border-radius: 12px;
       color:#ffffff;
+      top:5px;
+      left:0px;
     }
   }
   }
 `;
 
 const ImageBox = styled.div`
+  position: relative;
 `;
 const LeaderInnerBox = styled.div`
   box-sizing: border-box;
-  padding:30px 0px 15px 0px;
-  min-height: 350px;
+  padding:15px 0px 15px 30px;
   border-radius:5px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-  display: flex;
   justify-content: center;
 
   @media ${props => props.theme.mobile}{
@@ -378,31 +387,55 @@ const LeaderMent = styled.div`
   font-size:1.1em;
   font-weight: 600;
   text-align:center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 
   @media ${props => props.theme.mobile}{
-    margin:20px 0px 30px 0px;
+    margin:20px 0px 15px 0px;
   }
 
-`;
-
-const Line = styled.div`
-  display: none;
-  width:100%;
-  height: 1px;
-  background-color: #d8d8d8;
-  position: relative;
-  top:8px;
-  @media ${props => props.theme.mobile}{
-    display:block;
-  }
 `;
 
 const LeaderIntro = styled.span`
   background-color: white;
+  font-size:17px;
   padding:0px 10px;
   position: relative;
   z-index:3;
+`;
+
+const LeaderInfoTop = styled.div`
+  display: flex;
+
+`;
+
+const LeaderMenu = styled.div`
+display: flex;
+justify-content: flex-end;
+width:100%;
+gap:7px;
+margin-top:15px;
+padding-right: 20px;
+
+@media ${props => props.theme.mobile}{
+  padding-right: 10px;
+}
+
+`;
+
+
+const LeaderBtn = styled.button`
+  padding:3px 15px;
+  outline: none;
+  cursor: pointer;
+  border: 2px solid rgba(122,119,134,0.5);
+  border-radius: 8px;
+  background-color:#ffffff;
+  font-weight: 600;
+
+  @media ${props => props.theme.mobile}{
+    font-size:0.8em;
+  }
+
 `;
 
 //모달

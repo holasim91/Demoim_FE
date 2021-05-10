@@ -19,46 +19,50 @@ const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 const setDetailTeam = createAction(SET_DETAIL_TEAM, (teamInfo) => ({ teamInfo }));
 
 const initialState = {
-  list: [{
-    "teamId": 1,
-    "title": "아기자기한 타로카드 앱을 만드실 분을 찾습니다.",
-    "recruit ": "2021-04-28T19:54:09.546",
-    "begin": "2021-05-04T19:54:09.546",
-    "end": "2021-05-31T19:54:09.546",
-    "location ": "오프라인",
-    "thumbnail": "https://cdn.pixabay.com/photo/2017/09/08/09/49/craft-2728227__340.jpg",
-    "front": 2,
-    "back": 2,
-    "designer": 1,
-    "planner": 0,
-    "stack": "React Native/Node.js",
-    "contents": "<p>제목 그대로 입니다.</p>",
-    "createdAt": "2021-04-20T19:54:09.546",
-    "modifiedAt": "2021-04-20T19:54:09.546",
-    "recruitState": "ACTIVATED",
-    "projectState": "YET",
-    "leader": {
-      id: 2,
-      nickname: "아톰",
-      position: "프론트엔드",
-      profileimage: "https://post-phinf.pstatic.net/MjAxNzA2MjlfMjU5/MDAxNDk4NzM5NzI3MjA0.Aon2aPyhufiwt9-Y21w0v1luZzlYnihR7Xcozypyf8Qg.QLFNlJRzJzd1TqWWSN0DyVeHxe8zsAxGc7PHwkNHy8gg.PNG/1483309553699.png?type=w1200",
-      desc: "탄탄한 포트폴리오를 만들고 싶습니다!"
-    }
-  },],
+  list: [],
   isLoading: false,
   teamInfo: {},
-  //paging: { start: null, next: null, size: 3 },
+  paging: { start: null, next: null, size: 9 },
 }
-
-const getTeamMakingAPI = (page, size) => {
+//start는 page 번호 
+const getTeamMakingAPI = (page, size = 9) => {
   return function (dispatch, getState, { history }) {
 
+    /*
+        let _paging = getState().team.paging;
+        if (_paging.start && !_paging.next) {
+          return;
+        }
+    
+        if (start === null) {
+          start = 1;
+        }
+    
+        dispatch(loading(true));
+        axios({
+          method: 'get',
+          url: `${config.api}/api/team?page=${start}&size=${size + 1}`,
+        }).then((res) => {
+    
+          let paging = {
+            start: start + 1,
+            next: res.data.length === size + 1 ? res.data[res.data.length - 1] : null,
+            size: size,
+          }
+    
+          let team = res.data;
+          team.pop();
+    
+          dispatch(setTeam(team, paging));
+    
+        });
+    */
     dispatch(loading(true));
     axios({
       method: 'get',
       url: `${config.api}/api/team?page=${page}&size=${size}`,
     }).then((res) => {
-      console.log(res.data);
+      console.log('얍얍!');
       dispatch(setTeam(res.data));
     }).catch((error) => {
       console.log(error);
@@ -128,7 +132,7 @@ const deleteTeamMakingAPI = (teamId) => {
     }).then((res) => {
 
       dispatch(deleteTeam(teamId));
-      history.replace('/');
+      history.replace('/team');
 
     }).catch((err) => {
       console.log('팀메이킹 글삭제 에러:', err);
@@ -152,6 +156,7 @@ const updateTeamMakingAPI = (teamId, formData) => {
     }).then((res) => {
 
       dispatch(updateTeam(teamId, res.data));
+      history.replace(`/team/detail/${teamId}`);
 
     }).catch((err) => {
       console.log('팀메이킹 글수정 에러:', err);
@@ -160,12 +165,75 @@ const updateTeamMakingAPI = (teamId, formData) => {
   }
 }
 
+const getFrontTeamMaking = (page = 1, size = 6) => {
+  return function (dispatch, getState, { history }) {
 
+    axios({
+      method: 'get',
+      url: `${config.api}/api/team/front?page=${page}&size=${size}`,
+    }).then((res) => {
+      dispatch(setTeam(res.data));
+    }).catch((err) => {
+      console.log('팀메이킹 프론트엔드 조회 에러:', err);
+    })
+
+  }
+}
+
+const getBackTeamMaking = (page, size) => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/team/back?page=${page}&size=${size}`,
+    }).then((res) => {
+      dispatch(setTeam(res.data));
+    }).catch((err) => {
+      console.log('팀메이킹 백엔드 조회 에러:', err);
+    })
+
+  }
+}
+
+const getDesignerTeamMaking = (page, size) => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/team/designer?page=${page}&size=${size}`,
+    }).then((res) => {
+      dispatch(setTeam(res.data));
+    }).catch((err) => {
+      console.log('팀메이킹 디자이너 조회 에러:', err);
+    })
+
+  }
+}
+
+const getPlannerTeamMaking = (page, size) => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/team/planner?page=${page}&size=${size}`,
+    }).then((res) => {
+      dispatch(setTeam(res.data));
+    }).catch((err) => {
+      console.log('팀메이킹 기획자 조회 에러:', err);
+    })
+
+  }
+}
 
 
 export default handleActions(
   {
     [SET_TEAM]: (state, action) => produce(state, (draft) => {
+      /*draft.list.push(...action.payload.teamList);
+      if (action.payload.paging) {
+        draft.paging = action.payload.paging;
+      }
+      */
       draft.list = action.payload.teamList;
       draft.isLoading = false;
     }),
@@ -194,7 +262,11 @@ const actionCreators = {
   getDetailTeamMakingAPI,
   addTeamMakingAPI,
   deleteTeamMakingAPI,
-  updateTeamMakingAPI
+  updateTeamMakingAPI,
+  getFrontTeamMaking,
+  getBackTeamMaking,
+  getDesignerTeamMaking,
+  getPlannerTeamMaking
 };
 
 export { actionCreators };
