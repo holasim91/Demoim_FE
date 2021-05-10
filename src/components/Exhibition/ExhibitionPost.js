@@ -6,36 +6,43 @@ const ExhibitionPost = (props) => {
   const { data } = props;
   const styles = {
     thumbnail: data.thumbnail,
-  }
+  };
   const ChangeTimeType = (time) => time.split("T")[0];
 
   return (
     <>
       <ExhibitionPostBox
         onClick={() => {
-          history.push(`/exhibition/detail/${props.data.id}`)
+          history.push(`/exhibition/detail/${props.data.id}`);
         }}
       >
         <ExhibitionPostBoxContainer>
           <PostHeader>
             <HeaderLeft>
-             {data.user.profileImg?
-              <ProfileImage alt="profile" src={data.user.profileImg} />
-            :
-            <ProfileImage alt="profile" src={"https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} />
-
-            }
+              {data.user.profileImg ? (
+                <ProfileImage alt="profile" src={data.user.profileImg} />
+              ) : (
+                <ProfileImage
+                  alt="profile"
+                  src={
+                    "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+                  }
+                />
+              )}
               <UserName>{data.user.nickname}</UserName>
             </HeaderLeft>
             <PostDate>{ChangeTimeType(data.createAt)}</PostDate>
           </PostHeader>
-          <ThumbNail  {...styles}/>
+          <ThumbNail {...styles} />
           <Title>{data.title}</Title>
-          <Content>
-            {data.contents.length > 140
-              ? data.contents.slice(0, 140) + "..."
-              : data.contents}
-          </Content>
+          <Content
+            dangerouslySetInnerHTML={{
+              __html:
+                data.contents.length > 140
+                  ? data.contents.slice(0, 140) + "..."
+                  : data.contents,
+            }}
+          />
         </ExhibitionPostBoxContainer>
       </ExhibitionPostBox>
     </>
@@ -44,7 +51,7 @@ const ExhibitionPost = (props) => {
 
 const ExhibitionPostBox = styled.div`
   width: 100%;
-  box-sizing:border-box;
+  box-sizing: border-box;
   padding: 15px 20px;
   background-color: ${({ theme }) => theme.main_gray};
   margin-bottom: 10px;
@@ -52,14 +59,13 @@ const ExhibitionPostBox = styled.div`
   cursor: pointer;
   transition: all 0.3s;
   :hover {
-    transform: translate(0px,-3px);
+    transform: translate(0px, -3px);
   }
-  @media ${props => props.theme.mobile}{
+  @media ${(props) => props.theme.mobile} {
     min-height: 400px;
     margin: auto;
     margin-bottom: 20px;
   }
-
 `;
 
 const ExhibitionPostBoxContainer = styled.div`
@@ -85,23 +91,21 @@ const ProfileImage = styled.img`
 `;
 const UserName = styled.div`
   margin-left: 10px;
-  font-size:15px;
+  font-size: 15px;
 `;
 const PostDate = styled.div`
-color: #7a7786;
-font-size:15px;
-
+  color: #7a7786;
+  font-size: 15px;
 `;
 const ThumbNail = styled.div`
-  width:100%;
+  width: 100%;
   height: 200px;
-  background: url('${(props) => props.thumbnail}') no-repeat;
+  background: url("${(props) => props.thumbnail}") no-repeat;
   background-size: cover;
   margin: 0 auto;
-  @media ${props => props.theme.mobile}{
+  @media ${(props) => props.theme.mobile} {
     height: 246px;
   }
-
 `;
 const Title = styled.div`
   font-size: 25px;

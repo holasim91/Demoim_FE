@@ -40,7 +40,7 @@ function App() {
             <Route path="/team/edit/:teamId" exact component={TeamEdit} />
             <Route path="/exhibition" exact component={Exhibition} />
             <Route path="/exhibition/detail/:exhibitionId" exact component={ExhibitionDetail} />
-            <Route path="/exhibition/wrtie" exact component={ExhibitionWrite} />
+            <Route path="/exhibition/write" exact component={ExhibitionWrite} />
             <Route path="/smalltalk" exact component={SmallTalk} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/login" exact component={Login} />

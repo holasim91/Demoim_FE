@@ -48,9 +48,7 @@ const ExhibitionDetail = (props) => {
             </TextBlock>
           </UserInfo>
           <ExhibitionDetailContent>
-            <ExhibitionDetailContentContainer>
-              {post.contents}
-            </ExhibitionDetailContentContainer>
+            <ExhibitionDetailContentContainer dangerouslySetInnerHTML={{ __html: post.contents }} />
           </ExhibitionDetailContent>
           <ExhibitionComment />
         </DetailWrapper>
