@@ -61,7 +61,7 @@ const loginAPI = (email, pw) => {
       console.log("로그인:", res.data);
       const userInfo = {
         id: Number(res.data.userInfo.Id),
-        desc: res.data.userInfo.Desc,
+        description: res.data.userInfo.description,
         nickname: res.data.userInfo.Nickname,
         position: res.data.userInfo.Position,
         profileImage: res.data.userInfo.ProfileImage,
@@ -108,7 +108,7 @@ const loginCheckAPI = () => {
 
       dispatch(setUser({
         id: res.data.id, 
-        desc: res.data.desc,
+        description: res.data.description,
         nickname: res.data.nickname,
         position: res.data.position,
         profileImage: res.data.profileImage,
@@ -151,7 +151,7 @@ const editProfileAPI = (formData) => {
 
         dispatch(setUser({
           id: res.data.id, 
-          desc: res.data.desc,
+          description: res.data.description,
           nickname: res.data.nickname,
           position: res.data.position,
           profileImage: res.data.profileImage,
@@ -182,6 +182,7 @@ const TabSmallTalkAPI = () => {
     }).then((res) => {
       console.log("스몰토크탭:", res)
       //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
+      dispatch(SmallTalkActions.setPost (res.data))
     }).catch((err) => {
       console.log(err)
     })

@@ -6,7 +6,7 @@ import { history } from "../../redux/configStore";
 import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { ApplyProjectList, ParticipationProjectList } from "../../components";
-//import TabSmallTalkList from "../../components/Userpage/TabSmallTalkList";
+import TabSmallTalkList from "../../components/Userpage/TabSmallTalkList";
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const Userpage = (props) => {
               }}>프로필수정</ProfileEditBtn>
             </UserBoxMarks>
             <UserBoxDesc>
-              <UserDesc>{userInfo?.desc}</UserDesc>
+              <UserDesc>{userInfo?.description}</UserDesc>
             </UserBoxDesc>
           </UserBox>
         </MyPageContainer>
@@ -56,14 +56,13 @@ const Userpage = (props) => {
           <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
         </Tabs>
         <Content active={active === 0}>
-          <h4>스몰토크</h4>
-          {/* <TabSmallTalkList/> */}
+          <TabSmallTalkList/>
         </Content>
         <Content active={active === 1}>
-          <h1>프로젝트자랑글</h1>
+          
         </Content>
         <Content active={active === 2}>
-          <h1>프로젝트히스토리</h1>
+          
         </Content>
 
         {/* <ApplyTapBox>
@@ -78,7 +77,7 @@ const Userpage = (props) => {
 };
 
 Userpage.defaultProps = {
-  desc: "안녕하세요!",
+  description: "안녕하세요!",
   profileImage: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
 }
 
@@ -90,18 +89,26 @@ const Tabs = styled.div`
   /* border:1px solid lightgray; */
   text-align:center;
   box-sizing:border-box;
+
+  button:nth-child(1){
+    width:80px;
+    color:red;
+  }
   @media ${props => props.theme.mobile}{
-    margin:0 auto;
-    width:380px;
+    width:345px;
     }
 `;
+
+// text-align:left;
+//     width:345px;
 
 const Tab = styled.button`
   border:none;
   outline: none;
   cursor:pointer;
   width:150px;
-  margin:2px;
+  text-align:center;
+  margin:0 auto;
   font-size: 16px;
   font-weight: 600;
   /* border: ${props => (props.active ? "1px solid red" : "")}; */
@@ -109,11 +116,14 @@ const Tab = styled.button`
   background-color: ${props => (props.active ? "white" : "white")};
   height: ${props => (props.active ? "3em" : "2.6em; top:.4em")};
   transition: background-color 0.5s ease-in-out;
+  
   @media ${props => props.theme.tablet}{
+    text-align:center;
     font-size:14px;
     width:130px;
     }
   @media ${props => props.theme.mobile}{
+    text-align:center;
     font-size:12px;
     width:115px;
     }
