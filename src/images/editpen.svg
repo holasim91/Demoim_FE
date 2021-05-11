@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pencil</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="마이로그_프로젝트-자랑_모바일(768)" transform="translate(-542.000000, -225.000000)">
+            <g id="마이로그_프로필" transform="translate(70.000000, 220.000000)">
+                <g id="프로필-수정" transform="translate(472.000000, 5.000000)">
+                    <g id="pencil" transform="translate(16.970563, 16.970563) rotate(-45.000000) translate(-16.970563, -16.970563) translate(-3.029437, 12.970563)">
+                        <rect id="Rectangle" fill="#FFDD05" x="11.1563575" y="0.0975884919" width="28.8436425" height="7.90241151"></rect>
+                        <polygon id="Triangle" fill="#7A7786" transform="translate(4.475738, 3.951206) rotate(-90.000000) translate(-4.475738, -3.951206) " points="4.47573764 -0.524531882 8.42694339 8.42694339 0.524531882 8.42694339"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -7,6 +7,8 @@ import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { ImPencil } from "react-icons/im";
 import { TabTeamHistory, TabSmallTalkList } from "../../components";
+import EditPen from '../../images/editpen.svg';
+
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -41,7 +43,8 @@ const Userpage = (props) => {
               <UserBoxMarks>
                 <UserNickName>{userInfo?.nickname}</UserNickName>
                 <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
-                  <ImPencil color="#ffdd05" /> 프로필수정
+                  {/* <ImPencil color="#ffdd05" /> 프로필수정 */}
+                  <EditPenIcon src={EditPen}/>프로필수정
                 </ProfileEditBtn>
               </UserBoxMarks>
               <UserBoxPosition>
@@ -62,19 +65,12 @@ const Userpage = (props) => {
             <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
             <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
           </Tabs>
-          <Content active={active === 0}>
-            <TabSmallTalkList />
-          </Content>
-          <Content active={active === 1}>
-
-          </Content>
-          <Content active={active === 2}>
-            <TabTeamHistory />
-          </Content>
-
+          <Content active={active === 0}><TabSmallTalkList/></Content>
+          <Content active={active === 1}></Content>
+          <Content active={active === 2}><TabTeamHistory /></Content>
         </Container>
       </UserInfoBox>
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 
@@ -98,23 +94,29 @@ const UserInfoBox = styled.div`
 
 //TabMenu
 const Tabs = styled.div`
-  margin:0 auto;
-  width:500px;
+  margin:10px auto 55px auto;
+  width:100%;
   text-align:center;
   box-sizing:border-box;
   button:nth-child(1){
-    width:80px;
+    width:100px;
   }
-  @media ${props => props.theme.mobile}{
-    width:345px;
+  @media ${props => props.theme.tablet}{
+  
     }
+  @media ${props => props.theme.mobile}{
+    width:400px;
+  }
+  @media (max-width: 420px){
+    width:100%;
+    button:nth-child(1){
+    width:65px;
+    }
+  }
 `;
 
-// text-align:left;
-//     width:345px;
-
 const Tab = styled.button`
-  width:150px;
+  width:180px;
   margin:0 auto;
   font-size: 16px;
   font-weight: 600;
@@ -122,33 +124,33 @@ const Tab = styled.button`
   border:none;
   outline: none;
   cursor:pointer;
-  /* border: ${props => (props.active ? "1px solid red" : "")}; */
-  border-bottom: ${props => (props.active ? "4px solid #999cda" : "none")};
-  background-color: ${props => (props.active ? "white" : "white")};
+  color: ${props => (props.active ? "#000000" : "#b2b0b7;")};
+  border-bottom: ${props => (props.active ? "4px solid #683fee" : "none")};
+  background-color: ${props => (props.active ? "transparent" : "transparent")};
   height: ${props => (props.active ? "3em" : "2.6em; top:.4em")};
   transition: background-color 0.5s ease-in-out;
   
   @media ${props => props.theme.tablet}{
     text-align:center;
-    font-size:14px;
-    width:130px;
+    font-size:16px;
+    width:150px;
     }
   @media ${props => props.theme.mobile}{
     text-align:center;
-    font-size:12px;
-    width:115px;
+    font-size:14px;
+    width:130px;
     }
-  /* :hover {
-    background-color:yellow;
-  } */
+  @media (max-width: 420px){
+    text-align:center;
+    font-size:13px;
+    width:120px;
+  }
+
 `;
 
 const Content = styled.div`
   ${props => (props.active ? "" : "display:none")}
-  height: auto;
-  @media ${props => props.theme.mobile}{
-      height: auto;
-   }
+  
 `;
 
 
@@ -180,8 +182,8 @@ const ProfileImg = styled.img`
     padding: 10px;
     border-radius: 100px;
     @media ${props => props.theme.mobile}{
-      width: 40px;
-      height: 40px;
+      width: 60px;
+      height: 60px;
       padding:5px;
     }
 `;
@@ -206,37 +208,52 @@ const UserNickName = styled.div`
   letter-spacing: 1px;
   color:#000000;
   @media ${props => props.theme.mobile}{
-    font-size: 14px;
+    font-size: 16px;
+    font-weight:500;
     }
 
 `;
 
+
+const EditPenIcon = styled.img`
+  width:20px;
+  height:20px;
+  padding-right:2px;
+  @media (max-width: 420px){
+    padding-right:2px;
+  }
+`;
+
 const ProfileEditBtn = styled.div`
-  margin: 5px 5px 0 5px;
-  padding:6px;
+  margin: 10px 5px 0 10px;
+  /* padding:6px; */
   font-size: 18px;
   font-weight:600;
   letter-spacing: 1px;
   color:#000000;
   @media ${props => props.theme.mobile}{
-    font-size: 10px;
+    margin: 0px 8px 0 0px;
+    font-size: 14px;
+    font-weight:500;
     }
+  @media (max-width: 420px){
+    margin: 0px 50px 0 0px;
+    font-size:12px;
+  }
   &:hover{
     cursor: pointer;
-    
   }
 `;
 
 
 const UserBoxPosition = styled.div`
   display:flex;
-
 `;
 
 const UserPosition = styled.div`
   margin: 10px 10px 0 5px;
-    padding: 1px 16px;
-    line-height: 200%;
+  padding: 0 16px;
+  line-height: 200%;
   text-align: center;
   background-color: #999cda;
   color: #ffffff;
@@ -246,8 +263,8 @@ const UserPosition = styled.div`
 
 const UserProject = styled.div`
   margin: 10px 10px 0 5px;
-  padding: 1px 16px;
-  line-height: 220%;
+  padding: 0 16px;
+  line-height: 230%;
   text-align: center;
   background-color:#c8dbf8;
   color:#000000;
@@ -256,7 +273,6 @@ const UserProject = styled.div`
   @media ${props => props.theme.mobile}{
     font-size: 10px;
     }
-
 `;
 
 const UserBoxDesc = styled.div`
@@ -278,6 +294,8 @@ const UserDesc = styled.div`
   box-sizing:border-box;
   @media ${props => props.theme.mobile}{
     font-size: 14px;
+    letter-spacing:0.5px;
+    line-height:18px;
     }
   
 
