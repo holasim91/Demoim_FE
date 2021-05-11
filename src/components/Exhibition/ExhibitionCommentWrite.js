@@ -6,49 +6,60 @@ import { actionCreators as exhibitionCommentActions } from "../../redux/modules/
 
 const ExhibitionCommentWrite = (props) => {
   const dispatch = useDispatch();
-  const {post_id} = props
-  const { user } = useSelector((state) => state.user);
+  const { post_id } = props;
+  const { user, isLogin} = useSelector((state) => state.user);
   const [contents, setContents] = useState("");
 
   const onChangeTextArea = (e) => {
     setContents(e.target.value);
   };
   const onSubmitExhibitionComment = () => {
-    dispatch(exhibitionCommentActions.addExhibitionCommentsAPI(post_id, contents))
+    dispatch(
+      exhibitionCommentActions.addExhibitionCommentsAPI(post_id, contents)
+    );
     setContents("");
   };
 
-  return (<WriteWrapper>
-            <WriteTop>
-            {user?.profileImage ? (
-              <ProfileImage alt="profile" src={user.profileImage} />
-            ) : (
-              <ProfileImage
-                alt="profile"
-                src={
-                  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-                }
-              />
-            )}
-            <TextArea
-              maxLength="300"
-              placeholder="댓글을 작성해 주세요!!"
-              value={contents}
-              onChange={onChangeTextArea}
-            />
-          </WriteTop>
-          <WriteBottom>
-            <Button
-              padding="7px 5px"
-              size="13px"
-              width="51px"
-              _onClick={onSubmitExhibitionComment}
-            >
-              등록
-            </Button>
-          </WriteBottom>
-
-  </WriteWrapper>);
+  return (
+    <WriteWrapper>
+      <WriteTop>
+        {user?.profileImage ? (
+          <ProfileImage alt="profile" src={user.profileImage} />
+        ) : (
+          <ProfileImage
+            alt="profile"
+            src={
+              "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+            }
+          />
+        )}
+        {isLogin ? (
+          <TextArea
+            maxLength="300"
+            placeholder="댓글을 작성해 주세요!!"
+            value={contents}
+            onChange={onChangeTextArea}
+          />
+        ) : (
+          <TextArea maxLength="300" placeholder="로그인 해주세요!" disabled />
+        )}
+      </WriteTop>
+      <WriteBottom>
+        {isLogin ? (
+          <Button
+            padding="7px 5px"
+            size="13px"
+            width="51px"
+            _onClick={onSubmitExhibitionComment}
+          >
+            등록
+          </Button>
+        ) : (
+          ""
+        )}{" "}
+      </WriteBottom>
+    </WriteWrapper>
+  );
 };
 
 const WriteTop = styled.div`

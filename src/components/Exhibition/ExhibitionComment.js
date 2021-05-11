@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
 
 const ExhibitionComment = (props) => {
+  const {post_id} = props
   const { commentId, comments, user, createdAt } = props.comment;
+  const dispatch = useDispatch()
   const ChangeTimeType = (time) => time?.split("T")[0];
-  const onClickCommentUpdate = () => console.log("수정");
-  const onClickDeleteComment = () => console.log("삭제");
+  const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
+  const [current, setCurrent] = useState(comments);
+  const onToggleEdit = () => setIsEdit((state) => !state);
+  const onUpdateTextArea = (e) => {
+    setCurrent(e.target.value);
+  };
+  const onClickCommentUpdate = () => {dispatch(exhibitionCommentActions.updateExhibitionCommentAPI(post_id, commentId,current))
+    setIsEdit(false);};
+  const onClickDeleteComment = () => dispatch(exhibitionCommentActions.deleteExhibitionCommentAPI(post_id, commentId))
+
   return (
     <CommentWrapper>
       <CommentHeader>
@@ -24,20 +36,57 @@ const ExhibitionComment = (props) => {
           <PostDate>{ChangeTimeType(createdAt)}</PostDate>
         </TextBlock>
       </CommentHeader>
-      <CommentContents>{comments}</CommentContents>
+      {isEdit ? (
+        <UpdateTextArea
+          value={current}
+          onChange={onUpdateTextArea}
+          maxLength="300"
+        />
+      ) : (
+        <CommentContents>{comments}</CommentContents>
+      )}
+
       <PostBoxBottom>
-        <EditToggle>
-          <div className="editComment" onClick={onClickCommentUpdate}>
-            수정하기
-          </div>
-          <div className="deleteComment" onClick={onClickDeleteComment}>
-            삭제
-          </div>
-        </EditToggle>
+        {isEdit ? (
+          <EditingToggle>
+            <div className="editConfirm" onClick={onClickCommentUpdate}>
+              수정하기
+            </div>
+            <div className="editCancel" onClick={onToggleEdit}>
+              취소
+            </div>
+          </EditingToggle>
+        ) : (
+          <EditToggle>
+            <div className="editComment" onClick={onToggleEdit}>
+              수정하기
+            </div>
+            <div className="deleteComment" onClick={onClickDeleteComment}>
+              삭제
+            </div>
+          </EditToggle>
+        )}
       </PostBoxBottom>
     </CommentWrapper>
   );
 };
+
+const EditingToggle = styled.div`
+  display: flex;
+  .editConfirm {
+    padding-right: 40px;
+    cursor: pointer;
+    :hover {
+      color: #ccc;
+    }
+  }
+  .editCancel {
+    cursor: pointer;
+    :hover {
+      color: #ccc;
+    }
+  }
+`;
 
 const EditToggle = styled.div`
   display: flex;
@@ -55,6 +104,13 @@ const EditToggle = styled.div`
     }
   }
 `;
+const UpdateTextArea = styled.textarea`
+  border: 1px solid #c9c9d9;
+  font-size: 0.875rem;
+  width: 100%;
+  min-height: 60px;
+  resize: none;
+`;
 
 const PostBoxBottom = styled.div`
   display: flex;
@@ -70,7 +126,7 @@ const PostBoxBottom = styled.div`
 const CommentWrapper = styled.div`
   background-color: #f1f1f1;
   min-height: 80px;
-  margin: 0  auto;
+  margin: 0 auto;
   padding: 17px 28px 0 24px;
   border-radius: 10px;
   width: 80%;
