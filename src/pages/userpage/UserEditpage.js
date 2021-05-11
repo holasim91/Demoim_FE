@@ -116,6 +116,10 @@ const UserEditpage = (props) => {
                   }}/></td>
               </tr>
               <tr>
+                <td>닉네임 중복확인</td>
+                <td><Input place/></td>
+              </tr>
+              <tr>
                 <td>희망포지션</td>
                 <td>
                   <Select value={position} onChange={(e) => {handleOnChange(e)}}>

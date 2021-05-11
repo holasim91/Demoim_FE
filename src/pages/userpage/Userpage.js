@@ -5,11 +5,10 @@ import { Text, Grid, Button, Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
-import { ImPencil } from "react-icons/im";
 import EditPen from '../../images/editpen.svg';
 import { TabSmallTalkList } from "../../components";
 import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
-//import "../../css/userpage.css"
+//import "../../css/userpage.css"b
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -33,8 +32,7 @@ const Userpage = (props) => {
 
   return (
     <React.Fragment>
-      {/* <UserInfoBox className="userInfoBox"> */}
-
+      <UserInfoBox className="userInfoBox">
       <Container>
         <MyPageContainer>
           <Profile>
@@ -59,6 +57,7 @@ const Userpage = (props) => {
           </UserBox>
         </MyPageContainer>
       </Container>
+    </UserInfoBox>
       <Container>
         {/* Tab Menu */}
 
@@ -79,7 +78,7 @@ const Userpage = (props) => {
         </Content>
 
       </Container>
-      {/* </UserInfoBox> */}
+      
 
     </React.Fragment>
 
@@ -92,27 +91,32 @@ Userpage.defaultProps = {
 }
 
 
-// const UserInfoBox = styled.div`
-//   width:100%;
-//   height: auto;
-//   padding:20px 0;
-//   margin-bottom:100px;
-//   background: -webkit-linear-gradient( #F2F5FA, #ffffff);
-//   background: -moz-linear-gradient(#F2F5FA, #ffffff);
-//   background: -o-linear-gradient(#F2F5FA, #ffffff);
-//   background: linear-gradient(#F2F5FA, #ffffff);
-// `;
+const UserInfoBox = styled.div`
+  width:100%;
+  height: 50%;
+  padding:20px 0;
+  margin-bottom:35px;
+  background: -webkit-linear-gradient( #F2F5FA, #ffffff);
+  background: -moz-linear-gradient(#F2F5FA, #ffffff);
+  background: -o-linear-gradient(#F2F5FA, #ffffff);
+  background: linear-gradient(#F2F5FA, #ffffff);
+`;
 
 //TabMenu
 const Tabs = styled.div`
   margin:10px auto 55px auto;
-  width:100%;
+  width:800px;
   text-align:center;
   box-sizing:border-box;
   button:nth-child(1){
-    width:100px;
+    width:150px;
   }
   @media ${props => props.theme.tablet}{
+    width:100%;
+    margin:10px auto 20px auto;
+    button:nth-child(1){
+    width:100px;
+  }
   
     }
   @media ${props => props.theme.mobile}{
@@ -127,9 +131,9 @@ const Tabs = styled.div`
 `;
 
 const Tab = styled.button`
-  width:180px;
-  margin:0 auto;
-  font-size: 16px;
+  width:200px;
+  margin:0 40px;
+  font-size: 20px;
   font-weight: 600;
   text-align:center;
   border:none;
@@ -138,10 +142,11 @@ const Tab = styled.button`
   color: ${props => (props.active ? "#000000" : "#b2b0b7;")};
   border-bottom: ${props => (props.active ? "4px solid #683fee" : "none")};
   background-color: ${props => (props.active ? "transparent" : "transparent")};
-  height: ${props => (props.active ? "3em" : "2.6em; top:.4em")};
+  height: ${props => (props.active ? "2em" : "2.6em; top:.4em")};
   transition: background-color 0.5s ease-in-out;
   
   @media ${props => props.theme.tablet}{
+    margin:0 auto;
     text-align:center;
     font-size:16px;
     width:150px;
