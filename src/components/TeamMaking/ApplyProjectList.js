@@ -4,6 +4,9 @@ import { ApplyProjectCard } from "../../components";
 
 const ApplyProjectList = (props) => {
 
+
+
+
   return (
 
     <React.Fragment>
@@ -21,21 +24,18 @@ export default ApplyProjectList;
 
 const ApplicantBox = styled.div`
   display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  width:90%;
+  grid-template-columns: repeat(1,minmax(0,1fr));
+  width:65%;
   margin: 0px auto;
-  grid-column-gap: 2%;
-  grid-row-gap: 20px;
+  grid-row-gap: 45px;
   
   @media ${props => props.theme.tablet}{
-    width:100%;
-    grid-row-gap: 10px;
-    grid-template-columns: repeat(2,minmax(0,1fr));
+    
+    grid-row-gap: 20px;
   }
 
   @media (max-width:530px){
     width:88%;
-    grid-template-columns: repeat(1,minmax(0,1fr));
   }
 `;
 
@@ -43,9 +43,14 @@ const TitleBox = styled.div`
 
   color:#683fee;
   font-weight: 600;
+  width:65%;
+  margin:60px auto 0px auto;
   & span{
     color:#000000;
   }
   margin-bottom: 30px;
-  
+
+  @media (max-width:530px){
+    width:88%;
+  }
 `;

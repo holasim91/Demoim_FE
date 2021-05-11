@@ -15,7 +15,8 @@ import ExhibitionPost from "./Exhibition/ExhibitionPost";
 import ExhibitionComment from "./Exhibition/ExhibitionComment";
 import TeamDate from "./TeamMaking/TeamDate";
 import SmallTalkList from "./SmallTalk/SmallTalkList";
-import TabTeamHistory from "./Userpage/TabTeamHistory";
+import TabTeamApplyHistory from "./Userpage/TabTeamApplyHistory";
+import TabTeamParticipateHistory from "./Userpage/TabTeamParticipateHistory";
 import TabSmallTalkList from "./Userpage/TabSmallTalkList";
-export { Editor, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList, SmallTalkList, TabTeamHistory, TabSmallTalkList };
+export { Editor, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList, SmallTalkList, TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory };
 
