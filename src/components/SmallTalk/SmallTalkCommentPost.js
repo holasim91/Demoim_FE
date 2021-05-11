@@ -69,7 +69,7 @@ const SmallTalkCommentPost = (props) => {
       ) : (
         <PostBoxBottom>
           {currentUser.isLogin &&
-          currentUser.user.nickname === user.nickname ? (
+          currentUser.user.id === user.userid ? (
             <EditToggle>
               <div className="editPost" onClick={onClickCommentUpdate}>
                 수정하기
