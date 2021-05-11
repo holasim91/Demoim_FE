@@ -67,10 +67,7 @@ const ProjectInfoBox = styled.div`
     & p{
       line-height: 2.19em;
     }
-
-    
-
-    }
+  }
 `;
 
 const BtnBox = styled.div`
