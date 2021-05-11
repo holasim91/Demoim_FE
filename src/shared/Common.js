@@ -33,3 +33,9 @@ export const pwContinuous = (pw) => {
   const _reg = /(\w)\1\1/;
   return _reg.test(pw)
 }
+
+//url http(s) 확인
+export const urlCheck = (url) => {
+  const _reg = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
+  return _reg.test(url)
+}
