@@ -6,8 +6,8 @@ import { history } from "../../redux/configStore";
 import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { ImPencil } from "react-icons/im";
-import { TabTeamHistory, TabSmallTalkList } from "../../components";
 import EditPen from '../../images/editpen.svg';
+import { TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory } from "../../components";
 
 
 const Userpage = (props) => {
@@ -44,7 +44,7 @@ const Userpage = (props) => {
                 <UserNickName>{userInfo?.nickname}</UserNickName>
                 <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
                   {/* <ImPencil color="#ffdd05" /> 프로필수정 */}
-                  <EditPenIcon src={EditPen}/>프로필수정
+                  <EditPenIcon src={EditPen} />프로필수정
                 </ProfileEditBtn>
               </UserBoxMarks>
               <UserBoxPosition>
@@ -65,9 +65,18 @@ const Userpage = (props) => {
             <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
             <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
           </Tabs>
-          <Content active={active === 0}><TabSmallTalkList/></Content>
-          <Content active={active === 1}></Content>
-          <Content active={active === 2}><TabTeamHistory /></Content>
+
+          <Content active={active === 0}>
+            <TabSmallTalkList />
+          </Content>
+          <Content active={active === 1}>
+
+          </Content>
+          <Content active={active === 2}>
+            <TabTeamApplyHistory />
+            <TabTeamParticipateHistory />
+          </Content>
+
         </Container>
       </UserInfoBox>
     </React.Fragment>

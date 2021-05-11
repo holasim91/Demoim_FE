@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import {useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import SmallTalkList from "../SmallTalk/SmallTalkList";
-import { actionCreators as userAction} from "../../redux/modules/user";
+import { actionCreators as userAction } from "../../redux/modules/user";
 import smalltalk from "../../redux/modules/smalltalk";
 
 
@@ -15,10 +15,10 @@ const TabSmallTalkList = () => {
     dispatch(userAction.TabSmallTalkAPI());
   }, []);
 
-  
+
   return (
     <React.Fragment>
-      <SmallTalkList/>
+      <SmallTalkList />
     </React.Fragment>
   );
 };
