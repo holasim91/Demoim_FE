@@ -8,7 +8,8 @@ import { actionCreators as userAction } from "../../redux/modules/user";
 import { ImPencil } from "react-icons/im";
 import EditPen from '../../images/editpen.svg';
 import { TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory } from "../../components";
-
+import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
+import "../../css/userpage.css"
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Userpage = (props) => {
 
   return (
     <React.Fragment>
-      <UserInfoBox className="userInfoBox">
+      {/* <UserInfoBox className="userInfoBox"> */}
         <Container>
           <MyPageContainer>
             <Profile>
@@ -73,12 +74,11 @@ const Userpage = (props) => {
 
           </Content>
           <Content active={active === 2}>
-            <TabTeamApplyHistory />
-            <TabTeamParticipateHistory />
+            <DoubleTabMenu/>
           </Content>
 
         </Container>
-      </UserInfoBox>
+      {/* </UserInfoBox> */}
     </React.Fragment>
   );
 };
@@ -89,16 +89,16 @@ Userpage.defaultProps = {
 }
 
 
-const UserInfoBox = styled.div`
-  width:100%;
-  height: auto;
-  padding:20px 0;
-  margin-bottom:100px;
-  background: -webkit-linear-gradient( #F2F5FA, #ffffff);
-  background: -moz-linear-gradient(#F2F5FA, #ffffff);
-  background: -o-linear-gradient(#F2F5FA, #ffffff);
-  background: linear-gradient(#F2F5FA, #ffffff);
-`;
+// const UserInfoBox = styled.div`
+//   width:100%;
+//   height: auto;
+//   padding:20px 0;
+//   margin-bottom:100px;
+//   background: -webkit-linear-gradient( #F2F5FA, #ffffff);
+//   background: -moz-linear-gradient(#F2F5FA, #ffffff);
+//   background: -o-linear-gradient(#F2F5FA, #ffffff);
+//   background: linear-gradient(#F2F5FA, #ffffff);
+// `;
 
 
 //TabMenu
