@@ -11,13 +11,14 @@ import { history } from "../../redux/configStore";
 const ExhibitionWrite = (props) => {
   const dispatch = useDispatch();
   const post_id = Number(props.match.params.exhibitionId)
-  const edited_post = useSelector((state)=> state.exhibition.exhibitionPostDetail)
+  const edited_post = useSelector((state) => state.exhibition.exhibitionPostDetail)
 
   useEffect(() => {
-    if(!post_id){
+    if (!post_id) {
       return
     }
-    if (post_id !== edited_post.id){
+    if (post_id !== edited_post.id) {
+
       Swal.fire({
         text: '새로고침시 프로젝트 수정을 다시 시도해주세요!',
         icon: 'warning',
@@ -32,8 +33,8 @@ const ExhibitionWrite = (props) => {
 
   }, []);
 
-  const [title, setTitle] = useState(post_id?edited_post.title:"");
-  const [contents, setContents] = useState(post_id?edited_post.contents:"");
+  const [title, setTitle] = useState(post_id ? edited_post.title : "");
+  const [contents, setContents] = useState(post_id ? edited_post.contents : "");
 
   const onChangeTitle = (e) => setTitle(e.target.value);
   const onEditorChange = (value) => setContents(value);
@@ -70,7 +71,7 @@ const ExhibitionWrite = (props) => {
 
     const reqBody = `{'title':'${title}', 'contents':'${contents}'}`;
     let thumbnailFile = thumbnailRef.current.files[0];
-    if(thumbnailFile === undefined){
+    if (thumbnailFile === undefined) {
       Swal.fire({
         icon: "warning",
         text: "썸네일을 등록해 주세요.",
@@ -84,9 +85,9 @@ const ExhibitionWrite = (props) => {
     dispatch(exhibitionActions.addExihibitionAPI(formData));
   };
 
-  const editExhibition = () =>{
+  const editExhibition = () => {
     const reqBody = `{'title':'${title}', 'contents':'${contents}'}`;
-    let thumbnailFile = thumbnailRef?thumbnailRef.current.files[0]:null;
+    let thumbnailFile = thumbnailRef ? thumbnailRef.current.files[0] : null;
     let formData = new FormData();
     formData.append("file", thumbnailFile);
     formData.append("requestBody", reqBody);
@@ -110,7 +111,7 @@ const ExhibitionWrite = (props) => {
           <Editor value={contents} onChange={onEditorChange} />
 
           <WriteButtonWrapper>
-            {post_id?<WriteBtn onClick={editExhibition}>수정하기</WriteBtn>:<WriteBtn onClick={addExhibition}>작성완료</WriteBtn>}
+            {post_id ? <WriteBtn onClick={editExhibition}>수정하기</WriteBtn> : <WriteBtn onClick={addExhibition}>작성완료</WriteBtn>}
           </WriteButtonWrapper>
         </WriteWrapper>
       </Container>

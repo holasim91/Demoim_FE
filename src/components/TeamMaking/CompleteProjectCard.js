@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const LeaderProjectCard = (props) => {
+const CompleteProjectCard = (props) => {
   return (
     <Grid>
       <CompleteMark>
@@ -28,7 +28,7 @@ const LeaderProjectCard = (props) => {
   )
 }
 
-export default LeaderProjectCard;
+export default CompleteProjectCard;
 
 const Grid = styled.div`
   width:95%;
@@ -58,6 +58,10 @@ const CompleteMark = styled.div`
   height: 100px;
   background-color: #d8d8d8;
   transform: rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  -moz-transform:(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform:rotate(45deg);
   position: absolute;
   top:-50px;
   left:-50px;
@@ -65,6 +69,10 @@ const CompleteMark = styled.div`
   & p{
     position: relative;
     transform: rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    -moz-transform:(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform:rotate(-90deg);
     text-align: center;
     top:43px;
     left:38px;

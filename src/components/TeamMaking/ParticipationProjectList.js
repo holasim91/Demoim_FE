@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ParticipationProjectCard, LeaderProjectCard } from "../../components";
+import { ParticipationProjectCard, CompleteProjectCard } from "../../components";
 
 const ParticipationProjectList = () => {
   return (
@@ -15,7 +15,7 @@ const ParticipationProjectList = () => {
         <p><span>#</span>내가 참여한 프로젝트</p>
       </TitleBox>
       <ParticipationBox>
-        <LeaderProjectCard />
+        <CompleteProjectCard />
       </ParticipationBox>
 
     </Wraaper>
@@ -40,7 +40,7 @@ const Wraaper = styled.div`
   display: flex;
   flex-direction: column;
   width:65%;
-  margin: 40px auto 0px auto;
+  margin: 40px auto 80px auto;
 
   @media ${props => props.theme.mobile}{
     width:88%;

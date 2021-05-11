@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Image, Button } from "./../../elements";
+import { Image } from "./../../elements";
 import { useMediaQuery } from "react-responsive";
 import { history } from "../../redux/configStore";
 import { useDispatch } from 'react-redux';
@@ -15,10 +15,10 @@ const ApplyCard = (props) => {
   const dispatch = useDispatch();
   const ChoiceTeamMember = () => {
 
-    if (!props.id) {
+    if (!props.applyId) {
       return false;
     }
-    dispatch(applyActions.choiceApplyAPI(props.id));
+    dispatch(applyActions.choiceApplyAPI(props.applyId));
   }
 
 
@@ -222,6 +222,10 @@ const MsgBox = styled.div`
   padding:10px;
   box-sizing:border-box;
   font-size:14px;
+  overflow:hidden;
+  word-wrap:break-word;
+  word-break:break-all;
+  line-height: 1.4em;
   &.portfolio{
     min-height: 30px; 
   }

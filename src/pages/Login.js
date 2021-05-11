@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { Text,Grid, Button, Container } from "../elements";
+import { Text, Grid, Button, Container } from "../elements";
 import { history } from "../redux/configStore";
 import "../shared/theme";
 
@@ -11,20 +11,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 const Login = () => {
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = React.useState('');
   const [pw, setPw] = React.useState('')
 
   const onLogin = () => {
 
-    if (email === ""){
+    if (email === "") {
       Swal.fire({
         text: "이메일을 입력해주세요!",
         icon: "warning",
         confirmButtonColor: "#999cda",
       })
       return
-    } 
+    }
     if (pw === "") {
       Swal.fire({
         text: "비밀번호를 입력해주세요!",
@@ -34,7 +34,7 @@ const Login = () => {
       return
     }
 
-    dispatch(actionCreators.loginAPI(email,pw))
+    dispatch(actionCreators.loginAPI(email, pw))
   }
 
   return (
@@ -50,20 +50,21 @@ const Login = () => {
                 <tr>
                   <td>이메일</td>
                   <td>
-                  <Input placeholder="demoim@gmail.com"
-                    value={email}
-                    onChange={(e) => {
-                    setEmail(e.target.value)
-                  }}/></td>
+                    <Input placeholder="demoim@gmail.com"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value)
+                      }} /></td>
                 </tr>
                 <tr>
                   <td>비밀번호</td>
                   <td>
                     <Input type="password"
-                    value={pw}
-                    onChange={(e) => {
-                      setPw(e.target.value)}}/>
-                    </td>
+                      value={pw}
+                      onChange={(e) => {
+                        setPw(e.target.value)
+                      }} />
+                  </td>
                 </tr>
               </tbody>
             </LoginTable>

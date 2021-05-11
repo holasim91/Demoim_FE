@@ -9,7 +9,7 @@ import ApplyProjectCard from "./TeamMaking/ApplyProjectCard";
 import ApplyProjectList from "./TeamMaking/ApplyProjectList";
 import ParticipationProjectCard from "./TeamMaking/ParticipationProjectCard";
 import ParticipationProjectList from "./TeamMaking/ParticipationProjectList";
-import LeaderProjectCard from "./TeamMaking/LeaderProjectCard";
+import CompleteProjectCard from "./TeamMaking/CompleteProjectCard";
 import DatePick from "./DatePick";
 import ExhibitionList from "./Exhibition/ExhibitionList";
 import ExhibitionPost from "./Exhibition/ExhibitionPost";
@@ -18,6 +18,7 @@ import TeamDate from "./TeamMaking/TeamDate";
 import SmallTalkList from "./SmallTalk/SmallTalkList";
 import TabTeamApplyHistory from "./Userpage/TabTeamApplyHistory";
 import TabTeamParticipateHistory from "./Userpage/TabTeamParticipateHistory";
+import TabTeamLeaderHistory from "./Userpage/TabTeamLeaderHistory";
 import TabSmallTalkList from "./Userpage/TabSmallTalkList";
-export { Editor, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList, SmallTalkList, TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory, LeaderProjectCard };
+export { Editor, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList, SmallTalkList, TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory, CompleteProjectCard, TabTeamLeaderHistory };
 
