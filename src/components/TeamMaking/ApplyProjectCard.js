@@ -24,11 +24,7 @@ const ApplyProjectCard = (props) => {
   )
 }
 
-/*
-<p><span>모집 기간</span> 2021.05.05 ~ 2021.05.21</p>
-<p><span>프로젝트 기간</span> 2021.05.30 ~ 2021.06.20</p>
-<p><span>인원</span> 프론트엔드 1명 백엔드2명 디자이너1명 기획자 1명</p>
-*/
+
 
 export default ApplyProjectCard;
 
@@ -38,7 +34,6 @@ const Grid = styled.div`
   padding:15px;
   display: flex;
   flex-direction: column;
-  border:1px solid black;
   
 
   & p {
@@ -76,36 +71,6 @@ const ProjectInfoBox = styled.div`
     
 
     }
-  /* & td{
-    padding:5px 0px;
-    font-size:0.9em;
-    height: 20px;
-  }
-  & td:nth-child(1){
-    width:31%;
-  }
-
-  & span{
-    background-color: #e5ecf7;
-    padding:1px 6px;
-    border-radius: 10px;
-    font-size:500;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
-  }
-
-  @media (max-width:668px){
-    & td:nth-child(1){
-      width:45%;
-  }
-  }
-  @media ${props => props.theme.mobile}{
-    & td{
-      font-size:0.8em;
-    }
-    & td:nth-child(1){
-      width:31%;
-    }
-  } */
 `;
 
 const BtnBox = styled.div`
@@ -129,6 +94,6 @@ const ApplyCancelBtn = styled.button`
 `;
 
 const Titlebox = styled.div`
- margin-bottom: 15px;
- font-weight: 500;
+  margin-bottom: 15px;
+  font-weight: 500;
 `;

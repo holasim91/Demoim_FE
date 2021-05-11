@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { ApplyProjectList, ParticipationProjectList } from "../../components";
+import { ApplyProjectList } from "../../components";
 
-const TabTeamHistory = () => {
+const TabTeamApplyHistory = () => {
   return (
     <React.Fragment>
       <ApplyProjectList />
@@ -10,4 +10,4 @@ const TabTeamHistory = () => {
   )
 }
 
-export default TabTeamHistory;
+export default TabTeamApplyHistory;

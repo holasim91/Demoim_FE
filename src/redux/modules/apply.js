@@ -19,8 +19,6 @@ const initialState = {
 const addApplyAPI = (teamId, msg, site) => {
   return function (dispatch, getState, { history }) {
 
-
-
     if (!teamId) {
       return false;
     }
@@ -81,13 +79,39 @@ const deleteApplyAPI = (teamId) => {
 
     axios({
       method: 'delete',
-      url: `${config}/api/apply?team_id=${teamId}`,
+      url: `${config.api}/api/apply?team_id=${teamId}`,
     }).then((res) => {
 
       console.log(res);
 
     }).catch((err) => {
       console.log("지원삭제 에러:", err);
+    })
+
+  }
+}
+
+const choiceApplyAPI = (applyId) => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'put',
+      url: `${config.api}/api/apply/choice?apply_id=${applyId}`,
+    }).then((res) => {
+
+      Swal.fire({
+        text: `${res.data.msg}`,
+        icon: 'success',
+        confirmButtonColor: "#999cda",
+      })
+
+    }).catch((err) => {
+      console.log('리더 지원자 선택 에러:', err);
+      Swal.fire({
+        text: `${err.response.data.msg}`,
+        icon: 'warning',
+        confirmButtonColor: "#999cda",
+      })
     })
 
   }
@@ -109,7 +133,8 @@ export default handleActions({
 const actionCreators = {
   getApplyAPI,
   addApplyAPI,
-  deleteApplyAPI
+  deleteApplyAPI,
+  choiceApplyAPI
 };
 
 export { actionCreators };
