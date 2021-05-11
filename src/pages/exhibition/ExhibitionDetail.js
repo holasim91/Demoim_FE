@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { ExhibitionComment } from "../../components";
@@ -71,7 +71,7 @@ const ExhibitionDetail = (props) => {
            :''
           } 
           <ExhibitionCommentWrite post_id={post.exhibitionId}/>
-          {comments.map((comment) => <ExhibitionComment key={comment.commentId} comment={comment} />)}
+          {comments.map((comment) => <ExhibitionComment key={comment.commentId} comment={comment} post_id={id}/>)}
           
         </DetailWrapper>
       </Container>
