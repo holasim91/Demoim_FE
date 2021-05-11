@@ -45,6 +45,7 @@ const TitleBox = styled.div`
   font-weight: 600;
   width:65%;
   margin:60px auto 0px auto;
+  font-size:18px;
   & span{
     color:#000000;
   }
@@ -53,4 +54,9 @@ const TitleBox = styled.div`
   @media (max-width:530px){
     width:88%;
   }
+
+  @media ${props => props.theme.mobile}{
+
+  font-size:16px;
+}
 `;
