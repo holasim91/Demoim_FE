@@ -1,17 +1,16 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Container, Image, Input } from "../../elements";
-import { Modal, ApplyList } from "../../components";
+import { Container, Image, Input, Modal } from "../../elements";
+import { ApplyList } from "../../components";
 import { useMediaQuery } from "react-responsive";
 import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { actionCreators as applyActions } from "../../redux/modules/apply";
+import { urlCheck } from "../../shared/Common";
 import Swal from 'sweetalert2';
 import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
-//quill css 찾아서 적용해놓기. 가운데 정렬 등등 나오려면 찾아야함. 
-
 import moment from "moment";
 
 const TeamDetail = (props) => {
@@ -20,6 +19,24 @@ const TeamDetail = (props) => {
   const id = props.match.params.teamId;
   const team = useSelector((state) => state.team.teamInfo);
   const user = useSelector((state) => state.user.user);
+  //모달
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const openModal = () => {
+
+    if (!user) {
+      Swal.fire({
+        text: '로그인 후 사용해주세요 :)',
+        icon: 'warning',
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+    setModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setModalOpen(false);
+  }
 
   React.useEffect(() => {
     dispatch(teamActions.getDetailTeamMakingAPI(id));
@@ -32,7 +49,6 @@ const TeamDetail = (props) => {
   let projectEnd = moment(team?.end).format('YYYY.MM.DD');
 
   //지원하기
-  //로그인 여부에 따라 모달창 막기.
   const [msg, setMsg] = React.useState("");
   const [site, setSite] = React.useState("");
 
@@ -57,9 +73,20 @@ const TeamDetail = (props) => {
       return false;
     }
 
+    if (!urlCheck(site)) {
+      Swal.fire({
+        icon: "warning",
+        text: "올바른 사이트 주소를 입력해주세요!",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
     dispatch(applyActions.addApplyAPI(id, msg, site));
+    closeModal();
     setMsg("");
     setSite("");
+
   }
 
   const isMobile = useMediaQuery({
@@ -105,7 +132,7 @@ const TeamDetail = (props) => {
                       </LeaderInfoText>
                     </LeaderInfoTop>)}
                   <LeaderInfoText className='introduce'>
-                    {team?.leader?.desc}
+                    {team?.leader?.description}
                   </LeaderInfoText>
                 </LeaderInfo>
               </LeaderContent>
@@ -147,21 +174,26 @@ const TeamDetail = (props) => {
         <ModalBox>
           {team?.leader?.id !== user?.id || user === null ? (
             team.recruitState === "ACTIVATED" ?
-              (<Modal text="지원하기" padding="5px 16px" heading="📢 지원서 보내기" clickName="지원신청" _onClick={applyTeam}>
-                <ApplyBox>
-                  <Input multiLine label="메세지" placeholder="리더에게 연락처 및 메세지를 남겨주세요(100자 이내)" modal margin="0px 0px 10px 0px" value={msg} _onChange={(e) => { setMsg(e.target.value) }} />
-                  <Input label="포트폴리오" placeholder="포트폴리오 참고 사이트를 입력해주세요 :)" padding="10px 10px" modal value={site} _onChange={(e) => { setSite(e.target.value) }} type="url" />
-                </ApplyBox>
-              </Modal>) : (
-                <RecruitFinishBtn>모집완료</RecruitFinishBtn>
-              )
-          ) : ('')}
+              (<React.Fragment>
+                <ModalButton onClick={openModal}>지원하기</ModalButton>
+                <Modal open={modalOpen} close={closeModal} header="📢 지원서 보내기" _onClick={applyTeam} clickName="지원신청">
+                  <main>
+                    <ApplyBox>
+                      <Input multiLine label="메세지" placeholder="리더에게 연락처 및 메세지를 남겨주세요(100자 이내)" modal margin="0px 0px 10px 0px" value={msg} _onChange={(e) => { setMsg(e.target.value) }} />
+                      <Input label="포트폴리오" placeholder="포트폴리오 참고 사이트를 입력해주세요 :)" padding="10px 10px" modal value={site} _onChange={(e) => { setSite(e.target.value) }} type="url" />
+                    </ApplyBox>
+                  </main>
+                </Modal>
+              </React.Fragment>) : (
+                <RecruitFinishBtn>모집완료</RecruitFinishBtn>)) : ('')}
         </ModalBox>
 
-        <ApplyList />
+        {(team?.leader?.id === user?.id && team?.recruitState === "ACTIVATED") && (
+          <ApplyList leaderId={team?.leader?.id} teamId={id} />
+        )}
 
       </Container>
-    </React.Fragment>
+    </React.Fragment >
   )
 }
 
@@ -487,3 +519,26 @@ const RecruitFinishBtn = styled.button`
       font-size:0.85em;
     }
 `;
+
+const ModalButton = styled.button`
+    background-color: #ffffff;
+    outline: none;
+    border:2px solid #979797;
+    border-radius: 12px;
+    padding:5px 16px;
+    cursor: pointer;
+    color:#8166d6;
+    font-size:1em;
+    font-weight: 600;
+    transition: all .3s;
+
+    &:hover{
+        color:#ffffff;
+        border:2px solid ${(props) => props.theme.button_purple};
+        background-color: ${(props) => props.theme.button_purple};
+    }
+
+    @media ${props => props.theme.mobile}{
+      font-size:0.85em;  
+   }
+`

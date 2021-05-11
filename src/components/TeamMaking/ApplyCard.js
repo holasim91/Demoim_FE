@@ -2,6 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { Image, Button } from "./../../elements";
 import { useMediaQuery } from "react-responsive";
+import { history } from "../../redux/configStore";
+import { useDispatch } from 'react-redux';
 
 const ApplyCard = (props) => {
 
@@ -9,20 +11,22 @@ const ApplyCard = (props) => {
     query: "(max-width:768px)"
   });
 
+  const dispatch = useDispatch();
+
   return (
     <React.Fragment>
       <Grid>
         {isMobile ? (<React.Fragment>
           <MobileUserInfoBox>
 
-            <Image size="45" src={props.user.profileimage} />
+            <Image size="45" src={props.responseUser?.profileImage} />
 
             <UserInfo>
               <InfoText className="user">
-                {props.user.nickname}<Position>{props.user.position}</Position>
+                {props.responseUser?.nickname}<Position>{props.responseUser?.position}</Position>
               </InfoText>
               <InfoText className="desc">
-                {props.user.desc}
+                {props.responseUser?.description}
               </InfoText>
             </UserInfo>
           </MobileUserInfoBox>
@@ -48,22 +52,24 @@ const ApplyCard = (props) => {
             </MobileBtnBox>
           </MobileMsgBox>
         </React.Fragment>) : (<React.Fragment>
-          <Image size="75" src={props.user.profileimage} />
+          <Image size="75" src={props.responseUser?.profileImage} />
           {/* 클릭시 해당 유저 페이지 이동 */}
           <InfoBox>
             <UserInfoBpx>
-              <InfoText className="user">
-                {props.user.nickname}
+              <InfoText className="user" onClick={() => {
+                history.push(`/userpage/${props.responseUser?.userid}`);
+              }}>
+                {props.responseUser?.nickname}
               </InfoText>
             </UserInfoBpx>
             <UserInfoBpx>
               <InfoText className="position">
-                {props.user.position}
+                {props.responseUser?.position}
               </InfoText>
             </UserInfoBpx>
             <UserInfoBpx>
               <InfoText className="desc intro">
-                {props.user.desc.length > 75 ? props.user.desc.slice(0, 75) + "..." : props.user.desc}
+                {props.responseUser?.description.length > 75 ? props.responseUser?.description.slice(0, 75) + "..." : props.responseUser?.description}
               </InfoText>
             </UserInfoBpx>
           </InfoBox>
@@ -97,6 +103,7 @@ const ApplyCard = (props) => {
 }
 
 export default ApplyCard;
+
 
 const Flex = css`
   display: flex;

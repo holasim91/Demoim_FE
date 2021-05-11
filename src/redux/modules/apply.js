@@ -19,7 +19,7 @@ const initialState = {
 const addApplyAPI = (teamId, msg, site) => {
   return function (dispatch, getState, { history }) {
 
-    console.log('메세지:', msg, '사이트:', site);
+
 
     if (!teamId) {
       return false;
@@ -54,7 +54,7 @@ const addApplyAPI = (teamId, msg, site) => {
 const getApplyAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
-    if (teamId) {
+    if (!teamId) {
       return false;
     }
 
@@ -63,7 +63,8 @@ const getApplyAPI = (teamId) => {
       url: `${config.api}/api/apply?team_id=${teamId}`,
     }).then((res) => {
 
-      console.log(res);
+      console.log('왔다!')
+      dispatch(setApply(res.data));
 
     }).catch((err) => {
       console.log("지원조회 에러:", err);

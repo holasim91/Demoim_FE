@@ -7,4 +7,5 @@ import Container from "./Container";
 import MobileBar from "./MobileBar";
 import Upload from "./Upload";
 import CheckBox from "./Checkbox";
-export { Input, Text, Grid, Button, Image, Container, MobileBar, Upload, CheckBox };
+import Modal from "./Modal";
+export { Input, Text, Grid, Button, Image, Container, MobileBar, Upload, CheckBox, Modal };
