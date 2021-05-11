@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import { config } from "../../shared/config";
+import { getCookie } from "../../shared/Cookies";
 
 const SET_EXHIBITION_COMMENT = "SET_EXHIBITION_COMMENT";
 const ADD_EXHIBITION_COMMENT = "ADD_EXHIBITION_COMMENT";
@@ -15,8 +16,7 @@ const setExihibitionComment = createAction(
 
 const addExihibitionComment = createAction(
   ADD_EXHIBITION_COMMENT,
-  (id, comment_list) => ({
-    id,
+  (comment_list) => ({
     comment_list,
   })
 );
@@ -25,6 +25,7 @@ const initialState = {
 };
 
 const exhibitionCommentAPI = `${config.api}/api/exhibition/comments`;
+const token = getCookie("token");
 
 const getExihibitionCommentAPI = (id) => {
   return function (dispatch, getState, { history }) {
@@ -40,16 +41,24 @@ const getExihibitionCommentAPI = (id) => {
   };
 };
 
-const addExhibitionCommentsAPI = (id) => {
+const addExhibitionCommentsAPI = (post_id, comment) => {
   return function (dispatch, getState, { history }) {
-    axios(exhibitionCommentAPI, {
+    axios({
+      method: "post",
+      header: {
+        authorization: token,
+      },
+      url: exhibitionCommentAPI,
       params: {
-        exhibition_id: id,
+        exhibition_id: post_id,
+      },
+      data: {
+        comments: comment,
       },
     })
       .then((res) => {
         console.log(res);
-        dispatch(addExihibitionComment(id, res.data));
+        dispatch(addExihibitionComment(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -65,10 +74,7 @@ export default handleActions(
       }),
     [ADD_EXHIBITION_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.exhibitionComments.push({
-          id: action.payload.id,
-          comment: action.payload.comment_list,
-        });
+        draft.exhibitionComments.push(action.payload.comment_list);
       }),
   },
   initialState

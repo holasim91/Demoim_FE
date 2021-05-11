@@ -191,8 +191,9 @@ const EditToggle = styled.div`
   .editPost {
     padding-right: 40px;
     cursor: pointer;
-    color: #ccc;
-  }
+    :hover {
+      color: #ccc;
+    }  }
 
   .deletePost {
     cursor: pointer;

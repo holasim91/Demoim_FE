@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const ExhibitionComment = (props) => {
-  // console.log(props.comment)
   const { commentId, comments, user, createdAt } = props.comment;
   const ChangeTimeType = (time) => time?.split("T")[0];
-
+  const onClickCommentUpdate = () => console.log("수정");
+  const onClickDeleteComment = () => console.log("삭제");
   return (
     <CommentWrapper>
       <CommentHeader>
@@ -25,25 +25,52 @@ const ExhibitionComment = (props) => {
         </TextBlock>
       </CommentHeader>
       <CommentContents>{comments}</CommentContents>
-      {/* <PostBoxBottom>
-            <EditToggle>
-              <div className="editPost" onClick={onClickCommentUpdate}>
-                수정하기
-              </div>
-              <div className="deletePost" onClick={onClickDeleteComment}>
-                삭제
-              </div>
-            </EditToggle>
-        </PostBoxBottom> */}
-
+      <PostBoxBottom>
+        <EditToggle>
+          <div className="editComment" onClick={onClickCommentUpdate}>
+            수정하기
+          </div>
+          <div className="deleteComment" onClick={onClickDeleteComment}>
+            삭제
+          </div>
+        </EditToggle>
+      </PostBoxBottom>
     </CommentWrapper>
   );
 };
-// 
+
+const EditToggle = styled.div`
+  display: flex;
+  .editComment {
+    padding-right: 40px;
+    cursor: pointer;
+    :hover {
+      color: #ccc;
+    }
+  }
+  .deleteComment {
+    cursor: pointer;
+    :hover {
+      color: #ccc;
+    }
+  }
+`;
+
+const PostBoxBottom = styled.div`
+  display: flex;
+  padding-bottom: 10px;
+  align-items: center;
+  flex-flow: row-reverse;
+  font-size: 13px;
+  @media (max-width: 375px) {
+    font-size: 11px;
+  }
+`;
+
 const CommentWrapper = styled.div`
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   min-height: 80px;
-  margin: 75px auto 100px auto;
+  margin: 0  auto;
   padding: 17px 28px 0 24px;
   border-radius: 10px;
   width: 80%;
@@ -72,5 +99,6 @@ const PostDate = styled.div`
 `;
 const CommentContents = styled.div`
   margin-top: 10px;
+  margin-left: 60px;
 `;
 export default ExhibitionComment;
