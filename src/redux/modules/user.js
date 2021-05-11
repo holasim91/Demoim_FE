@@ -84,7 +84,7 @@ const loginAPI = (email, pw) => {
       //실패이유 Swal띄어주기 
       .catch((err) => {
         Swal.fire({
-          text: `${err.response.data.message}`,
+          text: "",
           icon: 'warning',
           confirmButtonColor: "#999cda",
         })
