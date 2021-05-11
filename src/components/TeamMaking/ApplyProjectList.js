@@ -6,10 +6,14 @@ const ApplyProjectList = (props) => {
 
   return (
 
-    <ApplicantBox>
-      <ApplyProjectCard />
-    </ApplicantBox>
-
+    <React.Fragment>
+      <TitleBox>
+        <p><span>#</span>내가 지원한 프로젝트</p>
+      </TitleBox>
+      <ApplicantBox>
+        <ApplyProjectCard />
+      </ApplicantBox>
+    </React.Fragment>
   )
 }
 
@@ -30,6 +34,18 @@ const ApplicantBox = styled.div`
   }
 
   @media (max-width:530px){
+    width:88%;
     grid-template-columns: repeat(1,minmax(0,1fr));
   }
+`;
+
+const TitleBox = styled.div`
+
+  color:#683fee;
+  font-weight: 600;
+  & span{
+    color:#000000;
+  }
+  margin-bottom: 30px;
+  
 `;

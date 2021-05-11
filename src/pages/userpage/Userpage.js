@@ -1,14 +1,12 @@
-import React, { useState }from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Grid, Button, Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
-import { ApplyProjectList, ParticipationProjectList } from "../../components";
-import TabSmallTalkList from "../../components/Userpage/TabSmallTalkList";
 import { ImPencil } from "react-icons/im";
-
+import { TabTeamHistory, TabSmallTalkList } from "../../components";
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -24,7 +22,7 @@ const Userpage = (props) => {
   const [active, setActive] = useState(0)
   const handleClick = e => {
     const index = parseInt(e.target.id, 0);
-    if(index !== active){
+    if (index !== active) {
       setActive(index);
     }
   };
@@ -42,8 +40,8 @@ const Userpage = (props) => {
             <UserBox>
               <UserBoxMarks>
                 <UserNickName>{userInfo?.nickname}</UserNickName>
-                <ProfileEditBtn onClick={() => {history.push('/userEditpage')}}>
-                  <ImPencil color="#ffdd05"/> 프로필수정
+                <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
+                  <ImPencil color="#ffdd05" /> 프로필수정
                 </ProfileEditBtn>
               </UserBoxMarks>
               <UserBoxPosition>
@@ -57,18 +55,26 @@ const Userpage = (props) => {
           </MyPageContainer>
         </Container>
         <Container>
-        {/* Tab Menu */}
+          {/* Tab Menu */}
+
           <Tabs>
             <Tab onClick={handleClick} active={active === 0} id={0}>스몰토크</Tab>
             <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
             <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
           </Tabs>
-          <Content active={active === 0}><TabSmallTalkList/></Content>
-          <Content active={active === 1}></Content>
-          <Content active={active === 2}></Content>
+          <Content active={active === 0}>
+            <TabSmallTalkList />
+          </Content>
+          <Content active={active === 1}>
+
+          </Content>
+          <Content active={active === 2}>
+            <TabTeamHistory />
+          </Content>
+
         </Container>
       </UserInfoBox>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 

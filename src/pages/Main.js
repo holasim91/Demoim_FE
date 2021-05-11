@@ -8,13 +8,13 @@ import { useMediaQuery } from "react-responsive";
 import { Exhibition, ExhibitionList, SmallTalkList } from "../components";
 import { actionCreators as teamActions } from "../redux/modules/team";
 import { useDispatch, useSelector } from "react-redux";
-
+import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 const Main = (props) => {
 
    const dispatch = useDispatch();
    React.useEffect(() => {
       dispatch(teamActions.getTeamMakingAPI(1, 6));
-
+      dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
    }, []);
 
 

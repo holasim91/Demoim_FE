@@ -1,14 +1,14 @@
 import React from 'react';
 import "../css/modal.css";
 
-const ChildrenModal = ( props ) => {
-    
-    const { open, close, header,_onClick,clickName } = props;
+const Modal = (props) => {
+
+    const { open, close, header, _onClick, clickName } = props;
 
     return (
-       
-        <div className={ open ? 'openModal modal' : 'modal' }>
-            { open ? (  
+
+        <div className={open ? 'openModal modal' : 'modal'}>
+            { open ? (
                 <section>
                     <header>
                         {header}
@@ -21,9 +21,9 @@ const ChildrenModal = ( props ) => {
                         <button className="close" onClick={_onClick}> {clickName} </button>
                     </footer>
                 </section>
-            ) : null }
+            ) : null}
         </div>
     )
 }
 
-export default ChildrenModal;
+export default Modal;
