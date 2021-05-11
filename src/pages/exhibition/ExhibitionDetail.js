@@ -6,18 +6,30 @@ import { actionCreators as exhibitionActions } from "../../redux/modules/exhibit
 import SubMenus from "../../components/SubMenus";
 import { Container, Grid } from "../../elements";
 import '../../css/editor.css';
+import { history } from "../../redux/configStore";
+import Spinner from "../../shared/Spinner";
 
 const ExhibitionDetail = (props) => {
   const dispatch = useDispatch();
   const id = props.match.params.exhibitionId;
+  
   useEffect(() => {
     dispatch(exhibitionActions.getOneExihibitionAPI(Number(id)));
-  }, [id]);
-
+  }, []);
+  const currentUser = useSelector((state) => state.user.user);
   const post = useSelector((state) => state.exhibition.exhibitionPostDetail);
-  console.log(post);
-  const ChangeTimeType = (time) => time.split("T")[0];
-
+  const isLoading = useSelector((state) => state.exhibition.exihibitionLoading);
+  const ChangeTimeType = (time) => time?.split("T")[0];
+  // const ChangeTimeType = (time) =>{ console.log(typeof(time))}
+  const onEditExhibition = () =>history.push(`/exhibition/write/${id}`)
+  const onDeleteExhibition = () => dispatch(exhibitionActions.deleteExihibitionAPI(Number(id)))
+  if(isLoading){
+    return(
+      <>
+      <Spinner />
+      </>
+    )
+  }
   if (!post) {
     return <>No DATA</>;
   }
@@ -32,7 +44,7 @@ const ExhibitionDetail = (props) => {
 
           <Title>{post.title}</Title>
           <UserInfo>
-            {post.user.profileImage ? (
+            {post?.user?.profileImage ? (
               <ProfileImage alt="profile" src={post.user.profileImage} />
             ) : (
               <ProfileImage
@@ -43,21 +55,56 @@ const ExhibitionDetail = (props) => {
               />
             )}
             <TextBlock>
-              <UserName>{post.user.nickname} 님</UserName>
-              <PostDate>{ChangeTimeType(post.createAt)}</PostDate>
+              <UserName>{post?.user?.nickname} 님</UserName>
+              <PostDate>{ChangeTimeType(post?.createAt)}</PostDate>
             </TextBlock>
           </UserInfo>
           <ExhibitionDetailContent>
-            <ExhibitionDetailContentContainer dangerouslySetInnerHTML={{ __html: post.contents }} />
+            <ExhibitionDetailContentContainer dangerouslySetInnerHTML={{ __html: post?.contents }} />
           </ExhibitionDetailContent>
+          {currentUser?.id === post?.user?.userid ?
+          <EditBtnWrapper>
+                  <WriteBtn onClick={onDeleteExhibition}>삭제</WriteBtn>
+                  <WriteBtn onClick={onEditExhibition}>수정</WriteBtn>
+          </EditBtnWrapper>
+           :''
+          } 
           <ExhibitionComment />
         </DetailWrapper>
       </Container>
     </>
   );
 };
+const EditBtnWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+`
+const WriteBtn = styled.button`
+  background-color: #ffffff;
+  border: 1px solid #979797;
+  border-radius: 9.5px;
+  font-weight: 500;
+  padding: 5px 12px;
+  color: #595858;
+  font-size: 1em;
+  cursor: pointer;
+  font-size: 15px;
+  outline: none;
+  margin-left: 20px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 0.9em;
+  }
+
+  @media (max-width: 380px) {
+    font-size: 0.7em;
+  }
+`;
+
 const DetailWrapper = styled.div`
   width: 80%;
+  margin: 0 auto;
 `;
 const Title = styled.div`
   background-color: #f2f5fa;

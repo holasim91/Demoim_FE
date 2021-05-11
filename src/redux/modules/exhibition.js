@@ -3,7 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
-
+import {actionCreators as exhibitionCommentActions} from './exhibitionComment'
 const SET_EXHIBITION_POST = "SET_EXHIBITION_POST";
 const SET_ONE_EXHIBITION_POST = "SET_ONE_EXHIBITION_POST";
 const ADD_EXHIBITION_POST = "ADD_EXHIBITION_POST";
@@ -16,7 +16,7 @@ const setOneExihibition = createAction(SET_ONE_EXHIBITION_POST, (post) => ({
   post,
 }));
 const addExihibition = createAction(ADD_EXHIBITION_POST, (post) => ({
-  PopStateEvent,
+  post,
 }));
 const exihibitionLoading = createAction(EXHIBITION_LOADING, (is_loading) => ({
   is_loading,
@@ -24,14 +24,64 @@ const exihibitionLoading = createAction(EXHIBITION_LOADING, (is_loading) => ({
 
 const initialState = {
   exhibitionPosts: [],
-  exhibitionPostDetail: null,
+  exhibitionPostDetail: {},
   page: 1,
   exihibitionLoading: false,
 };
 
 // const exhibitionMockAPI = 'https://run.mocky.io/v3/927b3e00-e602-45a7-ba79-86fb41418e87'
 const exhibitionAPI = `${config.api}/api/exhibition`;
+const exhibitionDetailAPI = `${config.api}/api/exhibition/detail`;
 const token = getCookie("token");
+
+const deleteExihibitionAPI = (id) => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: "DELETE",
+      header: {
+        authorization: token,
+      },
+      url: exhibitionDetailAPI,
+      params:{
+        exhibition_id:id
+      }
+    })
+      .then((res) => {
+        window.alert(res.data.msg)
+        history.push(`/exhibition`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
+
+const editExihibitionAPI = (formdata, id) => {
+  return function (dispatch, getState, { history }) {
+    if (!formdata) {
+      return false;
+    }
+
+    axios({
+      method: "put",
+      header: {
+        authorization: token,
+      },
+      url: exhibitionDetailAPI,
+      params:{
+        exhibition_id:id
+      },
+      data: formdata,
+    })
+      .then((res) => {
+        history.push(`/exhibition/detail/${id}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
 
 const addExihibitionAPI = (formdata) => {
   return function (dispatch, getState, { history }) {
@@ -48,6 +98,7 @@ const addExihibitionAPI = (formdata) => {
       data: formdata,
     })
       .then((res) => {
+        console.log(res.data)
         dispatch(addExihibition(res.data));
         history.push("/exhibition");
       })
@@ -73,7 +124,6 @@ const getExihibitionAPI = (page, size) => {
       });
   };
 };
-const exhibitionDetailAPI = `${config.api}/api/exhibition/detail`;
 
 const getOneExihibitionAPI = (id) => {
   return function (dispatch, getState, { history }) {
@@ -85,6 +135,7 @@ const getOneExihibitionAPI = (id) => {
     })
       .then((res) => {
         dispatch(setOneExihibition(res.data));
+        // dispatch(exhibitionCommentActions(res.data.id))
       })
       .catch((err) => {
         console.log(err);
@@ -123,6 +174,8 @@ const actionCreators = {
   getExihibitionAPI,
   getOneExihibitionAPI,
   addExihibitionAPI,
+  editExihibitionAPI,
+  deleteExihibitionAPI,
   exihibitionLoading,
 };
 

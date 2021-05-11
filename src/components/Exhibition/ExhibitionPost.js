@@ -8,7 +8,7 @@ const ExhibitionPost = (props) => {
     thumbnail: data.thumbnail,
   };
   const ChangeTimeType = (time) => time.split("T")[0];
-
+  const removeHtmlTag = (sentence) =>sentence.replace(/(<([^>]+)>)/ig,"");
   return (
     <>
       <ExhibitionPostBox
@@ -35,14 +35,11 @@ const ExhibitionPost = (props) => {
           </PostHeader>
           <ThumbNail {...styles} />
           <Title>{data.title}</Title>
-          <Content
-            dangerouslySetInnerHTML={{
-              __html:
-                data.contents.length > 140
-                  ? data.contents.slice(0, 140) + "..."
-                  : data.contents,
-            }}
-          />
+          <Content>
+            {removeHtmlTag(data.contents).length > 140
+              ? removeHtmlTag(data.contents).slice(0, 140) + "..."
+              : removeHtmlTag(data.contents)}
+          </Content>
         </ExhibitionPostBoxContainer>
       </ExhibitionPostBox>
     </>

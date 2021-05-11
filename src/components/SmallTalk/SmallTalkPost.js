@@ -34,7 +34,6 @@ const SmallTalkPost = (props) => {
 
   const ChangeTimeType = (time) => time.split("T")[0];
   const currentUser = useSelector((state) => state.user);
-  console.log( location.split('/'))
 
 
 
