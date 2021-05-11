@@ -46,7 +46,7 @@ const ApplyList = (props) => {
       <React.Fragment>
         <TitleBox>지원자 목록</TitleBox>
         <NoneApplyBox>
-          <p>프로젝트 지원자가 아직 없습니다 :)</p>
+          <p>프로젝트 지원자가 없습니다 :)</p>
         </NoneApplyBox>
       </React.Fragment>
     )
@@ -58,7 +58,7 @@ const ApplyList = (props) => {
       <ApplicantBox>
         {applyList.map((a) => {
           return (
-            <ApplyCard {...a} key={a.id} />
+            <ApplyCard {...a} key={a.applyId} />
           )
         })}
       </ApplicantBox>

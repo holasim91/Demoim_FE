@@ -61,7 +61,6 @@ const getApplyAPI = (teamId) => {
       url: `${config.api}/api/apply?team_id=${teamId}`,
     }).then((res) => {
 
-      console.log('왔다!')
       dispatch(setApply(res.data));
 
     }).catch((err) => {
@@ -98,13 +97,13 @@ const choiceApplyAPI = (applyId) => {
       method: 'put',
       url: `${config.api}/api/apply/choice?apply_id=${applyId}`,
     }).then((res) => {
-
+      console.log(res)
       Swal.fire({
         text: `${res.data.msg}`,
         icon: 'success',
         confirmButtonColor: "#999cda",
       })
-
+      dispatch(setApply(res.data.applicantList));
     }).catch((err) => {
       console.log('리더 지원자 선택 에러:', err);
       Swal.fire({

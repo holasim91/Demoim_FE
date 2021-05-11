@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory } from "../../components";
+import { TabTeamApplyHistory, TabTeamLeaderHistory, TabTeamParticipateHistory } from "../../components";
 
 const DoubleTabMenu = () => {
 
-//프로젝트히스토리-Double Tab Menu 
-const [active, setActive] = useState(0)
+  //프로젝트히스토리-Double Tab Menu 
+  const [active, setActive] = useState(0)
   const handleClick = e => {
     const index = parseInt(e.target.id, 0);
     console.log("더블탭", index);
@@ -17,19 +17,19 @@ const [active, setActive] = useState(0)
 
   return (
     <React.Fragment>
-      
+
       <DoubleTabs>
-      <Connect></Connect>
+        <Connect></Connect>
         <DubTab onClick={handleClick} active={active === 0} id={0}>지원 프로젝트</DubTab>
         <DubTab onClick={handleClick} active={active === 1} id={1}>참여중/참여완료</DubTab>
-        <DubTab onClick={handleClick} className="connects" active={active === 2} id={2}>리더 프로젝트</DubTab>        
+        <DubTab onClick={handleClick} className="connects" active={active === 2} id={2}>리더 프로젝트</DubTab>
       </DoubleTabs>
-        <DubContents active={active === 0}><TabTeamApplyHistory /></DubContents>
-        <DubContents active={active === 1}><TabTeamParticipateHistory /></DubContents>
-        <DubContents active={active === 2}></DubContents>
-        
+      <DubContents active={active === 0}><TabTeamApplyHistory /></DubContents>
+      <DubContents active={active === 1}><TabTeamParticipateHistory /></DubContents>
+      <DubContents active={active === 2}><TabTeamLeaderHistory /></DubContents>
+
     </React.Fragment>
-    
+
   );
 };
 

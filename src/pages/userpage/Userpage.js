@@ -7,9 +7,9 @@ import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { ImPencil } from "react-icons/im";
 import EditPen from '../../images/editpen.svg';
-import { TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory } from "../../components";
+import { TabSmallTalkList } from "../../components";
 import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
-import "../../css/userpage.css"
+//import "../../css/userpage.css"
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -34,52 +34,55 @@ const Userpage = (props) => {
   return (
     <React.Fragment>
       {/* <UserInfoBox className="userInfoBox"> */}
-        <Container>
-          <MyPageContainer>
-            <Profile>
-              <ProfileImg
-                src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage} />
-            </Profile>
-            <UserBox>
-              <UserBoxMarks>
-                <UserNickName>{userInfo?.nickname}</UserNickName>
-                <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
-                  {/* <ImPencil color="#ffdd05" /> 프로필수정 */}
-                  <EditPenIcon src={EditPen} />프로필수정
+
+      <Container>
+        <MyPageContainer>
+          <Profile>
+            <ProfileImg
+              src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage} />
+          </Profile>
+          <UserBox>
+            <UserBoxMarks>
+              <UserNickName>{userInfo?.nickname}</UserNickName>
+              <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
+                {/* <ImPencil color="#ffdd05" /> 프로필수정 */}
+                <EditPenIcon src={EditPen} />프로필수정
                 </ProfileEditBtn>
-              </UserBoxMarks>
-              <UserBoxPosition>
-                <UserPosition>{userInfo?.position}</UserPosition>
-                <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
-              </UserBoxPosition>
-              <UserBoxDesc>
-                <UserDesc>{userInfo?.description}</UserDesc>
-              </UserBoxDesc>
-            </UserBox>
-          </MyPageContainer>
-        </Container>
-        <Container>
-          {/* Tab Menu */}
+            </UserBoxMarks>
+            <UserBoxPosition>
+              <UserPosition>{userInfo?.position}</UserPosition>
+              <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
+            </UserBoxPosition>
+            <UserBoxDesc>
+              <UserDesc>{userInfo?.description}</UserDesc>
+            </UserBoxDesc>
+          </UserBox>
+        </MyPageContainer>
+      </Container>
+      <Container>
+        {/* Tab Menu */}
 
-          <Tabs>
-            <Tab onClick={handleClick} active={active === 0} id={0}>스몰토크</Tab>
-            <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
-            <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
-          </Tabs>
+        <Tabs>
+          <Tab onClick={handleClick} active={active === 0} id={0}>스몰토크</Tab>
+          <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
+          <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
+        </Tabs>
 
-          <Content active={active === 0}>
-            <TabSmallTalkList />
-          </Content>
-          <Content active={active === 1}>
+        <Content active={active === 0}>
+          <TabSmallTalkList />
+        </Content>
+        <Content active={active === 1}>
 
-          </Content>
-          <Content active={active === 2}>
-            <DoubleTabMenu/>
-          </Content>
+        </Content>
+        <Content active={active === 2}>
+          <DoubleTabMenu />
+        </Content>
 
-        </Container>
+      </Container>
       {/* </UserInfoBox> */}
+
     </React.Fragment>
+
   );
 };
 
@@ -99,7 +102,6 @@ Userpage.defaultProps = {
 //   background: -o-linear-gradient(#F2F5FA, #ffffff);
 //   background: linear-gradient(#F2F5FA, #ffffff);
 // `;
-
 
 //TabMenu
 const Tabs = styled.div`

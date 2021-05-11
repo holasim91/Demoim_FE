@@ -5,22 +5,25 @@ import { ApplyProjectCard } from "../../components";
 const ApplyProjectList = (props) => {
 
 
-
-
   return (
 
-    <React.Fragment>
+    <Wrapper>
       <TitleBox>
         <p><span>#</span>내가 지원한 프로젝트</p>
       </TitleBox>
       <ApplicantBox>
         <ApplyProjectCard />
       </ApplicantBox>
-    </React.Fragment>
+    </Wrapper>
   )
 }
 
 export default ApplyProjectList;
+
+
+const Wrapper = styled.div`
+  margin-bottom: 70px;
+`;
 
 const ApplicantBox = styled.div`
   display: grid;
