@@ -1,42 +1,62 @@
 import React from "react";
 import styled from "styled-components";
 
-const ExhibitionComment = () => {
+const ExhibitionComment = (props) => {
+  // console.log(props.comment)
+  const { commentId, comments, user, createdAt } = props.comment;
+  const ChangeTimeType = (time) => time?.split("T")[0];
+
   return (
     <CommentWrapper>
       <CommentHeader>
-        <ProfileImage
-          alt="profile"
-          src={
-            "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-          }
-        />
+        {user.profileImage ? (
+          <ProfileImage alt="profile" src={user.profileImage} />
+        ) : (
+          <ProfileImage
+            alt="profile"
+            src={
+              "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+            }
+          />
+        )}
         <TextBlock>
-          <UserName>케로</UserName>
-          <PostDate>2021.05.01</PostDate>
+          <UserName>{user.nickname}</UserName>
+          <PostDate>{ChangeTimeType(createdAt)}</PostDate>
         </TextBlock>
       </CommentHeader>
-      <CommentContents>
-        안녕하세요 이건 대체 뭐라고 써있는건가요????
-      </CommentContents>
+      <CommentContents>{comments}</CommentContents>
+      {/* <PostBoxBottom>
+            <EditToggle>
+              <div className="editPost" onClick={onClickCommentUpdate}>
+                수정하기
+              </div>
+              <div className="deletePost" onClick={onClickDeleteComment}>
+                삭제
+              </div>
+            </EditToggle>
+        </PostBoxBottom> */}
+
     </CommentWrapper>
   );
 };
-
+// 
 const CommentWrapper = styled.div`
-background-color: #f2f5fa;
-  min-height: 200px;
-  margin: 20px 0;
-  padding: 30px;
+  background-color: #F1F1F1;
+  min-height: 80px;
+  margin: 75px auto 100px auto;
+  padding: 17px 28px 0 24px;
+  border-radius: 10px;
+  width: 80%;
 `;
 const CommentHeader = styled.div`
   display: flex;
   align-items: center;
 `;
 const ProfileImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 100px;
+  margin-right: 10px;
 `;
 const TextBlock = styled.div`
   display: flex;

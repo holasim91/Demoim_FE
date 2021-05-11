@@ -10,7 +10,7 @@ const SmallTalkPost = (props) => {
   const dispatch = useDispatch();
   const token = getCookie("token");
   const { location } = props;
-  const { contents, createdAt, user, id, commentList } = props.data;
+  const { contents, createdAt, user, smallTalkId, commentList } = props.data;
   const [isOpen, setIsOpen] = useState(false); //댓글 창 토글
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const onClickToggle = () => {
@@ -22,10 +22,12 @@ const SmallTalkPost = (props) => {
   };
   const onClickUpdate = () => setIsEdit((state) => !state);
   const onDeletePost = () =>
-    dispatch(smalltalkActions.deleteSmallTalkPostAPI(id, token));
+    dispatch(smalltalkActions.deleteSmallTalkPostAPI(smallTalkId, token));
   const [current, setCurrent] = useState(contents);
   const onUpdatePost = () => {
-    dispatch(smalltalkActions.updateSmallTalkPostAPI(id, current, token));
+    dispatch(
+      smalltalkActions.updateSmallTalkPostAPI(smallTalkId, current, token)
+    );
     setIsEdit(false);
   };
   const onUpdateTextArea = (e) => {
@@ -34,8 +36,6 @@ const SmallTalkPost = (props) => {
 
   const ChangeTimeType = (time) => time.split("T")[0];
   const currentUser = useSelector((state) => state.user);
-
-
 
   if (location === "/") {
     return (
@@ -63,7 +63,7 @@ const SmallTalkPost = (props) => {
     );
   }
 
-  if (location.split('/')[1] === 'userpage') {
+  if (location.split("/")[1] === "userpage") {
     return (
       <PostBoxWrapper>
         <PostBoxHeader>
@@ -88,7 +88,6 @@ const SmallTalkPost = (props) => {
       </PostBoxWrapper>
     );
   }
-
 
   return (
     <>
@@ -133,7 +132,7 @@ const SmallTalkPost = (props) => {
               수정하기
             </div>
           </UpdatePostBoxBottom>
-        ) :  (
+        ) : (
           <PostBoxBottom>
             <CommentToggle onClick={onClickToggle}>
               {isOpen ? (
@@ -166,7 +165,13 @@ const SmallTalkPost = (props) => {
         )}
       </PostBoxWrapper>
       {isOpen ? (
-        <SmallTalkComment profileImg={user.profileImage} comments={commentList} post_id={id}  token={token}  className="comment" />
+        <SmallTalkComment
+          profileImg={user.profileImage}
+          comments={commentList}
+          post_id={smallTalkId}
+          token={token}
+          className="comment"
+        />
       ) : (
         ""
       )}
@@ -180,15 +185,15 @@ const CommentToggle = styled.div`
     color: #ccc;
   }
 `;
+
 const EditToggle = styled.div`
   display: flex;
   .editPost {
     padding-right: 40px;
     cursor: pointer;
-    :hover {
-      color: #ccc;
-    }
+    color: #ccc;
   }
+
   .deletePost {
     cursor: pointer;
     :hover {
@@ -253,7 +258,7 @@ const PostBoxWrapperForMain = styled.div`
   @media (max-width: 375px) {
     height: 125px;
   }
-`
+`;
 const PostBoxWrapper = styled.div`
   background-color: ${({ theme }) => theme.main_gray};
   min-height: 80px;

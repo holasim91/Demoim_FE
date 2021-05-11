@@ -135,7 +135,7 @@ const getOneExihibitionAPI = (id) => {
     })
       .then((res) => {
         dispatch(setOneExihibition(res.data));
-        // dispatch(exhibitionCommentActions(res.data.id))
+        dispatch(exhibitionCommentActions.getExihibitionCommentAPI(res.data.exhibitionId))
       })
       .catch((err) => {
         console.log(err);

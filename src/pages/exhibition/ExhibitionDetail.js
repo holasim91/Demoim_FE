@@ -11,16 +11,16 @@ import Spinner from "../../shared/Spinner";
 
 const ExhibitionDetail = (props) => {
   const dispatch = useDispatch();
-  const id = props.match.params.exhibitionId;
+  const id = Number(props.match.params.exhibitionId);
   
   useEffect(() => {
-    dispatch(exhibitionActions.getOneExihibitionAPI(Number(id)));
+    dispatch(exhibitionActions.getOneExihibitionAPI(id));
   }, []);
   const currentUser = useSelector((state) => state.user.user);
   const post = useSelector((state) => state.exhibition.exhibitionPostDetail);
+  const comments = useSelector((state) => state.exhibitionComment.exhibitionComments);
   const isLoading = useSelector((state) => state.exhibition.exihibitionLoading);
   const ChangeTimeType = (time) => time?.split("T")[0];
-  // const ChangeTimeType = (time) =>{ console.log(typeof(time))}
   const onEditExhibition = () =>history.push(`/exhibition/write/${id}`)
   const onDeleteExhibition = () => dispatch(exhibitionActions.deleteExihibitionAPI(Number(id)))
   if(isLoading){
@@ -62,14 +62,15 @@ const ExhibitionDetail = (props) => {
           <ExhibitionDetailContent>
             <ExhibitionDetailContentContainer dangerouslySetInnerHTML={{ __html: post?.contents }} />
           </ExhibitionDetailContent>
-          {currentUser?.id === post?.user?.userid ?
+          {currentUser?.id === post?.user?.userId ?
           <EditBtnWrapper>
                   <WriteBtn onClick={onDeleteExhibition}>삭제</WriteBtn>
                   <WriteBtn onClick={onEditExhibition}>수정</WriteBtn>
           </EditBtnWrapper>
            :''
           } 
-          <ExhibitionComment />
+          {comments.map((comment) => <ExhibitionComment key={comment.commentId} comment={comment} />)}
+          
         </DetailWrapper>
       </Container>
     </>

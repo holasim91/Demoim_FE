@@ -6,7 +6,7 @@ import { actionCreators as smalltalkActions } from "../../redux/modules/smalltal
 const SmallTalkCommentPost = (props) => {
   const dispatch = useDispatch();
   const { post_id } = props;
-  const { comments, user, createdAt, id } = props.data;
+  const { comments, user, createdAt, commentId } = props.data;
   const ChangeTimeType = (time) => time.split("T")[0];
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
@@ -18,12 +18,12 @@ const SmallTalkCommentPost = (props) => {
     setIsEdit((state) => !state);
   };
   const onUpdateComment = () => {
-    dispatch(smalltalkActions.updateSmallTalkCommentAPI(post_id, id, current));
+    dispatch(smalltalkActions.updateSmallTalkCommentAPI(post_id, commentId, current));
     setIsEdit(false);
   };
 
   const onClickDeleteComment = () => {
-    dispatch(smalltalkActions.deleteSmallTalkCommentAPI(post_id, id));
+    dispatch(smalltalkActions.deleteSmallTalkCommentAPI(post_id, commentId));
   };
   const currentUser = useSelector((state) => state.user);
 
@@ -69,7 +69,7 @@ const SmallTalkCommentPost = (props) => {
       ) : (
         <PostBoxBottom>
           {currentUser.isLogin &&
-          currentUser.user.id === user.userid ? (
+          currentUser.user.id === user.userId ? (
             <EditToggle>
               <div className="editPost" onClick={onClickCommentUpdate}>
                 수정하기
