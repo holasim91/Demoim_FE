@@ -8,6 +8,7 @@ import { Container, Grid } from "../../elements";
 import '../../css/editor.css';
 import { history } from "../../redux/configStore";
 import Spinner from "../../shared/Spinner";
+import ExhibitionCommentWrite from "../../components/Exhibition/ExhibitionCommentWrite";
 
 const ExhibitionDetail = (props) => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ const ExhibitionDetail = (props) => {
           </EditBtnWrapper>
            :''
           } 
+          <ExhibitionCommentWrite post_id={post.exhibitionId}/>
           {comments.map((comment) => <ExhibitionComment key={comment.commentId} comment={comment} />)}
           
         </DetailWrapper>
@@ -105,7 +107,7 @@ const WriteBtn = styled.button`
 
 const DetailWrapper = styled.div`
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto 100px auto;
 `;
 const Title = styled.div`
   background-color: #f2f5fa;
