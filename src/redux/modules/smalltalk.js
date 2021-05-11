@@ -68,7 +68,7 @@ const updateSmallTalkCommentAPI = (post_id, comment_id, comment) => {
         comments: comment,
       },
     }).then((res) => {
-      dispatch(updateComment(post_id, res.data.id, res.data.comments));
+      dispatch(updateComment(post_id, res.data.commentId, res.data.comments));
       history.push("/smalltalk");
     });
   };
@@ -129,7 +129,7 @@ const updateSmallTalkPostAPI = (id, contents, token) => {
       },
     })
       .then((res) => {
-        dispatch(updatePost(res.data.contents, res.data.id));
+        dispatch(updatePost(res.data.contents, res.data.smallTalkId));
         history.push("/smalltalk");
       })
       .catch((error) => {
@@ -213,14 +213,14 @@ export default handleActions(
     [DELETE_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.smallTalkPosts = draft.smallTalkPosts.filter(
-          (p) => p.id !== action.payload.post_id
+          (p) => p.smallTalkId !== action.payload.post_id
         );
       }),
     [UPDATE_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
         const current_id = action.payload.post_id;
         const updated_idx = draft.smallTalkPosts.findIndex(
-          (v) => v.id === current_id
+          (v) => v.smallTalkId === current_id
         );
         draft.smallTalkPosts[updated_idx] = {
           ...draft.smallTalkPosts[updated_idx],
@@ -231,7 +231,7 @@ export default handleActions(
       produce(state, (draft) => {
         const current_id = action.payload.post_id;
         const target_idx = draft.smallTalkPosts.findIndex(
-          (v) => v.id === current_id
+          (v) => v.smallTalkId === current_id
         );
         draft.smallTalkPosts[target_idx].commentList.push(
           action.payload.comment
@@ -241,23 +241,25 @@ export default handleActions(
       produce(state, (draft) => {
         const current_id = action.payload.post_id;
         const target_idx = draft.smallTalkPosts.findIndex(
-          (v) => v.id === current_id
+          (v) => v.smallTalkId === current_id
         );
         draft.smallTalkPosts[target_idx].commentList = draft.smallTalkPosts[
           target_idx
         ].commentList.filter(
-          (comment) => comment.id !== action.payload.comment_id
+          (comment) => comment.commentId !== action.payload.comment_id
         );
       }),
     [UPDATE_SMALLTALK_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         const current_id = action.payload.post_id;
         const target_idx = draft.smallTalkPosts.findIndex(
-          (v) => v.id === current_id
+          (v) => v.smallTalkId === current_id
         );
         const target_comment = draft.smallTalkPosts[
           target_idx
-        ].commentList.findIndex((v) => v.id === action.payload.comment_id);
+        ].commentList.findIndex(
+          (v) => v.commentId === action.payload.comment_id
+        );
         draft.smallTalkPosts[target_idx].commentList[target_comment] = {
           ...draft.smallTalkPosts[target_idx].commentList[target_comment],
           comments: action.payload.updated_contents,

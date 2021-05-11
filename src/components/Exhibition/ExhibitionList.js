@@ -41,8 +41,8 @@ const ExhibitionList = (props) => {
         {exhibitionPosts.map((post) => (
           <ExhibitionPost
             data={post}
-            key={post.id}
-            onClick={() => history.push(`/detail/${post.id}`)}
+            key={post.exhibitionId}
+            onClick={() => history.push(`/detail/${post.exhibitionId}`)}
           />
         ))}
       </ExhibitionBoxWrapper>

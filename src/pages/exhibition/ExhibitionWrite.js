@@ -14,6 +14,9 @@ const ExhibitionWrite = (props) => {
   const edited_post = useSelector((state)=> state.exhibition.exhibitionPostDetail)
 
   useEffect(() => {
+    if(!post_id){
+      return
+    }
     if (post_id !== edited_post.id){
       Swal.fire({
         text: '새로고침시 프로젝트 수정을 다시 시도해주세요!',

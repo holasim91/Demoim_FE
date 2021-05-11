@@ -19,7 +19,7 @@ const SmallTalkComment = (props) => {
     <CommentWrapper>
 
       {comments.map((c) => (
-        <SmallTalkCommentPost data={c} key={c.id} post_id={post_id}/>
+        <SmallTalkCommentPost data={c} key={c.commentId} post_id={post_id}/>
       ))}
 
 <CommentWriteArea>

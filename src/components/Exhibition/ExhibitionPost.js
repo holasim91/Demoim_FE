@@ -13,7 +13,7 @@ const ExhibitionPost = (props) => {
     <>
       <ExhibitionPostBox
         onClick={() => {
-          history.push(`/exhibition/detail/${props.data.id}`);
+          history.push(`/exhibition/detail/${props.data.exhibitionId}`);
         }}
       >
         <ExhibitionPostBoxContainer>

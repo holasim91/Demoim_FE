@@ -20,7 +20,7 @@ const SmallTalkList = () => {
     <>
       <SmallTalkListWrapper>
         {smallTalkPosts.map((data) => (
-          <SmallTalkPost data={data} key={data.id} location={currentPath} />
+          <SmallTalkPost data={data} key={data.smallTalkId} location={currentPath} />
         ))}
       </SmallTalkListWrapper>
     </>

@@ -6,32 +6,39 @@ import { config } from "../../shared/config";
 const SET_EXHIBITION_COMMENT = "SET_EXHIBITION_COMMENT";
 const ADD_EXHIBITION_COMMENT = "ADD_EXHIBITION_COMMENT";
 
-const setExihibitionComment = createAction(SET_EXHIBITION_COMMENT, (post_list) => ({
-  post_list,
-}));
+const setExihibitionComment = createAction(
+  SET_EXHIBITION_COMMENT,
+  (comment_list) => ({
+    comment_list,
+  })
+);
 
-const addExihibitionComment = createAction(ADD_EXHIBITION_COMMENT, (id, comment_list) => ({
-  id,
-  comment_list,
-}));
+const addExihibitionComment = createAction(
+  ADD_EXHIBITION_COMMENT,
+  (id, comment_list) => ({
+    id,
+    comment_list,
+  })
+);
 const initialState = {
-  exhibitionPostComments: [],
-  isLoading: false,
+  exhibitionComments: [],
 };
 
 const exhibitionCommentAPI = `${config.api}/api/exhibition/comments`;
 
-const getExihibitionComment = (id) =>{
-  return function(dispatch, getState, {history}){
-    axios(exhibitionCommentAPI,{
-      params:{
-        exhibition_id: id
-      }
-    }).then((res)=>
-      dispatch(setExihibitionComment(res.data))
-    ).catch((e) => console.error(e))
-  }
-}
+const getExihibitionCommentAPI = (id) => {
+  return function (dispatch, getState, { history }) {
+    axios(exhibitionCommentAPI, {
+      params: {
+        exhibition_id: id,
+      },
+    })
+      .then((res) => {
+        dispatch(setExihibitionComment(res.data));
+      })
+      .catch((e) => console.error(e));
+  };
+};
 
 const addExhibitionCommentsAPI = (id) => {
   return function (dispatch, getState, { history }) {
@@ -53,8 +60,8 @@ const addExhibitionCommentsAPI = (id) => {
 export default handleActions(
   {
     [SET_EXHIBITION_COMMENT]: (state, action) =>
-      produce(state, (draft) =>{
-        draft.exhibitionComments = action.payload.comment_list
+      produce(state, (draft) => {
+        draft.exhibitionComments = action.payload.comment_list;
       }),
     [ADD_EXHIBITION_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -69,6 +76,7 @@ export default handleActions(
 
 const actionCreators = {
   addExhibitionCommentsAPI,
+  getExihibitionCommentAPI,
 };
 
 export { actionCreators };

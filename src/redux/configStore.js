@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 import Exhibition from "./modules/exhibition";
+import ExhibitionComment from "./modules/exhibitionComment";
 import Team from "./modules/team";
 import SmallTalk from "./modules/smalltalk";
 import user from "./modules/user";
@@ -12,6 +13,7 @@ export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   exhibition: Exhibition,
+  exhibitionComment: ExhibitionComment,
   team: Team,
   smalltalk: SmallTalk,
   user: user,
