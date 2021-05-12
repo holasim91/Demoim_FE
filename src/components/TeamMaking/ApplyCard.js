@@ -5,7 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import { history } from "../../redux/configStore";
 import { useDispatch } from 'react-redux';
 import { actionCreators as applyActions } from "../../redux/modules/apply";
-
+import DefaultProfile from "../../images/def_profile.svg";
 const ApplyCard = (props) => {
 
   const isMobile = useMediaQuery({
@@ -28,7 +28,7 @@ const ApplyCard = (props) => {
         {isMobile ? (<React.Fragment>
           <MobileUserInfoBox>
 
-            <Image size="45" src={(props.responseUser.profileImage) ? props.responseUser.profileImage : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} />
+            <Image size="45" src={(props.responseUser.profileImage) ? props.responseUser.profileImage : DefaultProfile} />
 
             <UserInfo>
               <InfoText className="user">
@@ -61,7 +61,7 @@ const ApplyCard = (props) => {
             </MobileBtnBox>
           </MobileMsgBox>
         </React.Fragment>) : (<React.Fragment>
-          <Image size="75" src={(props.responseUser.profileImage) ? props.responseUser.profileImage : "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} />
+          <Image size="75" src={(props.responseUser.profileImage) ? props.responseUser.profileImage : DefaultProfile} />
           {/* 클릭시 해당 유저 페이지 이동 */}
           <InfoBox>
             <UserInfoBpx>

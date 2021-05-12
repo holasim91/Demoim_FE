@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Image } from "../../elements";
+import DefaultProfile from "../../images/def_profile.svg";
+
 const HistoryMember = (props) => {
 
   const { nickname, profileImage, position } = props;
@@ -8,7 +10,7 @@ const HistoryMember = (props) => {
   return (
     <ParticipationMember>
       <div>
-        <Image size="40" src={profileImage ? profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
+        <Image size="40" src={profileImage ? profileImage : DefaultProfile} />
       </div>
       <MemberInfoBox>
         <p className="nickname bold">{nickname}</p>
