@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
+import { actionCreators as applyActions } from "../modules/apply";
 
 const SET_TEAM = "SET_TEAM";
 const LOADING = "LOADING";
@@ -10,6 +11,7 @@ const ADD_TEAM = "ADD_TEAM";
 const UPDATE_TEAM = "UPDATE_TEAM";
 const DELETE_TEAM = "DELETE_TEAM";
 const SET_DETAIL_TEAM = "SET_DETAIL_TEAM";
+const SET_TEAM_HISTORY = "SET_TEAM_HISTORY";
 
 const setTeam = createAction(SET_TEAM, (teamList) => ({ teamList }));
 const addTeam = createAction(ADD_TEAM, (team) => ({ team }));
@@ -17,9 +19,11 @@ const deleteTeam = createAction(DELETE_TEAM, (teamId) => ({ teamId }));
 const updateTeam = createAction(UPDATE_TEAM, (teamId, team) => ({ teamId, team }));
 const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 const setDetailTeam = createAction(SET_DETAIL_TEAM, (teamInfo) => ({ teamInfo }));
+const setTeamHistory = createAction(SET_TEAM_HISTORY, (teamHistoryList) => ({ teamHistoryList }));
 
 const initialState = {
   list: [],
+  teamHistoryList: {},
   isLoading: false,
   teamInfo: {
     teamId: 0,
@@ -96,7 +100,6 @@ const getTeamMakingAPI = (page, size = 9) => {
     }).catch((error) => {
       console.log(error);
     });
-
   }
 }
 
@@ -113,6 +116,13 @@ const getDetailTeamMakingAPI = (teamId) => {
     }).then((res) => {
 
       dispatch(setDetailTeam(res.data));
+
+    }).then((res) => {
+
+      if (getState().team.teamInfo.leader.id === getState().user.user.id) {
+        dispatch(applyActions.getApplyAPI(teamId));
+      }
+
     }).catch((error) => {
       console.log(error);
     })
@@ -254,6 +264,93 @@ const getPlannerTeamMaking = (page, size) => {
   }
 }
 
+//로그인한 유저가 지원한 팀프로젝트 목록 리스트
+const getUserApplyListAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/mypage/apply`,
+    }).then((res) => {
+
+      dispatch(setTeam(res.data));
+
+    }).catch((err) => {
+      console.log('마이페이지 로그인 유저 지원한 프로젝트 조회 에러:', err);
+    })
+  }
+}
+
+//로그인한 유저가 참여한 팀프로젝트 목록 리스트 (객체로 전달옴)
+const getUserParticipateListAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/mypage/member`,
+    }).then((res) => {
+
+      dispatch(setTeamHistory(res.data));
+
+    }).catch((err) => {
+      console.log('마이페이지 로그인 유저 참여 프로젝트 조회 에러:', err);
+    })
+
+  }
+}
+
+//로그인한 유저가 리더인 팀프로젝트 목록 리스트
+const getUserLeaderListAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/mypage/leader`,
+    }).then((res) => {
+
+      dispatch(setTeam(res.data));
+
+    }).catch((err) => {
+      console.log('마이페이지 로그인 유저 참여 프로젝트 조회 에러:', err);
+    })
+
+  }
+}
+
+//특정 유저가 참여한 팀프로젝트 목록 리스트
+const getMemberParticipateListAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}`,
+    }).then((res) => {
+
+      dispatch(setTeamHistory(res.data));
+
+    }).catch((err) => {
+      console.log('마이페이지 특정 유저 참여 프로젝트 조회 에러:', err);
+    })
+  }
+}
+
+//특정 유저가 리더인 팀프로젝트 목록 리스트
+const getMemberLeaderListAPI = () => {
+  return function (dispatch, getState, { history }) {
+
+    axios({
+      method: 'get',
+      url: `${config.api}`,
+    }).then((res) => {
+
+      dispatch(setTeam(res.data));
+
+    }).catch((err) => {
+      console.log('마이페이지 특정 유저 리더 프로젝트 조회 에러:', err);
+    })
+
+  }
+}
 
 export default handleActions(
   {
@@ -282,7 +379,9 @@ export default handleActions(
     [SET_DETAIL_TEAM]: (state, action) => produce(state, (draft) => {
       draft.teamInfo = action.payload.teamInfo;
     }),
-
+    [SET_TEAM_HISTORY]: (state, action) => produce(state, (draft) => {
+      draft.teamHistoryList = action.payload.teamHistoryList;
+    }),
   }, initialState);
 
 
@@ -295,7 +394,12 @@ const actionCreators = {
   getFrontTeamMaking,
   getBackTeamMaking,
   getDesignerTeamMaking,
-  getPlannerTeamMaking
+  getPlannerTeamMaking,
+  getUserApplyListAPI,
+  getUserParticipateListAPI,
+  getUserLeaderListAPI,
+  getMemberParticipateListAPI,
+  getMemberLeaderListAPI
 };
 
 export { actionCreators };

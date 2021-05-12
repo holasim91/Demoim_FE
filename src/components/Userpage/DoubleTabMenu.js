@@ -1,37 +1,64 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory } from "../../components";
-
+import { TabTeamApplyHistory, TabTeamLeaderHistory, TabTeamParticipateHistory } from "../../components";
+import { actionCreators as teamActions } from "../../redux/modules/team";
+import { useDispatch } from 'react-redux';
 const DoubleTabMenu = () => {
 
-//프로젝트히스토리-Double Tab Menu 
-const [active, setActive] = useState(0)
+  //프로젝트히스토리-Double Tab Menu 
+  const [active, setActive] = useState(0)
   const handleClick = e => {
     const index = parseInt(e.target.id, 0);
-    console.log("더블탭", index);
     if (index !== active) {
       setActive(index);
     }
   };
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+
+    //isMe로 한번 더 나눠주기.
+    if (active === 0) {
+      //로그인한 유저의 지원한 팀프로젝트 목록 리스트 가져오기.
+      console.log('active:: 0, 로그인한 유저의 지원 프로젝트 목록을 가져옵니다.')
+      dispatch(teamActions.getUserApplyListAPI());
+
+    } else if (active === 1) {
+
+      console.log('active:: 1, 로그인한 유저의 참여중인 프로젝트 목록을 가져옵니다.')
+      dispatch(teamActions.getUserParticipateListAPI());
+    } else {
+      //2 일때 ...
+      console.log('active:: 2, 로그인한 유저가 리더인 프로젝트 목록을 가져옵니다.')
+      dispatch(teamActions.getUserLeaderListAPI());
+    }
+
+  }, [active]);
 
 
   return (
     <React.Fragment>
       {/* 탭 */}
       <DoubleTabs>
-      <Connect></Connect>
+        <Connect></Connect>
         <DubTab onClick={handleClick} active={active === 0} id={0}>지원 프로젝트</DubTab>
         <DubTab onClick={handleClick} active={active === 1} id={1}>참여중/참여완료</DubTab>
-        <DubTab onClick={handleClick} className="connects" active={active === 2} id={2}>리더 프로젝트</DubTab>        
+        <DubTab onClick={handleClick} className="connects" active={active === 2} id={2}>리더 프로젝트</DubTab>
       </DoubleTabs>
-      
+
       {/* 각 탭의 컨텐츠들 */}
-        <DubContents active={active === 0}><TabTeamApplyHistory /></DubContents>
-        <DubContents active={active === 1}><TabTeamParticipateHistory /></DubContents>
-        <DubContents active={active === 2}></DubContents>
-        
+      <DubContents active={active === 0}>
+        <TabTeamApplyHistory />
+      </DubContents>
+      <DubContents active={active === 1}>
+        <TabTeamParticipateHistory />
+      </DubContents>
+      <DubContents active={active === 2}>
+        <TabTeamLeaderHistory />
+      </DubContents>
+
     </React.Fragment>
-    
+
   );
 };
 

@@ -8,7 +8,6 @@ import { actionCreators as userAction } from "../../redux/modules/user";
 import EditPen from '../../images/editpen.svg';
 import { TabSmallTalkList } from "../../components";
 import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
-//import "../../css/userpage.css"b
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -33,31 +32,31 @@ const Userpage = (props) => {
   return (
     <React.Fragment>
       <UserInfoBox className="userInfoBox">
-      <Container>
-        <MyPageContainer>
-          <Profile>
-            <ProfileImg
-              src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage} />
-          </Profile>
-          <UserBox>
-            <UserBoxMarks>
-              <UserNickName>{userInfo?.nickname}</UserNickName>
-              <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
-                {/* <ImPencil color="#ffdd05" /> 프로필수정 */}
-                <EditPenIcon src={EditPen} />프로필수정
+        <Container>
+          <MyPageContainer>
+            <Profile>
+              <ProfileImg
+                src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage} />
+            </Profile>
+            <UserBox>
+              <UserBoxMarks>
+                <UserNickName>{userInfo?.nickname}</UserNickName>
+                <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
+                  {/* <ImPencil color="#ffdd05" /> 프로필수정 */}
+                  <EditPenIcon src={EditPen} />프로필수정
                 </ProfileEditBtn>
-            </UserBoxMarks>
-            <UserBoxPosition>
-              <UserPosition>{userInfo?.position}</UserPosition>
-              <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
-            </UserBoxPosition>
-            <UserBoxDesc>
-              <UserDesc>{userInfo?.description}</UserDesc>
-            </UserBoxDesc>
-          </UserBox>
-        </MyPageContainer>
-      </Container>
-    </UserInfoBox>
+              </UserBoxMarks>
+              <UserBoxPosition>
+                <UserPosition>{userInfo?.position}</UserPosition>
+                <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
+              </UserBoxPosition>
+              <UserBoxDesc>
+                <UserDesc>{userInfo?.description}</UserDesc>
+              </UserBoxDesc>
+            </UserBox>
+          </MyPageContainer>
+        </Container>
+      </UserInfoBox>
       <Container>
         {/* Tab Menu */}
 
@@ -78,7 +77,7 @@ const Userpage = (props) => {
         </Content>
 
       </Container>
-      
+
 
     </React.Fragment>
 

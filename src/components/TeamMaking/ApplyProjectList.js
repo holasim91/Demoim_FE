@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { ApplyProjectCard } from "../../components";
+import { useSelector } from 'react-redux';
 
+//유저가 지원한 팀 프로젝트 리스트
 const ApplyProjectList = (props) => {
 
+  const applyList = useSelector((state) => state.team.list);
 
   return (
 
@@ -12,7 +15,11 @@ const ApplyProjectList = (props) => {
         <p><span>#</span>내가 지원한 프로젝트</p>
       </TitleBox>
       <ApplicantBox>
-        <ApplyProjectCard />
+        {applyList.map((a) => {
+          return (
+            <ApplyProjectCard {...a} key={a.teamId} />
+          )
+        })}
       </ApplicantBox>
     </Wrapper>
   )

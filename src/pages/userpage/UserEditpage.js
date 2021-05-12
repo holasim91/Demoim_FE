@@ -1,36 +1,36 @@
-import React, { useEffect, useRef }from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Text, Grid, Container } from "../../elements";
-import { FaCamera } from "react-icons/fa";     
-import { actionCreators } from "../../redux/modules/user"; 
-import { actionCreators as imageActions} from "../../redux/modules/image";
-import { history } from "../../redux/configStore";           
+import { FaCamera } from "react-icons/fa";
+import { actionCreators } from "../../redux/modules/user";
+import { actionCreators as imageActions } from "../../redux/modules/image";
+import { history } from "../../redux/configStore";
 
 
 const UserEditpage = (props) => {
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
   const preview = useSelector((state) => state.image.preview);
 
   React.useEffect(() => {
-    if(!userInfo){
+    if (!userInfo) {
       history.goBack();
       return
     }
     //미리보기 초기화
-    if(preview){
+    if (preview) {
       dispatch(imageActions.setPreview(null));
     }
-    
+
   }, []);
-  
+
   //const [fileName, setFileName] = React.useState(null);
-  const [nickname, setNickName] = React.useState(userInfo? userInfo.nickname : '');
-  const [position, setPosition] = React.useState(userInfo? userInfo.position : '');
-  const [description, setDesc] = React.useState(userInfo? userInfo.description : '');
-  
+  const [nickname, setNickName] = React.useState(userInfo ? userInfo.nickname : '');
+  const [position, setPosition] = React.useState(userInfo ? userInfo.position : '');
+  const [description, setDesc] = React.useState(userInfo ? userInfo.description : '');
+
 
   const fileRef = useRef();
   const selectFile = (e) => {
@@ -39,10 +39,10 @@ const UserEditpage = (props) => {
     const reader = new FileReader();
     const img = fileRef.current.files[0];
 
-  reader.readAsDataURL(img);
-  reader.onloadend = () => {
-    //console.log(reader.result);
-    dispatch(imageActions.setPreview(reader.result));
+    reader.readAsDataURL(img);
+    reader.onloadend = () => {
+      //console.log(reader.result);
+      dispatch(imageActions.setPreview(reader.result));
     };
   };
 
@@ -51,17 +51,17 @@ const UserEditpage = (props) => {
   const profileEdit = () => {
 
     //닉네임 .. 중복확인..?!
-    if (nickname === ' ') {
+    if (nickname === "") {
       alert('닉네임을 입력해주세요!')
       return false;
     }
 
-    if (position === "선택하기" || position === " "){
+    if (position === "선택하기" || position === "") {
       alert('포지션을 선택해주세요!')
       return false
     }
-    
-    if (description === ' ') {
+
+    if (description === "") {
       alert('자기소개를 입력해주세요!')
       return false;
     }
@@ -72,11 +72,11 @@ const UserEditpage = (props) => {
     //formData
     let formData = new FormData();
     formData.append('file', file);
-    formData.append('userEditInfo',userEditInfo);
+    formData.append('userEditInfo', userEditInfo);
     //console.log(formData.get('file'))
 
     dispatch(actionCreators.editProfileAPI(formData));
-  };  
+  };
 
   //희망포지션 설렉트박스
   const handleOnChange = (e) => {
@@ -92,60 +92,60 @@ const UserEditpage = (props) => {
             <span>{userInfo?.nickname}</span>님의 로그
           </Title>
           <EditContents>
-          <ProfileImgBox>
-            <ProfileImg 
-            src={ preview? preview : (userInfo?.profileImage ? userInfo.profileImage : props.profileImage) }/>
-            
-            <ImgEditBtn>
-              <label htmlFor="img-file"><Camera/></label>
-              <input type="file" id="img-file" ref={fileRef} onChange={selectFile} accept="image/*" />
-              <input type="text" className="upLoadImg" readOnly/> 
-            </ImgEditBtn>
-          </ProfileImgBox>
-          {/* <button onClick={uploadImg}>이미지업로드</button> */}
-          <EditForm>
-          <EditTable>
-              <tbody>
-              <tr>
-                <td>닉네임</td>
-                <td>
-                  <Input placeholder={nickname}
-                    value={nickname} 
-                    onChange={(e) => {
-                    setNickName(e.target.value)
-                  }}/></td>
-              </tr>
-              <tr>
-                <td>닉네임 중복확인</td>
-                <td><Input place/></td>
-              </tr>
-              <tr>
-                <td>희망포지션</td>
-                <td>
-                  <Select value={position} onChange={(e) => {handleOnChange(e)}}>
-                    <option value="프론트엔드">프론트엔드</option>
-                    <option value="백엔드">백엔드</option>
-                    <option value="디자이너">디자이너</option>
-                    <option value="기획자">기획자</option>
-                  </Select>
-                </td>                  
-              </tr>
-              <tr>
-                <td>자기소개</td>
-                <td><TextArea maxLength="100" placeholder={description}
-                  value={description}
-                  onChange={(e) => {
-                    setDesc(e.target.value)
-                  }}/></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td><span>100자이내</span></td>
-              </tr>
-              </tbody>
-            </EditTable>
-          </EditForm>
-          <EditBtn onClick={profileEdit}>수정하기</EditBtn>
+            <ProfileImgBox>
+              <ProfileImg
+                src={preview ? preview : (userInfo?.profileImage ? userInfo.profileImage : props.profileImage)} />
+
+              <ImgEditBtn>
+                <label htmlFor="img-file"><Camera /></label>
+                <input type="file" id="img-file" ref={fileRef} onChange={selectFile} accept="image/*" />
+                <input type="text" className="upLoadImg" readOnly />
+              </ImgEditBtn>
+            </ProfileImgBox>
+            {/* <button onClick={uploadImg}>이미지업로드</button> */}
+            <EditForm>
+              <EditTable>
+                <tbody>
+                  <tr>
+                    <td>닉네임</td>
+                    <td>
+                      <Input placeholder={nickname}
+                        value={nickname}
+                        onChange={(e) => {
+                          setNickName(e.target.value)
+                        }} /></td>
+                  </tr>
+                  <tr>
+                    <td>닉네임 중복확인</td>
+                    <td><Input place /></td>
+                  </tr>
+                  <tr>
+                    <td>희망포지션</td>
+                    <td>
+                      <Select value={position} onChange={(e) => { handleOnChange(e) }}>
+                        <option value="프론트엔드">프론트엔드</option>
+                        <option value="백엔드">백엔드</option>
+                        <option value="디자이너">디자이너</option>
+                        <option value="기획자">기획자</option>
+                      </Select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>자기소개</td>
+                    <td><TextArea maxLength="100" placeholder={description}
+                      value={description}
+                      onChange={(e) => {
+                        setDesc(e.target.value)
+                      }} /></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td><span>100자이내</span></td>
+                  </tr>
+                </tbody>
+              </EditTable>
+            </EditForm>
+            <EditBtn onClick={profileEdit}>수정하기</EditBtn>
           </EditContents>
         </EditContainer>
       </Container>
@@ -156,11 +156,11 @@ const UserEditpage = (props) => {
 
 
 UserEditpage.defaultProps = {
-  username:"g0rden@never.com",
-  nickname:"가나다라마바",
-  position:"프론트트트",
-  desc:"안녕하슈",
-  profileImage:'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+  username: "g0rden@never.com",
+  nickname: "가나다라마바",
+  position: "프론트트트",
+  desc: "안녕하슈",
+  profileImage: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
 }
 
 const EditContainer = styled.div`
