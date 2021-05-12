@@ -22,5 +22,7 @@ import TabTeamLeaderHistory from "./Userpage/TabTeamLeaderHistory";
 import TabSmallTalkList from "./Userpage/TabSmallTalkList";
 import AlarmCard from "./AlarmCard";
 import HistoryMember from "./TeamMaking/HistoryMember";
-export { Editor, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList, SmallTalkList, TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory, CompleteProjectCard, TabTeamLeaderHistory, AlarmCard, HistoryMember };
+import TabExhibitionList from "./Userpage/TabExhibitionList";
+export { Editor, Header, Footer, TeamList, TeamCard, DatePick, ExhibitionList, ExhibitionPost, ExhibitionComment, ApplyCard, ApplyList, TeamDate, ApplyProjectCard, ApplyProjectList, ParticipationProjectCard, ParticipationProjectList, SmallTalkList, TabTeamApplyHistory, TabSmallTalkList, TabTeamParticipateHistory, CompleteProjectCard, TabTeamLeaderHistory,  AlarmCard, HistoryMember, TabExhibitionList };
+
 

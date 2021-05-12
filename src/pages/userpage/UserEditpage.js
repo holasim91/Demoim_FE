@@ -110,10 +110,15 @@ const UserEditpage = (props) => {
                     <td>닉네임</td>
                     <td>
                       <Input placeholder={nickname}
+                        readOnly
                         value={nickname}
                         onChange={(e) => {
                           setNickName(e.target.value)
                         }}/></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td><span>닉네임은 변경이 불가합니다.</span></td>
                   </tr>
                   <tr>
                     <td>희망포지션</td>
@@ -302,6 +307,15 @@ const EditTable = styled.table`
     td:nth-child(2){
       box-sizing: border-box;
       height:35px;
+    }
+    tr:nth-child(2){
+      td{
+      height:auto;
+      font-size:10px;
+      text-align:left;
+      color:#ff5353;
+      padding-bottom:18px;
+      }
     }
     td:last-child{
     text-align:right;
