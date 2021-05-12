@@ -7,7 +7,7 @@ import { FaCamera } from "react-icons/fa";
 import { actionCreators } from "../../redux/modules/user";
 import { actionCreators as imageActions } from "../../redux/modules/image";
 import { history } from "../../redux/configStore";
-
+import DefaultProfile from "../../images/def_profile.svg";
 
 const UserEditpage = (props) => {
   const dispatch = useDispatch();
@@ -94,7 +94,7 @@ const UserEditpage = (props) => {
           <EditContents>
             <ProfileImgBox>
               <ProfileImg
-                src={preview ? preview : (userInfo?.profileImage ? userInfo.profileImage : props.profileImage)} />
+                src={preview ? preview : (userInfo?.profileImage ? userInfo.profileImage : DefaultProfile)} />
 
               <ImgEditBtn>
                 <label htmlFor="img-file"><Camera /></label>

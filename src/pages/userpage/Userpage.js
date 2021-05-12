@@ -8,6 +8,7 @@ import { actionCreators as userAction } from "../../redux/modules/user";
 import EditPen from '../../images/editpen.svg';
 import { TabSmallTalkList, TabExhibitionList } from "../../components";
 import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
+import DefaultProfile from '../../images/def_profile.svg';
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const Userpage = (props) => {
           <MyPageContainer>
             <Profile>
               <ProfileImg
-                src={userInfo?.profileImage ? userInfo.profileImage : props.profileImage} />
+                src={userInfo?.profileImage ? userInfo.profileImage : DefaultProfile } />
             </Profile>
             <UserBox>
               <UserBoxMarks>
