@@ -85,7 +85,7 @@ const Signup = (props) => {
 
         if (pw === checkPw) {
             rePwInfoUl.current.style.display = "block";
-            rePwInfoLiT.current.style.color = "#0f851a";
+            rePwInfoLiT.current.style.color = "#683fee";
             return false;
         } else {
             rePwInfoUl.current.style.display = "none";
@@ -137,15 +137,27 @@ const Signup = (props) => {
             })
             .then((res) => {
                 if (res.data.msg === "false") {
-                    alert('이미등록된 닉네임입니다.')
+                    Swal.fire({
+                        text: '이미 등록된 닉네임입니다!',
+                        icon: 'warning',
+                        confirmButtonColor: "#999cda",
+                    })
                     setNicknameDup(false);
                 } else {
-                    alert('사용 가능한 닉네임입니다.')
+                    Swal.fire({
+                        text: '사용 가능한 닉네임 입니다!',
+                        icon: 'success',
+                        confirmButtonColor: "#999cda",
+                    })
                     setNicknameDup(true);
                 }
             })
             .catch((err) => {
-                console.log(err)
+                Swal.fire({
+                    text: `${err.response.data.msg}`,
+                    icon: 'warning',
+                    confirmButtonColor: "#999cda",
+                })
             })
     }
 

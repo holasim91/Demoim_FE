@@ -39,7 +39,7 @@ const signupAPI = (email, pw, nickname, position) => {
           text: "회원가입 성공!",
           confirmButtonColor: "#999cda",
         })
-        history.push('/');
+        history.push('/login');
       })
       .catch((err) => {
         console.log(err)
