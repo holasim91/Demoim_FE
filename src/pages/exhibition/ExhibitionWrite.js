@@ -12,7 +12,6 @@ const ExhibitionWrite = (props) => {
   const dispatch = useDispatch();
   const post_id = Number(props.match.params.exhibitionId)
   const edited_post = useSelector((state) => state.exhibition.exhibitionPostDetail)
-  console.log(edited_post)
   useEffect(() => {
     if (!post_id) {
       return
@@ -92,7 +91,7 @@ const ExhibitionWrite = (props) => {
     formData.append("file", thumbnailFile);
     formData.append("requestBody", reqBody);
 
-    dispatch(exhibitionActions.editExihibitionAPI(formData, edited_post.id))
+    dispatch(exhibitionActions.editExihibitionAPI(formData, edited_post.exhibitionId))
   }
 
   return (
