@@ -6,7 +6,7 @@ import { history } from "../../redux/configStore";
 import "../../shared/theme";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import EditPen from '../../images/editpen.svg';
-import { TabSmallTalkList } from "../../components";
+import { TabSmallTalkList, TabExhibitionList } from "../../components";
 import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
 
 const Userpage = (props) => {
@@ -17,6 +17,8 @@ const Userpage = (props) => {
   }, []);
 
   const userInfo = useSelector((state) => state.user.user)
+  
+  //console.log("로그인체크성공",userInfo)
 
 
   //Tab Menu
@@ -42,13 +44,12 @@ const Userpage = (props) => {
               <UserBoxMarks>
                 <UserNickName>{userInfo?.nickname}</UserNickName>
                 <ProfileEditBtn onClick={() => { history.push('/userEditpage') }}>
-                  {/* <ImPencil color="#ffdd05" /> 프로필수정 */}
                   <EditPenIcon src={EditPen} />프로필수정
                 </ProfileEditBtn>
               </UserBoxMarks>
               <UserBoxPosition>
                 <UserPosition>{userInfo?.position}</UserPosition>
-                <UserProject>프로젝트 {userInfo?.teams ? userInfo.teams.length : 0}개 진행중</UserProject>
+                <UserProject>프로젝트 {userInfo?.nowteamcnt ? userInfo.nowteamcnt : 0}개 진행중</UserProject>
               </UserBoxPosition>
               <UserBoxDesc>
                 <UserDesc>{userInfo?.description}</UserDesc>
@@ -69,8 +70,9 @@ const Userpage = (props) => {
         <Content active={active === 0}>
           <TabSmallTalkList />
         </Content>
+          {/* 프로젝트자랑글 */}
         <Content active={active === 1}>
-
+          <TabExhibitionList/>
         </Content>
         <Content active={active === 2}>
           <DoubleTabMenu />

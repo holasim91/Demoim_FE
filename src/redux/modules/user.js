@@ -5,7 +5,7 @@ import { produce } from 'immer';
 //import { history } from "../redux/configStore";
 import axios from "axios";
 import { actionCreators as SmallTalkActions } from "../modules/smalltalk";
-
+import { actionCreators as ExhibitionActions } from "../modules/exhibition";
 
 
 const SET_USER = 'SET_USER';
@@ -166,9 +166,8 @@ const editProfileAPI = (formData) => {
   }
 }
 
-//TabSmallTalk
+//Tab-SmallTalk
 //현재로그인한 사용자가 작성했던 SmallTalk반환
-
 const TabSmallTalkAPI = () => {
   return function (dispatch, getState, { history }) {
     const token = getCookie('token');
@@ -190,6 +189,28 @@ const TabSmallTalkAPI = () => {
   }
 }
 
+//Tab-ExhibitionList
+//현재로그인한 사용자가 작성했던 프로젝트자랑글 반환
+const TabExhibitionAPI = () => {
+  return function (dispatch, getState, { history }){
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+    const API = 'http://54.180.142.197/api/mypage/exhibition'
+    axios({
+      method:"get",
+      url:API,
+      headers: {
+        'authorization': token,
+      },
+    }).then((res) => {
+      console.log("프로젝트자랑하기탭: ",res)
+      dispatch(ExhibitionActions.setExihibition(res.data))
+    
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+}
 
 
 const logout = () => {
@@ -228,6 +249,7 @@ const actionCreators = {
   logout,
   editProfileAPI,
   TabSmallTalkAPI,
+  TabExhibitionAPI,
   //isLogin
 };
 
