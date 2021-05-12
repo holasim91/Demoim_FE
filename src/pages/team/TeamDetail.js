@@ -189,7 +189,7 @@ const TeamDetail = (props) => {
         </ModalBox>
 
         {(team?.leader?.id === user?.id && team?.recruitState === "ACTIVATED") && (
-          <ApplyList leaderId={team?.leader?.id} teamId={id} />
+          <ApplyList />
         )}
 
       </Container>

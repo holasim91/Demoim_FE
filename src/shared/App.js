@@ -2,7 +2,7 @@ import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { Route } from "react-router-dom";
 import { history } from "../redux/configStore";
-import { Exhibition, ExhibitionDetail, ExhibitionWrite, Main, TeamAllList, Signup, Login, TeamDetail, TeamWrite, TeamEdit, SmallTalk, Userpage, UserEditpage } from "../pages";
+import { Exhibition, ExhibitionDetail, ExhibitionWrite, Main, TeamAllList, Signup, Login, TeamDetail, TeamWrite, TeamEdit, SmallTalk, Userpage, UserEditpage, Alarm } from "../pages";
 import { Header, Footer } from "../components";
 
 import styled from "styled-components";
@@ -47,6 +47,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/userpage/:userId" exact component={Userpage} />
             <Route path="/userEditpage" exact component={UserEditpage} />
+            <Route path="/alarm/:userId" exact component={Alarm} />
           </ConnectedRouter>
         </ContentContainer>
         <Footer />

@@ -7,7 +7,7 @@ import { MobileBar } from "../elements";
 import { AiOutlineBell } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
-
+import { history } from "../redux/configStore";
 
 
 const Header = (props) => {
@@ -55,7 +55,7 @@ const Header = (props) => {
           </NavMenu>
           {isLogin ? (
             <UserMenu>
-              <NoneActiveLink to='/'>
+              <NoneActiveLink to={`/alarm/${userCheck?.id}`}>
                 <Bell />
               </NoneActiveLink>
               <LogOutBtn onClick={LogOut}>
@@ -96,7 +96,7 @@ const Header = (props) => {
 
             {isLogin ? (
               <MobileUserMenu>
-                <NoneActiveLink to='/' className='userMenu' onClick={closeBar}>
+                <NoneActiveLink to={`/alarm/${userCheck?.id}`} className='userMenu' onClick={closeBar}>
                   <Bell />
                 </NoneActiveLink>
                 <LogOutBtn onClick={LogOut} className='userMenu'>

@@ -72,7 +72,7 @@ const getApplyAPI = (teamId) => {
 const deleteApplyAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
-    if (teamId) {
+    if (!teamId) {
       return false;
     }
 
@@ -81,10 +81,19 @@ const deleteApplyAPI = (teamId) => {
       url: `${config.api}/api/apply?team_id=${teamId}`,
     }).then((res) => {
 
-      console.log(res);
+      Swal.fire({
+        text: `${res.data.msg}`,
+        icon: 'success',
+        confirmButtonColor: "#999cda",
+      })
 
     }).catch((err) => {
       console.log("지원삭제 에러:", err);
+      Swal.fire({
+        text: `${err.response.data.msg}`,
+        icon: 'warning',
+        confirmButtonColor: "#999cda",
+      })
     })
 
   }

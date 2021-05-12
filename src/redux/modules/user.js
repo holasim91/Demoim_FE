@@ -83,6 +83,7 @@ const loginAPI = (email, pw) => {
     })
       //실패이유 Swal띄어주기 
       .catch((err) => {
+        console.log('로그인에러:', err)
         Swal.fire({
           text: "",
           icon: 'warning',
@@ -107,7 +108,7 @@ const loginCheckAPI = () => {
       //console.log("로그인체크!:",res.data);
 
       dispatch(setUser({
-        id: res.data.id, 
+        id: res.data.id,
         description: res.data.description,
         nickname: res.data.nickname,
         position: res.data.position,
@@ -115,7 +116,7 @@ const loginCheckAPI = () => {
         username: res.data.username, //email
         teams: res.data.teamUserInfos, //진행중인 프로젝트 개수로(int)
       }))
-      
+
     }).catch((err) => {
       console.log('로그인체크에러:', err);
     })
@@ -142,7 +143,7 @@ const editProfileAPI = (formData) => {
     })
       .then((res) => {
         console.log("수정완료", res.data)
-        
+
         Swal.fire({
           icon: "success",
           text: "수정완료!!",
@@ -150,14 +151,14 @@ const editProfileAPI = (formData) => {
         })
 
         dispatch(setUser({
-          id: res.data.id, 
+          id: res.data.id,
           description: res.data.description,
           nickname: res.data.nickname,
           position: res.data.position,
           profileImage: res.data.profileImage,
           username: res.data.username, //email
         }))
-        history.push(`/userpage/${res.data.id}`); 
+        history.push(`/userpage/${res.data.id}`);
       })
       .catch((err) => {
         console.log("프로필수정err:", err);
@@ -182,7 +183,7 @@ const TabSmallTalkAPI = () => {
     }).then((res) => {
       console.log("스몰토크탭:", res)
       //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
-      dispatch(SmallTalkActions.setPost (res.data))
+      dispatch(SmallTalkActions.setPost(res.data))
     }).catch((err) => {
       console.log(err)
     })

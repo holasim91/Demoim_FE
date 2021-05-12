@@ -1,45 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { ApplyCard } from "../../components";
-import { useSelector, useDispatch } from 'react-redux';
-import { actionCreators as applyActions } from "../../redux/modules/apply";
+import { useSelector } from 'react-redux';
 
 const ApplyList = (props) => {
 
-  /*const applyList = [{
-    id: 1,
-    applyState: "WAITING",
-    membership: "LEADER",
-    message: "내가 리더><",
-    portfolio: "포폴없음!",
-    responseUser: {
-      userid: 3,
-      username: "wjdtjrwls455@naver.com",
-      nickname: "정석진",
-      profileImage: null,
-      position: "프론트엔드",
-      description: "잘부탁드립니다~~~",
-    }
-  }
 
-  ];
-*/
-  const { leaderId, teamId } = props;
-
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
   const applyList = useSelector((state) => state.apply.applyList);
-
-  console.log('leaderId:', leaderId, 'userId:', user?.id)
-  React.useEffect(() => {
-
-    if (leaderId === user?.id) {
-      console.log('teamId!!', teamId)
-      dispatch(applyActions.getApplyAPI(teamId));
-    }
-
-  }, []);
-
 
   if (applyList.length === 0) {
     return (

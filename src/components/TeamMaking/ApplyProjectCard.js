@@ -1,23 +1,45 @@
 import React from "react";
 import styled from "styled-components";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { actionCreators as applyActions } from "../../redux/modules/apply";
+import { history } from "../../redux/configStore";
 
-//마이페이지용 
+//마이페이지용 유저가 지원한 팀프로젝트 카드.
 const ApplyProjectCard = (props) => {
+
+  const dispatch = useDispatch();
+  const { title, createdAt, recruit, begin, end, location, stack, teamId, front, back, designer, planner } = props;
+
+  const DeleteApply = () => {
+    dispatch(applyActions.deleteApplyAPI(teamId));
+  }
+
+  let recruitBegin = moment(createdAt).format('YYYY.MM.DD');
+  let recruitEnd = moment(recruit).format('YYYY.MM.DD');
+  let projectBegin = moment(begin).format('YYYY.MM.DD');
+  let projectEnd = moment(end).format('YYYY.MM.DD');
+
   return (
     <React.Fragment>
       <Grid>
-        <Titlebox>
-          [프로젝트] 채팅 사이트를 만들고 싶습니다!
+        <Titlebox onClick={() => history.push(`/team/detail/${teamId}`)}>
+          [프로젝트] {title}
         </Titlebox>
         <ProjectInfoBox>
-          <p><span>모집 기간</span> 2021.05.01 - 2021.05.12</p>
-          <p><span>프로젝트 기간</span> 2021.05.01 - 2021.05.12</p>
-          <p><span>인원</span> 프론트엔드 1명 백엔드 1명</p>
-          <p><span>언어</span> React/Spring</p>
-          <p><span>장소</span> 온라인</p>
+          <p><span>모집 기간</span> {recruitBegin} ~ {recruitEnd}</p>
+          <p><span>프로젝트 기간</span> {projectBegin} ~ {projectEnd}</p>
+          <p><span>인원</span> {front !== 0 && `프론트엔드 ${front}명 `}
+            {back !== 0 && `백엔드 ${back}명 `}
+            {designer !== 0 && `디자이너 ${designer}명 `}
+            {planner !== 0 && `기획자 ${planner}명 `}
+          </p>
+          <p><span>언어</span> {stack}</p>
+          <p><span>장소</span> {location}</p>
         </ProjectInfoBox>
         <BtnBox>
-          <ApplyCancelBtn>지원취소</ApplyCancelBtn>
+          {/* isMe를 기준으로 다른 사용자 페이지에선 보여주지 않음 */}
+          <ApplyCancelBtn onClick={DeleteApply}>지원취소</ApplyCancelBtn>
         </BtnBox>
       </Grid>
     </React.Fragment>
