@@ -160,6 +160,13 @@ const TeamDetail = (props) => {
             </LeaderInnerBox>
           </LeaderBox>
           <TeamPostBox>
+            {team?.leader?.id === user?.id &&
+              (<LeaderMenu>
+                {team.recruitState !== "FINISHED" && (
+                  <LeaderBtn onClick={() => history.push(`/team/edit/${id}`)}>수정</LeaderBtn>
+                )}
+                <LeaderBtn onClick={() => dispatch(teamActions.deleteTeamMakingAPI(team.teamId))}>삭제</LeaderBtn>
+              </LeaderMenu>)}
             <ContentInnerBox>
               <InfoBox>
                 <InfoText>
@@ -184,13 +191,6 @@ const TeamDetail = (props) => {
               <ProjectCotentsBox dangerouslySetInnerHTML={{ __html: team.contents }} />
             </ContentInnerBox>
           </TeamPostBox>
-          {team?.leader?.id === user?.id &&
-            (<LeaderMenu>
-              {team.recruitState !== "FINISHED" && (
-                <LeaderBtn onClick={() => history.push(`/team/edit/${id}`)}>수정</LeaderBtn>
-              )}
-              <LeaderBtn onClick={() => dispatch(teamActions.deleteTeamMakingAPI(team.teamId))}>삭제</LeaderBtn>
-            </LeaderMenu>)}
         </ContentBox>
         <ModalBox>
           {team?.leader?.id !== user?.id || user === null ? (
@@ -486,7 +486,7 @@ display: flex;
 justify-content: flex-end;
 width:100%;
 gap:7px;
-margin-top:15px;
+margin:15px 0px;
 padding-right: 20px;
 
 @media ${props => props.theme.mobile}{
@@ -497,10 +497,11 @@ padding-right: 20px;
 
 
 const LeaderBtn = styled.button`
-  padding:3px 15px;
+  padding:3px 5px;
   outline: none;
   cursor: pointer;
-  border: 2px solid rgba(122,119,134,0.5);
+  border: none;
+  color:#683fee;
   border-radius: 8px;
   background-color:#ffffff;
   font-weight: 600;

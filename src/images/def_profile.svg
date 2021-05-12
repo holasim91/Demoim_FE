@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ㄷㅁㅇ</title>
+    <defs>
+        <circle id="path-1" cx="35" cy="35" r="35"></circle>
+        <filter x="-10.7%" y="-10.7%" width="121.4%" height="121.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ㄷㅁㅇ" transform="translate(5.000000, 5.000000)" fill-rule="nonzero">
+            <g id="Oval">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" xlink:href="#path-1"></use>
+            </g>
+            <g id="Group-7" transform="translate(15.849057, 22.452830)">
+                <g id="Group-8">
+                    <polygon id="Path" fill="#FA6A72" points="13.2075472 11.8867925 0 11.8867925 0 0 13.0256877 0 13.0256877 2.49596443 3.00068197 2.49596443 3.00068197 9.35510334 13.2075472 9.35510334"></polygon>
+                    <path d="M38.3018868,11.8867925 L25.0943396,11.8867925 L25.0943396,0 L38.3018868,0 L38.3018868,11.8867925 Z M28.0389137,9.32550945 L35.3346622,9.32550945 L35.3346622,2.59299413 L28.0389137,2.59299413 L28.0389137,9.32550945 Z" id="Shape" fill="#683FEE"></path>
+                </g>
+                <path d="M25.0943396,25.7433529 C25.0943396,29.198023 22.1192607,31.6981132 18.490566,31.6981132 C14.8618713,31.6981132 11.8867925,29.198023 11.8867925,25.7433529 C11.8867925,22.2886829 14.8618713,19.8113208 18.490566,19.8113208 C22.1192607,19.8113208 25.0943396,22.322775 25.0943396,25.7433529 Z M14.704102,25.7433529 C14.704102,27.8343375 16.3719493,29.1525668 18.490566,29.1525668 C20.6091828,29.1525668 22.2544916,27.8343375 22.2544916,25.7433529 C22.2544916,23.6523684 20.5866443,22.3568671 18.490566,22.3568671 C16.3944877,22.3568671 14.704102,23.6864606 14.704102,25.7433529 L14.704102,25.7433529 Z" id="Shape" fill="#FBD46E"></path>
+            </g>
+        </g>
+    </g>
+</svg>

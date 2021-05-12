@@ -23,7 +23,6 @@ const Wrapper = styled.div`
   cursor: pointer;
   padding: 0.2em;
   font-size:0.9em;
-  
 }
 
 
@@ -55,9 +54,8 @@ const Wrapper = styled.div`
 }
 
 & input[type=checkbox]:checked + label:before {
-  background-color: ${props => props.theme.button_purple};
-  border-color: ${props => props.theme.button_purple};
-  color: #fff;
+
+  color: black;
 }
 
 & input[type=checkbox]:disabled + label:before {

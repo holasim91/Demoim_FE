@@ -230,8 +230,10 @@ const TeamWrite = (props) => {
           <ChoiceTable>
             <tbody>
               <tr>
-                <td>모집기간</td>
+                <td className="table_top">모집기간</td>
                 <td><TeamDate startDate={recruit.start} endDate={recruit.end} setEndDate={setRecruitEnd} recruit recruitMaxDate={project.end} />
+                  <p className="info_text">· 모집기간 시작일은 글 등록일 입니다.</p>
+                  <p className="info_text">· 모집기간 마감일은 프로젝트 종료일을<br />&nbsp;&nbsp;&nbsp;넘을 수 없습니다.</p>
                 </td>
               </tr>
               <tr>
@@ -286,6 +288,8 @@ const TeamWrite = (props) => {
                 <td colSpan="2">
                   썸네일<span className="thumbnail"> (선택)</span>
                   <Upload fileRef={thumbnailRef} changeFile={changeFile} />
+                  <p className="info_text thumbnale">권장 사이즈 300 * 200</p>
+                  <p className="info_text thumbnale">썸네일 미지정시 데모임에서 준비한 임의의 이미지가 등록됩니다.</p>
                 </td>
               </tr>
             </tbody>

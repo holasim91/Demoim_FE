@@ -91,6 +91,7 @@ const Titlebox = styled.div`
   margin-bottom: 0px;
   font-weight: 500;
   padding-left: 17px;
+  cursor: pointer;
 `;
 
 const TeamInfoBox = styled.div`

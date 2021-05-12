@@ -4,6 +4,7 @@ import { Button } from "../../elements";
 import moment from "moment";
 import { history } from '../../redux/configStore';
 
+
 //무한스크롤시 TeamList가 바뀔 때 기존 TeamCard 기억해놓기.
 const TeamCard = React.memo((props) => {
 

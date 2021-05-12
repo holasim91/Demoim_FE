@@ -19,10 +19,10 @@ export const ChoiceBox = styled.div`
   width:340px;
   padding:20px;
   box-sizing: border-box;
-  margin:0px auto 25px auto;
+  margin:0px auto 40px auto;
 
   @media ${props => props.theme.mobile}{
-    margin:0px auto 30px auto;
+    margin:0px auto 50px auto;
     padding:0px;
     width:305px;
   }
@@ -81,6 +81,13 @@ export const ChoiceTable = styled.table`
   & tr,td{
     vertical-align: middle;
   }
+
+  & .table_top{
+
+    vertical-align:top;
+    padding-top:9px;
+  }
+
   & td:nth-child(1){
     width:40%;
   }
@@ -97,13 +104,35 @@ export const ChoiceTable = styled.table`
     font-size:12px;
   }
   
+  & .info_text{
+    color:#ff5353;
+    font-size:0.625em;
+    line-height: 1.3em;
+  }
+
+  & .thumbnale{
+    position: relative;
+    top:8px;
+    left:20px;
+  
+  }
+
 
 @media ${props => props.theme.mobile}{
    & td:nth-child(1){
     width:35%;
     }
+
+  & .thumbnale{
+    position: relative;
+    top:12px;
+    left:0px;
+
+  }
     font-size:0.9em;
   }
+
+  
 
   @media (max-width:380px){
     &td:nth-child(1){
@@ -166,6 +195,13 @@ export const NumberInput = styled.input`
   border:1px solid lightgray;
   padding:2px 5px;
   border-radius: 4px;
+  background-color: rgba(223, 223, 223, 0.8);
+  box-shadow:inset 0 0 5px rgba(0, 0, 0, 0.1);
+;
+
+  &:disabled{
+    background-color: #ffffff;
+  }
 `;
 
 export const PositionSelect = styled.div`
