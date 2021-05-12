@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
 import { ChangeTimeType } from "../../shared/Common";
 import { getCookie } from "../../shared/Cookies";
+import DefaultProfile from "../../images/def_profile.svg";
 
 const SmallTalkPost = (props) => {
   const dispatch = useDispatch();
@@ -44,12 +45,7 @@ const SmallTalkPost = (props) => {
             {user.profileImage ? (
               <ProfileImage alt="profile" src={user.profileImage} />
             ) : (
-              <ProfileImage
-                alt="profile"
-                src={
-                  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-                }
-              />
+              <ProfileImage alt="profile" src={DefaultProfile} />
             )}
             <UserName>{user.nickname}</UserName>
           </HeaderLeft>

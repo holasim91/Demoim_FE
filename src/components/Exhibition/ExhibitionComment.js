@@ -3,20 +3,32 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
 import { ChangeTimeType } from "../../shared/Common";
+import DefaultProfile from "../../images/def_profile.svg";
 
 const ExhibitionComment = (props) => {
-  const {post_id} = props
+  const { post_id } = props;
   const { commentId, comments, user, createdAt } = props.comment;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
   const onToggleEdit = () => setIsEdit((state) => !state);
   const onUpdateTextArea = (e) => {
     setCurrent(e.target.value);
   };
-  const onClickCommentUpdate = () => {dispatch(exhibitionCommentActions.updateExhibitionCommentAPI(post_id, commentId,current))
-    setIsEdit(false);};
-  const onClickDeleteComment = () => dispatch(exhibitionCommentActions.deleteExhibitionCommentAPI(post_id, commentId))
+  const onClickCommentUpdate = () => {
+    dispatch(
+      exhibitionCommentActions.updateExhibitionCommentAPI(
+        post_id,
+        commentId,
+        current
+      )
+    );
+    setIsEdit(false);
+  };
+  const onClickDeleteComment = () =>
+    dispatch(
+      exhibitionCommentActions.deleteExhibitionCommentAPI(post_id, commentId)
+    );
 
   return (
     <CommentWrapper>
@@ -24,12 +36,7 @@ const ExhibitionComment = (props) => {
         {user.profileImage ? (
           <ProfileImage alt="profile" src={user.profileImage} />
         ) : (
-          <ProfileImage
-            alt="profile"
-            src={
-              "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-            }
-          />
+          <ProfileImage alt="profile" src={DefaultProfile} />
         )}
         <TextBlock>
           <UserName>{user.nickname}</UserName>

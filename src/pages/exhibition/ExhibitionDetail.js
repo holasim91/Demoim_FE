@@ -5,31 +5,35 @@ import { ExhibitionComment } from "../../components";
 import { actionCreators as exhibitionActions } from "../../redux/modules/exhibition";
 import SubMenus from "../../components/SubMenus";
 import { Container, Grid } from "../../elements";
-import '../../css/editor.css';
+import "../../css/editor.css";
 import { history } from "../../redux/configStore";
 import Spinner from "../../shared/Spinner";
 import ExhibitionCommentWrite from "../../components/Exhibition/ExhibitionCommentWrite";
 import { ChangeTimeType } from "../../shared/Common";
+import DefaultProfile from "../../images/def_profile.svg";
 
 const ExhibitionDetail = (props) => {
   const dispatch = useDispatch();
   const id = Number(props.match.params.exhibitionId);
-  
+
   useEffect(() => {
     dispatch(exhibitionActions.getOneExihibitionAPI(id));
   }, []);
   const currentUser = useSelector((state) => state.user.user);
   const post = useSelector((state) => state.exhibition.exhibitionPostDetail);
-  const comments = useSelector((state) => state.exhibitionComment.exhibitionComments);
+  const comments = useSelector(
+    (state) => state.exhibitionComment.exhibitionComments
+  );
   const isLoading = useSelector((state) => state.exhibition.exihibitionLoading);
-  const onEditExhibition = () =>history.push(`/exhibition/write/${id}`)
-  const onDeleteExhibition = () => dispatch(exhibitionActions.deleteExihibitionAPI(Number(id)))
-  if(isLoading){
-    return(
+  const onEditExhibition = () => history.push(`/exhibition/write/${id}`);
+  const onDeleteExhibition = () =>
+    dispatch(exhibitionActions.deleteExihibitionAPI(Number(id)));
+  if (isLoading) {
+    return (
       <>
-      <Spinner />
+        <Spinner />
       </>
-    )
+    );
   }
   if (!post) {
     return <>No DATA</>;
@@ -48,12 +52,7 @@ const ExhibitionDetail = (props) => {
             {post?.user?.profileImage ? (
               <ProfileImage alt="profile" src={post.user.profileImage} />
             ) : (
-              <ProfileImage
-                alt="profile"
-                src={
-                  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-                }
-              />
+              <ProfileImage alt="profile" src={DefaultProfile} />
             )}
             <TextBlock>
               <UserName>{post?.user?.nickname} 님</UserName>
@@ -61,18 +60,26 @@ const ExhibitionDetail = (props) => {
             </TextBlock>
           </UserInfo>
           <ExhibitionDetailContent>
-            <ExhibitionDetailContentContainer dangerouslySetInnerHTML={{ __html: post?.contents }} />
+            <ExhibitionDetailContentContainer
+              dangerouslySetInnerHTML={{ __html: post?.contents }}
+            />
           </ExhibitionDetailContent>
-          {currentUser?.id === post?.user?.userId ?
-          <EditBtnWrapper>
-                  <WriteBtn onClick={onDeleteExhibition}>삭제</WriteBtn>
-                  <WriteBtn onClick={onEditExhibition}>수정</WriteBtn>
-          </EditBtnWrapper>
-           :''
-          } 
-          <ExhibitionCommentWrite post_id={post.exhibitionId}/>
-          {comments.map((comment) => <ExhibitionComment key={comment.commentId} comment={comment} post_id={id}/>)}
-          
+          {currentUser?.id === post?.user?.userId ? (
+            <EditBtnWrapper>
+              <WriteBtn onClick={onDeleteExhibition}>삭제</WriteBtn>
+              <WriteBtn onClick={onEditExhibition}>수정</WriteBtn>
+            </EditBtnWrapper>
+          ) : (
+            ""
+          )}
+          <ExhibitionCommentWrite post_id={post.exhibitionId} />
+          {comments.map((comment) => (
+            <ExhibitionComment
+              key={comment.commentId}
+              comment={comment}
+              post_id={id}
+            />
+          ))}
         </DetailWrapper>
       </Container>
     </>
@@ -82,14 +89,14 @@ const EditBtnWrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
   margin-top: 10px;
-`
+`;
 const WriteBtn = styled.button`
   background-color: #999cda;
   border: 1px solid #979797;
   border-radius: 9.5px;
   font-weight: 500;
   padding: 5px 12px;
-  color: #FFF;
+  color: #fff;
   font-size: 1em;
   cursor: pointer;
   font-size: 15px;
