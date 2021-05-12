@@ -16,6 +16,11 @@ const ExhibitionList = (props) => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
+  if(!exhibitionPosts){
+    return(
+      <>Nodata</>
+    )
+  }
   if (exihibitionLoading && history.location.pathname !== "/") {
     return (
       <>
@@ -63,7 +68,7 @@ const BtnBox = styled.div`
 `;
 
 const ExhibitionBoxWrapper = styled.div`
-  margin: 30px auto 100px auto;
+  margin: 30px auto 30px auto;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

@@ -1,5 +1,7 @@
 //정규식 체크
 
+import moment from "moment";
+
 //이메일
 export const emailCheck = (email) => {
 
@@ -39,3 +41,8 @@ export const urlCheck = (url) => {
   const _reg = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
   return _reg.test(url)
 }
+
+// 시간 변경
+export const ChangeTimeType = (time) => {
+  const changedTime = moment(time).format('YYYY년 MM월 DD일 hh:mm:ss')
+return changedTime}

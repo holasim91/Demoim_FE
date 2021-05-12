@@ -14,8 +14,8 @@ const UPDATE_SMALLTALK_COMMENT = "UPDATE_SMALLTALK_COMMENT";
 
 const LOADING = "LOADING";
 
-const setPost = createAction(SET_SMALLTALK_POST, (post_list) => ({
-  post_list,
+const setPost = createAction(SET_SMALLTALK_POST, (post_list, page) => ({
+  post_list,page
 }));
 const addPost = createAction(ADD_SMALLTALK_POST, (post_list) => ({
   post_list,
@@ -49,6 +49,7 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const initialState = {
   smallTalkPosts: [],
   page: 1,
+  hasMorePosts:true,
   isLoading: false,
 };
 const smallTalkAPI = `${config.api}/api/smalltalk`;
@@ -199,12 +200,12 @@ const getSmallTalkPostsAPI = (page, size) => {
       });
   };
 };
-
 export default handleActions(
   {
     [SET_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.smallTalkPosts = action.payload.post_list;
+        draft.smallTalkPosts =action.payload.post_list
+        draft.hasMorePosts = action.payload.post_list.length === 6;
       }),
     [ADD_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {

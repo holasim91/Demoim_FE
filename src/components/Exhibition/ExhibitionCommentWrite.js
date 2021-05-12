@@ -7,7 +7,7 @@ import { actionCreators as exhibitionCommentActions } from "../../redux/modules/
 const ExhibitionCommentWrite = (props) => {
   const dispatch = useDispatch();
   const { post_id } = props;
-  const { user, isLogin} = useSelector((state) => state.user);
+  const { user, isLogin } = useSelector((state) => state.user);
   const [contents, setContents] = useState("");
 
   const onChangeTextArea = (e) => {
@@ -50,6 +50,8 @@ const ExhibitionCommentWrite = (props) => {
             padding="7px 5px"
             size="13px"
             width="51px"
+            bg="
+            #999cda"
             _onClick={onSubmitExhibitionComment}
           >
             등록
@@ -73,7 +75,7 @@ const WriteBottom = styled.div`
 `;
 const WriteWrapper = styled.div`
   min-height: 160px;
-  margin: 20px auto 0 auto;
+  margin: 80px auto 0 auto;
   padding: 17px 28px 0 24px;
   width: 80%;
   display: flex;
@@ -95,5 +97,8 @@ const TextArea = styled.textarea`
   width: 100%;
   min-height: 100px;
   resize: none;
+  :focus {
+    outline: none;
+  }
 `;
 export default ExhibitionCommentWrite;

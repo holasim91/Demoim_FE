@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import ExhibitionComment from "./ExhibitionComment";
+import { ChangeTimeType } from "../../shared/Common";
+
 const ExhibitionPost = (props) => {
   const { data } = props;
   const styles = {
     thumbnail: data.thumbnail,
   };
-  const ChangeTimeType = (time) => time.split("T")[0];
   const removeHtmlTag = (sentence) =>sentence.replace(/(<([^>]+)>)/ig,"");
   return (
     <>
@@ -99,6 +99,7 @@ const ThumbNail = styled.div`
   height: 200px;
   background: url("${(props) => props.thumbnail}") no-repeat;
   background-size: cover;
+  background-position: center center;
   margin: 0 auto;
   @media ${(props) => props.theme.mobile} {
     height: 246px;

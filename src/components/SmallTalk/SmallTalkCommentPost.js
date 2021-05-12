@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
+import { ChangeTimeType } from "../../shared/Common";
 
 const SmallTalkCommentPost = (props) => {
   const dispatch = useDispatch();
   const { post_id } = props;
   const { comments, user, createdAt, commentId } = props.data;
-  const ChangeTimeType = (time) => time.split("T")[0];
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
   const onUpdateTextArea = (e) => {
@@ -18,7 +18,9 @@ const SmallTalkCommentPost = (props) => {
     setIsEdit((state) => !state);
   };
   const onUpdateComment = () => {
-    dispatch(smalltalkActions.updateSmallTalkCommentAPI(post_id, commentId, current));
+    dispatch(
+      smalltalkActions.updateSmallTalkCommentAPI(post_id, commentId, current)
+    );
     setIsEdit(false);
   };
 
@@ -68,8 +70,7 @@ const SmallTalkCommentPost = (props) => {
         </UpdatePostBoxBottom>
       ) : (
         <PostBoxBottom>
-          {currentUser.isLogin &&
-          currentUser.user.id === user.userId ? (
+          {currentUser.isLogin && currentUser.user.id === user.userId ? (
             <EditToggle>
               <div className="editPost" onClick={onClickCommentUpdate}>
                 수정하기
@@ -117,6 +118,9 @@ const UpdateTextArea = styled.textarea`
   width: 100%;
   min-height: 60px;
   resize: none;
+  :focus {
+    outline: none;
+  }
 `;
 
 const EditToggle = styled.div`
