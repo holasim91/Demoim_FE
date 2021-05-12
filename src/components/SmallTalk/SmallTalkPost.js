@@ -4,6 +4,7 @@ import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import SmallTalkComment from "./SmallTalkComment";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
+import { ChangeTimeType } from "../../shared/Common";
 import { getCookie } from "../../shared/Cookies";
 
 const SmallTalkPost = (props) => {
@@ -34,9 +35,7 @@ const SmallTalkPost = (props) => {
     setCurrent(e.target.value);
   };
 
-  const ChangeTimeType = (time) => time.split("T")[0];
   const currentUser = useSelector((state) => state.user);
-
   if (location === "/") {
     return (
       <PostBoxWrapperForMain>
@@ -193,7 +192,8 @@ const EditToggle = styled.div`
     cursor: pointer;
     :hover {
       color: #ccc;
-    }  }
+    }
+  }
 
   .deletePost {
     cursor: pointer;
@@ -209,6 +209,9 @@ const UpdateTextArea = styled.textarea`
   width: 100%;
   min-height: 60px;
   resize: none;
+  :focus {
+    outline: none;
+  }
 `;
 const UpdatePostBoxBottom = styled.div`
   display: flex;

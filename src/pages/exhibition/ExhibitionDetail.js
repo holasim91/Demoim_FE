@@ -9,6 +9,7 @@ import '../../css/editor.css';
 import { history } from "../../redux/configStore";
 import Spinner from "../../shared/Spinner";
 import ExhibitionCommentWrite from "../../components/Exhibition/ExhibitionCommentWrite";
+import { ChangeTimeType } from "../../shared/Common";
 
 const ExhibitionDetail = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ const ExhibitionDetail = (props) => {
   const post = useSelector((state) => state.exhibition.exhibitionPostDetail);
   const comments = useSelector((state) => state.exhibitionComment.exhibitionComments);
   const isLoading = useSelector((state) => state.exhibition.exihibitionLoading);
-  const ChangeTimeType = (time) => time?.split("T")[0];
   const onEditExhibition = () =>history.push(`/exhibition/write/${id}`)
   const onDeleteExhibition = () => dispatch(exhibitionActions.deleteExihibitionAPI(Number(id)))
   if(isLoading){
@@ -84,12 +84,12 @@ const EditBtnWrapper = styled.div`
   margin-top: 10px;
 `
 const WriteBtn = styled.button`
-  background-color: #ffffff;
+  background-color: #999cda;
   border: 1px solid #979797;
   border-radius: 9.5px;
   font-weight: 500;
   padding: 5px 12px;
-  color: #595858;
+  color: #FFF;
   font-size: 1em;
   cursor: pointer;
   font-size: 15px;

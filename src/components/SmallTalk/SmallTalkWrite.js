@@ -107,6 +107,9 @@ const TextArea = styled.textarea`
   width: 100%;
   min-height: 100px;
   resize: none;
+  :focus{
+    outline: none;
+  }
 `;
 
 export default SmallTalkWrite;

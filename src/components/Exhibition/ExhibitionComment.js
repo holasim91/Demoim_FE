@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
+import { ChangeTimeType } from "../../shared/Common";
 
 const ExhibitionComment = (props) => {
   const {post_id} = props
   const { commentId, comments, user, createdAt } = props.comment;
   const dispatch = useDispatch()
-  const ChangeTimeType = (time) => time?.split("T")[0];
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
   const onToggleEdit = () => setIsEdit((state) => !state);
