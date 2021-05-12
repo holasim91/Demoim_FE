@@ -58,17 +58,19 @@ const loginAPI = (email, pw) => {
         password: pw,
       }
     }).then((res) => {
-      console.log("로그인:", res.data);
+      //console.log("로그인 서버응답:", res.data);
       const userInfo = {
         id: Number(res.data.userInfo.Id),
-        description: res.data.userInfo.description,
+        description: res.data.userInfo.Description,
         nickname: res.data.userInfo.Nickname,
         position: res.data.userInfo.Position,
         profileImage: res.data.userInfo.ProfileImage,
         username: res.data.userInfo.Username, //email
+        nowteamcnt:Number(res.data.userInfo.NowTeamCnt),//진행중인프로젝트
+        applyteamid:res.data.applyTeamId,//[] 지원한프로젝트의 아이디
       }
       dispatch(setUser(userInfo))
-
+      //console.log("로그인성공완료:", userInfo);
       let token = res.headers.authorization;
       setCookie('token', token);
 
@@ -81,11 +83,9 @@ const loginAPI = (email, pw) => {
       })
       history.push('/');
     })
-      //실패이유 Swal띄어주기 
       .catch((err) => {
-        console.log('로그인에러:', err)
         Swal.fire({
-          text: "",
+          text: `${err.response.data.message}`,
           icon: 'warning',
           confirmButtonColor: "#999cda",
         })
@@ -105,24 +105,24 @@ const loginCheckAPI = () => {
       method: "get",
       url: API,
     }).then((res) => {
-      //console.log("로그인체크!:",res.data);
+      //console.log("로그인체크API 서버응답!:",res.data);
 
       dispatch(setUser({
-        id: res.data.id,
+        id: res.data.userid, 
         description: res.data.description,
         nickname: res.data.nickname,
         position: res.data.position,
         profileImage: res.data.profileImage,
         username: res.data.username, //email
-        teams: res.data.teamUserInfos, //진행중인 프로젝트 개수로(int)
+        nowteamcnt: res.data.nowTeamCnt, 
+        applyteamid:res.data.applyTeamIdList,
       }))
-
     }).catch((err) => {
       console.log('로그인체크에러:', err);
     })
   }
 }
-//
+
 
 
 //프로필수정하기
@@ -181,7 +181,7 @@ const TabSmallTalkAPI = () => {
         'authorization': token,
       },
     }).then((res) => {
-      console.log("스몰토크탭:", res)
+      //console.log("스몰토크탭:", res)
       //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
       dispatch(SmallTalkActions.setPost(res.data))
     }).catch((err) => {

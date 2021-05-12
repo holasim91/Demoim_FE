@@ -10,7 +10,6 @@ const TabSmallTalkList = () => {
   const dispatch = useDispatch();
 
   //smalltalk의 smallTalkPosts[]를 useSelctor해와야지
-
   React.useEffect(() => {
     dispatch(userAction.TabSmallTalkAPI());
   }, []);
