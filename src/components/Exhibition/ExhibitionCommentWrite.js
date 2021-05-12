@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "../../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
+import DefaultProfile from "../../images/def_profile.svg";
 
 const ExhibitionCommentWrite = (props) => {
   const dispatch = useDispatch();
@@ -26,12 +27,7 @@ const ExhibitionCommentWrite = (props) => {
         {user?.profileImage ? (
           <ProfileImage alt="profile" src={user.profileImage} />
         ) : (
-          <ProfileImage
-            alt="profile"
-            src={
-              "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-            }
-          />
+          <ProfileImage alt="profile" src={DefaultProfile} />
         )}
         {isLogin ? (
           <TextArea

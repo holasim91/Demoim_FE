@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { ChangeTimeType } from "../../shared/Common";
+import DefaultProfile from "../../images/def_profile.svg";
 
 const ExhibitionPost = (props) => {
   const { data } = props;
   const styles = {
     thumbnail: data.thumbnail,
   };
-  const removeHtmlTag = (sentence) =>sentence.replace(/(<([^>]+)>)/ig,"");
+  const removeHtmlTag = (sentence) => sentence.replace(/(<([^>]+)>)/gi, "");
   return (
     <>
       <ExhibitionPostBox
@@ -22,12 +23,7 @@ const ExhibitionPost = (props) => {
               {data.user.profileImg ? (
                 <ProfileImage alt="profile" src={data.user.profileImg} />
               ) : (
-                <ProfileImage
-                  alt="profile"
-                  src={
-                    "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-                  }
-                />
+                <ProfileImage alt="profile" src={DefaultProfile} />
               )}
               <UserName>{data.user.nickname}</UserName>
             </HeaderLeft>

@@ -4,6 +4,7 @@ import { Button } from "../../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
 import { getCookie } from "../../shared/Cookies";
+import DefaultProfile from "../../images/def_profile.svg";
 
 const SmallTalkWrite = () => {
   const dispatch = useDispatch();
@@ -28,12 +29,7 @@ const SmallTalkWrite = () => {
             {user.profileImage ? (
               <ProfileImage alt="profile" src={user.profileImage} />
             ) : (
-              <ProfileImage
-                alt="profile"
-                src={
-                  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-                }
-              />
+              <ProfileImage alt="profile" src={DefaultProfile} />
             )}
             <TextArea
               maxLength="300"
@@ -56,12 +52,7 @@ const SmallTalkWrite = () => {
       ) : (
         <>
           <WriteTop>
-            <ProfileImage
-              alt="profile"
-              src={
-                "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-              }
-            />
+            <ProfileImage alt="profile" src={DefaultProfile} />
             <TextArea
               maxLength="300"
               placeholder="로그인 후 입력해주세요!!"
@@ -107,7 +98,7 @@ const TextArea = styled.textarea`
   width: 100%;
   min-height: 100px;
   resize: none;
-  :focus{
+  :focus {
     outline: none;
   }
 `;
