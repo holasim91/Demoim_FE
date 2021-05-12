@@ -50,7 +50,7 @@ const UserEditpage = (props) => {
   //프로필수정하기 
   const profileEdit = () => {
 
-    //닉네임 .. 중복확인..?!
+    //닉네임
     if (nickname === "") {
       alert('닉네임을 입력해주세요!')
       return false;
@@ -113,11 +113,7 @@ const UserEditpage = (props) => {
                         value={nickname}
                         onChange={(e) => {
                           setNickName(e.target.value)
-                        }} /></td>
-                  </tr>
-                  <tr>
-                    <td>닉네임 중복확인</td>
-                    <td><Input place /></td>
+                        }}/></td>
                   </tr>
                   <tr>
                     <td>희망포지션</td>
@@ -310,7 +306,7 @@ const EditTable = styled.table`
     td:last-child{
     text-align:right;
     font-size:4px;
-    color:red;
+    color:#7a7786;
   }
 `;
 
@@ -334,7 +330,7 @@ const Input = styled.input`
 `;
 
 const Select = styled.select`
-    width:250px;
+    width:100%;
     border:none;
     padding:4px 2px;
     background-color: #f1f1f1;
