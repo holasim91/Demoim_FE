@@ -1,49 +1,54 @@
 import React from "react";
+import { HistoryMember } from "../../components";
+import { history } from "../../redux/configStore";
+import moment from "moment";
 import styled from "styled-components";
-import { Image } from "../../elements";
+import { actionCreators as teamActions } from "../../redux/modules/team";
+import { useSelector, useDispatch } from 'react-redux';
 
 const ParticipationProjectCard = (props) => {
+
+
+  const { title, teamId, member, back, front, designer, planner, begin, end, createAt, recruit, stack, location } = props;
+
+  const dispatch = useDispatch();
+
+  let recruitBegin = moment(createAt).format('YYYY.MM.DD');
+  let recruitEnd = moment(recruit).format('YYYY.MM.DD');
+  let projectBegin = moment(begin).format('YYYY.MM.DD');
+  let projectEnd = moment(end).format('YYYY.MM.DD');
+
   return (
     <Grid>
-      <Titlebox>
-        [프로젝트] 채팅 사이트를 만들고 싶습니다!
-        </Titlebox>
+      <Titlebox onClick={() => history.push(`/team/detail/${teamId}`)}>
+        [프로젝트] {title}
+      </Titlebox>
       <TeamBox>
         <TeamInfoBox>
           <ProjectInfoBox>
-            <p><span>모집 기간</span> 2021.05.01 - 2021.05.12</p>
-            <p><span>프로젝트 기간</span> 2021.05.01 - 2021.05.12</p>
-            <p><span>인원</span> 프론트엔드 1명 백엔드 1명</p>
-            <p><span>언어</span> React/Spring</p>
-            <p><span>장소</span> 온라인</p>
+            <p><span>모집 기간</span> {recruitBegin} ~ {recruitEnd}</p>
+            <p><span>프로젝트 기간</span> {projectBegin} ~ {projectEnd}</p>
+            <p><span>인원</span> {front !== 0 && `프론트엔드 ${front}명 `}
+              {back !== 0 && `백엔드 ${back}명 `}
+              {designer !== 0 && `디자이너 ${designer}명 `}
+              {planner !== 0 && `기획자 ${planner}명 `}</p>
+            <p><span>언어</span> {stack}</p>
+            <p><span>장소</span> {location}</p>
           </ProjectInfoBox>
         </TeamInfoBox>
         <MemberBox>
           <p className="bold">프로젝트 참여자</p>
           <ParticipationMemberBox>
-            <ParticipationMember>
-              <div>
-                <Image size="40" />
-              </div>
-              <MemberInfoBox>
-                <p className="nickname bold">닉네임</p>
-                <p className="position">프론트엔드</p>
-              </MemberInfoBox>
-            </ParticipationMember>
-            <ParticipationMember>
-              <div>
-                <Image size="40" />
-              </div>
-              <MemberInfoBox>
-                <p className="nickname bold">닉네임</p>
-                <p className="position">프론트엔드</p>
-              </MemberInfoBox>
-            </ParticipationMember>
+            {member?.map((m) => {
+              return (
+                <HistoryMember {...m} key={m.userId} />
+              )
+            })}
           </ParticipationMemberBox>
         </MemberBox>
       </TeamBox>
       <LeaderSelectBox>
-        <ProjectDeleteBtn>프로젝트 취소</ProjectDeleteBtn>
+        <ProjectDeleteBtn onClick={() => dispatch(teamActions.deleteTeamMakingAPI(teamId, 'log'))}>프로젝트 취소</ProjectDeleteBtn>
       </LeaderSelectBox>
     </Grid>
   )
@@ -155,22 +160,6 @@ const ParticipationMemberBox = styled.div`
   margin-top:15px;
   grid-template-columns: repeat(2,minmax(0,1fr));
   grid-row-gap: 10px;
-`;
-
-
-const ParticipationMember = styled.div`
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-`;
-
-const MemberInfoBox = styled.div`
-  line-height: 1.2em;
-  & .position{
-    font-size:12px;
-    color:#7a7786;
-  }
-
 `;
 
 const LeaderSelectBox = styled.div`

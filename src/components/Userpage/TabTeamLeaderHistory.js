@@ -1,16 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import { ParticipationProjectCard } from "../../components";
+import { useSelector } from 'react-redux';
 
 const TabTeamLeaderHistory = () => {
+
+  const LeaderList = useSelector((state) => state.team.teamLeaderList);
+
   return (
     <Wraaper>
-
       <TitleBox >
         <p><span>#</span>내가 리더인 프로젝트</p>
       </TitleBox>
       <LeaderBox>
-        <ParticipationProjectCard />
+        {Object.keys(LeaderList).length === 0 ? (<NoneProject>리더인 프로젝트가 없습니다.</NoneProject>) : (
+          <ParticipationProjectCard {...LeaderList} />
+        )}
       </LeaderBox>
 
     </Wraaper>
@@ -65,4 +70,11 @@ const LeaderBox = styled.div`
 
   grid-row-gap: 20px;
   }
+`;
+
+
+const NoneProject = styled.p`
+  margin:50px 20px;
+  color:#7a7786;
+
 `;

@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
 import { history } from "../redux/configStore";
 
-
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -20,6 +19,18 @@ const Header = (props) => {
     dispatch(actionCreators.logout());
   };
 
+  //알람용.
+  //bell이 true면 알람이 울린다.
+  //페이지에 들어오면 false
+  /*React.useEffect(() => {
+
+    if (userCheck) {
+      console.log('헤더 유저체크::', userCheck)
+      dispatch(alarmAction.setAlarmAPI());
+    }
+
+  }, []);
+*/
 
   const [open, setOpen] = React.useState(false);
   const openBar = () => setOpen(true);

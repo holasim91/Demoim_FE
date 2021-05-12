@@ -7,6 +7,7 @@ import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { actionCreators as applyActions } from "../../redux/modules/apply";
+import { actionCreators as userAction } from "../../redux/modules/user";
 import { urlCheck } from "../../shared/Common";
 import Swal from 'sweetalert2';
 import Leader from '../../images/leader.svg';
@@ -19,6 +20,7 @@ const TeamDetail = (props) => {
   const id = props.match.params.teamId;
   const team = useSelector((state) => state.team.teamInfo);
   const user = useSelector((state) => state.user.user);
+
   //모달
   const [modalOpen, setModalOpen] = React.useState(false);
   const openModal = () => {
@@ -31,6 +33,24 @@ const TeamDetail = (props) => {
       })
       return false;
     }
+    if (user?.nowteamcnt !== 0) {
+      Swal.fire({
+        icon: "warning",
+        html: '<p>현재 진행 중인 프로젝트가 있습니다.<br/> 동일 기간 진행 가능한 프로젝트는 1개입니다.</p>',
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+    if (user?.applyteamid.some(t => t === Number(id))) {
+      Swal.fire({
+        icon: "warning",
+        text: '이미 지원한 게시글입니다.',
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
     setModalOpen(true);
   }
 
@@ -40,6 +60,7 @@ const TeamDetail = (props) => {
 
   React.useEffect(() => {
     dispatch(teamActions.getDetailTeamMakingAPI(id));
+    dispatch(userAction.loginCheckAPI());
   }, []);
 
 
