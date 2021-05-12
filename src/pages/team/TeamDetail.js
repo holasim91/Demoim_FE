@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
 import moment from "moment";
+import DefaultProfile from "../../images/def_profile.svg";
 
 const TeamDetail = (props) => {
 
@@ -128,7 +129,7 @@ const TeamDetail = (props) => {
             <LeaderInnerBox>
               <LeaderContent>
                 <ImageBox>
-                  <Image shape="circle" size="60" src={team?.leader?.profileImage ? team?.leader?.profileImage : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
+                  <Image shape="circle" size="60" src={team?.leader?.profileImage ? team?.leader?.profileImage : DefaultProfile} />
                   <LeaderIcon src={Leader} />
                 </ImageBox>
                 <LeaderInfo>
