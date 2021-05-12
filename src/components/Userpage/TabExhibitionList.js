@@ -8,6 +8,8 @@ import { actionCreators as userAction} from "../../redux/modules/user";
 const TabExhibitionList = () => {
   const dispatch = useDispatch();
 
+  //const exhibitionPosts = useSelector((state) => state.exhibition.exhibitionPosts);
+
   React.useEffect(() => {
     dispatch(userAction.TabExhibitionAPI());
   })
