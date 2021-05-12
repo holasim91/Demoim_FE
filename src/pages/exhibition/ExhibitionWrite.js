@@ -12,12 +12,12 @@ const ExhibitionWrite = (props) => {
   const dispatch = useDispatch();
   const post_id = Number(props.match.params.exhibitionId)
   const edited_post = useSelector((state) => state.exhibition.exhibitionPostDetail)
-
+  console.log(edited_post)
   useEffect(() => {
     if (!post_id) {
       return
     }
-    if (post_id !== edited_post.id) {
+    if (post_id !== edited_post.exhibitionId) {
 
       Swal.fire({
         text: '새로고침시 프로젝트 수정을 다시 시도해주세요!',
