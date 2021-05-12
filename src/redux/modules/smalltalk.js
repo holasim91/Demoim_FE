@@ -191,6 +191,7 @@ const getSmallTalkPostsAPI = (page, size) => {
       },
     })
       .then((res) => {
+        console.log(res)
         dispatch(setPost(res.data));
         dispatch(loading(false));
       })
