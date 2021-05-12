@@ -16,7 +16,6 @@ const ExhibitionList = (props) => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
-
   if (exihibitionLoading && history.location.pathname !== "/") {
     return (
       <>
@@ -27,7 +26,7 @@ const ExhibitionList = (props) => {
 
   return (
     <>
-      {history.location.pathname !== "/" && (
+      {history.location.pathname === "/exhibition" && (
         <TopBox>
           <BtnBox>
             <Button padding="7px 5px" size="15px" _onClick={()=>history.push('/exhibition/write')}>
