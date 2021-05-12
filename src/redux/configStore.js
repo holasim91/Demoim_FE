@@ -9,6 +9,7 @@ import SmallTalk from "./modules/smalltalk";
 import user from "./modules/user";
 import Image from "./modules/image";
 import Apply from "./modules/apply";
+import Alarm from "./modules/alarm";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   user: user,
   image: Image,
   apply: Apply,
+  alarm: Alarm,
   router: connectRouter(history),
 });
 

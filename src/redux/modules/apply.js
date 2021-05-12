@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
 import Swal from 'sweetalert2';
+import { actionCreators as teamActions } from "../modules/team";
 
 const SET_APPLY = "SET_APPLY";
 const ADD_APPLY = "ADD_APPLY";
@@ -60,8 +61,8 @@ const getApplyAPI = (teamId) => {
       method: 'get',
       url: `${config.api}/api/apply?team_id=${teamId}`,
     }).then((res) => {
-
-      dispatch(setApply(res.data));
+      let waitingMembers = res.data.filter((r) => r.applyState === 'WAITING');
+      dispatch(setApply(waitingMembers));
 
     }).catch((err) => {
       console.log("지원조회 에러:", err);
@@ -86,6 +87,8 @@ const deleteApplyAPI = (teamId) => {
         icon: 'success',
         confirmButtonColor: "#999cda",
       })
+
+      dispatch(teamActions.getUserApplyListAPI());
 
     }).catch((err) => {
       console.log("지원삭제 에러:", err);
@@ -112,7 +115,9 @@ const choiceApplyAPI = (applyId) => {
         icon: 'success',
         confirmButtonColor: "#999cda",
       })
-      dispatch(setApply(res.data.applicantList));
+
+      let waitingMembers = res.data.applicantList.filter((r) => r.applyState === 'WAITING');
+      dispatch(setApply(waitingMembers));
     }).catch((err) => {
       console.log('리더 지원자 선택 에러:', err);
       Swal.fire({

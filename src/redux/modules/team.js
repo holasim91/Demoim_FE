@@ -11,7 +11,9 @@ const ADD_TEAM = "ADD_TEAM";
 const UPDATE_TEAM = "UPDATE_TEAM";
 const DELETE_TEAM = "DELETE_TEAM";
 const SET_DETAIL_TEAM = "SET_DETAIL_TEAM";
-const SET_TEAM_HISTORY = "SET_TEAM_HISTORY";
+const SET_PARTICIPATION_HISTORY = "SET_PARTICIPATION_HISTORY";
+const SET_LEADER_HISTORY = "SET_LEADER_HISTORY";
+const DELETE_LEADER_HISTORY = "DELETE_LEADER_HISTORY";
 
 const setTeam = createAction(SET_TEAM, (teamList) => ({ teamList }));
 const addTeam = createAction(ADD_TEAM, (team) => ({ team }));
@@ -19,11 +21,14 @@ const deleteTeam = createAction(DELETE_TEAM, (teamId) => ({ teamId }));
 const updateTeam = createAction(UPDATE_TEAM, (teamId, team) => ({ teamId, team }));
 const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 const setDetailTeam = createAction(SET_DETAIL_TEAM, (teamInfo) => ({ teamInfo }));
-const setTeamHistory = createAction(SET_TEAM_HISTORY, (teamHistoryList) => ({ teamHistoryList }));
+const setParticipationHistory = createAction(SET_PARTICIPATION_HISTORY, (participationList) => ({ participationList }));
+const setLeaderHistory = createAction(SET_LEADER_HISTORY, (leaderList) => ({ leaderList }));
+const deleteLeaderHistory = createAction(DELETE_LEADER_HISTORY, () => ({}));
 
 const initialState = {
   list: [],
-  teamHistoryList: {},
+  teamParticipationList: [],
+  teamLeaderList: {},
   isLoading: false,
   teamInfo: {
     teamId: 0,
@@ -56,47 +61,15 @@ const initialState = {
 const getTeamMakingAPI = (page, size = 9) => {
   return function (dispatch, getState, { history }) {
 
-    /*
-        let _paging = getState().team.paging;
-        if (_paging.start && !_paging.next) {
-          return;
-        }
-    
-        if (start === null) {
-          start = 1;
-        }
-    
-        dispatch(loading(true));
-        axios({
-          method: 'get',
-          url: `${config.api}/api/team?page=${start}&size=${size + 1}`,
-        }).then((res) => {
-    
-          let paging = {
-            start: start + 1,
-            next: res.data.length === size + 1 ? res.data[res.data.length - 1] : null,
-            size: size,
-          }
-    
-          let team = res.data;
-          team.pop();
-    
-          dispatch(setTeam(team, paging));
-    
-        });
-    */
     dispatch(loading(true));
     axios({
       method: 'get',
       url: `${config.api}/api/team?page=${page}&size=${size}`,
     }).then((res) => {
-      console.log(res.data);
       if (typeof res.data === 'object') {
         dispatch(setTeam(res.data));
       }
-      //우선 해결법..typeof로 string 확인해서 막기..
-      //서버에서 해결을 해줘야함. 프론트쪽에선 typeof로 일단 막자!
-      //로그인 문제가 일어나면 프론트쪽에서 쿠키를 지워서 로그아웃 해주자.
+
     }).catch((error) => {
       console.log(error);
     });
@@ -158,7 +131,7 @@ const addTeamMakingAPI = (formdata) => {
   }
 }
 
-const deleteTeamMakingAPI = (teamId) => {
+const deleteTeamMakingAPI = (teamId, move = 'team') => {
   return function (dispatch, getState, { history }) {
 
     if (teamId === null) {
@@ -171,8 +144,13 @@ const deleteTeamMakingAPI = (teamId) => {
     }).then((res) => {
 
       dispatch(deleteTeam(teamId));
-      history.replace('/team');
+      dispatch(deleteLeaderHistory());
 
+      if (move === 'team') {
+        history.replace('/team');
+      } else if (move === 'log') {
+        history.replace(`/userpage/${getState().user.user.id}`);
+      }
     }).catch((err) => {
       console.log('팀메이킹 글삭제 에러:', err);
     })
@@ -290,7 +268,7 @@ const getUserParticipateListAPI = () => {
       url: `${config.api}/api/mypage/member`,
     }).then((res) => {
 
-      dispatch(setTeamHistory(res.data));
+      dispatch(setParticipationHistory(res.data));
 
     }).catch((err) => {
       console.log('마이페이지 로그인 유저 참여 프로젝트 조회 에러:', err);
@@ -308,7 +286,7 @@ const getUserLeaderListAPI = () => {
       url: `${config.api}/api/mypage/leader`,
     }).then((res) => {
 
-      dispatch(setTeam(res.data));
+      dispatch(setLeaderHistory(res.data));
 
     }).catch((err) => {
       console.log('마이페이지 로그인 유저 참여 프로젝트 조회 에러:', err);
@@ -326,7 +304,7 @@ const getMemberParticipateListAPI = () => {
       url: `${config.api}`,
     }).then((res) => {
 
-      dispatch(setTeamHistory(res.data));
+      dispatch(setParticipationHistory(res.data));
 
     }).catch((err) => {
       console.log('마이페이지 특정 유저 참여 프로젝트 조회 에러:', err);
@@ -343,7 +321,7 @@ const getMemberLeaderListAPI = () => {
       url: `${config.api}`,
     }).then((res) => {
 
-      dispatch(setTeam(res.data));
+      dispatch(setLeaderHistory(res.data));
 
     }).catch((err) => {
       console.log('마이페이지 특정 유저 리더 프로젝트 조회 에러:', err);
@@ -355,11 +333,6 @@ const getMemberLeaderListAPI = () => {
 export default handleActions(
   {
     [SET_TEAM]: (state, action) => produce(state, (draft) => {
-      /*draft.list.push(...action.payload.teamList);
-      if (action.payload.paging) {
-        draft.paging = action.payload.paging;
-      }
-      */
       draft.list = action.payload.teamList;
       draft.isLoading = false;
     }),
@@ -379,9 +352,15 @@ export default handleActions(
     [SET_DETAIL_TEAM]: (state, action) => produce(state, (draft) => {
       draft.teamInfo = action.payload.teamInfo;
     }),
-    [SET_TEAM_HISTORY]: (state, action) => produce(state, (draft) => {
-      draft.teamHistoryList = action.payload.teamHistoryList;
+    [SET_PARTICIPATION_HISTORY]: (state, action) => produce(state, (draft) => {
+      draft.teamParticipationList = action.payload.participationList;
     }),
+    [SET_LEADER_HISTORY]: (state, action) => produce(state, (draft) => {
+      draft.teamLeaderList = action.payload.leaderList;
+    }),
+    [DELETE_LEADER_HISTORY]: (state, action) => produce(state, (draft) => {
+      draft.teamLeaderList = {};
+    })
   }, initialState);
 
 

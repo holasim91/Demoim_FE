@@ -15,11 +15,13 @@ const ApplyProjectList = (props) => {
         <p><span>#</span>내가 지원한 프로젝트</p>
       </TitleBox>
       <ApplicantBox>
-        {applyList.map((a) => {
+        {applyList.length !== 0 ? (applyList.map((a) => {
           return (
             <ApplyProjectCard {...a} key={a.teamId} />
           )
-        })}
+        })) : (
+          <NoneProject>지원한 프로젝트 내역이 없습니다.</NoneProject>
+        )}
       </ApplicantBox>
     </Wrapper>
   )
@@ -69,4 +71,10 @@ const TitleBox = styled.div`
 
   font-size:16px;
 }
+`;
+
+const NoneProject = styled.p`
+  margin:50px 20px;
+  color:#7a7786;
+
 `;

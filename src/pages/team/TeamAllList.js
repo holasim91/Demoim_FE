@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import TeamIcon from "../../images/teamMaking.svg";
 import Arrow from "../../images/arrow.jpg";
 import { actionCreators as teamActions } from "../../redux/modules/team";
+import { actionCreators as userAction } from "../../redux/modules/user";
 
 const TeamAllList = (props) => {
 
@@ -18,7 +19,7 @@ const TeamAllList = (props) => {
   React.useEffect(() => {
 
     dispatch(teamActions.getTeamMakingAPI(1, 9));
-
+    dispatch(userAction.loginCheckAPI());
   }, []);
 
 
@@ -64,6 +65,16 @@ const TeamAllList = (props) => {
                 })
                 return false;
               }
+
+              if (user?.nowteamcnt !== 0) {
+                Swal.fire({
+                  html: '<p>현재 진행 중인 프로젝트가 있습니다.<br/> 동일 기간 진행 가능한 프로젝트는 1개입니다.</p>',
+                  icon: 'warning',
+                  confirmButtonColor: "#999cda",
+                })
+                return false;
+              }
+
               history.push('/team/write')
             }}>팀 만들기</MakingBtn>
           </BtnBox>

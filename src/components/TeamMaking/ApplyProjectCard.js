@@ -115,4 +115,5 @@ const ApplyCancelBtn = styled.button`
 const Titlebox = styled.div`
   margin-bottom: 15px;
   font-weight: 500;
+  cursor: pointer;
 `;
