@@ -107,6 +107,12 @@ const CommentWrapper = styled.div`
   padding: 17px 28px 0 24px;
   border-radius: 10px;
   width: 55%;
+  position: relative;
+  z-index: -5;
+  @media (max-width: 425px) {
+    width: 75%;
+  }
+
 `;
 
 export default SmallTalkComment;

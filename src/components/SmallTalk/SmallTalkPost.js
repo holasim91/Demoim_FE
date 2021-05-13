@@ -255,6 +255,9 @@ const PostBoxWrapperForMain = styled.div`
     height: 156px;
     max-width: 584px;
   }
+  @media (max-width: 425px) {
+    width: 75%;
+  }
   @media (max-width: 375px) {
     height: 125px;
   }
@@ -272,6 +275,9 @@ const PostBoxWrapper = styled.div`
     height: 156px;
     max-width: 584px;
   }
+  @media (max-width: 425px) {
+    width: 75%;
+  } 
   @media (max-width: 375px) {
     height: 125px;
   }

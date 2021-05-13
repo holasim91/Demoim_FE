@@ -87,6 +87,10 @@ const WriteWrapper = styled.div`
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.07);
   background-color: #fff;
   border-radius: 10px;
+  @media (max-width: 425px) {
+    width: 75%;
+  }
+
 `;
 
 const ProfileImage = styled.img`
