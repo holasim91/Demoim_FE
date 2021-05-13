@@ -27,7 +27,7 @@ const deleteLeaderHistory = createAction(DELETE_LEADER_HISTORY, () => ({}));
 
 const initialState = {
   list: [],
-  teamParticipationList: [],
+  teamParticipationList: {},
   teamLeaderList: {},
   isLoading: false,
   teamInfo: {
@@ -57,7 +57,8 @@ const initialState = {
   },
   paging: { start: null, next: null, size: 9 },
 }
-//start는 page 번호 
+
+//팀메이킹 전체 조회
 const getTeamMakingAPI = (page, size = 9) => {
   return function (dispatch, getState, { history }) {
 
@@ -76,6 +77,7 @@ const getTeamMakingAPI = (page, size = 9) => {
   }
 }
 
+//팀메이킹 디테일 조회 
 const getDetailTeamMakingAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
@@ -103,6 +105,7 @@ const getDetailTeamMakingAPI = (teamId) => {
   }
 }
 
+//팀메이킹 글 작성 
 const addTeamMakingAPI = (formdata) => {
   return function (dispatch, getState, { history }) {
 
@@ -131,6 +134,7 @@ const addTeamMakingAPI = (formdata) => {
   }
 }
 
+//팀메이킹 글 삭제 
 const deleteTeamMakingAPI = (teamId, move = 'team') => {
   return function (dispatch, getState, { history }) {
 
@@ -158,7 +162,7 @@ const deleteTeamMakingAPI = (teamId, move = 'team') => {
   }
 }
 
-
+//팀메이킹 글 수정 
 const updateTeamMakingAPI = (teamId, formData) => {
   return function (dispatch, getState, { history }) {
 
@@ -182,6 +186,7 @@ const updateTeamMakingAPI = (teamId, formData) => {
   }
 }
 
+//직군별 불러오기(프론트엔드)
 const getFrontTeamMaking = (page = 1, size = 6) => {
   return function (dispatch, getState, { history }) {
 
@@ -197,6 +202,7 @@ const getFrontTeamMaking = (page = 1, size = 6) => {
   }
 }
 
+//직군별 불러오기(백엔드)
 const getBackTeamMaking = (page, size) => {
   return function (dispatch, getState, { history }) {
 
@@ -211,7 +217,7 @@ const getBackTeamMaking = (page, size) => {
 
   }
 }
-
+//직군별 불러오기(디자이너)
 const getDesignerTeamMaking = (page, size) => {
   return function (dispatch, getState, { history }) {
 
@@ -227,6 +233,7 @@ const getDesignerTeamMaking = (page, size) => {
   }
 }
 
+//직군별 불러오기(기획자)
 const getPlannerTeamMaking = (page, size) => {
   return function (dispatch, getState, { history }) {
 
@@ -265,10 +272,17 @@ const getUserParticipateListAPI = () => {
 
     axios({
       method: 'get',
-      url: `${config.api}/api/mypage/member`,
+      url: `${config.api}/api/mypage/team`,
     }).then((res) => {
 
-      dispatch(setParticipationHistory(res.data));
+      console.log('팀메이킹 로그인 유저 참여 프로젝트 목록::', res);
+      //dispatch(setParticipationHistory(res.data));
+
+      let myTeamHistory = {
+        activateProject: res.data.myTeamHistory.activatedProject,
+        finishedProject: res.data.myTeamHistory.finishedProject
+      }
+      dispatch(setParticipationHistory(myTeamHistory));
 
     }).catch((err) => {
       console.log('마이페이지 로그인 유저 참여 프로젝트 조회 에러:', err);
@@ -277,7 +291,7 @@ const getUserParticipateListAPI = () => {
   }
 }
 
-//로그인한 유저가 리더인 팀프로젝트 목록 리스트
+//로그인한 유저가 리더인 팀프로젝트 목록 리스트(객체로 전달옴)
 const getUserLeaderListAPI = () => {
   return function (dispatch, getState, { history }) {
 

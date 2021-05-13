@@ -17,6 +17,7 @@ const initialState = {
   applyList: [],
 }
 
+//팀메이킹 지원하기 
 const addApplyAPI = (teamId, msg, site) => {
   return function (dispatch, getState, { history }) {
 
@@ -50,6 +51,7 @@ const addApplyAPI = (teamId, msg, site) => {
   }
 }
 
+//팀메이킹 지원목록 조회하기 
 const getApplyAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
@@ -70,6 +72,7 @@ const getApplyAPI = (teamId) => {
   }
 }
 
+//팀메이킹 지원취소하기 
 const deleteApplyAPI = (teamId) => {
   return function (dispatch, getState, { history }) {
 
@@ -102,6 +105,7 @@ const deleteApplyAPI = (teamId) => {
   }
 }
 
+//팀메이킹 리더 지원자 선택하기
 const choiceApplyAPI = (applyId) => {
   return function (dispatch, getState, { history }) {
 
@@ -136,7 +140,7 @@ export default handleActions({
     draft.applyList = action.payload.applyList;
   }),
   [ADD_APPLY]: (state, action) => produce(state, (draft) => {
-
+    draft.applyList.push(action.payload.apply);
   }),
   [DELETE_APPLY]: (state, action) => produce(state, (draft) => {
     draft.applyList = draft.applyList.filter((a) => a.id !== action.payload.applyId);
