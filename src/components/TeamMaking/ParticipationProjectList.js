@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { ParticipationProjectCard, CompleteProjectCard } from "../../components";
 
 const ParticipationProjectList = () => {
+
+
+
   return (
     <Wraaper>
       <TitleBox>

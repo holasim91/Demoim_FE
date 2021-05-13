@@ -52,7 +52,7 @@ const Main = (props) => {
                               팀 빌딩 플랫폼 입니다.
                            </DescText>
                         </React.Fragment>)}
-                        <ServiceBtn>
+                        <ServiceBtn onClick={() => history.push('/service')}>
                            프로젝트 시작하기
                         </ServiceBtn>
                      </MentBox>
