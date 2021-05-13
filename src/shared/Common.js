@@ -44,5 +44,6 @@ export const urlCheck = (url) => {
 
 // 시간 변경
 export const ChangeTimeType = (time) => {
-  const changedTime = moment(time).format('YYYY년 MM월 DD일 hh:mm:ss')
-return changedTime}
+  const changedTime = moment(time).format('YYYY.MM.DD hh:mm')
+return changedTime
+}
