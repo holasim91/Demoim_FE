@@ -114,7 +114,7 @@ const UserEditpage = (props) => {
                         value={nickname}
                         onChange={(e) => {
                           setNickName(e.target.value)
-                        }}/></td>
+                        }} /></td>
                   </tr>
                   <tr>
                     <td></td>
@@ -389,7 +389,7 @@ const EditBtn = styled.div`
     &:hover{
       color:#ffffff;
       background-color:#999cda;
-      border:none;
+      border:1px solid #e1e0e6;
     }
 `;
 
