@@ -1,7 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import moment from "moment";
+import { history } from "../../redux/configStore";
 
 const CompleteProjectCard = (props) => {
+
+
+  const { title, begin, end, front, back, designer, planner, teamId } = props;
+
+  let projectBegin = moment(begin).format('YYYY.MM.DD');
+  let projectEnd = moment(end).format('YYYY.MM.DD');
+
   return (
     <Grid>
       <CompleteMark>
@@ -9,16 +18,19 @@ const CompleteProjectCard = (props) => {
       </CompleteMark>
 
       <ProjectBox>
-        <p className="title">[프로젝트] 채팅사이트를 만들고 싶습니다. 함께 하실 분을 구해요!</p>
+        <p className="title" onClick={() => history.push(`/team/detail/${teamId}`)}>[프로젝트] {title}</p>
         <ProjectInfoTable>
           <tbody>
             <tr>
               <td>프로젝트 기간</td>
-              <td>2021.04.05~2021.04.20</td>
+              <td>{projectBegin}~{projectEnd}</td>
             </tr>
             <tr>
               <td>참여인원</td>
-              <td>프론트엔드 2명 백엔드 3명 기획자 1명 디자이너 2명</td>
+              <td>{front !== 0 && `프론트엔드 ${front}명 `}
+                {back !== 0 && `백엔드 ${back}명 `}
+                {designer !== 0 && `디자이너 ${designer}명 `}
+                {planner !== 0 && `기획자 ${planner}명 `}</td>
             </tr>
           </tbody>
         </ProjectInfoTable>
@@ -98,6 +110,7 @@ const ProjectBox = styled.div`
   & .title{
     color: #b2b0b7;
     line-height: 1.2em;
+    cursor: pointer;
   }
 
   @media ${props => props.theme.tablet}{
@@ -124,7 +137,7 @@ const ProjectInfoTable = styled.table`
   }
 
   & td:nth-child(1){
-    width:27%;
+    width:40%;
   }
 
     @media ${props => props.theme.tablet}{

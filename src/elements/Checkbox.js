@@ -23,6 +23,7 @@ const Wrapper = styled.div`
   cursor: pointer;
   padding: 0.2em;
   font-size:0.9em;
+
 }
 
 
@@ -49,6 +50,15 @@ const Wrapper = styled.div`
   top:2px;
 }
 
+& input[type=checkbox] + label{
+  color:#979797;
+}
+
+& input[type=checkbox]:checked + label{
+  color:#000000;
+}
+
+
 & input[type=checkbox] + label:active:before {
   transform: scale(0);
 }
@@ -68,4 +78,7 @@ const Wrapper = styled.div`
   background-color: #bfb;
   border-color: #bfb;
 }
+
+
+
 `;

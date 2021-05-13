@@ -14,7 +14,7 @@ const TabTeamLeaderHistory = () => {
       </TitleBox>
       <LeaderBox>
         {Object.keys(LeaderList).length === 0 ? (<NoneProject>리더인 프로젝트가 없습니다.</NoneProject>) : (
-          <ParticipationProjectCard {...LeaderList} />
+          <ParticipationProjectCard {...LeaderList} isLeader />
         )}
       </LeaderBox>
 

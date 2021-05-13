@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const ParticipationProjectCard = (props) => {
 
 
-  const { title, teamId, member, back, front, designer, planner, begin, end, createAt, recruit, stack, location } = props;
+  const { title, teamId, member, back, front, designer, planner, begin, end, createAt, recruit, stack, location, isLeader } = props;
 
   const dispatch = useDispatch();
 
@@ -48,7 +48,8 @@ const ParticipationProjectCard = (props) => {
         </MemberBox>
       </TeamBox>
       <LeaderSelectBox>
-        <ProjectDeleteBtn onClick={() => dispatch(teamActions.deleteTeamMakingAPI(teamId, 'log'))}>프로젝트 취소</ProjectDeleteBtn>
+        {isLeader && <ProjectDeleteBtn onClick={() => dispatch(teamActions.deleteTeamMakingAPI(teamId, 'log'))}>프로젝트 취소</ProjectDeleteBtn>
+        }
       </LeaderSelectBox>
     </Grid>
   )
