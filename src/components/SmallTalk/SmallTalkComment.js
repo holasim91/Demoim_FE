@@ -88,6 +88,7 @@ const CommentTextArea = styled.textarea`
   resize: none;
   box-sizing: border-box;
   padding:10px;
+  z-index: 9999;
   :focus {
     outline: none;
   }
@@ -108,7 +109,7 @@ const CommentWrapper = styled.div`
   border-radius: 10px;
   width: 55%;
   position: relative;
-  z-index: -5;
+  top: 2px;
   @media (max-width: 425px) {
     width: 75%;
   }
