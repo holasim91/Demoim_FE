@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
 import { ChangeTimeType } from "../../shared/Common";
@@ -11,6 +11,7 @@ const ExhibitionComment = (props) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
+  const {id} = useSelector(state => state.user.user)
   const onToggleEdit = () => setIsEdit((state) => !state);
   const onUpdateTextArea = (e) => {
     setCurrent(e.target.value);
@@ -63,7 +64,7 @@ const ExhibitionComment = (props) => {
               취소
             </div>
           </EditingToggle>
-        ) : (
+        ) : user.userId === id ? (
           <EditToggle>
             <div className="editComment" onClick={onToggleEdit}>
               수정하기
@@ -72,6 +73,8 @@ const ExhibitionComment = (props) => {
               삭제
             </div>
           </EditToggle>
+        ) : (
+          ""
         )}
       </PostBoxBottom>
     </CommentWrapper>

@@ -34,11 +34,10 @@ const SmallTalkCommentPost = (props) => {
     <>
       <CommentHeader>
         <HeaderLeft>
-          {user.profileImage ? (
-            <ProfileImage alt="profile" src={user.profileImage} />
-          ) : (
-            <ProfileImage alt="profile" src={DefaultProfile} />
-          )}
+          <ProfileImage
+            alt="profile"
+            src={user.profileImage ? user.profileImage : DefaultProfile}
+          />
 
           <UserName>{user.nickname}</UserName>
         </HeaderLeft>

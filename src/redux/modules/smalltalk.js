@@ -57,6 +57,8 @@ const smallTalkAPI = `${config.api}/api/smalltalk`;
 const token = getCookie("token");
 
 const updateSmallTalkCommentAPI = (post_id, comment_id, comment) => {
+  const token = getCookie("token");
+
   return function (dispatch, getState, { history }) {
 
     console.log(post_id, comment_id, comment);
@@ -79,6 +81,7 @@ const updateSmallTalkCommentAPI = (post_id, comment_id, comment) => {
 };
 
 const deleteSmallTalkCommentAPI = (post_id, comment_id) => {
+  const token = getCookie("token");
   return function (dispatch, getState, { history }) {
     axios({
       method: "DELETE",
@@ -98,7 +101,9 @@ const deleteSmallTalkCommentAPI = (post_id, comment_id) => {
   };
 };
 
-const addSmallTalkCommentAPI = (comment, token, post_id) => {
+const addSmallTalkCommentAPI = (comment, post_id) => {
+  const token = getCookie("token");
+
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
@@ -119,7 +124,8 @@ const addSmallTalkCommentAPI = (comment, token, post_id) => {
   };
 };
 
-const updateSmallTalkPostAPI = (id, contents, token) => {
+const updateSmallTalkPostAPI = (id, contents) => {
+  const token = getCookie("token");
   return function (dispatch, getState, { history }) {
     axios({
       method: "PUT",
@@ -142,7 +148,9 @@ const updateSmallTalkPostAPI = (id, contents, token) => {
   };
 };
 
-const deleteSmallTalkPostAPI = (id, token) => {
+const deleteSmallTalkPostAPI = (id) => {
+  const token = getCookie("token");
+
   return function (dispatch, getState, { history }) {
     axios({
       method: "DELETE",
@@ -195,7 +203,8 @@ const getSmallTalkPostsAPI = (page, size) => {
       },
     })
       .then((res) => {
-        dispatch(setPost(res.data));
+        const next = page + 1
+        dispatch(setPost(res.data, next));
         dispatch(loading(false));
       })
       .catch((err) => {
