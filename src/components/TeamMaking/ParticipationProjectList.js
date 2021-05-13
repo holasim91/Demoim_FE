@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { ParticipationProjectCard, CompleteProjectCard } from "../../components";
+import { useSelector } from 'react-redux';
 
 const ParticipationProjectList = () => {
 
-
+  const participationList = useSelector((state) => state.team.teamParticipationList);
 
   return (
     <Wraaper>
@@ -12,13 +13,21 @@ const ParticipationProjectList = () => {
         <p><span>#</span>내가 참여중인 프로젝트</p>
       </TitleBox>
       <ParticipationBox>
-        <ParticipationProjectCard />
+        {participationList?.activateProject !== null ?
+          (<ParticipationProjectCard {...participationList.activateProject} />) :
+          (<NoneProjectInfo>참여중인 프로젝트가 없습니다.</NoneProjectInfo>)}
       </ParticipationBox>
       <TitleBox className="participated">
         <p><span>#</span>내가 참여한 프로젝트</p>
       </TitleBox>
       <ParticipationBox>
-        <CompleteProjectCard />
+        {participationList?.finishedProject?.length !== 0 ?
+          (participationList?.finishedProject?.map((f) => {
+            return (
+              <CompleteProjectCard {...f} key={f.teamId} />
+            )
+          })) :
+          (<NoneProjectInfo>참여하신 프로젝트가 없습니다.</NoneProjectInfo>)}
       </ParticipationBox>
 
     </Wraaper>
@@ -73,4 +82,9 @@ const TitleBox = styled.div`
   @media (max-width:530px){
     width:100%;
   }
+`;
+
+const NoneProjectInfo = styled.p`
+  color:#7a7786;
+  margin:50px 20px;
 `;

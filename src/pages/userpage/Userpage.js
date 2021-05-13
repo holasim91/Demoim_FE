@@ -18,7 +18,7 @@ const Userpage = (props) => {
   }, []);
 
   const userInfo = useSelector((state) => state.user.user)
-  
+
   //console.log("로그인체크성공",userInfo)
 
 
@@ -39,7 +39,7 @@ const Userpage = (props) => {
           <MyPageContainer>
             <Profile>
               <ProfileImg
-                src={userInfo?.profileImage ? userInfo.profileImage : DefaultProfile } />
+                src={userInfo?.profileImage ? userInfo.profileImage : DefaultProfile} />
             </Profile>
             <UserBox>
               <UserBoxMarks>
@@ -71,9 +71,9 @@ const Userpage = (props) => {
         <Content active={active === 0}>
           <TabSmallTalkList />
         </Content>
-          {/* 프로젝트자랑글 */}
+        {/* 프로젝트자랑글 */}
         <Content active={active === 1}>
-          <TabExhibitionList/>
+          <TabExhibitionList />
         </Content>
         <Content active={active === 2}>
           <DoubleTabMenu />
