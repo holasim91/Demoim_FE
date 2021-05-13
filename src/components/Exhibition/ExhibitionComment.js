@@ -11,7 +11,7 @@ const ExhibitionComment = (props) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
-  const {id} = useSelector(state => state.user.user)
+  const {curreuntUser} = useSelector(state => state.user)
   const onToggleEdit = () => setIsEdit((state) => !state);
   const onUpdateTextArea = (e) => {
     setCurrent(e.target.value);
@@ -64,7 +64,7 @@ const ExhibitionComment = (props) => {
               취소
             </div>
           </EditingToggle>
-        ) : user.userId === id ? (
+        ) : user.userId === curreuntUser?.id ? (
           <EditToggle>
             <div className="editComment" onClick={onToggleEdit}>
               수정하기
@@ -136,7 +136,7 @@ const PostBoxBottom = styled.div`
 const CommentWrapper = styled.div`
   background-color: #f1f1f1;
   min-height: 80px;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   padding: 17px 28px 0 24px;
   border-radius: 10px;
   width: 80%;

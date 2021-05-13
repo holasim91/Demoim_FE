@@ -7,13 +7,13 @@ import { actionCreators as smalltalkActions } from "../../redux/modules/smalltal
 import DefaultProfile from "../../images/def_profile.svg";
 
 const SmallTalkComment = (props) => {
-  const { comments, token, post_id } = props;
+  const { comments, post_id } = props;
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const onChangeComment = (e) => setComment(e.target.value);
   const [comment, setComment] = useState("");
   const addComment = () => {
-    dispatch(smalltalkActions.addSmallTalkCommentAPI(comment, token, post_id));
+    dispatch(smalltalkActions.addSmallTalkCommentAPI(comment,  post_id));
     setComment("");
   };
   return (
@@ -49,7 +49,6 @@ const SmallTalkComment = (props) => {
             size="13px"
             width="60px"
             _onClick={addComment}
-            margin="0px 5px 0px 0px"
             borderRadius="5.2px"
           >
             등록
@@ -83,7 +82,7 @@ const CommentWriteArea = styled.div`
 const CommentTextArea = styled.textarea`
   border: 1px solid #c9c9d9;
   font-size: 0.875rem;
-  width: 90%;
+  width: 100%;
   min-height: 100px;
   resize: none;
   box-sizing: border-box;
