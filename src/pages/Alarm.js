@@ -12,6 +12,8 @@ const Alarm = (props) => {
   const alarmList = useSelector((state) => state.alarm.alarmList);
   const user = useSelector((state) => state.user.user);
 
+
+
   return (
     <Container>
       <Wrapper>
