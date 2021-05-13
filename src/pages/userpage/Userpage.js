@@ -78,10 +78,7 @@ const Userpage = (props) => {
         <Content active={active === 2}>
           <DoubleTabMenu />
         </Content>
-
       </Container>
-
-
     </React.Fragment>
 
   );
@@ -167,7 +164,7 @@ const Tab = styled.button`
 `;
 
 const Content = styled.div`
-  ${props => (props.active ? "" : "display:none")}
+  ${props => (props.active ? "" : "display:none;")}
   
 `;
 
@@ -208,9 +205,12 @@ const ProfileImg = styled.img`
 
 const UserBox = styled.div`
   width:100%;
+  padding-top:15px;
   /* border:1px solid lightgray; */
 
-
+  @media ${props => props.theme.mobile}{
+    padding-top:8px;
+    }
 `;
 
 const UserBoxMarks = styled.div`
@@ -270,13 +270,17 @@ const UserBoxPosition = styled.div`
 
 const UserPosition = styled.div`
   margin: 10px 10px 0 5px;
-  padding: 0 16px;
+  padding: 1px 16px;
   line-height: 200%;
   text-align: center;
   background-color: #999cda;
   color: #ffffff;
   font-size: 12px;
   border-radius: 18px;
+
+  @media ${props => props.theme.mobile}{
+    padding:1px 10px;
+    }
 `;
 
 const UserProject = styled.div`
@@ -289,7 +293,7 @@ const UserProject = styled.div`
   font-size: 12px;
   border-radius: 18px;
   @media ${props => props.theme.mobile}{
-    font-size: 10px;
+    font-size: 12px;
     }
 `;
 

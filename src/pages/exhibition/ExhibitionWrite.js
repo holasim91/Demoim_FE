@@ -99,11 +99,13 @@ const ExhibitionWrite = (props) => {
       <Container>
         <WriteWrapper>
           <WriteTitle>프로젝트 자랑글 작성</WriteTitle>
+          <Line />
           <ExhibitionTitle
             value={title}
             onChange={onChangeTitle}
             placeholder="제목을 입력해주세요"
           />
+
           <UploadWrapper>
             <Upload fileRef={thumbnailRef} changeFile={changeFile} />
           </UploadWrapper>
@@ -142,9 +144,9 @@ const WriteBtn = styled.button`
   }
 `;
 const UploadWrapper = styled.div`
-  width: 400px;
+  width: 300px;
   margin-bottom: 50px;
-  margin-left: -30px;
+  margin-left: -21px;
   @media ${(props) => props.theme.mobile} {
     width: 75%;
     height: 170px;
@@ -154,7 +156,7 @@ const UploadWrapper = styled.div`
 
 const WriteWrapper = styled.div`
   width: 80%;
-  margin: 0 auto 300px auto;
+  margin: 0 auto 150px auto;
 `;
 const WriteTitle = styled.div`
   display: flex;
@@ -166,7 +168,7 @@ const WriteTitle = styled.div`
 
 const ExhibitionTitle = styled.input`
   background-color: #f2f5fa;
-  margin: 70px 0 45px 0;
+  margin: 70px 0 25px 0;
   font-size: 22px;
   padding: 5px 0 5px 15px;
   border: none;
@@ -176,4 +178,12 @@ const ExhibitionTitle = styled.input`
     outline:none;
   }
 `;
+
+const Line = styled.div`
+  width:270px;
+  margin:10px auto 0px auto;
+  height: 1px;
+  background-color:#d8d8d8;
+`;
+
 export default ExhibitionWrite;

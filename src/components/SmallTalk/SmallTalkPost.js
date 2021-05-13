@@ -144,7 +144,7 @@ const SmallTalkPost = (props) => {
             </CommentToggle>
 
             {currentUser.isLogin &&
-            currentUser.user.nickname === user.nickname ? (
+              currentUser.user.nickname === user.nickname ? (
               <EditToggle>
                 <div className="editPost" onClick={onClickUpdate}>
                   수정하기

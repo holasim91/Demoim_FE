@@ -28,6 +28,6 @@ const SmallTalkList = () => {
 };
 const SmallTalkListWrapper = styled.div`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 `;
 export default SmallTalkList;

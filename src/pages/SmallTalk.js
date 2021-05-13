@@ -5,6 +5,8 @@ import SubMenus from "../components/SubMenus";
 import { Container } from "../elements";
 import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 const SmallTalk = () => {
   const dispatch = useDispatch();
   const paging = useSelector((state) => state.smalltalk.page);
@@ -12,14 +14,15 @@ const SmallTalk = () => {
   // const [page, setPage] = useState(1); //현재페이지, 1부터 시작
 
   useEffect(() => {
-    
+
     dispatch(smalltalkActions.getSmallTalkPostsAPI(paging, 6));
   }, [dispatch, paging]);
-  
+
   return (
     <>
       <SubMenus />
       <Container>
+
         <SmallTalkWrite />
         <SmallTalkList />
       </Container>
@@ -28,3 +31,4 @@ const SmallTalk = () => {
 };
 
 export default SmallTalk;
+

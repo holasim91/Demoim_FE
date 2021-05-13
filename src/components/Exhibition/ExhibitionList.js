@@ -16,8 +16,8 @@ const ExhibitionList = (props) => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
-  if(!exhibitionPosts){
-    return(
+  if (!exhibitionPosts) {
+    return (
       <>Nodata</>
     )
   }
@@ -34,7 +34,7 @@ const ExhibitionList = (props) => {
       {history.location.pathname === "/exhibition" && (
         <TopBox>
           <BtnBox>
-            <Button padding="7px 5px" size="15px" _onClick={()=>history.push('/exhibition/write')}>
+            <Button padding="7px 5px" size="15px" _onClick={() => history.push('/exhibition/write')}>
               글쓰기
             </Button>
           </BtnBox>
@@ -68,7 +68,7 @@ const BtnBox = styled.div`
 `;
 
 const ExhibitionBoxWrapper = styled.div`
-  margin: 30px auto 30px auto;
+  margin: 30px auto 100px auto;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

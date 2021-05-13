@@ -45,10 +45,12 @@ const SmallTalkComment = (props) => {
         </WriteTop>
         <CommentWriteBottom>
           <Button
-            padding="7px 5px"
+            padding="4px 5px"
             size="13px"
-            width="51px"
+            width="60px"
             _onClick={addComment}
+            margin="0px 5px 0px 0px"
+            borderRadius="5.2px"
           >
             등록
           </Button>
@@ -84,6 +86,8 @@ const CommentTextArea = styled.textarea`
   width: 90%;
   min-height: 100px;
   resize: none;
+  box-sizing: border-box;
+  padding:10px;
   :focus {
     outline: none;
   }
