@@ -36,14 +36,17 @@ const SmallTalkWrite = () => {
               placeholder="오늘은 어떤일이 있었나요?!"
               value={contents}
               onChange={onChangeTextArea}
+
             />
           </WriteTop>
           <WriteBottom>
             <Button
-              padding="7px 5px"
+              padding="4px 5px"
               size="13px"
-              width="51px"
+              width="60px"
               _onClick={onSubmitSmallTalk}
+              borderRadius="5.2px"
+              margin="0px 5px 0px 0px"
             >
               등록
             </Button>
@@ -98,9 +101,12 @@ const TextArea = styled.textarea`
   width: 100%;
   min-height: 100px;
   resize: none;
+  box-sizing: border-box;
+  padding:10px;
   :focus {
     outline: none;
   }
 `;
+
 
 export default SmallTalkWrite;

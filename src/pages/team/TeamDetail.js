@@ -104,6 +104,17 @@ const TeamDetail = (props) => {
       return false;
     }
 
+
+    if (msg.length > 99) {
+      Swal.fire({
+        icon: "warning",
+        text: "리더에게 남기는 메세지는 100자 이내로 적어주세요!",
+        confirmButtonColor: "#999cda",
+      })
+      return false;
+    }
+
+
     dispatch(applyActions.addApplyAPI(id, msg, site));
     closeModal();
     setMsg("");

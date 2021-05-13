@@ -69,7 +69,7 @@ const DoubleTabs = styled.div`
   display:flex;
   width:450px;
   font-size:8px;
-  margin:-30px auto 60px auto;
+  margin:-30px 225px 60px auto;
   background-color:#f2f5fa;
   @media ${props => props.theme.tablet}{
     margin:0 auto;
@@ -91,7 +91,7 @@ const DoubleTabs = styled.div`
 const Connect = styled.div`
   position: absolute;
     top: -11px;
-    right: 30px;
+    right: 90px;
     width: 20px;
     height: 20px;
   background-color: #f2f5fa;
@@ -99,9 +99,17 @@ const Connect = styled.div`
   -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
   transform: rotate(45deg);
   z-index: 1;
+
+  @media ${props => props.theme.tablet}{
+    right: 67px;
+    }
+  @media ${props => props.theme.mobile}{
+    right: 50px;
+    }
+
   @media (max-width: 420px){
     top: -5px;
-    right: 30px;
+    right: 45px;
     width: 10px;
     height: 10px;
   }

@@ -43,12 +43,14 @@ const ExhibitionCommentWrite = (props) => {
       <WriteBottom>
         {isLogin ? (
           <Button
-            padding="7px 5px"
+            padding="4px 5px"
             size="13px"
-            width="51px"
+            width="60px"
             bg="
             #999cda"
             _onClick={onSubmitExhibitionComment}
+            borderRadius="5.2px"
+            margin="0px 5px 0px 0px"
           >
             등록
           </Button>
@@ -96,5 +98,7 @@ const TextArea = styled.textarea`
   :focus {
     outline: none;
   }
+  box-sizing: border-box;
+  padding:10px;
 `;
 export default ExhibitionCommentWrite;

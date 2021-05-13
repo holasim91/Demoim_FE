@@ -59,11 +59,6 @@ const ExhibitionDetail = (props) => {
               <PostDate>{ChangeTimeType(post?.createAt)}</PostDate>
             </TextBlock>
           </UserInfo>
-          <ExhibitionDetailContent>
-            <ExhibitionDetailContentContainer
-              dangerouslySetInnerHTML={{ __html: post?.contents }}
-            />
-          </ExhibitionDetailContent>
           {currentUser?.id === post?.user?.userId ? (
             <EditBtnWrapper>
               <WriteBtn onClick={onDeleteExhibition}>삭제</WriteBtn>
@@ -72,6 +67,12 @@ const ExhibitionDetail = (props) => {
           ) : (
             ""
           )}
+          <ExhibitionDetailContent>
+            <ExhibitionDetailContentContainer
+              dangerouslySetInnerHTML={{ __html: post?.contents }}
+            />
+          </ExhibitionDetailContent>
+
           <ExhibitionCommentWrite post_id={post.exhibitionId} />
           {comments.map((comment) => (
             <ExhibitionComment
@@ -91,17 +92,17 @@ const EditBtnWrapper = styled.div`
   margin-top: 10px;
 `;
 const WriteBtn = styled.button`
-  background-color: #999cda;
-  border: 1px solid #979797;
-  border-radius: 9.5px;
+  background-color: transparent;
+  border: none;
   font-weight: 500;
-  padding: 5px 12px;
-  color: #fff;
-  font-size: 1em;
+  padding: 5px 0px;
+  color: #683fee;
+  font-size: 0.81em;
   cursor: pointer;
   font-size: 15px;
   outline: none;
-  margin-left: 20px;
+  margin: 0px 20px 10px 0px;
+  font-weight: 600;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 0.9em;
