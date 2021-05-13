@@ -172,5 +172,8 @@ const ExhibitionTitle = styled.input`
   border: none;
   width: 100%;
   box-sizing: border-box;
+  :focus{
+    outline:none;
+  }
 `;
 export default ExhibitionWrite;

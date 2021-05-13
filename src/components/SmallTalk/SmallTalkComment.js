@@ -84,6 +84,10 @@ const CommentTextArea = styled.textarea`
   width: 90%;
   min-height: 100px;
   resize: none;
+  :focus {
+    outline: none;
+  }
+
 `;
 const ProfileImage = styled.img`
   width: 40px;

@@ -38,9 +38,9 @@ const initialState = {
 };
 
 const exhibitionCommentAPI = `${config.api}/api/exhibition/comments`;
-const token = getCookie("token");
 
 const deleteExhibitionCommentAPI = (post_id, comment_id) => {
+  const token = getCookie("token");
   return function (dispatch, getState, { history }) {
     axios({
       method: "DELETE",
@@ -62,6 +62,7 @@ const deleteExhibitionCommentAPI = (post_id, comment_id) => {
 
 
 const updateExhibitionCommentAPI = (post_id,comment_id, comment) => {
+  const token = getCookie("token");
   return function (dispatch, getState, { history }) {
     axios({
       method: "PUT",
@@ -96,6 +97,7 @@ const getExihibitionCommentAPI = (id) => {
 };
 
 const addExhibitionCommentsAPI = (post_id, comment) => {
+  const token = getCookie("token");
   return function (dispatch, getState, { history }) {
     axios({
       method: "post",
