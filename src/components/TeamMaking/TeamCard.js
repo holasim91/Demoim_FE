@@ -98,8 +98,8 @@ const Grid = styled.div`
     min-height: 400px;
   }
 
-  @media (max-width:400px){
-    min-height: 280px;
+  @media (max-width:420px){
+    min-height: 290px;
   }
 `;
 
@@ -118,8 +118,8 @@ const ImgBox = styled.div`
     height: 246px;
   }
 
-  @media (max-width:400px){
-    height: 132px;
+  @media (max-width:420px){
+    height: 140px;
   }
 `;
 
@@ -138,6 +138,10 @@ const Text = styled.div`
     overflow: hidden;
     white-space:nowrap;
     
+  }
+
+  @media (max-width:400px){
+   font-size:0.67em;
   }
 `;
 

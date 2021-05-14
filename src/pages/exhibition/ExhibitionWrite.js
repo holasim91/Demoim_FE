@@ -7,6 +7,7 @@ import { actionCreators as imageActions } from "../../redux/modules/image";
 import { actionCreators as exhibitionActions } from "../../redux/modules/exhibition";
 import Swal from "sweetalert2";
 import { history } from "../../redux/configStore";
+import { useMediaQuery } from "react-responsive";
 
 const ExhibitionWrite = (props) => {
   const dispatch = useDispatch();
@@ -94,6 +95,11 @@ const ExhibitionWrite = (props) => {
     dispatch(exhibitionActions.editExihibitionAPI(formData, edited_post.exhibitionId))
   }
 
+  const isMobile = useMediaQuery({
+    query: "(max-width:768px)"
+  });
+
+
   return (
     <>
       <Container>
@@ -107,10 +113,14 @@ const ExhibitionWrite = (props) => {
           />
 
           <UploadWrapper>
-            <Upload fileRef={thumbnailRef} changeFile={changeFile} />
+            <Upload fileRef={thumbnailRef} changeFile={changeFile} detalk />
           </UploadWrapper>
-          <Editor value={contents} onChange={onEditorChange} />
 
+          {isMobile ? (
+            <Editor value={contents} onChange={onEditorChange} height="450px" innerHeight="400px" />
+          ) : (
+            <Editor value={contents} onChange={onEditorChange} />
+          )}
           <WriteButtonWrapper>
             {post_id ? <WriteBtn onClick={editExhibition}>수정하기</WriteBtn> : <WriteBtn onClick={addExhibition}>작성완료</WriteBtn>}
           </WriteButtonWrapper>
@@ -148,7 +158,7 @@ const UploadWrapper = styled.div`
   margin-bottom: 50px;
   margin-left: -21px;
   @media ${(props) => props.theme.mobile} {
-    width: 75%;
+    width: 90%;
     height: 170px;
     margin: 0 auto 50px auto;
   }

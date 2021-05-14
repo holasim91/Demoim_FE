@@ -59,6 +59,10 @@ const ExhibitionPostBox = styled.div`
     margin: auto;
     margin-bottom: 20px;
   }
+
+  @media (max-width:420px){
+    min-height: 300px;
+  }
 `;
 
 const ExhibitionPostBoxContainer = styled.div`
@@ -100,6 +104,10 @@ const ThumbNail = styled.div`
   @media ${(props) => props.theme.mobile} {
     height: 246px;
   }
+
+    @media (max-width:420px){
+    height: 140px;
+  }
 `;
 const Title = styled.div`
   font-size: 25px;
@@ -111,5 +119,6 @@ const Content = styled.div`
   font-size: 12px;
   margin-top: 10px;
   line-height: 1.5;
+  color:#7a7786;
 `;
 export default ExhibitionPost;

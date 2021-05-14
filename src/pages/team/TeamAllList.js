@@ -65,16 +65,6 @@ const TeamAllList = (props) => {
                 })
                 return false;
               }
-
-              if (user?.nowteamcnt !== 0) {
-                Swal.fire({
-                  html: '<p>현재 진행 중인 프로젝트가 있습니다.<br/> 동일 기간 진행 가능한 프로젝트는 1개입니다.</p>',
-                  icon: 'warning',
-                  confirmButtonColor: "#999cda",
-                })
-                return false;
-              }
-
               history.push('/team/write')
             }}>팀 만들기</MakingBtn>
           </BtnBox>

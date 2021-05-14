@@ -16,25 +16,25 @@ const Userpage = (props) => {
 
   const userInfo = useSelector((state) => state.user.user)
   const userInfoId = userInfo?.id
-  
+
   const otherId = Number(props.match.params.userId);//파람
-  
+
 
   //파람이랑 나랑 같으면 내 페이지고, 아니면 다른 사람페이지
   const is_me = otherId === userInfoId ? true : false;
-  
+
 
   React.useEffect(() => {
-    console.log("유저페이지 Other아이디",otherId);
+    console.log("유저페이지 Other아이디", otherId);
     console.log("유저인포", userInfo);
     console.log("유저인포아이디", userInfoId);
     console.log("is_me: ", is_me);
 
     //파람 ! == 나
-    if(is_me){
+    if (is_me) {
       //여기는 나의 로그니까 그대로 로그인체크API
       dispatch(userAction.loginCheckAPI());
-    }else{
+    } else {
       //여기는 내가 보고싶은 다른 유저의 정보를 불러와야되니까 아더체크API
       dispatch(otherUserAction.otherCheckAPI(otherId));
     }
@@ -120,6 +120,12 @@ const UserInfoBox = styled.div`
   background: -moz-linear-gradient(#F2F5FA, #ffffff);
   background: -o-linear-gradient(#F2F5FA, #ffffff);
   background: linear-gradient(#F2F5FA, #ffffff);
+
+  @media ${props => props.theme.mobile}{
+    margin-bottom: -15px;
+  }
+
+
 `;
 
 //TabMenu
