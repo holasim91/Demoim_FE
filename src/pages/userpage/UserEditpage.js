@@ -8,6 +8,8 @@ import { actionCreators } from "../../redux/modules/user";
 import { actionCreators as imageActions } from "../../redux/modules/image";
 import { history } from "../../redux/configStore";
 import DefaultProfile from "../../images/def_profile.svg";
+import axios from "axios";
+import { nicknameCheck } from "../../shared/Common";
 
 const UserEditpage = (props) => {
   const dispatch = useDispatch();
@@ -45,6 +47,58 @@ const UserEditpage = (props) => {
       dispatch(imageActions.setPreview(reader.result));
     };
   };
+
+  //checkNicknameAPI
+  const checkNicknameAPI = (nickname) => {
+
+    if (nickname === '') {
+        Swal.fire({
+            text: '닉네임을 입력해주세요~',
+            icon: 'warning',
+            confirmButtonColor: "#999cda",
+        })
+        return false;
+    }
+
+    if (!nicknameCheck(nickname)){
+      Swal.fire({
+        // title: '닉네임 형식 확인!',
+        text: '🤪닉네임은 한글,영문,숫자 조합 2~6자리 가능',
+        icon: 'warning',
+        confirmButtonColor: "#999cda",
+      })
+        return false;
+    }
+
+    const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
+    //console.log(nickname);
+    axios.post(API,
+        {
+            nickname: nickname,
+        })
+        .then((res) => {
+            if (res.data.msg === "false") {
+                Swal.fire({
+                    text: '이미 등록된 닉네임입니다!',
+                    icon: 'warning',
+                    confirmButtonColor: "#999cda",
+                })
+            } else {
+                Swal.fire({
+                    text: '사용 가능한 닉네임 입니다!',
+                    icon: 'success',
+                    confirmButtonColor: "#999cda",
+                })
+            }
+        })
+        .catch((err) => {
+            Swal.fire({
+                text: `${err.response.data.msg}`,
+                icon: 'warning',
+                confirmButtonColor: "#999cda",
+            })
+        })
+}
 
 
   //프로필수정하기 
@@ -110,15 +164,19 @@ const UserEditpage = (props) => {
                     <td>닉네임</td>
                     <td>
                       <Input placeholder={nickname}
-                        readOnly
+                        maxLength="6"
                         value={nickname}
                         onChange={(e) => {
                           setNickName(e.target.value)
-                        }} /></td>
+                        }}/><Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
+                        onClick={() => {
+                        console.log("수정: 닉네임중복확인")
+                        checkNicknameAPI(nickname)
+                        }}>중복확인</Button></td>
                   </tr>
                   <tr>
                     <td></td>
-                    <td><span>닉네임은 변경이 불가합니다.</span></td>
+                    <td><span>·한글,영문,숫자 조합 2~6자리 가능</span></td>
                   </tr>
                   <tr>
                     <td>희망포지션</td>
@@ -308,12 +366,20 @@ const EditTable = styled.table`
       box-sizing: border-box;
       height:35px;
     }
+    tr:nth-child(1){
+      td:nth-child(2){
+        input{
+          width:180px;
+          margin-right:14px;
+        }
+      }
+    }
     tr:nth-child(2){
       td{
       height:auto;
       font-size:10px;
       text-align:left;
-      color:#ff5353;
+      color:#683fee;
       padding-bottom:18px;
       }
     }
@@ -341,6 +407,23 @@ const Input = styled.input`
     font-size:12px;
     font-weight:500;
   }
+`;
+
+const Button = styled.button`
+    margin: 0 auto;
+    padding: 4px 8px;
+    color: #ffffff;
+    border:none;
+    border-radius: 8.5px;
+    background-color:#999cda;
+    font-size: 9px;
+    &:hover{
+        cursor: pointer;
+    }
+    @media ${props => props.theme.mobile}{
+        font-size: 0.5vw;
+    }
+    
 `;
 
 const Select = styled.select`

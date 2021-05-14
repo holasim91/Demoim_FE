@@ -94,6 +94,16 @@ const Signup = (props) => {
 
     //checkEmailAPI(username:email)
     const checkEmailAPI = (email) => {
+
+        if (email === '') {
+            Swal.fire({
+                text: '이메일을 입력해주세요~',
+                icon: 'warning',
+                confirmButtonColor: "#999cda",
+            })
+            return false;
+        }
+
         const API = `http://54.180.142.197/api/signup/usernamedupchk?username=${email}`;
         axios.post(API,
             {
@@ -129,8 +139,17 @@ const Signup = (props) => {
     //checkNicknameAPI
     const checkNicknameAPI = (nickname) => {
 
+        if (nickname === '') {
+            Swal.fire({
+                text: '닉네임을 입력해주세요~',
+                icon: 'warning',
+                confirmButtonColor: "#999cda",
+            })
+            return false;
+        }
+
         const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
-        console.log(nickname);
+        //console.log(nickname);
         axios.post(API,
             {
                 nickname: nickname,

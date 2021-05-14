@@ -9,17 +9,38 @@ import EditPen from '../../images/editpen.svg';
 import { TabSmallTalkList, TabExhibitionList } from "../../components";
 import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
 import DefaultProfile from '../../images/def_profile.svg';
+import { actionCreators as otherUserAction } from "../../redux/modules/otheruser";
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch(userAction.loginCheckAPI());
-  }, []);
-
   const userInfo = useSelector((state) => state.user.user)
+  const userInfoId = userInfo?.id
+  
+  const otherId = Number(props.match.params.userId);//파람
+  
 
-  //console.log("로그인체크성공",userInfo)
+  //파람이랑 나랑 같으면 내 페이지고, 아니면 다른 사람페이지
+  const is_me = otherId === userInfoId ? true : false;
+  
+
+  React.useEffect(() => {
+    console.log("유저페이지 Other아이디",otherId);
+    console.log("유저인포", userInfo);
+    console.log("유저인포아이디", userInfoId);
+    console.log("is_me: ", is_me);
+
+    //파람 ! == 나
+    if(is_me){
+      //여기는 나의 로그니까 그대로 로그인체크API
+      dispatch(userAction.loginCheckAPI());
+    }else{
+      //여기는 내가 보고싶은 다른 유저의 정보를 불러와야되니까 아더체크API
+      dispatch(otherUserAction.otherCheckAPI(otherId));
+    }
+
+  }, [is_me]);
+
 
 
   //Tab Menu

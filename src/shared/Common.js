@@ -10,11 +10,12 @@ export const emailCheck = (email) => {
 
 }
 
+// let _reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,5}$/;
+
 //닉네임
 //닉네임은 한글,영문,숫자만가능하며 2~6자리가능
 export const nicknameCheck = (nickname) => {
-
-  let _reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,5}$/;
+  let _reg = /^[a-zA-Zㄱ-힣0-9]{2,6}$/;
   return _reg.test(nickname)
 
 }
