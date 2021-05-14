@@ -5,6 +5,7 @@ import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
 
 const SET_SMALLTALK_POST = "SET_SMALLTALK_POST";
+const SET_NEXT_SMALLTALK_POST = "SET_NEXT_SMALLTALK_POST";
 const ADD_SMALLTALK_POST = "ADD_SMALLTALK_POST";
 const DELETE_SMALLTALK_POST = "DELETE_SMALLTALK_POST";
 const UPDATE_SMALLTALK_POST = "UPDATE_SMALLTALK_POST";
@@ -14,8 +15,11 @@ const UPDATE_SMALLTALK_COMMENT = "UPDATE_SMALLTALK_COMMENT";
 
 const LOADING = "LOADING";
 
-const setPost = createAction(SET_SMALLTALK_POST, (post_list, page) => ({
-  post_list, page
+const setPost = createAction(SET_SMALLTALK_POST, (post_list, next_page) => ({
+  post_list, next_page
+}));
+const setNextPost = createAction(SET_NEXT_SMALLTALK_POST, (post_list, next_page, has_more) => ({
+  post_list, next_page, has_more
 }));
 const addPost = createAction(ADD_SMALLTALK_POST, (post_list) => ({
   post_list,
@@ -54,15 +58,11 @@ const initialState = {
 };
 const smallTalkAPI = `${config.api}/api/smalltalk`;
 
-const token = getCookie("token");
 
 const updateSmallTalkCommentAPI = (post_id, comment_id, comment) => {
   const token = getCookie("token");
 
   return function (dispatch, getState, { history }) {
-
-    console.log(post_id, comment_id, comment);
-
     axios({
       method: "PUT",
       headers: {
@@ -150,7 +150,6 @@ const updateSmallTalkPostAPI = (id, contents) => {
 
 const deleteSmallTalkPostAPI = (id) => {
   const token = getCookie("token");
-
   return function (dispatch, getState, { history }) {
     axios({
       method: "DELETE",
@@ -171,7 +170,8 @@ const deleteSmallTalkPostAPI = (id) => {
   };
 };
 
-const addSmallTalkPostAPI = (contents, token) => {
+const addSmallTalkPostAPI = (contents) => {
+  const token = getCookie("token");
   return function (dispatch, getState, { history }) {
     // dispatch(loading(true));
 
@@ -203,7 +203,8 @@ const getSmallTalkPostsAPI = (page, size) => {
       },
     })
       .then((res) => {
-        const next = page + 1
+        const next = page + 1;
+        console.log('page', next)
         dispatch(setPost(res.data, next));
         dispatch(loading(false));
       })
@@ -212,13 +213,43 @@ const getSmallTalkPostsAPI = (page, size) => {
       });
   };
 };
+
+const getNextSmallTalkPostsAPI = (page, size) => {
+  return function (dispatch, getState, { history }) {
+    axios(smallTalkAPI, {
+      params: {
+        page: page,
+        size: size,
+      },
+    })
+      .then((res) => {
+        console.log(res.data)
+        console.log(res.data.length)
+        res.data.length === 6?
+        dispatch(setNextPost(res.data, page+1, true))
+        :dispatch(setNextPost(res.data, page, false))
+        dispatch(loading(false));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.smallTalkPosts = action.payload.post_list
-        draft.hasMorePosts = action.payload.post_list.length === 6;
+        draft.page = action.payload.next_page
       }),
+    [SET_NEXT_SMALLTALK_POST]: (state, action) =>
+    produce(state, (draft) => {
+      draft.smallTalkPosts = draft.smallTalkPosts.concat(action.payload.post_list)
+      draft.page = action.payload.next_page
+      draft.hasMorePosts = action.payload.has_more
+    }),
+
     [ADD_SMALLTALK_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.smallTalkPosts.unshift(action.payload.post_list);
@@ -278,7 +309,6 @@ export default handleActions(
           comments: action.payload.updated_contents,
         };
       }),
-
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.isLoading = action.payload.is_loading;
@@ -290,6 +320,7 @@ export default handleActions(
 const actionCreators = {
   setPost,
   getSmallTalkPostsAPI,
+  getNextSmallTalkPostsAPI,
   addSmallTalkPostAPI,
   deleteSmallTalkPostAPI,
   updateSmallTalkPostAPI,
