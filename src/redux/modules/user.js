@@ -168,11 +168,19 @@ const editProfileAPI = (formData) => {
 
 //Tab-SmallTalk
 //현재로그인한 사용자가 작성했던 SmallTalk반환
-const TabSmallTalkAPI = () => {
+const TabSmallTalkAPI = (otherId = null) => {
   return function (dispatch, getState, { history }) {
+    console.log("Tab스몰톡체크 Other아이디", otherId);
+
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
-    const API = 'http://54.180.142.197/api/mypage/smalltalk'
+    
+    let API; 
+    if(!otherId){ 
+      API = 'http://54.180.142.197/api/mypage/smalltalk'
+    }else{
+      API = `http://54.180.142.197/api/mypage/smalltalk=${otherId}`
+    }
     axios({
       method: "get",
       url: API,
@@ -180,10 +188,11 @@ const TabSmallTalkAPI = () => {
         'authorization': token,
       },
     }).then((res) => {
-      //console.log("스몰토크탭:", res)
+      console.log("스몰토크탭 서버응답:", res)
       //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
       dispatch(SmallTalkActions.setPost(res.data))
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log(err)
     })
   }

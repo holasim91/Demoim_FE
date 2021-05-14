@@ -1,48 +1,45 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { Text, Grid, Button, Container } from "../../elements";
-import { history } from "../../redux/configStore";
 import "../../shared/theme";
-import { actionCreators as userAction } from "../../redux/modules/user";
+import { Text, Grid, Button, Container } from "../../elements";
 import EditPen from '../../images/editpen.svg';
-import { TabSmallTalkList, TabExhibitionList } from "../../components";
-import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
 import DefaultProfile from '../../images/def_profile.svg';
+import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";
+import { TabSmallTalkList, TabExhibitionList } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../../redux/configStore";
+import { actionCreators as userAction } from "../../redux/modules/user";
 import { actionCreators as otherUserAction } from "../../redux/modules/otheruser";
+
 
 const Userpage = (props) => {
   const dispatch = useDispatch();
 
+
   const userInfo = useSelector((state) => state.user.user)
   const userInfoId = userInfo?.id
-
   const otherId = Number(props.match.params.userId);//파람
 
-
-  //파람이랑 나랑 같으면 내 페이지고, 아니면 다른 사람페이지
   const is_me = otherId === userInfoId ? true : false;
-
+  
 
   React.useEffect(() => {
-    console.log("유저페이지 Other아이디", otherId);
-    console.log("유저인포", userInfo);
     console.log("유저인포아이디", userInfoId);
-    console.log("is_me: ", is_me);
+    console.log("유저페이지 is_me: ", is_me);
 
-    //파람 ! == 나
-    if (is_me) {
-      //여기는 나의 로그니까 그대로 로그인체크API
+    if(is_me){
       dispatch(userAction.loginCheckAPI());
-    } else {
-      //여기는 내가 보고싶은 다른 유저의 정보를 불러와야되니까 아더체크API
+    }else{
       dispatch(otherUserAction.otherCheckAPI(otherId));
     }
 
   }, [is_me]);
 
 
-
+  const otherInfo = useSelector((state) => state.otheruser.otheruser);
+  console.log("다른유저의 정보", otherInfo)
+  
+  
   //Tab Menu
   const [active, setActive] = useState(0)
   const handleClick = e => {
@@ -57,7 +54,8 @@ const Userpage = (props) => {
     <React.Fragment>
       <UserInfoBox className="userInfoBox">
         <Container>
-          <MyPageContainer>
+          {is_me ? (
+            <MyPageContainer>
             <Profile>
               <ProfileImg
                 src={userInfo?.profileImage ? userInfo.profileImage : DefaultProfile} />
@@ -78,28 +76,44 @@ const Userpage = (props) => {
               </UserBoxDesc>
             </UserBox>
           </MyPageContainer>
+          ) : (
+            <MyPageContainer>
+            <Profile>
+              <ProfileImg
+                src={otherInfo?.profileImage ? otherInfo.profileImage : DefaultProfile} />
+            </Profile>
+            <UserBox>
+              <UserBoxMarks>
+                <UserNickName>{otherInfo?.nickname}</UserNickName>
+              </UserBoxMarks>
+              <UserBoxPosition>
+                <UserPosition>{otherInfo?.position}</UserPosition>
+                <UserProject>프로젝트 {otherInfo?.nowteamcnt ? otherInfo.nowteamcnt : 0}개 진행중</UserProject>
+              </UserBoxPosition>
+              <UserBoxDesc>
+                <UserDesc>{otherInfo?.description}</UserDesc>
+              </UserBoxDesc>
+            </UserBox>
+          </MyPageContainer>
+          )}
         </Container>
       </UserInfoBox>
-      <Container>
+      
+        
         {/* Tab Menu */}
-
+        
+        <Container>
         <Tabs>
           <Tab onClick={handleClick} active={active === 0} id={0}>스몰토크</Tab>
           <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
           <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
         </Tabs>
 
-        <Content active={active === 0}>
-          <TabSmallTalkList />
-        </Content>
-        {/* 프로젝트자랑글 */}
-        <Content active={active === 1}>
-          <TabExhibitionList />
-        </Content>
-        <Content active={active === 2}>
-          <DoubleTabMenu />
-        </Content>
-      </Container>
+        <Content active={active === 0}><TabSmallTalkList is_me={is_me} otherId={otherId} /></Content>
+        <Content active={active === 1}><TabExhibitionList is_me={is_me} otherId={otherId}/></Content>
+        <Content active={active === 2}><DoubleTabMenu is_me={is_me} otherId={otherId}/></Content>
+        
+        </Container>
     </React.Fragment>
 
   );
@@ -120,12 +134,6 @@ const UserInfoBox = styled.div`
   background: -moz-linear-gradient(#F2F5FA, #ffffff);
   background: -o-linear-gradient(#F2F5FA, #ffffff);
   background: linear-gradient(#F2F5FA, #ffffff);
-
-  @media ${props => props.theme.mobile}{
-    margin-bottom: -15px;
-  }
-
-
 `;
 
 //TabMenu
