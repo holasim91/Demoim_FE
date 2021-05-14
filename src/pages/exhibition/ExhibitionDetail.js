@@ -147,6 +147,23 @@ const PostDate = styled.div`
 `;
 const ExhibitionDetailContentContainer = styled.div`
   padding: 35px;
+
+  & img{
+    max-width:70%;
+  }
+  & p{
+    line-height: 1.3em;
+  }
+  & h1,h2,h3{
+    line-height: 1.5em;
+  }
+  @media (max-width:420px){
+  
+    & p,ol,ul{
+      font-size:0.9em;
+      line-height: 1.3em;
+    }
+  }
 `;
 const ExhibitionDetailContent = styled.div`
   width: 100%;

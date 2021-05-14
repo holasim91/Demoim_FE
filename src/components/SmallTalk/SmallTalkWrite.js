@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,12 +12,9 @@ const SmallTalkWrite = () => {
   const [contents, setContents] = useState("");
   const token = getCookie("token");
 
-  const onChangeTextArea = (e) => {
-    setContents(e.target.value);
-  };
+  const onChangeTextArea = useCallback((e) =>setContents(e.target.value),[]) 
   const onSubmitSmallTalk = () => {
     dispatch(smalltalkActions.addSmallTalkPostAPI(contents, token));
-
     setContents("");
   };
 
@@ -33,7 +30,7 @@ const SmallTalkWrite = () => {
             )}
             <TextArea
               maxLength="300"
-              placeholder="오늘은 어떤일이 있었나요?!"
+              placeholder="프로젝트와 관련된 이야기들을 적어보세요."
               value={contents}
               onChange={onChangeTextArea}
 

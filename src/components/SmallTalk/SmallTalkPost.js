@@ -5,12 +5,10 @@ import SmallTalkComment from "./SmallTalkComment";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
 import { ChangeTimeType } from "../../shared/Common";
-import { getCookie } from "../../shared/Cookies";
 import DefaultProfile from "../../images/def_profile.svg";
 
 const SmallTalkPost = (props) => {
   const dispatch = useDispatch();
-  const token = getCookie("token");
   const { location } = props;
   const { contents, createdAt, user, smallTalkId, commentList } = props.data;
   const [isOpen, setIsOpen] = useState(false); //댓글 창 토글
@@ -24,11 +22,11 @@ const SmallTalkPost = (props) => {
   };
   const onClickUpdate = () => setIsEdit((state) => !state);
   const onDeletePost = () =>
-    dispatch(smalltalkActions.deleteSmallTalkPostAPI(smallTalkId, token));
+    dispatch(smalltalkActions.deleteSmallTalkPostAPI(smallTalkId));
   const [current, setCurrent] = useState(contents);
   const onUpdatePost = () => {
     dispatch(
-      smalltalkActions.updateSmallTalkPostAPI(smallTalkId, current, token)
+      smalltalkActions.updateSmallTalkPostAPI(smallTalkId, current)
     );
     setIsEdit(false);
   };
@@ -53,7 +51,7 @@ const SmallTalkPost = (props) => {
             <PostDate>{ChangeTimeType(createdAt)}</PostDate>
           </HeaderRight>
         </PostBoxHeader>
-        <PostContents>{contents}</PostContents>
+        <PostContents value={contents}  readOnly/>
       </PostBoxWrapperForMain>
     );
   }
@@ -79,7 +77,7 @@ const SmallTalkPost = (props) => {
             <PostDate>{ChangeTimeType(createdAt)}</PostDate>
           </HeaderRight>
         </PostBoxHeader>
-        <PostContents>{contents}</PostContents>
+        <PostContents value={contents} readOnly />
       </PostBoxWrapper>
     );
   }
@@ -116,8 +114,8 @@ const SmallTalkPost = (props) => {
             maxLength="300"
           />
         ) : (
-          <PostContents>{contents}</PostContents>
-        )}
+          <PostContents value={contents} readOnly />
+          )}
         {isEdit ? (
           <UpdatePostBoxBottom>
             <div className="updateCancel" onClick={onClickUpdate}>
@@ -132,12 +130,12 @@ const SmallTalkPost = (props) => {
             <CommentToggle onClick={onClickToggle}>
               {isOpen ? (
                 <>
-                  <AiFillCaretUp style={{ paddingRight: "5px" }} />
+                  <AiFillCaretUp style={{ paddingRight: "5px", color:"#7a7786" }} />
                   댓글닫기
                 </>
               ) : (
                 <>
-                  <AiFillCaretDown style={{ paddingRight: "5px" }} />
+                  <AiFillCaretDown style={{ paddingRight: "5px", color:"#7a7786"  }} />
                   댓글보기
                 </>
               )}
@@ -164,7 +162,6 @@ const SmallTalkPost = (props) => {
           profileImg={user.profileImage}
           comments={commentList}
           post_id={smallTalkId}
-          token={token}
           className="comment"
         />
       ) : (
@@ -215,6 +212,7 @@ const UpdatePostBoxBottom = styled.div`
   align-items: center;
   flex-direction: row-reverse;
   font-size: 13px;
+  color:#7a7786;
   .updateCancel {
     padding-left: 20px;
     cursor: pointer;
@@ -239,6 +237,7 @@ const PostBoxBottom = styled.div`
   justify-content: space-between;
   font-size: 13px;
   padding-left: 60px;
+  color:#7a7786;
   @media (max-width: 375px) {
     font-size: 11px;
   }
@@ -320,10 +319,14 @@ const PostDate = styled.div`
     font-size: 12px;
   }
 `;
-const PostContents = styled.div`
-  margin-top: 20px;
+const PostContents = styled.textarea`
+  /* margin-top: 20px; */
   min-height: 50px;
   padding-left: 60px;
+  resize: none;
+  border: none;
+  background-color:#f1f1f1;
+  width: 70%;
   @media (max-width: 375px) {
     font-size: 12px;
     padding-left: 40px;

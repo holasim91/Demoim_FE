@@ -29,7 +29,7 @@ const SmallTalkCommentPost = (props) => {
     dispatch(smalltalkActions.deleteSmallTalkCommentAPI(post_id, commentId));
   };
   const currentUser = useSelector((state) => state.user);
-
+ const setLineBreak = (comment) =>comment.split('₩n').map(line =>line) //개행?
   return (
     <>
       <CommentHeader>
@@ -52,7 +52,8 @@ const SmallTalkCommentPost = (props) => {
           maxLength="300"
         />
       ) : (
-        <PostContents>{comments}</PostContents>
+        // <PostContents>{comments}</PostContents>
+        <PostContents>{setLineBreak(comments)}</PostContents>
       )}
       {isEdit ? (
         <UpdatePostBoxBottom>
