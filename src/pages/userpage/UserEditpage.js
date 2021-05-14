@@ -371,6 +371,11 @@ const EditTable = styled.table`
         input{
           width:180px;
           margin-right:14px;
+          @media ${props => props.theme.mobile}{
+          font-size: 4px;
+          width:80px;
+          margin-right:10px;
+          }
         }
       }
     }
