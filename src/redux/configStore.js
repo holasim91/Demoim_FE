@@ -10,6 +10,7 @@ import user from "./modules/user";
 import Image from "./modules/image";
 import Apply from "./modules/apply";
 import Alarm from "./modules/alarm";
+import OtherUser from "./modules/otheruser";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   image: Image,
   apply: Apply,
   alarm: Alarm,
+  otheruser : OtherUser,
   router: connectRouter(history),
 });
 
