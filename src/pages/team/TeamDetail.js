@@ -34,14 +34,6 @@ const TeamDetail = (props) => {
       })
       return false;
     }
-    if (user?.nowteamcnt !== 0) {
-      Swal.fire({
-        icon: "warning",
-        html: '<p>현재 진행 중인 프로젝트가 있습니다.<br/> 동일 기간 진행 가능한 프로젝트는 1개입니다.</p>',
-        confirmButtonColor: "#999cda",
-      })
-      return false;
-    }
 
     if (user?.applyteamid.some(t => t === Number(id))) {
       Swal.fire({

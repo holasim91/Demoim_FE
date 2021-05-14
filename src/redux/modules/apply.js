@@ -4,7 +4,7 @@ import axios from "axios";
 import { config } from "../../shared/config";
 import Swal from 'sweetalert2';
 import { actionCreators as teamActions } from "../modules/team";
-
+import { actionCreators as userActions } from "../modules/user";
 const SET_APPLY = "SET_APPLY";
 const ADD_APPLY = "ADD_APPLY";
 const DELETE_APPLY = "DELETE_APPLY";
@@ -24,7 +24,6 @@ const addApplyAPI = (teamId, msg, site) => {
     if (!teamId) {
       return false;
     }
-
     axios({
       method: 'post',
       url: `${config.api}/api/apply?team_id=${teamId}`,
@@ -39,7 +38,8 @@ const addApplyAPI = (teamId, msg, site) => {
         icon: 'success',
         confirmButtonColor: "#999cda",
       })
-
+      //applyteamid 세팅을 위해 호출.
+      dispatch(userActions.loginCheckAPI());
     }).catch((err) => {
       console.log("지원하기 에러:", err.response.data.msg);
       Swal.fire({
