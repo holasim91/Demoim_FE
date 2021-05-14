@@ -40,9 +40,11 @@ const TeamWrite = (props) => {
     const reader = new FileReader();
     const img = thumbnailRef.current.files[0];
 
-    reader.readAsDataURL(img);
-    reader.onloadend = () => {
-      dispatch(imageActions.setPreview(reader.result));
+    if (img) {
+      reader.readAsDataURL(img);
+      reader.onloadend = () => {
+        dispatch(imageActions.setPreview(reader.result));
+      }
     }
   };
 

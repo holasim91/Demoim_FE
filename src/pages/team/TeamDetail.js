@@ -343,7 +343,7 @@ const ProjectCotentsBox = styled.div`
   
 
   & img{
-    width:70%;
+    max-width:70%;
   }
   & p{
     line-height: 1.3em;
