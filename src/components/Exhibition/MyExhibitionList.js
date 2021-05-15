@@ -5,7 +5,7 @@ import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
 
-const ExhibitionList = () => {
+const MyExhibitionList = () => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
@@ -20,22 +20,8 @@ const ExhibitionList = () => {
       </>
     );
   }
-
   return (
     <>
-      {history.location.pathname === "/exhibition" && (
-        <>
-          <Title>프로젝트 자랑 게시판</Title>
-          <TopBox>
-            <BtnBox>
-              <WriteBtn onClick={() => history.push("/exhibition/write")}>
-                글 작성하기
-              </WriteBtn>
-            </BtnBox>
-          </TopBox>
-        </>
-      )}
-
       <ExhibitionBoxWrapper>
         {exhibitionPosts.map((post) => (
           <ExhibitionPost
@@ -48,24 +34,6 @@ const ExhibitionList = () => {
     </>
   );
 };
-
-const Title = styled.div`
-  margin: 80px 0px 10px 0px;
-  font-size: 30px;
-  font-weight: 500;
-`;
-const TopBox = styled.div`
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row-reverse;
-  /* padding: 0px 50px; */
-  /* margin: 80px 0px 40px 0px; */
-  flex-wrap: wrap;
-`;
-const BtnBox = styled.div`
-  width: 100px;
-`;
 
 const ExhibitionBoxWrapper = styled.div`
   margin: 30px auto 100px auto;
@@ -85,23 +53,4 @@ const ExhibitionBoxWrapper = styled.div`
   }
 `;
 
-const WriteBtn = styled.button`
-  width: 90%;
-  cursor: pointer;
-  background-color: ${(props) => props.theme.sub_color};
-  color: ${(props) => props.theme.main_color};
-  padding: 6px 3px;
-  font-size: 14px;
-  border: 1px solid ${(props) => props.theme.sub_color};
-  border-radius: 6px;
-  box-sizing: border-box;
-  outline: none;
-  font-weight: 600;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.27);
-  &:focus {
-    outline: none;
-  }
-  position: relative;
-  z-index: 5;
-`;
-export default ExhibitionList;
+export default MyExhibitionList;

@@ -113,6 +113,26 @@ const addExihibitionAPI = (formdata) => {
       });
   };
 };
+const getExihibitionAPI = (page, size) => {
+  return function (dispatch, getState, { history }) {
+    dispatch(exihibitionLoading(true));
+    axios(exhibitionAPI, {
+      params: {
+        page: page,
+        size: size,
+      },
+    })
+      .then((res) => {
+        const next = page + 1;
+        dispatch(setExihibition(res.data,next, true));
+        dispatch(exihibitionLoading(false));
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 const getNextExihibitionPostsAPI = (page, size) => {
   return function (dispatch, getState, { history }) {
     axios(exhibitionAPI, {
@@ -131,24 +151,7 @@ const getNextExihibitionPostsAPI = (page, size) => {
       });
   };
 };
-const getExihibitionAPI = (page, size) => {
-  return function (dispatch, getState, { history }) {
-    dispatch(exihibitionLoading(true));
-    axios(exhibitionAPI, {
-      params: {
-        page: page,
-        size: size,
-      },
-    })
-      .then((res) => {
-        const next = page + 1;
-        dispatch(setExihibition(res.data,next, true));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+
 
 const getOneExihibitionAPI = (id) => {
   return function (dispatch, getState, { history }) {
@@ -185,8 +188,7 @@ export default handleActions(
     [SET_EXHIBITION_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.exhibitionPosts = action.payload.post_list;
-        draft.exihibitionLoading = false;
-        draft.page = 1
+        draft.page = action.payload.next_page
         draft.hasMorePosts = action.payload.init_more
       }),
     [SET_ONE_EXHIBITION_POST]: (state, action) =>

@@ -1,6 +1,6 @@
 import { ConnectedRouter } from "connected-react-router";
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { history } from "../redux/configStore";
 import { Exhibition, ExhibitionDetail, ExhibitionWrite, Main, TeamAllList, Signup, Login, TeamDetail, TeamWrite, TeamEdit, SmallTalk, Userpage, UserEditpage, Alarm } from "../pages";
 import { Header, Footer } from "../components";
@@ -10,6 +10,7 @@ import { getCookie } from "../shared/Cookies";
 import { actionCreators as userAction } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import ScrollTop from "./ScrollTop";
+import Error from "./Error";
 
 
 
@@ -33,6 +34,7 @@ function App() {
           <ConnectedRouter history={history}>
             <Header />
             <ScrollTop />
+            <Switch>
             <Route path="/" exact component={Main} />
             <Route path="/team" exact component={TeamAllList} />
             <Route path="/team/detail/:teamId" exact component={TeamDetail} />
@@ -48,6 +50,8 @@ function App() {
             <Route path="/userpage/:userId" exact component={Userpage} />
             <Route path="/userEditpage" exact component={UserEditpage} />
             <Route path="/alarm/:userId" exact component={Alarm} />
+            <Route path="" component={Error} />
+            </Switch>
           </ConnectedRouter>
         </ContentContainer>
         <Footer />
