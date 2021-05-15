@@ -5,13 +5,18 @@ import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
 import {actionCreators as exhibitionCommentActions} from './exhibitionComment'
 const SET_EXHIBITION_POST = "SET_EXHIBITION_POST";
+const SET_NEXT_EXHIBITION_POST = "SET_NEXT_EXHIBITION_POST";
 const SET_ONE_EXHIBITION_POST = "SET_ONE_EXHIBITION_POST";
 const ADD_EXHIBITION_POST = "ADD_EXHIBITION_POST";
 const EXHIBITION_LOADING = "EXHIBITION_LOADING";
 
-const setExihibition = createAction(SET_EXHIBITION_POST, (post_list) => ({
-  post_list,
+const setExihibition = createAction(SET_EXHIBITION_POST, (post_list, next_page, init_more) => ({
+  post_list,next_page, init_more
 }));
+const setNextPost = createAction(SET_NEXT_EXHIBITION_POST, (post_list, next_page, has_more) => ({
+  post_list, next_page, has_more
+}));
+
 const setOneExihibition = createAction(SET_ONE_EXHIBITION_POST, (post) => ({
   post,
 }));
@@ -26,6 +31,7 @@ const initialState = {
   exhibitionPosts: [],
   exhibitionPostDetail: {},
   page: 1,
+  hasMorePosts: true,
   exihibitionLoading: false,
 };
 
@@ -107,6 +113,24 @@ const addExihibitionAPI = (formdata) => {
       });
   };
 };
+const getNextExihibitionPostsAPI = (page, size) => {
+  return function (dispatch, getState, { history }) {
+    axios(exhibitionAPI, {
+      params: {
+        page: page,
+        size: size,
+      },
+    })
+      .then((res) => {
+        res.data.length === 6?
+        dispatch(setNextPost(res.data, page+1, true))
+        :dispatch(setNextPost(res.data, page, false))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 const getExihibitionAPI = (page, size) => {
   return function (dispatch, getState, { history }) {
     dispatch(exihibitionLoading(true));
@@ -117,7 +141,8 @@ const getExihibitionAPI = (page, size) => {
       },
     })
       .then((res) => {
-        dispatch(setExihibition(res.data));
+        const next = page + 1;
+        dispatch(setExihibition(res.data,next, true));
       })
       .catch((err) => {
         console.log(err);
@@ -150,11 +175,19 @@ export default handleActions(
         draft.exhibitionPosts.unshift(action.payload.post);
         draft.exihibitionLoading = false;
       }),
-
+      [SET_NEXT_EXHIBITION_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.exhibitionPosts = draft.exhibitionPosts.concat(action.payload.post_list)
+        draft.page = action.payload.next_page
+        draft.hasMorePosts = action.payload.has_more
+      }),
+  
     [SET_EXHIBITION_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.exhibitionPosts = action.payload.post_list;
         draft.exihibitionLoading = false;
+        draft.page = 1
+        draft.hasMorePosts = action.payload.init_more
       }),
     [SET_ONE_EXHIBITION_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -177,6 +210,7 @@ const actionCreators = {
   editExihibitionAPI,
   deleteExihibitionAPI,
   exihibitionLoading,
+  getNextExihibitionPostsAPI,
 };
 
 export { actionCreators };

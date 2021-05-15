@@ -5,16 +5,17 @@ import { actionCreators as exhibitionActions } from "../../redux/modules/exhibit
 import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
+import SimfinityScroll from "../../shared/SimfinityScroll";
 
 const ExhibitionList = (props) => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1); //현재페이지, 1부터 시작
-  useEffect(() => {
-    dispatch(exhibitionActions.getExihibitionAPI(page, 6));
-  }, [dispatch, page]);
-  const { exhibitionPosts, exihibitionLoading } = useSelector(
+  const { exhibitionPosts, exihibitionLoading, page, hasMorePosts } = useSelector(
     (state) => state.exhibition
   );
+  useEffect(() => {
+    dispatch(exhibitionActions.getExihibitionAPI(1, 6));
+  }, [dispatch]); // 최초 자랑하기 포스트 1페이지 호출
+
   if (!exhibitionPosts) {
     return (
       <>Nodata</>
@@ -46,6 +47,10 @@ const ExhibitionList = (props) => {
       )}
 
       <ExhibitionBoxWrapper>
+        <SimfinityScroll
+          callNext={()=> dispatch(exhibitionActions.getNextExihibitionPostsAPI(page,6))}
+          hasMorePosts={hasMorePosts}
+          page={page}>
         {exhibitionPosts.map((post) => (
           <ExhibitionPost
             data={post}
@@ -53,6 +58,7 @@ const ExhibitionList = (props) => {
             onClick={() => history.push(`/detail/${post.exhibitionId}`)}
           />
         ))}
+        </SimfinityScroll>
       </ExhibitionBoxWrapper>
     </>
   );

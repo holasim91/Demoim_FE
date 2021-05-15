@@ -20,8 +20,8 @@ const ExhibitionPost = (props) => {
         <ExhibitionPostBoxContainer>
           <PostHeader>
             <HeaderLeft>
-              {data.user.profileImg ? (
-                <ProfileImage alt="profile" src={data.user.profileImg} />
+              {data.user.profileImage ? (
+                <ProfileImage alt="profile" src={data.user.profileImage} />
               ) : (
                 <ProfileImage alt="profile" src={DefaultProfile} />
               )}
