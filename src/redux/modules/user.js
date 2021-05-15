@@ -6,7 +6,7 @@ import { produce } from 'immer';
 import axios from "axios";
 import { actionCreators as SmallTalkActions } from "../modules/smalltalk";
 import { actionCreators as ExhibitionActions } from "../modules/exhibition";
-
+import { actionCreators as TeamActions } from "../modules/team";
 
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
@@ -42,7 +42,7 @@ const signupAPI = (email, pw, nickname, position) => {
         history.push('/login');
       })
       .catch((err) => {
-        console.log("회원가입에러:",err)
+        console.log("회원가입에러:", err)
       })
   }
 }
@@ -58,30 +58,30 @@ const loginAPI = (email, pw) => {
         password: pw,
       }
     })
-    .then((res) => {
-      const userInfo = {
-        id: Number(res.data.userInfo.Id),
-        description: res.data.userInfo.Description,
-        nickname: res.data.userInfo.Nickname,
-        position: res.data.userInfo.Position,
-        profileImage: res.data.userInfo.ProfileImage,
-        username: res.data.userInfo.Username, //email
-        nowteamcnt:Number(res.data.userInfo.NowTeamCnt),//진행중인프로젝트
-        applyteamid:res.data.applyTeamId,//[] 지원한프로젝트의 아이디
-      }
-      dispatch(setUser(userInfo))
-      let token = res.headers.authorization;
-      setCookie('token', token);
+      .then((res) => {
+        const userInfo = {
+          id: Number(res.data.userInfo.Id),
+          description: res.data.userInfo.Description,
+          nickname: res.data.userInfo.Nickname,
+          position: res.data.userInfo.Position,
+          profileImage: res.data.userInfo.ProfileImage,
+          username: res.data.userInfo.Username, //email
+          nowteamcnt: Number(res.data.userInfo.NowTeamCnt),//진행중인프로젝트
+          applyteamid: res.data.applyTeamId,//[] 지원한프로젝트의 아이디
+        }
+        dispatch(setUser(userInfo))
+        let token = res.headers.authorization;
+        setCookie('token', token);
 
-      axios.defaults.headers.common['authorization'] = token;
+        axios.defaults.headers.common['authorization'] = token;
 
-      Swal.fire({
-        icon: "success",
-        text: "Welcome Mate!",
-        confirmButtonColor: " #999cda",
+        Swal.fire({
+          icon: "success",
+          text: "Welcome Mate!",
+          confirmButtonColor: " #999cda",
+        })
+        history.push('/');
       })
-      history.push('/');
-    })
       .catch((err) => {
         Swal.fire({
           text: `${err.response.data.message}`,
@@ -104,20 +104,20 @@ const loginCheckAPI = () => {
       method: "get",
       url: API,
     })
-    .then((res) => {
-      dispatch(setUser({
-        id: res.data.userid, 
-        description: res.data.description,
-        nickname: res.data.nickname,
-        position: res.data.position,
-        profileImage: res.data.profileImage,
-        username: res.data.username, //email
-        nowteamcnt: res.data.nowTeamCnt, 
-        applyteamid:res.data.applyTeamIdList,
-      }))
-    }).catch((err) => {
-      console.log('로그인체크에러:', err);
-    })
+      .then((res) => {
+        dispatch(setUser({
+          id: res.data.userid,
+          description: res.data.description,
+          nickname: res.data.nickname,
+          position: res.data.position,
+          profileImage: res.data.profileImage,
+          username: res.data.username, //email
+          nowteamcnt: res.data.nowTeamCnt,
+          applyteamid: res.data.applyTeamIdList,
+        }))
+      }).catch((err) => {
+        console.log('로그인체크에러:', err);
+      })
   }
 }
 
@@ -169,12 +169,44 @@ const TabSmallTalkAPI = (otherId = null) => {
 
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
-    
-    let API; 
-    if(!otherId){ 
+
+    let API;
+    if (!otherId) {
       API = 'http://54.180.142.197/api/mypage/smalltalk'
-    }else{
+
+    } else {
       API = `http://54.180.142.197/api/mypage/smalltalk?user_id=${otherId}`
+
+      axios({
+        method: "get",
+        url: API,
+        headers: {
+          'authorization': token,
+        },
+      }).then((res) => {
+        //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
+        dispatch(SmallTalkActions.setPost(res.data))
+      })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
+//Tab-ExhibitionList
+//현재로그인한 사용자가 작성했던 프로젝트자랑글 반환
+
+const TabExhibitionAPI = (otherId = null) => {
+  return function (dispatch, getState, { history }) {
+
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+
+    let API;
+    if (!otherId) {
+      API = 'http://54.180.142.197/api/mypage/exhibition'
+    } else {
+      API = `http://54.180.142.197/api/mypage/exhibition?user_id=${otherId}`
     }
     axios({
       method: "get",
@@ -183,40 +215,13 @@ const TabSmallTalkAPI = (otherId = null) => {
         'authorization': token,
       },
     }).then((res) => {
-      //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
-      dispatch(SmallTalkActions.setPost(res.data))
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-}
 
-//Tab-ExhibitionList
-//현재로그인한 사용자가 작성했던 프로젝트자랑글 반환
-const TabExhibitionAPI = ( otherId = null) => {
-  return function (dispatch, getState, { history }){
-    
-    const token = getCookie('token');
-    axios.defaults.headers.common['authorization'] = token;
-    
-    let API; 
-    if(!otherId){
-      API = 'http://54.180.142.197/api/mypage/exhibition'
-    }else{
-      API = `http://54.180.142.197/api/mypage/exhibition?user_id=${otherId}`
-    }
-    axios({
-      method:"get",
-      url:API,
-      headers: {
-        'authorization': token,
-      },
-    }).then((res) => {
+      console.log("프로젝트자랑하기탭: ", res)
+
       dispatch(ExhibitionActions.setExihibition(res.data))
-    
+
     }).catch((err) => {
-      console.log("TabExhibitionAPI에러:",err)
+      console.log("TabExhibitionAPI에러:", err)
     })
   }
 }
@@ -230,7 +235,7 @@ const logout = () => {
     Swal.fire({
       text: "See you soon, Mate!",
       confirmButtonColor: "#999cda",
-    })
+    });
     dispatch(logOut());
     history.replace('/');
   }

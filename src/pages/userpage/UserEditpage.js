@@ -52,53 +52,53 @@ const UserEditpage = (props) => {
   const checkNicknameAPI = (nickname) => {
 
     if (nickname === '') {
-        Swal.fire({
-            text: '닉네임을 입력해주세요~',
-            icon: 'warning',
-            confirmButtonColor: "#999cda",
-        })
-        return false;
+      Swal.fire({
+        text: '닉네임을 입력해주세요~',
+        icon: 'warning',
+        confirmButtonColor: "#999cda",
+      })
+      return false;
     }
 
-    if (!nicknameCheck(nickname)){
+    if (!nicknameCheck(nickname)) {
       Swal.fire({
         // title: '닉네임 형식 확인!',
         text: '🤪닉네임은 한글,영문,숫자 조합 2~6자리 가능',
         icon: 'warning',
         confirmButtonColor: "#999cda",
       })
-        return false;
+      return false;
     }
 
     const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
     //console.log(nickname);
     axios.post(API,
-        {
-            nickname: nickname,
+      {
+        nickname: nickname,
+      })
+      .then((res) => {
+        if (res.data.msg === "false") {
+          Swal.fire({
+            text: '이미 등록된 닉네임입니다!',
+            icon: 'warning',
+            confirmButtonColor: "#999cda",
+          })
+        } else {
+          Swal.fire({
+            text: '사용 가능한 닉네임 입니다!',
+            icon: 'success',
+            confirmButtonColor: "#999cda",
+          })
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          text: `${err.response.data.msg}`,
+          icon: 'warning',
+          confirmButtonColor: "#999cda",
         })
-        .then((res) => {
-            if (res.data.msg === "false") {
-                Swal.fire({
-                    text: '이미 등록된 닉네임입니다!',
-                    icon: 'warning',
-                    confirmButtonColor: "#999cda",
-                })
-            } else {
-                Swal.fire({
-                    text: '사용 가능한 닉네임 입니다!',
-                    icon: 'success',
-                    confirmButtonColor: "#999cda",
-                })
-            }
-        })
-        .catch((err) => {
-            Swal.fire({
-                text: `${err.response.data.msg}`,
-                icon: 'warning',
-                confirmButtonColor: "#999cda",
-            })
-        })
-}
+      })
+  }
 
 
   //프로필수정하기 
@@ -168,11 +168,11 @@ const UserEditpage = (props) => {
                         value={nickname}
                         onChange={(e) => {
                           setNickName(e.target.value)
-                        }}/><Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
-                        onClick={() => {
-                        console.log("수정: 닉네임중복확인")
-                        checkNicknameAPI(nickname)
-                        }}>중복확인</Button></td>
+                        }} /><Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
+                          onClick={() => {
+                            console.log("수정: 닉네임중복확인")
+                            checkNicknameAPI(nickname)
+                          }}>중복확인</Button></td>
                   </tr>
                   <tr>
                     <td></td>

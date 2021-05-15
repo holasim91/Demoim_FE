@@ -123,6 +123,7 @@ const TeamDetail = (props) => {
       <Container>
         <TitleBox>
           <Title>[프로젝트] {team.title}</Title>
+          <Date>{moment(team?.createdAt).format('YYYY.MM.DD HH:mm')}</Date>
         </TitleBox>
         <ContentBox>
           <LeaderBox>
@@ -275,6 +276,24 @@ const ContentInnerBox = styled.div`
   box-sizing:border-box;
   padding:20px;
    border-radius: 2px;
+
+`;
+
+const Date = styled.p`
+  color:#7a7786;
+  font-size:12px;
+  text-align: right;
+  padding-right:100px;
+
+  @media ${props => props.theme.tablet}{
+
+    padding-right:88px;
+  }
+    @media ${props => props.theme.mobile}{
+
+    padding-right:12px;
+    margin-top:10px;
+  }
 
 `;
 

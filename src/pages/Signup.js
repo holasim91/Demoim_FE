@@ -213,19 +213,25 @@ const Signup = (props) => {
             alert('비밀번호를 다시 한 번확인 해주세요!');
             return false;
         }
-        
+
         if (nicknameDup === false) {
             alert('닉네임 중복확인을 해주세요!');
             return false;
         }
 
-        if (position === "선택하기" || position === " "){
+        if (position === "선택하기" || position === "") {
             alert('포지션을 선택해주세요! 마이페이지-회원정보수정에서 변경가능합니다.')
             return false
         }
 
+        if (pw !== pwCheck) {
+            alert('비밀번호 확인이 일치하지 않습니다');
+            return false;
+        }
+
+
         //회원가입API
-        dispatch(actionCreators.signupAPI(email,pw,nickname,position))
+        dispatch(actionCreators.signupAPI(email, pw, nickname, position))
     }
 
 
