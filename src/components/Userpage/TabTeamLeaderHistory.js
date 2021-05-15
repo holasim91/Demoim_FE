@@ -13,8 +13,10 @@ const TabTeamLeaderHistory = () => {
         <p><span>#</span>내가 리더인 프로젝트</p>
       </TitleBox>
       <LeaderBox>
-        {Object.keys(LeaderList).length === 0 ? (<NoneProject>리더인 프로젝트가 없습니다.</NoneProject>) : (
-          <ParticipationProjectCard {...LeaderList} isLeader />
+        {LeaderList?.length === 0 ? (<NoneProject>리더인 프로젝트가 없습니다.</NoneProject>) : (
+          LeaderList?.map((l) => {
+            return (<ParticipationProjectCard {...l} isLeader />)
+          })
         )}
       </LeaderBox>
 

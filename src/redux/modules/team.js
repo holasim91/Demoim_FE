@@ -28,7 +28,7 @@ const deleteLeaderHistory = createAction(DELETE_LEADER_HISTORY, () => ({}));
 const initialState = {
   list: [],
   teamParticipationList: {},
-  teamLeaderList: {},
+  teamLeaderList: [],
   isLoading: false,
   teamInfo: {
     teamId: 0,
@@ -276,7 +276,7 @@ const getUserParticipateListAPI = () => {
     }).then((res) => {
 
       console.log('팀메이킹 로그인 유저 참여 프로젝트 목록::', res);
-      //dispatch(setParticipationHistory(res.data));
+
 
       let myTeamHistory = {
         activateProject: res.data.myTeamHistory.activatedProject,
