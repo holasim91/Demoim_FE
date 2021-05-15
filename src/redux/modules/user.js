@@ -169,14 +169,14 @@ const TabSmallTalkAPI = (otherId = null) => {
 
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
-
+    console.log("탭스몰톡other아이디", otherId)
     let API;
-    if (!otherId) {
+    if (otherId === null) {
       API = 'http://54.180.142.197/api/mypage/smalltalk'
 
     } else {
       API = `http://54.180.142.197/api/mypage/smalltalk?user_id=${otherId}`
-
+    }
       axios({
         method: "get",
         url: API,
@@ -185,6 +185,7 @@ const TabSmallTalkAPI = (otherId = null) => {
         },
       }).then((res) => {
         //smalltalk모듈의 SET_SMALLTALK_POST리듀서를 디스패치
+        console.log("탭스몰토크 API결과", res);
         dispatch(SmallTalkActions.setPost(res.data))
       })
         .catch((err) => {
@@ -192,16 +193,16 @@ const TabSmallTalkAPI = (otherId = null) => {
         })
     }
   }
-}
+  
 //Tab-ExhibitionList
 //현재로그인한 사용자가 작성했던 프로젝트자랑글 반환
 
-const TabExhibitionAPI = (otherId = null) => {
+const TabExhibitionAPI = (otherId) => {
   return function (dispatch, getState, { history }) {
 
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
-
+    console.log("other아이디", otherId)
     let API;
     if (!otherId) {
       API = 'http://54.180.142.197/api/mypage/exhibition'
