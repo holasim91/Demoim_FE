@@ -2,18 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import { Image } from "../elements";
 import { ChangeTimeType } from "../shared/Common";
+import { useDispatch, useSelector } from "react-redux";
 import AlarmProfile from "../images/demoim.png";
+import { actionCreators as alarmAction } from "../redux/modules/alarm";
 import { IoCloseOutline } from "react-icons/io5";
 
 
 const AlarmCard = (props) => {
-  console.log("================================");
-  console.log(props.data);
-  const { contents, createdAt } = props.data;
+  const dispatch = useDispatch();
+  const { location } = props;
+
+  const { alamrId,contents, createdAt } = props.data;
+
+  const onDeleteAlarm = () =>{
+    dispatch(alarmAction.deleteAlarmAPI(props.id));
+  } 
 
   return (
     <Wrapper>
-      <DeleteOneAlarm />
+      <DeleteOneAlarm className="deleteAlarm" onClick={onDeleteAlarm} />
       <ImageBox>
         <Image src={AlarmProfile} size="50" shape="circle" shadow />
       </ImageBox>

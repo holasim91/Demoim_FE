@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from '../../shared/Cookies';
+import { Redirect } from 'react-router';
 
 const SET_ALARM = "SET_ALARM";
 const DELETE_ALARM = "DELETE_ALARM";
@@ -16,6 +17,28 @@ const onOffAlarm = createAction(SET_BELL, (onOff) => ({ onOff }));
 const initialState = {
   alarmList: [],
   bell: false,
+}
+
+function reFresh(userId) {
+  return function (dispatch, getState, { history }) {
+
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/alarm`,
+      headers: {
+        'authorization': token,
+      },
+    }).then((res) => {
+      console.log('알람요청::', res)
+      dispatch(setAlarm(res.data));
+
+    }).catch((err) => {
+      console.log('알람 조회 에러::', err);
+    })
+  }
 }
 
 const setAlarmAPI = (userId) => {
@@ -42,19 +65,40 @@ const setAlarmAPI = (userId) => {
 
 const deleteAlarmAPI = (alarmId) => {
   return function (dispatch, getState, { history }) {
-
+    console.log("alarmId : " + alarmId)
     axios({
       method: 'delete',
       url: `${config.api}/api/alarm?alarm_id=${alarmId}`
     }).then((res) => {
-
       console.log('알람 삭제 완료::', res);
       dispatch(deleteAlarm(alarmId));
+      alert("알람이 삭제 되었습니다.")
+      dispatch(reFresh());
 
     }).catch((err) => {
       console.log('알람 삭제 에러::', err);
+    
     })
+  }
+}
 
+const deleteAlarmAllAPI = (alarmId) => {
+  return function (dispatch, getState, { history }) {
+    console.log("alarmId : " + alarmId)
+    console.log("=====알람 전체 삭제=====")
+    axios({
+      method: 'delete',
+      url: `${config.api}/api/alarm/all`
+    }).then((res) => {
+      console.log('알람 삭제 완료::', res); 
+      dispatch(deleteAlarm(alarmId));
+      alert("알람이 모두 되었습니다.")
+      dispatch(reFresh());
+
+    }).catch((err) => {
+      console.log('알람 삭제 에러::', err);
+    
+    })
   }
 }
 
@@ -73,7 +117,8 @@ export default handleActions({
 const actionCreators = {
   setAlarmAPI,
   deleteAlarmAPI,
-  onOffAlarm
+  onOffAlarm,
+  deleteAlarmAllAPI,
 }
 
 export { actionCreators };

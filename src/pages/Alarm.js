@@ -11,6 +11,14 @@ const Alarm = (props) => {
   const alarmList = useSelector((state) => state.alarm.alarmList);
   const user = useSelector((state) => state.user.user);
 
+  const onDeleteAlarmAll = () =>{
+    if (alarmList.length == 0){
+      alert("삭제 할 알람이 없습니다!");
+    }else{
+      dispatch(alarmAction.deleteAlarmAllAPI(props.id));
+    }
+    
+  } 
 
   useEffect(() => {
     dispatch(alarmAction.setAlarmAPI());
@@ -23,7 +31,7 @@ const Alarm = (props) => {
           알림 내역
       </TitleBox>
         <AllDeleteBox>
-          <AllDeleteBtn>전체 삭제</AllDeleteBtn>
+          <AllDeleteBtn onClick={onDeleteAlarmAll}>전체 삭제</AllDeleteBtn>
         </AllDeleteBox>
         <AlarmBox>
           {alarmList.length !== 0 ? (alarmList.map((a) => {
