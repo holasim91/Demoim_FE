@@ -13,8 +13,8 @@ const SET_OTHER_USER = 'SET_OTHER_USER';
 const RESET_OTHER_USER = 'RESET_OTHER_USER';
 
 //actionCreator
-const setOtherUser = createAction(SET_OTHER_USER, (otheruser) => ({ otheruser }));
-const resetOtherUser = createAction(SET_OTHER_USER, (otheruser) => ({ otheruser }));
+const setOtherUser = createAction(SET_OTHER_USER, (otherUser) => ({ otherUser }));
+const resetOtherUser = createAction(SET_OTHER_USER, (otherUser) => ({ otherUser }));
 
 const initialState = {
   otherUser: null,
@@ -57,7 +57,7 @@ const otherCheckAPI = (otherId) => {
 export default handleActions(
   {
     [SET_OTHER_USER]: (state, action) => produce(state, (draft) => {
-      draft.otherUser = action.payload.otheruser;
+      draft.otherUser = action.payload.otherUser;
     }),
     [RESET_OTHER_USER]: (state, action) => produce(state, (draft) => {
       draft.otherUser = null;

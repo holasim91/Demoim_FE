@@ -15,30 +15,27 @@ import { actionCreators as otherUserAction } from "../../redux/modules/otheruser
 const Userpage = (props) => {
   const dispatch = useDispatch();
 
-
+  const otherId = Number(props.match.params.userId);//파람
   const userInfo = useSelector((state) => state.user.user)
   const userInfoId = userInfo?.id
-  const otherId = Number(props.match.params.userId);//파람
 
   const is_me = otherId === userInfoId ? true : false;
   
+  const otherInfo = useSelector((state) => state.otheruser.otherUser);
+  console.log("다른유저의 정보", otherInfo)
 
   React.useEffect(() => {
     console.log("유저인포아이디", userInfoId);
     console.log("유저페이지 is_me: ", is_me);
 
     if(is_me){
+      console.log("처음 is_me", is_me)
       dispatch(userAction.loginCheckAPI());
     }else{
       dispatch(otherUserAction.otherCheckAPI(otherId));
     }
 
   }, [is_me]);
-
-
-  const otherInfo = useSelector((state) => state.otheruser.otherUser);
-  console.log("다른유저의 정보", otherInfo)
-  
   
   //Tab Menu
   const [active, setActive] = useState(0)
@@ -48,6 +45,21 @@ const Userpage = (props) => {
       setActive(index);
     }
   };
+
+  
+  //index가 변경될때마다 dispatch 
+  React.useEffect(() => {
+    if (is_me) {
+      dispatch(userAction.TabSmallTalkAPI());
+      console.log('나의 스몰토크');
+    } else {
+      dispatch(userAction.TabSmallTalkAPI(otherId));
+      console.log('다른이의 스몰토크')
+    }
+
+  },[])
+  
+  
 
 
   return (
@@ -107,9 +119,9 @@ const Userpage = (props) => {
           <Tab onClick={handleClick} active={active === 0} id={0}>스몰토크</Tab>
           <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
           <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
-        </Tabs> 
+        </Tabs>
 
-        <Content active={active === 0}><TabSmallTalkList is_me={is_me} otherId={otherId} /></Content>
+        <Content active={active === 0}><TabSmallTalkList is_me={is_me} otherId={otherId}/></Content>
         <Content active={active === 1}><TabExhibitionList is_me={is_me} otherId={otherId}/></Content>
         <Content active={active === 2}><DoubleTabMenu is_me={is_me} otherId={otherId}/></Content>
         
