@@ -15,8 +15,8 @@ const UPDATE_SMALLTALK_COMMENT = "UPDATE_SMALLTALK_COMMENT";
 
 const LOADING = "LOADING";
 
-const setPost = createAction(SET_SMALLTALK_POST, (post_list, next_page) => ({
-  post_list, next_page
+const setPost = createAction(SET_SMALLTALK_POST, (post_list, next_page, init_more) => ({
+  post_list, next_page, init_more
 }));
 const setNextPost = createAction(SET_NEXT_SMALLTALK_POST, (post_list, next_page, has_more) => ({
   post_list, next_page, has_more
@@ -117,7 +117,6 @@ const addSmallTalkCommentAPI = (comment, post_id) => {
       },
     })
       .then((res) => {
-        console.log(res);
         dispatch(addComment(post_id, res.data));
       })
       .catch((e) => console.error(e));
@@ -204,8 +203,7 @@ const getSmallTalkPostsAPI = (page, size) => {
     })
       .then((res) => {
         const next = page + 1;
-        console.log('page', next)
-        dispatch(setPost(res.data, next));
+        dispatch(setPost(res.data, next, true));
         dispatch(loading(false));
       })
       .catch((err) => {
@@ -223,8 +221,6 @@ const getNextSmallTalkPostsAPI = (page, size) => {
       },
     })
       .then((res) => {
-        console.log(res.data)
-        console.log(res.data.length)
         res.data.length === 6?
         dispatch(setNextPost(res.data, page+1, true))
         :dispatch(setNextPost(res.data, page, false))
@@ -242,6 +238,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.smallTalkPosts = action.payload.post_list
         draft.page = action.payload.next_page
+        draft.hasMorePosts = action.payload.init_more
       }),
     [SET_NEXT_SMALLTALK_POST]: (state, action) =>
     produce(state, (draft) => {

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SmallTalkList from "../components/SmallTalk/SmallTalkList";
 import SmallTalkWrite from "../components/SmallTalk/SmallTalkWrite";
 import SubMenus from "../components/SubMenus";
 import { Container } from "../elements";
 import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 import { useDispatch, useSelector } from "react-redux";
-import _ from 'lodash';
 import SimfinityScroll from "../shared/SimfinityScroll";
 
 const SmallTalk = () => {
@@ -13,39 +12,8 @@ const SmallTalk = () => {
   const {page, hasMorePosts} = useSelector((state) => state.smalltalk);
 
   useEffect(() => {
-    console.log('최초!')
     dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
   }, [dispatch]);
-
-  const onScroll = _.throttle(
-    () => {
-      /*
-    window.scrollY : 화면을 얼마나 내렸는지
-    document.documentElement.clientHeight: 화면이 보이는 길이
-    document.documentElement.scrollHeight: 화면의 총 길이
-    */
-      if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
-      ) {
-        if (hasMorePosts) {
-          // setPage(state => state +1)
-          console.log('다음꺼 불러와')
-          dispatch(smalltalkActions.getNextSmallTalkPostsAPI(page, 6));
-        }
-      }
-    }, // 무한 스크롤
-
-    300
-  );
-
-
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [hasMorePosts, page, onScroll]);
 
 //유즈이펙틀 무적곤 1페이지
 //다음페이지를 2페이지를 달라고 해야하는데
@@ -64,7 +32,7 @@ const SmallTalk = () => {
       <Container>
         <SmallTalkWrite />
         <SimfinityScroll
-          callNext={()=>smalltalkActions.getNextSmallTalkPostsAPI(page, 6)}
+          callNext={()=>dispatch(smalltalkActions.getNextSmallTalkPostsAPI(page,6))}
           hasMorePosts={hasMorePosts}
           page={page}
         >

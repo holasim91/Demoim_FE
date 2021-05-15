@@ -57,10 +57,10 @@ const otherCheckAPI = (otherId) => {
 export default handleActions(
   {
     [SET_OTHER_USER]: (state, action) => produce(state, (draft) => {
-      draft.otheruser = action.payload.otheruser;
+      draft.otherUser = action.payload.otheruser;
     }),
     [RESET_OTHER_USER]: (state, action) => produce(state, (draft) => {
-      draft.otheruser = null;
+      draft.otherUser = null;
     }),
   }, initialState);
 

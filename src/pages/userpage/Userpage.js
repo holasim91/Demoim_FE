@@ -36,7 +36,7 @@ const Userpage = (props) => {
   }, [is_me]);
 
 
-  const otherInfo = useSelector((state) => state.otheruser.otheruser);
+  const otherInfo = useSelector((state) => state.otheruser.otherUser);
   console.log("다른유저의 정보", otherInfo)
   
   
@@ -107,7 +107,7 @@ const Userpage = (props) => {
           <Tab onClick={handleClick} active={active === 0} id={0}>스몰토크</Tab>
           <Tab onClick={handleClick} active={active === 1} id={1}>프로젝트 자랑글</Tab>
           <Tab onClick={handleClick} active={active === 2} id={2}>프로젝트 히스토리</Tab>
-        </Tabs>
+        </Tabs> 
 
         <Content active={active === 0}><TabSmallTalkList is_me={is_me} otherId={otherId} /></Content>
         <Content active={active === 1}><TabExhibitionList is_me={is_me} otherId={otherId}/></Content>
