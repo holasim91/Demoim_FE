@@ -1,10 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Image } from "../elements";
+import { ChangeTimeType } from "../shared/Common";
 import AlarmProfile from "../images/demoim.png";
 import { IoCloseOutline } from "react-icons/io5";
 
-const AlarmCard = () => {
+
+const AlarmCard = (props) => {
+  console.log("================================");
+  console.log(props.data);
+  const { contents, createdAt } = props.data;
+
   return (
     <Wrapper>
       <DeleteOneAlarm />
@@ -12,14 +18,14 @@ const AlarmCard = () => {
         <Image src={AlarmProfile} size="50" shape="circle" shadow />
       </ImageBox>
       <ContentsBox>
-        <p className="date">2021.04.05 12:33</p>
-        <p className="ment">꿀꿀님이 회원님의 프로젝트 자랑글에 댓글을 달았습니다.</p>
+        <p className="date">{ChangeTimeType(createdAt)}</p>
+        <p className="ment">{contents}</p>
       </ContentsBox>
     </Wrapper>
   )
 }
 
-export default AlarmCard;
+
 
 const Wrapper = styled.div`
   width:100%;
@@ -74,3 +80,5 @@ const DeleteOneAlarm = styled(IoCloseOutline)`
     font-size:21px;
   }
 `;
+
+export default AlarmCard;

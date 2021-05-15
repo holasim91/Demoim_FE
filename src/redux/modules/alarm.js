@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
+import { getCookie } from '../../shared/Cookies';
 
 const SET_ALARM = "SET_ALARM";
 const DELETE_ALARM = "DELETE_ALARM";
@@ -20,16 +21,18 @@ const initialState = {
 const setAlarmAPI = (userId) => {
   return function (dispatch, getState, { history }) {
 
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+
     axios({
       method: 'get',
       url: `${config.api}/api/alarm`,
+      headers: {
+        'authorization': token,
+      },
     }).then((res) => {
       console.log('알람요청::', res)
-
-      if (getState().user.id === userId) {
-        dispatch(setAlarm(res.data));
-        dispatch(onOffAlarm(true));
-      }
+      dispatch(setAlarm(res.data));
 
     }).catch((err) => {
       console.log('알람 조회 에러::', err);
