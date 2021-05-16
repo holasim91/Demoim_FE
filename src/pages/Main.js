@@ -206,7 +206,6 @@ const DescText = styled.p`
       font-size:1.36vw;
    }
    @media ${props => props.theme.mobile}{
-      
       font-size: 2.5vw;
       text-align:center;
       margin-top:15px;
