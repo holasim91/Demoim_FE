@@ -10,6 +10,7 @@ const Alarm = (props) => {
   const userId = props.match.params.userId;
   const alarmList = useSelector((state) => state.alarm.alarmList);
   const user = useSelector((state) => state.user.user);
+  const alarmCnt = useSelector((state)=> state.alarm.alarmCnt);
 
   const onDeleteAlarmAll = () =>{
     if (alarmList.length == 0){
@@ -22,6 +23,7 @@ const Alarm = (props) => {
 
   useEffect(() => {
     dispatch(alarmAction.setAlarmAPI());
+    dispatch(alarmAction.setAlarmCntAPI());
   }, [dispatch]);
 
   return (
@@ -29,6 +31,8 @@ const Alarm = (props) => {
       <Wrapper>
         <TitleBox>
           알림 내역
+          {console.log(alarmCnt)}
+          
       </TitleBox>
         <AllDeleteBox>
           <AllDeleteBtn onClick={onDeleteAlarmAll}>전체 삭제</AllDeleteBtn>

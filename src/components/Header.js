@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components"
 import { Container } from "../elements";
 import { NavLink as Link, Link as ActiveNoneLink } from "react-router-dom";
@@ -7,30 +7,37 @@ import { MobileBar } from "../elements";
 import { AiOutlineBell } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
+import { actionCreators as alarmAction } from "../redux/modules/alarm";
 import { history } from "../redux/configStore";
+import { times } from 'lodash';
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
   const userCheck = useSelector((state) => state.user.user);
+  const alarmCnt = useSelector((state)=> state.alarm.alarmCnt);
+
+  const playAlert = setInterval(function() {
+
+  }, 3000);
+  
 
   const LogOut = () => {
     setOpen(false);
     dispatch(actionCreators.logout());
   };
 
-  //알람용.
-  //bell이 true면 알람이 울린다.
-  //페이지에 들어오면 false
-  /*React.useEffect(() => {
+  useEffect(() => {
+    dispatch(alarmAction.setAlarmCntAPI());
+  }, [dispatch]);
 
-    if (userCheck) {
+  setInterval(function AlarmCountChk(){
+    if (isLogin) {
       console.log('헤더 유저체크::', userCheck)
-      dispatch(alarmAction.setAlarmAPI());
+      dispatch(alarmAction.setAlarmCntAPI());
     }
-
-  }, []);
-*/
+    console.log("안읽은 알람 갯수 : "+ alarmCnt)
+  },5000)
 
   const [open, setOpen] = React.useState(false);
   const openBar = () => setOpen(true);
@@ -67,7 +74,9 @@ const Header = (props) => {
           {isLogin ? (
             <UserMenu>
               <NoneActiveLink to={`/alarm/${userCheck?.id}`}>
+                {alarmCnt == 0 ? "":(<NewBell/>) }
                 <Bell />
+                
               </NoneActiveLink>
               <LogOutBtn onClick={LogOut}>
                 로그아웃
@@ -89,7 +98,6 @@ const Header = (props) => {
           <MobileMenu>
             <Logo>
               <span>De</span>moim
-
             </Logo>
             <Line />
             <NoneActiveLink to='/service' onClick={closeBar}>
@@ -108,7 +116,9 @@ const Header = (props) => {
             {isLogin ? (
               <MobileUserMenu>
                 <NoneActiveLink to={`/alarm/${userCheck?.id}`} className='userMenu' onClick={closeBar}>
+                  
                   <Bell />
+                  
                 </NoneActiveLink>
                 <LogOutBtn onClick={LogOut} className='userMenu'>
                   로그아웃
@@ -278,6 +288,16 @@ const Bell = styled(AiOutlineBell)`
   font-size: 1.5em;
   position: relative;
   top:-5px;
+`;
+
+const NewBell = styled.div`
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  top: -8px;
+  right: 80px;
+  background-color: ${props => props.theme.main_color};
 `;
 
 const Bars = styled(FaBars)`

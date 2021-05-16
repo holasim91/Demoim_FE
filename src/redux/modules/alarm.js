@@ -7,17 +7,21 @@ import { Redirect } from 'react-router';
 
 const SET_ALARM = "SET_ALARM";
 const DELETE_ALARM = "DELETE_ALARM";
-const ALL_DELETE_ALARM = "ALL_DELETE_ALARM";
 const SET_BELL = "SET_BELL";
+const SET_ALARMCNT = "SET_ALARMCNT";
 
+const initialState = {
+  alarmCnt: 0,
+  alarmList: [],
+  bell: false,
+}
+
+const setAlarmcnt = createAction(SET_ALARMCNT, (alarmCnt) =>({alarmCnt}));
 const setAlarm = createAction(SET_ALARM, (alarmList) => ({ alarmList }));
 const deleteAlarm = createAction(DELETE_ALARM, (alarmId) => ({ alarmId }));
 const onOffAlarm = createAction(SET_BELL, (onOff) => ({ onOff }));
 
-const initialState = {
-  alarmList: [],
-  bell: false,
-}
+
 
 function reFresh(userId) {
   return function (dispatch, getState, { history }) {
@@ -41,6 +45,29 @@ function reFresh(userId) {
   }
 }
 
+function setAlarmCntAPI(userId){
+  return function (dispatch, getState, { history }) {
+
+    const token = getCookie('token');
+    axios.defaults.headers.common['authorization'] = token;
+
+    axios({
+      method: 'get',
+      url: `${config.api}/api/alarm/before`,
+      headers: {
+        'authorization': token,
+      },
+    }).then((res) => {
+      console.log('안읽은 알람갯수!::', res)
+      dispatch(setAlarmcnt(res.data));
+      const alarmCnt = res.data;
+
+    }).catch((err) => {
+      console.log('알람 조회 에러::', err);
+    })
+  }
+}
+
 const setAlarmAPI = (userId) => {
   return function (dispatch, getState, { history }) {
 
@@ -56,6 +83,7 @@ const setAlarmAPI = (userId) => {
     }).then((res) => {
       console.log('알람요청::', res)
       dispatch(setAlarm(res.data));
+      dispatch(setAlarmCntAPI());
 
     }).catch((err) => {
       console.log('알람 조회 에러::', err);
@@ -111,7 +139,10 @@ export default handleActions({
   }),
   [SET_BELL]: (state, action) => produce(state, (draft) => {
     draft.bell = action.payload.onOff;
-  })
+  }),
+  [SET_ALARMCNT]: (state, action) => produce(state, (draft) => {
+    draft.alarmCnt = action.payload.alarmCnt;
+  }),
 }, initialState);
 
 const actionCreators = {
@@ -119,6 +150,7 @@ const actionCreators = {
   deleteAlarmAPI,
   onOffAlarm,
   deleteAlarmAllAPI,
+  setAlarmCntAPI,
 }
 
 export { actionCreators };
