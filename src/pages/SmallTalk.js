@@ -6,6 +6,7 @@ import { Container } from "../elements";
 import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 import { useDispatch, useSelector } from "react-redux";
 import SimfinityScroll from "../shared/SimfinityScroll";
+import SmallTalkInfo from "../components/SmallTalk/SmallTalkInfo";
 
 const SmallTalk = (props) => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const SmallTalk = (props) => {
     <>
       <SubMenus />
       <Container>
+        <SmallTalkInfo/>
         <SmallTalkWrite />
           <SimfinityScroll
             callNext={() =>

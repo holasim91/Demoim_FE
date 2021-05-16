@@ -4,6 +4,7 @@ import SmallTalkPost from "./SmallTalkPost";
 import { history } from "../../redux/configStore";
 import Spinner from "../../shared/Spinner";
 import styled from "styled-components";
+import NoData from "../../shared/NoData";
 
 const SmallTalkList = () => {
   const { smallTalkPosts, isLoading } = useSelector((state) => state.smalltalk);
@@ -15,7 +16,11 @@ const SmallTalkList = () => {
       </>
     );
   }
-
+if(smallTalkPosts.length === 0){
+  return(
+    <NoData />
+  )
+}
   return (
     <>
       <SmallTalkListWrapper>
