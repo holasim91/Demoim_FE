@@ -17,9 +17,6 @@ const Header = (props) => {
   const userCheck = useSelector((state) => state.user.user);
   const alarmCnt = useSelector((state)=> state.alarm.alarmCnt);
 
-  const playAlert = setInterval(function() {
-
-  }, 3000);
   
 
   const LogOut = () => {
@@ -31,13 +28,11 @@ const Header = (props) => {
     dispatch(alarmAction.setAlarmCntAPI());
   }, [dispatch]);
 
-  setInterval(function AlarmCountChk(){
+  setTimeout(function AlarmCountChk(){
     if (isLogin) {
-      console.log('헤더 유저체크::', userCheck)
       dispatch(alarmAction.setAlarmCntAPI());
     }
-    console.log("안읽은 알람 갯수 : "+ alarmCnt)
-  },5000)
+  },3000)
 
   const [open, setOpen] = React.useState(false);
   const openBar = () => setOpen(true);
@@ -75,9 +70,16 @@ const Header = (props) => {
             <UserMenu>
               <NoneActiveLink to={`/alarm/${userCheck?.id}`}>
                 {alarmCnt == 0 ? "":(<NewBell/>) }
-                <Bell />
-                
+                <BellWraper>
+                  <Bell/>
+                  {alarmCnt == 0 ? "":(
+                    <Tooltip className="tooltip"> 
+                      {alarmCnt} 개의 <br/> 새로운 알람이 있습니다.
+                    </Tooltip>
+                  )}
+                </BellWraper>
               </NoneActiveLink>
+              
               <LogOutBtn onClick={LogOut}>
                 로그아웃
             </LogOutBtn>
@@ -116,8 +118,15 @@ const Header = (props) => {
             {isLogin ? (
               <MobileUserMenu>
                 <NoneActiveLink to={`/alarm/${userCheck?.id}`} className='userMenu' onClick={closeBar}>
-                  
-                  <Bell />
+                  <BellWraper>
+                    {alarmCnt == 0 ? "":(<NewBell/>) }
+                    <Bell/>
+                    {alarmCnt == 0 ? "":(
+                      <Tooltip className="tooltip"> 
+                        {alarmCnt} 개의 <br/> 새로운 알람이 있습니다.
+                      </Tooltip>
+                    )}
+                  </BellWraper>
                   
                 </NoneActiveLink>
                 <LogOutBtn onClick={LogOut} className='userMenu'>
@@ -283,13 +292,82 @@ const MobileUserMenu = styled.div`
   margin-top: 3.5em;
   
 `;
+const BellWraper = styled.div`
+    position: relative;
+    &:hover {
+      .tooltip{
+        display: block;
+      }
+    }
+
+    @media ${props => props.theme.mobile}{
+      position: relative;
+    }
+`;
+
 
 const Bell = styled(AiOutlineBell)`
   font-size: 1.5em;
   position: relative;
   top:-5px;
+  
 `;
 
+
+const Tooltip = styled.div`
+  display: none;
+  text-align: center;
+  line-height:15px;
+  position: absolute;
+  top: 30px;
+  left: -60px;
+  width: 120px;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid #dedfff;
+  background-color: #dedfff;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 550;
+
+  &:after {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 6px 10px 6px;
+	border-color: #dedfff transparent;
+	display: block;
+	z-index: 1;
+	top: -11px; 
+	left: 62px; 
+	}
+
+  @media ${props => props.theme.mobile}{
+    
+    top: -3px;
+    left: 50px;
+    width: 200px;
+    height: 10px;
+    line-height:1;;
+    color: black;
+    br {
+      display: none;
+    }
+    
+    &:after {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 6px 10px 6px;
+      transform: rotate(33deg);
+      border-color: #dedfff transparent;
+      display: block;
+      z-index: 1;
+      top: 9px; 
+      left: -9px; 
+      }
+  }
+`
 const NewBell = styled.div`
   position: absolute;
   width: 6px;
@@ -298,6 +376,16 @@ const NewBell = styled.div`
   top: -8px;
   right: 80px;
   background-color: ${props => props.theme.main_color};
+
+  @media ${props => props.theme.mobile}{
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: ${props => props.theme.main_color};
+    
+    left: 8%;
+  }
 `;
 
 const Bars = styled(FaBars)`
@@ -325,3 +413,5 @@ const Line = styled.p`
 const PcDetalkBox = styled.div`
   position: relative;
 `;
+
+

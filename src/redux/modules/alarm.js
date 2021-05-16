@@ -58,7 +58,6 @@ function setAlarmCntAPI(userId){
         'authorization': token,
       },
     }).then((res) => {
-      console.log('안읽은 알람갯수!::', res)
       dispatch(setAlarmcnt(res.data));
       const alarmCnt = res.data;
 
