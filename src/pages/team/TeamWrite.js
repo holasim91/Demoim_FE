@@ -275,7 +275,7 @@ const TeamWrite = (props) => {
               </tr>
               <tr>
                 <td>선호언어</td>
-                <td><LanguageInput type='text' value={stack} onChange={(e) => setStack(e.target.value)} placeholder="react/node.js" /></td>
+                <td><LanguageInput type='text' value={stack} onChange={(e) => setStack(e.target.value)} placeholder="React/Spring" /></td>
               </tr>
               <tr>
                 <td>장소</td>

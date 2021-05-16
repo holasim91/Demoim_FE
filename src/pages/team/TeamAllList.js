@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { TeamList } from "../../components";
-import { Container, Button } from "../../elements";
+import { Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
@@ -9,11 +9,12 @@ import TeamIcon from "../../images/teamMaking.svg";
 import Arrow from "../../images/arrow.jpg";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { actionCreators as userAction } from "../../redux/modules/user";
+import SimfinityScroll from "../../shared/SimfinityScroll";
 
-const TeamAllList = (props) => {
-  const [select, setSelect] = React.useState("전체보기");
+const TeamAllList = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const {page, hasMorePosts} = useSelector((state) => state.team);
 
   React.useEffect(() => {
     dispatch(teamActions.getTeamMakingAPI(1, 9));
@@ -73,7 +74,13 @@ const TeamAllList = (props) => {
         </TopBox>
       </Container>
       <ContentBox>
+        <SimfinityScroll
+                  callNext={()=>dispatch(teamActions.getNextTeamMakingAPI(page,9))}
+                  hasMorePosts={hasMorePosts}
+                  page={page}
+        >
         <TeamList />
+        </SimfinityScroll>
       </ContentBox>
     </React.Fragment>
   );

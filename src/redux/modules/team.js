@@ -6,6 +6,7 @@ import { getCookie } from "../../shared/Cookies";
 import { actionCreators as applyActions } from "../modules/apply";
 
 const SET_TEAM = "SET_TEAM";
+const SET_NEXT_TEAM = "SET_NEXT_TEAM";
 const LOADING = "LOADING";
 const ADD_TEAM = "ADD_TEAM";
 const UPDATE_TEAM = "UPDATE_TEAM";
@@ -15,7 +16,8 @@ const SET_PARTICIPATION_HISTORY = "SET_PARTICIPATION_HISTORY";
 const SET_LEADER_HISTORY = "SET_LEADER_HISTORY";
 const DELETE_LEADER_HISTORY = "DELETE_LEADER_HISTORY";
 
-const setTeam = createAction(SET_TEAM, (teamList) => ({ teamList }));
+const setTeam = createAction(SET_TEAM, (teamList, next_page, init_more) => ({ teamList, next_page, init_more }));
+const setNextTeam = createAction(SET_NEXT_TEAM, (teamList, next_page, has_more) => ({ teamList, next_page, has_more }));
 const addTeam = createAction(ADD_TEAM, (team) => ({ team }));
 const deleteTeam = createAction(DELETE_TEAM, (teamId) => ({ teamId }));
 const updateTeam = createAction(UPDATE_TEAM, (teamId, team) => ({ teamId, team }));
@@ -27,6 +29,8 @@ const deleteLeaderHistory = createAction(DELETE_LEADER_HISTORY, () => ({}));
 
 const initialState = {
   list: [],
+  page: 1,
+  hasMorePosts: true,
   teamParticipationList: {},
   teamLeaderList: [],
   isLoading: false,
@@ -68,7 +72,8 @@ const getTeamMakingAPI = (page, size = 9) => {
       url: `${config.api}/api/team?page=${page}&size=${size}`,
     }).then((res) => {
       if (typeof res.data === 'object') {
-        dispatch(setTeam(res.data));
+        const next = page + 1;
+        dispatch(setTeam(res.data, next, true));
       }
 
     }).catch((error) => {
@@ -76,6 +81,27 @@ const getTeamMakingAPI = (page, size = 9) => {
     });
   }
 }
+
+//팀메이킹 무한스크롤
+const getNextTeamMakingAPI= (page, size) => {
+  return function (dispatch, getState, { history }) {
+    axios(`${config.api}/api/team?page=${page}&size=${size}`, {
+      params: {
+        page: page,
+        size: size,
+      },
+    })
+      .then((res) => {
+        res.data.length === 6?
+        dispatch(setNextTeam(res.data, page+1, true))
+        :dispatch(setNextTeam(res.data, page, false))
+        dispatch(loading(false));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 //팀메이킹 디테일 조회 
 const getDetailTeamMakingAPI = (teamId) => {
@@ -349,6 +375,13 @@ export default handleActions(
     [SET_TEAM]: (state, action) => produce(state, (draft) => {
       draft.list = action.payload.teamList;
       draft.isLoading = false;
+      draft.page = action.payload.next_page
+      draft.hasMorePosts = action.payload.init_more
+    }),
+    [SET_NEXT_TEAM]: (state, action) => produce(state, (draft) => {
+      draft.list = draft.list.concat(action.payload.teamList)
+      draft.page = action.payload.next_page
+      draft.hasMorePosts = action.payload.has_more
     }),
     [ADD_TEAM]: (state, action) => produce(state, (draft) => {
       draft.list.push(action.payload.team);
@@ -380,6 +413,7 @@ export default handleActions(
 
 const actionCreators = {
   getTeamMakingAPI,
+  getNextTeamMakingAPI,
   getDetailTeamMakingAPI,
   addTeamMakingAPI,
   deleteTeamMakingAPI,
