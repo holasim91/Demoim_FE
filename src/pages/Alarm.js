@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Container } from "../elements";
 import { AlarmCard } from "../components";
@@ -6,13 +6,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as alarmAction } from "../redux/modules/alarm";
 
 const Alarm = (props) => {
-
   const dispatch = useDispatch();
   const userId = props.match.params.userId;
   const alarmList = useSelector((state) => state.alarm.alarmList);
   const user = useSelector((state) => state.user.user);
 
+  const onDeleteAlarmAll = () =>{
+    if (alarmList.length == 0){
+      alert("삭제 할 알람이 없습니다!");
+    }else{
+      dispatch(alarmAction.deleteAlarmAllAPI(props.id));
+    }
+    
+  } 
 
+  useEffect(() => {
+    dispatch(alarmAction.setAlarmAPI());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -21,12 +31,12 @@ const Alarm = (props) => {
           알림 내역
       </TitleBox>
         <AllDeleteBox>
-          <AllDeleteBtn>전체 삭제</AllDeleteBtn>
+          <AllDeleteBtn onClick={onDeleteAlarmAll}>전체 삭제</AllDeleteBtn>
         </AllDeleteBox>
         <AlarmBox>
           {alarmList.length !== 0 ? (alarmList.map((a) => {
             return (
-              <AlarmCard {...a} key={a.id} />
+              <AlarmCard data={a} {...a} key={a.id} />
             )
           })) : (<NoneAlarm>알림 내역이 없습니다.</NoneAlarm>)}
         </AlarmBox>
