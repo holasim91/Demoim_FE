@@ -13,6 +13,7 @@ const ExhibitionWrite = (props) => {
   const dispatch = useDispatch();
   const post_id = Number(props.match.params.exhibitionId)
   const edited_post = useSelector((state) => state.exhibition.exhibitionPostDetail)
+  
   useEffect(() => {
     if (!post_id) {
       return
@@ -52,16 +53,16 @@ const ExhibitionWrite = (props) => {
     
   };
 
+  // 자랑하기 등록
   const addExhibition = () => {
     if (title === '') {
-
       Swal.fire({
         icon: "warning",
         text: "제목을 입력해주세요.",
         confirmButtonColor: "#999cda",
       })
       return false;
-    }
+    } // 제목 작성을 하지 않으면 Alert
 
     if (contents === '') {
       Swal.fire({
@@ -70,7 +71,7 @@ const ExhibitionWrite = (props) => {
         confirmButtonColor: "#999cda",
       })
       return false;
-    }
+    } // 본문 작성을 하지 않으면 Alert
 
     const reqBody = `{'title':'${title}', 'contents':'${contents}'}`;
     let thumbnailFile = thumbnailRef.current.files[0];
@@ -81,13 +82,15 @@ const ExhibitionWrite = (props) => {
         confirmButtonColor: "#999cda",
       })
       return false
-    }
+    } // 썸네일 등록을 하지 않으면 Alert
+
     let formData = new FormData();
     formData.append("file", thumbnailFile);
-    formData.append("requestBody", reqBody);
-    dispatch(exhibitionActions.addExihibitionAPI(formData));
+    formData.append("requestBody", reqBody); //폼데이터로 엮어서
+    dispatch(exhibitionActions.addExihibitionAPI(formData)); // 서버로 보내기
   };
 
+  //자랑하기 수정시
   const editExhibition = () => {
     const reqBody = `{'title':'${title}', 'contents':'${contents}'}`;
     let thumbnailFile = thumbnailRef ? thumbnailRef.current.files[0] : null;
