@@ -4,14 +4,18 @@ import ExhibitionPost from "./ExhibitionPost";
 import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
+import NoData from "../../shared/NoData";
 
 const ExhibitionList = () => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
-
-  if (!exhibitionPosts) {
-    return <>Nodata</>;
+  if (exhibitionPosts.length === 0) {
+    return (
+      <>
+        <NoData />
+      </>
+    );
   }
   if (exihibitionLoading && history.location.pathname !== "/") {
     return (

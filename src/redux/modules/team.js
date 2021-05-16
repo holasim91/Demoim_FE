@@ -25,7 +25,7 @@ const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 const setDetailTeam = createAction(SET_DETAIL_TEAM, (teamInfo) => ({ teamInfo }));
 const setParticipationHistory = createAction(SET_PARTICIPATION_HISTORY, (participationList) => ({ participationList }));
 const setLeaderHistory = createAction(SET_LEADER_HISTORY, (leaderList) => ({ leaderList }));
-const deleteLeaderHistory = createAction(DELETE_LEADER_HISTORY, () => ({}));
+const deleteLeaderHistory = createAction(DELETE_LEADER_HISTORY, (teamId) => ({teamId}));
 
 const initialState = {
   list: [],
@@ -174,7 +174,7 @@ const deleteTeamMakingAPI = (teamId, move = 'team') => {
     }).then((res) => {
 
       dispatch(deleteTeam(teamId));
-      dispatch(deleteLeaderHistory());
+      dispatch(deleteLeaderHistory(teamId));
 
       if (move === 'team') {
         history.replace('/team');
@@ -406,7 +406,7 @@ export default handleActions(
       draft.teamLeaderList = action.payload.leaderList;
     }),
     [DELETE_LEADER_HISTORY]: (state, action) => produce(state, (draft) => {
-      draft.teamLeaderList = {};
+      draft.teamLeaderList = draft.teamLeaderList.filter((team) => team.teamId !== Number(action.payload.teamId));
     })
   }, initialState);
 

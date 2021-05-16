@@ -16,7 +16,7 @@ const TabTeamLeaderHistory = () => {
       <LeaderBox>
         {LeaderList?.length === 0 ? (<NoneProject><NoData src={Nodata}/></NoneProject>) : (
           LeaderList?.map((l) => {
-            return (<ParticipationProjectCard {...l} isLeader />)
+            return (<ParticipationProjectCard {...l} key={l.teamId}isLeader />)
           })
         )}
       </LeaderBox>
