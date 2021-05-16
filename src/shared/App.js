@@ -11,6 +11,7 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import ScrollTop from "./ScrollTop";
 import Error from "./Error";
+import Service from "../pages/Service";
 
 
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="/userpage/:userId" exact component={Userpage} />
             <Route path="/userEditpage" exact component={UserEditpage} />
             <Route path="/alarm/:userId" exact component={Alarm} />
+            <Route path="/service" exact component={Service} />
             <Route path="" component={Error} />
             </Switch>
           </ConnectedRouter>
