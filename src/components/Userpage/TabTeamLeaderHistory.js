@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { ParticipationProjectCard } from "../../components";
 import { useSelector } from 'react-redux';
+import Nodata from '../../images/nodata.svg';
 
 const TabTeamLeaderHistory = () => {
 
@@ -13,7 +14,7 @@ const TabTeamLeaderHistory = () => {
         <p><span>#</span>내가 리더인 프로젝트</p>
       </TitleBox>
       <LeaderBox>
-        {LeaderList?.length === 0 ? (<NoneProject>리더인 프로젝트가 없습니다.</NoneProject>) : (
+        {LeaderList?.length === 0 ? (<NoneProject><NoData src={Nodata}/></NoneProject>) : (
           LeaderList?.map((l) => {
             return (<ParticipationProjectCard {...l} isLeader />)
           })
@@ -79,4 +80,8 @@ const NoneProject = styled.p`
   margin:50px 20px;
   color:#7a7786;
 
+`;
+
+const NoData = styled.img`
+width:100%;
 `;
