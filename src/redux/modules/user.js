@@ -157,7 +157,12 @@ const editProfileAPI = (formData) => {
         history.push(`/userpage/${res.data.id}`);
       })
       .catch((err) => {
-        console.log("프로필수정err:", err);
+        console.log("포지션수정 에러:: " , err);
+        Swal.fire({
+          text: `${err.response.data.msg}`,
+          icon: 'warning',
+          confirmButtonColor: "#999cda",
+        })
       })
   }
 }
