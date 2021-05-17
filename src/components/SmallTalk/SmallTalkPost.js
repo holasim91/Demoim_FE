@@ -6,11 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
 import { ChangeTimeType } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
+import { history } from "../../redux/configStore";
+import Swal from "sweetalert2";
 
 const SmallTalkPost = (props) => {
   const dispatch = useDispatch();
   const { location } = props;
   const { contents, createdAt, user, smallTalkId, commentList } = props.data;
+  const {isLogin} = useSelector((state) => state.user);
+
   const [isOpen, setIsOpen] = useState(false); //댓글 창 토글
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const onClickToggle = () => {
@@ -45,7 +49,7 @@ const SmallTalkPost = (props) => {
             ) : (
               <ProfileImage alt="profile" src={DefaultProfile} />
             )}
-            <UserName>{user.nickname}</UserName>
+            <UserName >{user.nickname}</UserName>
           </HeaderLeft>
           <HeaderRight>
             <PostDate>{ChangeTimeType(createdAt)}</PostDate>
@@ -98,7 +102,16 @@ const SmallTalkPost = (props) => {
               />
             )}
             {user.nickname ? (
-              <UserName>{user.nickname}</UserName>
+              <UserName style={{cursor:'pointer'}} onClick={()=>{ 
+                isLogin ? (
+                  history.push(`/userpage/${user?.userId}`)
+                  ) : (
+                    Swal.fire({
+                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
+                      icon: 'warning',
+                      confirmButtonColor: "#999cda",
+                    })
+                    )}}>{user.nickname}</UserName>
             ) : (
               <UserName>닉네임 없음</UserName>
             )}

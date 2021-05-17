@@ -8,9 +8,9 @@ import SimfinityScroll from "../../shared/SimfinityScroll";
 
 const Exhibition = () => {
   const dispatch = useDispatch();
-  const {page, hasMorePosts} = useSelector((state) => state.exhibition);
+  const { page, hasMorePosts } = useSelector((state) => state.exhibition);
   useEffect(() => {
-    dispatch(exhibitionActions.getExihibitionAPI(1,6));
+    dispatch(exhibitionActions.getExihibitionAPI(1, 6));
   }, [dispatch]);
 
   return (
@@ -18,12 +18,13 @@ const Exhibition = () => {
       <SubMenus />
       <Container>
         <SimfinityScroll
-                  callNext={()=>dispatch(exhibitionActions.getNextExihibitionPostsAPI(page,6))}
-                  hasMorePosts={hasMorePosts}
-                  page={page}
-        
+          callNext={() =>
+            dispatch(exhibitionActions.getNextExihibitionPostsAPI(page, 6))
+          }
+          hasMorePosts={hasMorePosts}
+          page={page}
         >
-        <ExhibitionList />
+          <ExhibitionList />
         </SimfinityScroll>
       </Container>
     </>
