@@ -4,11 +4,14 @@ import styled from "styled-components";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
 import { ChangeTimeType } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
+import { history } from "../../redux/configStore";
+import Swal from "sweetalert2";
 
 const SmallTalkCommentPost = (props) => {
   const dispatch = useDispatch();
   const { post_id } = props;
   const { comments, user, createdAt, commentId } = props.data;
+  const {isLogin} = useSelector((state) => state.user);
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
   const onUpdateTextArea = (e) => {
@@ -39,7 +42,16 @@ const SmallTalkCommentPost = (props) => {
             src={user.profileImage ? user.profileImage : DefaultProfile}
           />
 
-          <UserName>{user.nickname}</UserName>
+          <UserName onClick={()=>{ 
+                isLogin ? (
+                  history.push(`/userpage/${user?.userId}`)
+                  ) : (
+                    Swal.fire({
+                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
+                      icon: 'warning',
+                      confirmButtonColor: "#999cda",
+                    })
+                    )}}>{user.nickname}</UserName>
         </HeaderLeft>
         <HeaderRight>
           <PostDate>{ChangeTimeType(createdAt)}</PostDate>
@@ -159,6 +171,7 @@ const ProfileImage = styled.img`
 `;
 const UserName = styled.div`
   padding-left: 10px;
+  cursor: pointer;
 `;
 
 const HeaderLeft = styled.div`

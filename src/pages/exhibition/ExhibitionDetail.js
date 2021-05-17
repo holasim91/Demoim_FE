@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { ExhibitionComment } from "../../components";
@@ -11,14 +11,16 @@ import Spinner from "../../shared/Spinner";
 import ExhibitionCommentWrite from "../../components/Exhibition/ExhibitionCommentWrite";
 import { ChangeTimeType } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
+import Swal from "sweetalert2";
 
 const ExhibitionDetail = (props) => {
   const dispatch = useDispatch();
   const id = Number(props.match.params.exhibitionId);
+  const {isLogin} = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(exhibitionActions.getOneExihibitionAPI(id));
-  }, []);
+  }, [dispatch, id]);
   const currentUser = useSelector((state) => state.user.user);
   const post = useSelector((state) => state.exhibition.exhibitionPostDetail);
   const comments = useSelector(
@@ -55,7 +57,16 @@ const ExhibitionDetail = (props) => {
               <ProfileImage alt="profile" src={DefaultProfile} />
             )}
             <TextBlock>
-              <UserName>{post?.user?.nickname} 님</UserName>
+              <UserName onClick={()=>{ 
+                isLogin ? (
+                  history.push(`/userpage/${post.user?.userId}`)
+                  ) : (
+                    Swal.fire({
+                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
+                      icon: 'warning',
+                      confirmButtonColor: "#999cda",
+                    })
+                    )}}>{post?.user?.nickname} 님</UserName>
               <PostDate>{ChangeTimeType(post?.createAt)}</PostDate>
             </TextBlock>
           </UserInfo>
@@ -140,6 +151,7 @@ const TextBlock = styled.div`
 `;
 const UserName = styled.div`
   padding-bottom: 5px;
+  cursor:pointer;
 `;
 const PostDate = styled.div`
   color: #7a7786;

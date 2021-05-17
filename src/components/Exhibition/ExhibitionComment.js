@@ -4,10 +4,14 @@ import styled from "styled-components";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
 import { ChangeTimeType } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
+import Swal from "sweetalert2";
+import { history } from "../../redux/configStore";
 
 const ExhibitionComment = (props) => {
   const { post_id } = props;
   const { commentId, comments, user, createdAt } = props.comment;
+  const {isLogin} = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
@@ -40,7 +44,16 @@ const ExhibitionComment = (props) => {
           <ProfileImage alt="profile" src={DefaultProfile} />
         )}
         <TextBlock>
-          <UserName>{user.nickname}</UserName>
+          <UserName onClick={()=>{ 
+                isLogin ? (
+                  history.push(`/userpage/${user?.userId}`)
+                  ) : (
+                    Swal.fire({
+                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
+                      icon: 'warning',
+                      confirmButtonColor: "#999cda",
+                    })
+                    )}}>{user.nickname}</UserName>
           <PostDate>{ChangeTimeType(createdAt)}</PostDate>
         </TextBlock>
       </CommentHeader>
@@ -162,6 +175,7 @@ const TextBlock = styled.div`
 `;
 const UserName = styled.div`
   padding-bottom: 5px;
+  cursor: pointer;
 `;
 const PostDate = styled.div`
   color: #7a7786;
