@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SimfinityScroll from "../shared/SimfinityScroll";
 import SmallTalkInfo from "../components/SmallTalk/SmallTalkInfo";
 
-const SmallTalk = (props) => {
+const SmallTalk = () => {
   const dispatch = useDispatch();
   const { page, hasMorePosts } = useSelector((state) => state.smalltalk);
 

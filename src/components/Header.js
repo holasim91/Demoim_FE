@@ -8,10 +8,8 @@ import { AiOutlineBell } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
 import { actionCreators as alarmAction } from "../redux/modules/alarm";
-import { history } from "../redux/configStore";
-import { times } from 'lodash';
 
-const Header = (props) => {
+const Header = () => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
   const userCheck = useSelector((state) => state.user.user);
@@ -51,28 +49,28 @@ const Header = (props) => {
             </Logo>
           </NavLink>
           <NavMenu className={isLogin ? "addUserLog" : ""}>
-            <NavLink to='/service'>
+            <NavLink to='/service' className='service'>
               서비스소개
             </NavLink>
-            <NavLink to='/team'>
+            <NavLink to='/team' className='team'>
               팀 메이킹
             </NavLink>
-            <PcDetalkBox>
-              <NavLink to='/exhibition' >
+            <PcDetalkBox className='detalkBox'>
+              <NavLink to='/exhibition' className='detalk' >
                 De Talk
             </NavLink>
             </PcDetalkBox>
             {isLogin ?
-              (<NavLink to={`/userpage/${userCheck?.id}`}> 나의 로그 </NavLink>)
+              (<NavLink to={`/userpage/${userCheck?.id}`} className='user'> 나의 로그 </NavLink>)
               : ""}
           </NavMenu>
           {isLogin ? (
             <UserMenu>
               <NoneActiveLink to={`/alarm/${userCheck?.id}`}>
-                {alarmCnt == 0 ? "":(<NewBell/>) }
+                {alarmCnt === 0 ? "":(<NewBell/>) }
                 <BellWraper>
                   <Bell/>
-                  {alarmCnt == 0 ? "":(
+                  {alarmCnt === 0 ? "":(
                     <Tooltip className="tooltip"> 
                       {alarmCnt} 개의 <br/> 새로운 알람이 있습니다.
                     </Tooltip>
@@ -102,13 +100,13 @@ const Header = (props) => {
               <span>De</span>moim
             </Logo>
             <Line />
-            <NoneActiveLink to='/service' onClick={closeBar}>
+            <NoneActiveLink to='/service'className='service' onClick={closeBar}>
               서비스소개
             </NoneActiveLink>
-            <NoneActiveLink to='/team' onClick={closeBar}>
+            <NoneActiveLink to='/team' className='team' onClick={closeBar}>
               팀 메이킹
             </NoneActiveLink>
-            <NoneActiveLink to='/exhibition' onClick={closeBar}>
+            <NoneActiveLink to='/exhibition' className='detalk' onClick={closeBar}>
               De Talk
             </NoneActiveLink>
             {isLogin ?
@@ -119,9 +117,9 @@ const Header = (props) => {
               <MobileUserMenu>
                 <NoneActiveLink to={`/alarm/${userCheck?.id}`} className='userMenu' onClick={closeBar}>
                   <BellWraper>
-                    {alarmCnt == 0 ? "":(<NewBell/>) }
+                    {alarmCnt === 0 ? "":(<NewBell/>) }
                     <Bell/>
-                    {alarmCnt == 0 ? "":(
+                    {alarmCnt === 0 ? "":(
                       <Tooltip className="tooltip"> 
                         {alarmCnt} 개의 <br/> 새로운 알람이 있습니다.
                       </Tooltip>
@@ -212,12 +210,12 @@ const LinkStyle = css`
 const NavLink = styled(Link)`
   ${LinkStyle}
 
-  &.active{
-    color: ${props => props.theme.main_color};
+  &.active {
+    color: ${(props) => props.theme.main_color};
   }
 
-  @media ${props => props.theme.mobile}{
-    &:hover{
+  @media ${(props) => props.theme.mobile} {
+    &:hover {
       text-decoration: none;
     }
   }
