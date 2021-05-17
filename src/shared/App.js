@@ -2,7 +2,7 @@ import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { history } from "../redux/configStore";
-import { Exhibition, ExhibitionDetail, ExhibitionWrite, Main, TeamAllList, Signup, Login, TeamDetail, TeamWrite, TeamEdit, SmallTalk, Userpage, UserEditpage, Alarm } from "../pages";
+import { Exhibition, ExhibitionDetail, ExhibitionWrite, Main, TeamAllList, Signup, Login, TeamDetail, TeamWrite, TeamEdit, SmallTalk, Userpage, UserEditpage, Alarm, Service } from "../pages";
 import { Header, Footer } from "../components";
 
 import styled from "styled-components";
@@ -11,7 +11,6 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import ScrollTop from "./ScrollTop";
 import Error from "./Error";
-import Service from "../pages/Service";
 
 
 
@@ -25,7 +24,7 @@ function App() {
     if (token) {
       dispatch(userAction.loginCheckAPI());
     }
-  }, []);
+  }, [dispatch, token]);
 
   return (
     <>
