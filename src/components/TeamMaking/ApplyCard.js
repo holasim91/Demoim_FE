@@ -3,10 +3,16 @@ import styled, { css } from "styled-components";
 import { Image } from "./../../elements";
 import { useMediaQuery } from "react-responsive";
 import { history } from "../../redux/configStore";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as applyActions } from "../../redux/modules/apply";
 import DefaultProfile from "../../images/def_profile.svg";
+import Swal from 'sweetalert2';
+import { actionCreators as userAction } from "../../redux/modules/user";
+
 const ApplyCard = (props) => {
+
+
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const isMobile = useMediaQuery({
     query: "(max-width:768px)"
@@ -31,7 +37,7 @@ const ApplyCard = (props) => {
             <Image size="45" src={(props.responseUser.profileImage) ? props.responseUser.profileImage : DefaultProfile} />
 
             <UserInfo>
-              <InfoText className="user">
+              <InfoText className="user" >
                 {props.responseUser?.nickname}<Position>{props.responseUser?.position}</Position>
               </InfoText>
               <InfoText className="desc">
@@ -66,7 +72,7 @@ const ApplyCard = (props) => {
           <InfoBox>
             <UserInfoBpx>
               <InfoText className="user" onClick={() => {
-                history.push(`/userpage/${props.responseUser?.userid}`);
+                history.push(`/userpage/${props.responseUser?.userId}`);
               }}>
                 {props.responseUser?.nickname}
               </InfoText>

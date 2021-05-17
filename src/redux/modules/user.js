@@ -178,7 +178,6 @@ const TabSmallTalkAPI = (otherId = null) => {
     let API;
     if (otherId === null) {
       API = 'http://54.180.142.197/api/mypage/smalltalk'
-
     } else {
       API = `http://54.180.142.197/api/mypage/smalltalk?user_id=${otherId}`
     }

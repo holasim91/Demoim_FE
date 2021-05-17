@@ -3,7 +3,12 @@ import styled from "styled-components";
 import { TabTeamApplyHistory, TabTeamLeaderHistory, TabTeamParticipateHistory } from "../../components";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { useDispatch } from 'react-redux';
-const DoubleTabMenu = () => {
+
+
+const DoubleTabMenu = (props) => {
+
+  const {is_me, otherId} = props;
+  console.log("더블탭메뉴 ::", is_me, otherId);
 
   //프로젝트히스토리-Double Tab Menu 
   const [active, setActive] = useState(0)
@@ -19,18 +24,29 @@ const DoubleTabMenu = () => {
 
     //isMe로 한번 더 나눠주기.
     if (active === 0) {
-      //로그인한 유저의 지원한 팀프로젝트 목록 리스트 가져오기.
+      if(is_me){
+        //로그인한 유저의 지원한 팀프로젝트 목록 리스트 가져오기.
       console.log('active:: 0, 로그인한 유저의 지원 프로젝트 목록을 가져옵니다.')
       dispatch(teamActions.getUserApplyListAPI());
+      }else{
+        dispatch(teamActions.getUserApplyListAPI(otherId));
+      }
 
     } else if (active === 1) {
-
+      if(is_me){
       console.log('active:: 1, 로그인한 유저의 참여중인 프로젝트 목록을 가져옵니다.')
       dispatch(teamActions.getUserParticipateListAPI());
+      }else{
+        dispatch(teamActions.getUserParticipateListAPI(otherId));
+      }
+      
     } else {
-      //2 일때 ...
+      if(is_me){
       console.log('active:: 2, 로그인한 유저가 리더인 프로젝트 목록을 가져옵니다.')
       dispatch(teamActions.getUserLeaderListAPI());
+      }else{
+        dispatch(teamActions.getUserLeaderListAPI(otherId));
+      }
     }
 
   }, [active]);
