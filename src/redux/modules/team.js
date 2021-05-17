@@ -275,13 +275,20 @@ const getPlannerTeamMaking = (page, size) => {
   }
 }
 
-//로그인한 유저가 지원한 팀프로젝트 목록 리스트
-const getUserApplyListAPI = () => {
+//유저가 지원한 팀프로젝트 목록 리스트
+const getUserApplyListAPI = ( otherId = null) => {
   return function (dispatch, getState, { history }) {
+
+    let API;
+    if(otherId === null){
+      API = `${config.api}/api/mypage/apply`
+    }else{
+      API = `${config.api}/api/mypage/apply?user_id=${otherId}`
+    }
 
     axios({
       method: 'get',
-      url: `${config.api}/api/mypage/apply`,
+      url: API,
     }).then((res) => {
 
       dispatch(setTeam(res.data));
@@ -292,16 +299,21 @@ const getUserApplyListAPI = () => {
   }
 }
 
-//로그인한 유저가 참여한 팀프로젝트 목록 리스트 (객체로 전달옴)
-const getUserParticipateListAPI = () => {
+//유저가 참여한 팀프로젝트 목록 리스트 (객체로 전달옴)
+const getUserParticipateListAPI = (otherId = null) => {
   return function (dispatch, getState, { history }) {
 
+    let API;
+    if(otherId === null){
+      API = `${config.api}/api/mypage/team`
+    }else{
+      API = `${config.api}/api/mypage/team?user_id=${otherId}`
+    }
     axios({
       method: 'get',
-      url: `${config.api}/api/mypage/team`,
+      url:API,
     }).then((res) => {
-
-      console.log('팀메이킹 로그인 유저 참여 프로젝트 목록::', res);
+      console.log('팀메이킹 프로필의 유저가 참여 프로젝트 목록::', res);
 
 
       let myTeamHistory = {
@@ -311,21 +323,26 @@ const getUserParticipateListAPI = () => {
       dispatch(setParticipationHistory(myTeamHistory));
 
     }).catch((err) => {
-      console.log('마이페이지 로그인 유저 참여 프로젝트 조회 에러:', err);
+      console.log('마이페이지 프로필의 유저 참여 프로젝트 조회 에러:', err);
     })
 
   }
 }
 
-//로그인한 유저가 리더인 팀프로젝트 목록 리스트(객체로 전달옴)
-const getUserLeaderListAPI = () => {
+//유저가 리더인 팀프로젝트 목록 리스트(객체로 전달옴)
+const getUserLeaderListAPI = (otherId = null) => {
   return function (dispatch, getState, { history }) {
-
+    
+    let API;
+    if(otherId === null){
+      API=`${config.api}/api/mypage/leader`
+    }else{
+      API=`${config.api}/api/mypage/leader?user_id=${otherId}`
+    }
     axios({
       method: 'get',
-      url: `${config.api}/api/mypage/leader`,
+      url: API,
     }).then((res) => {
-
       dispatch(setLeaderHistory(res.data));
 
     }).catch((err) => {

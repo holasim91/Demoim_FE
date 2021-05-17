@@ -21,6 +21,7 @@ const TeamDetail = (props) => {
   const id = props.match.params.teamId;
   const team = useSelector((state) => state.team.teamInfo);
   const user = useSelector((state) => state.user.user);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   //모달
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -138,7 +139,7 @@ const TeamDetail = (props) => {
                 </ImageBox>
                 <LeaderInfo>
                   {isMobile ? (<React.Fragment>
-                    <LeaderInfoText className="nickname">
+                    <LeaderInfoText  className="nickname">
                       {team?.leader?.nickname}
                     </LeaderInfoText>
                     <LeaderInfoText className="position">
@@ -148,7 +149,16 @@ const TeamDetail = (props) => {
                     </LeaderInfoText>
                   </React.Fragment>) : (
                     <LeaderInfoTop>
-                      <LeaderInfoText className="nickname">
+                      <LeaderInfoText onClick={()=>{ 
+                        isLogin ? (
+                          history.push(`/userpage/${team?.leader?.id}`)
+                          ) : (
+                            Swal.fire({
+                              text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
+                              icon: 'warning',
+                              confirmButtonColor: "#999cda",
+                            })
+                            )}} className="nickname">
                         {team?.leader?.nickname}
                       </LeaderInfoText>
                       <LeaderInfoText className="position">
