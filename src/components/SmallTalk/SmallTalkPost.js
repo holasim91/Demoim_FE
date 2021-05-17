@@ -327,6 +327,9 @@ const PostContents = styled.textarea`
   border: none;
   background-color:#f1f1f1;
   width: 70%;
+  :focus {
+  outline: none;
+}
   @media (max-width: 375px) {
     font-size: 12px;
     padding-left: 40px;

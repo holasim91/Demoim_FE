@@ -339,7 +339,7 @@ const Signup = (props) => {
                         </tr> */}
                             </tbody>
                         </SignupTable>
-                        <SignupBtn onClick={signUp}>회원가입하기</SignupBtn>
+                        <SignupBtn onClick={signUp} tabIndex="0">회원가입하기</SignupBtn>
                     </SignupForm>
                 </SignupContainer>
             </Container>

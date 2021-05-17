@@ -11,5 +11,5 @@ import SmallTalk from "./SmallTalk";
 import Userpage from "../pages/userpage/Userpage";
 import UserEditpage from "./userpage/UserEditpage";
 import Alarm from "../pages/Alarm";
-
-export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Userpage, UserEditpage, TeamEdit, Alarm };
+import Service from "./Service"
+export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Userpage, UserEditpage, TeamEdit, Alarm, Service };
