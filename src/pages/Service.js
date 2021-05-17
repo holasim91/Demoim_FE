@@ -4,6 +4,12 @@ import { Container } from "../elements";
 import { history } from "../redux/configStore";
 import { useMediaQuery } from "react-responsive";
 import Team from "../images/team.svg";
+import De_icon from "../images/de_icon.svg";
+import Planner_icon from "../images/planner_icon.svg";
+import Teamwork from "../images/teamwork.svg";
+import Project_img01 from "../images/project_img01.png"
+import Project_img02 from "../images/project_img02.png"
+import Project_img03 from "../images/project_img03.png"
 
 const Service = () => {
 
@@ -126,41 +132,35 @@ const Service = () => {
         <div style={{margin:'40px'}}></div>
         <ListBox>
             <div style={{textAlign: 'center', margin:'0 30px 10px 50px', width:'20%'}}>
-              <ImgCircle> 
-                <BannerImg src={'https://dthezntil550i.cloudfront.net/9v/latest/9v1701081850300440001178581/1280_960/824911da-dc38-4ebf-9df5-74834485867d.png'} />
-              </ImgCircle>
+              <ImgCircle src={Teamwork}/>
             </div>
-            <div style={{textAlign: 'left', margin:'0', width:'70%'}}>
-              <DescText>
+            <div style={{lineHeight: '30px', marginTop:'30px'}}>
+                <div>
                 <Big>팀 프로젝트를 경험해보고 싶은 사람</Big>
-              </DescText>
+                </div>
             </div>
         </ListBox>
         <ListBox>
             <div style={{textAlign: 'center', margin:'0 30px 10px 50px', width:'20%'}}>
-              <ImgCircle> 
-                <BannerImg src={'https://blog.kakaocdn.net/dn/bezjux/btqCX8fuOPX/6uq138en4osoKRq9rtbEG0/img.jpg'} />
-              </ImgCircle>
+              <ImgCircle src={De_icon} /> 
             </div>
-            <div style={{textAlign: 'left', margin:'0', width:'70%'}}>
-              <DescText>
-                <Big>
-                  포트폴리오를 향상시키고 싶은 <br/>
-                  예비 개발자 & 예비 디자이너
-                </Big>
-              </DescText>
+            <div style={{lineHeight: '30px', marginTop:'20px'}}>
+                <div>
+                  <Big>
+                    포트폴리오를 향상시키고 싶은 <br/>
+                    예비 개발자 & 예비 디자이너
+                  </Big>
+                </div>
             </div>
         </ListBox>
         <ListBox>
             <div style={{textAlign: 'center', margin:'0 30px 10px 50px', width:'20%'}}>
-              <ImgCircle> 
-                <BannerImg src={'https://t1.kakaocdn.net/blockadmin/web/web2app/images/img_con_w2a.png'} />
-              </ImgCircle>
+              <ImgCircle src={Planner_icon}/> 
             </div>
-            <div style={{textAlign: 'left', margin:'0', width:'70%'}}>
-              <DescText>
+            <div style={{lineHeight: '30px', marginTop:'35px'}}>
+                <div>
                 <Big>예비 기획자들까지도 모두 환영!</Big>
-              </DescText>
+                </div>
             </div>
         </ListBox>
         <MarginBox/>
@@ -169,20 +169,68 @@ const Service = () => {
   
       <BannerBox>
         <Inner>
-          <PurpleRadiusBox>
-                  Demoim은 이런 분들에게 적합해요!
-          </PurpleRadiusBox>
+          <PurpleRadiusToolTip>
+                  Demoim 100% 활용법
+          </PurpleRadiusToolTip>
+          <MarginBox/>
+          <div style={{width:"65%", display:'flex', margin:'auto', justifyContent:'center', gap:'20px'}}>
+            <div style={{width:"35%"}} >
+              <div  style={{fontSize:'30px', fontWeight:'300', width:'250px', margin:'auto', textAlign:'left'}}>
+                ONE
+              </div>
+              <div style={{margin:'50px 2% 0 30%', letterSpacing:'1.3px', lineHeight:'20px', textAlign:'center', width:'200px'}}>
+                <B>프로젝트를 만들어</B>
+                <p style={{backgroundColor:'#999cda', color:'white', width:'134px', textAlign:'center', margin:'4px auto', padding:'2px', fontWeight:'500'}}>
+                  팀원을 모집해보고</p>
+              </div>
+            </div>
+            <div style={{}} >
+              <img style={{width:"300px"}} src = {Project_img01}/>
+            </div>
+          </div>
+        </Inner>
+      </BannerBox>
+      <BannerBox>
+      <Inner>
+          <MarginBox/>
+          <MarginBox/>
+          <div style={{width:"65%", display:'flex', margin:'auto', justifyContent:'center', gap:'20px'}}>
+            <div style={{}} >
+              <img style={{width:"300px"}} src = {Project_img02}/>
+            </div>
+            <div style={{width:"35%"}} >
+              <div  style={{fontSize:'30px', fontWeight:'300', width:'120px', margin:'0 0 0 50%', textAlign:'center'}}>
+                TWO
+              </div>
+              <div style={{margin:'50px 0 0 0', letterSpacing:'1.3px', lineHeight:'20px', textAlign:'center', width:'200px'}}>
+                <p style={{backgroundColor:'#999cda', color:'white', width:'90px', margin:'50px 0 0 50%', padding:'2px', fontWeight:'500'}}>
+                  팀원도 되어
+                </p>
+                <B>협업의 경험을 쌓아보세요</B>
+              </div>
+            </div>
+          </div>
         </Inner>
       </BannerBox>
       <BannerBox>
         <Inner>
-          
-        </Inner>
-      </BannerBox>
-      <BannerBox>
-        <Inner>
-          
-        </Inner>
+            <MarginBox/>
+            <div style={{width:"65%", display:'flex', margin:'auto', justifyContent:'center', gap:'80px'}}>
+              <div style={{width:"35%"}} >
+                <div  style={{fontSize:'30px', fontWeight:'300', width:'250px', margin:'auto', textAlign:'left'}}>
+                  THREE
+                </div>
+                <div style={{margin:'50px 15% 0 30%', letterSpacing:'1.3px', lineHeight:'20px', textAlign:'left', width:'200px'}}>
+                  <B>팀 프로젝트 공유를 통해</B>
+                  <p style={{backgroundColor:'#999cda', color:'white', width:'240px', textAlign:'center', margin:'4px auto', padding:'2px', fontWeight:'500'}}>
+                    타 유저들과 소통하는 재미까지!</p>
+                </div>
+              </div>
+              <div style={{}} >
+                <img style={{width:"300px"}} src = {Project_img03}/>
+              </div>
+            </div>
+          </Inner>
       </BannerBox>
       <BlueBox>
         <div style={{
@@ -214,6 +262,18 @@ const PurpleRadiusBox = styled.div`
   color: white;
   font-weight: 550;
   border-radius:20px;
+`;
+
+const PurpleRadiusToolTip = styled.div`
+  position: relative;
+  padding: 10px;
+  top: -18px;
+  background-color: #999cda;
+  width:220px;
+  margin: auto;
+  color: white;
+  font-weight: 550;
+  border-radius:20px;
   &:after {
     content: '';
     position: absolute;
@@ -224,7 +284,7 @@ const PurpleRadiusBox = styled.div`
     display: block;
     z-index: 1;
     top: 35px;
-    left: 180px;
+    left: 115px;
     }
 `;
 
@@ -234,12 +294,12 @@ const ListBox = styled.div`
   margin: 10px auto;
 `;
 
-const ImgCircle = styled.div`
-  width:90px;
-  height:90px;
+const ImgCircle = styled.img`
+  width:100px;
+  height:100px;
   border-radius: 100%;
   overflow: hidden;
-  box-shadow: 6px 10px 9px -6px dimgrey;
+ 
 `;
 
 const MarginBox = styled.div`
@@ -302,9 +362,9 @@ const TitleText = styled.p`
 
 const DescText = styled.p`
    margin-top: 30px;
-   font-size: 1.1em;
+   font-size: 1.2em;
    letter-spacing: -0.5px;
-   line-height: 1.8em;
+   line-height: 1.3em;
 
    @media ${props => props.theme.tablet}{
       font-size:1.36vw;
@@ -322,7 +382,7 @@ const B = styled.b`
 `;
 
 const Big = styled.b`
-  font-size:1.3em;
+  font-size:1.1em;
   font-weight:500;
 `;
 
