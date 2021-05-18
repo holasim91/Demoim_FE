@@ -77,7 +77,7 @@ const ExhibitionComment = (props) => {
               취소
             </div>
           </EditingToggle>
-        ) : user.userId === currentUser?.user.id ? (
+        ) : user.userId === currentUser?.user?.id ? (
           <EditToggle>
             <div className="editComment" onClick={onToggleEdit}>
               수정하기

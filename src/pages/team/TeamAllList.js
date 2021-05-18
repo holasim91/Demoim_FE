@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { TeamList } from "../../components";
 import { Container } from "../../elements";
@@ -15,24 +15,27 @@ const TeamAllList = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const {page, hasMorePosts} = useSelector((state) => state.team);
-
+  const [test, setTest] = useState(1)
+  console.log('before Effect', test)
   React.useEffect(() => {
+    console.log('component Mount!')
+    console.log(test === 1 ? 'test is 1' : 'not working')
     dispatch(teamActions.getTeamMakingAPI(1, 9));
     if (user) {
       dispatch(userAction.loginCheckAPI());
     }
   }, []);
-
+  const categories = ['전체보기','프론트엔드','백엔드','디자이너','기획자']
   const showCategory = (e) => {
     if (e.target.value === "전체보기") {
       dispatch(teamActions.getTeamMakingAPI(1, 9));
-    } else if (e.target.value === "프론트엔드") {
+    } else if (e.target.value ===categories[1]) {
       dispatch(teamActions.getFrontTeamMaking(1, 9));
     } else if (e.target.value === "백엔드") {
       dispatch(teamActions.getBackTeamMaking(1, 9));
     } else if (e.target.value === "디자이너") {
       dispatch(teamActions.getDesignerTeamMaking(1, 9));
-    } else if (e.target.value === "기획자") {
+    } else if (e.target.value === categories[4]) {
       dispatch(teamActions.getPlannerTeamMaking(1, 9));
     }
   };
