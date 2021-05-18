@@ -80,7 +80,7 @@ const loginAPI = (email, pw) => {
           text: "Welcome Mate!",
           confirmButtonColor: " #999cda",
         })
-        history.push('/');
+        history.replace('/');
       })
       .catch((err) => {
         Swal.fire({

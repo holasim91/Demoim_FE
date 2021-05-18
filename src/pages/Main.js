@@ -6,14 +6,20 @@ import { TeamList } from "../components";
 import { history } from "../redux/configStore";
 import { useMediaQuery } from "react-responsive";
 import { actionCreators as teamActions } from "../redux/modules/team";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 import { actionCreators as exhibitionActions } from "../redux/modules/exhibition";
 import MySmallTalkList from "../components/SmallTalk/MySmallTalkList";
 import MyExhibitionList from "../components/Exhibition/MyExhibitionList";
-const Main = () => {
+import Feedback from "../images/feedback.svg";
+import Swal from "sweetalert2";
 
+const Main = () => {
    const dispatch = useDispatch();
+   
+   const isLogin = useSelector((state) => state.user.isLogin);
+   const formURL = "https://forms.gle/rKQJvfFboYBSq7Ah6"
+
    React.useEffect(() => {
       dispatch(teamActions.getTeamMakingAPI(1, 6));
       dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
@@ -133,12 +139,68 @@ const Main = () => {
                </DetalkTitleBox>
                <MySmallTalkList />
             </DetalkBox>
+            <FeedbackBtn>
+            {isLogin ? (
+                  <Atag href={formURL} target="#" rel="noreferrer noopener">
+                     <FeedbackFormImg src={Feedback}/>
+                  </Atag>
+            ) : (
+               <FeedbackFormImg 
+               onClick={() => {
+                  Swal.fire({
+                     text: '로그인 후 작성 부탁드립니다',
+                     icon: 'warning',
+                     confirmButtonColor: "#999cda",
+                     footer: '<a href=http://localhost:3000/login>로그인하러 가기👏🏻</a>',
+                  })
+               }}src={Feedback}/>)}
+            </FeedbackBtn>
          </Container>
       </React.Fragment>
    )
 }
 
 export default Main
+
+
+//피드백버튼
+const FeedbackBtn = styled.button`
+   position:fixed;
+   right:40px;
+   bottom:30px;
+   width:100px;
+   height:100px;
+   outline:none;
+   border:none;
+   /* border: 1px solid #683fee; */
+   background-color:transparent;
+   margin:2px;
+   cursor:pointer;
+   @media ${props => props.theme.tablet}{
+      right:30px;
+      bottom:20px;
+   }
+   @media ${props => props.theme.mobile}{
+      right:10px;
+      bottom:10px;
+   }
+   @media (max-width: 420px){
+      right:10px;
+      bottom:10px;
+      width:90px;
+      height:90px;
+   }
+`;
+
+const Atag= styled.a`
+   text-decoration:none;
+
+`;
+
+const FeedbackFormImg = styled.img`
+   width:100%;
+
+`;
 
 
 //배너 영역
@@ -442,3 +504,4 @@ const TitleInnerBox = styled.div`
    display: flex;
    justify-content: space-between;
 `;
+
