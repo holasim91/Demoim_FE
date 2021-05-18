@@ -496,7 +496,7 @@ const GrayBox = styled.div`
 
 const BlueBox = styled.div`
   background-color: #ebf2ff;  
-  width: 100vw;
+  width: 100%;
   height:auto;
   margin: 60px auto 100px ;
 `;
@@ -893,7 +893,7 @@ const FooterBox = styled.div`
   background-color:#ebf2ff;
   height:130px;
   padding:10px;
-  line-height:110px;
+  line-height:130px;
   margin:0 0 -100px;
 `;
 
@@ -901,8 +901,9 @@ const FooterBox = styled.div`
 const Btn = styled.button`
   margin:50px; 
   border:none;
-  width:150px; 
+  width:160px; 
   height:40px;
+  line-height:10px;
   padding:10px;
   background-color:white;
   border-radius:25px
