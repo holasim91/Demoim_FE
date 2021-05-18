@@ -30,14 +30,14 @@ const Service = () => {
                   <MarginMinusBox >
                     <Inner>
                       <M>서비스 소개</M>
-                      <DescText>
+                      <DescDiv>
                         <Summary>
-                          Demoim은 <Br/> <B>예비 개발자/디자이너/기획자</B>가 팀원을 모아
+                          Demoim은 <B>예비 개발자/디자이너/기획자</B>가 팀원을 모아
                         </Summary>
                         <Summary right>
-                        자신의 경험을 쌓아 나갈 수 있는<Br/> <B>팀 빌딩 플랫폼</B>입니다.
+                        자신의 경험을 쌓아 나갈 수 있는<B> 팀 빌딩 플랫폼</B>입니다.
                         </Summary>
-                      </DescText>
+                      </DescDiv>
                     </Inner>
                   </MarginMinusBox>
                 </BannerInner>
@@ -110,7 +110,7 @@ const Service = () => {
                       <P mobile2>
                         <StrongSpan>Now</StrongSpan> 
                       </P>
-                      <MSpan>에서는 지금 당장 시작 가능합니다.</MSpan>
+                      <MSpan> Demoim 에서는  지금 당장 시작 가능합니다.</MSpan>
                     </Miv>
                   
                     <div style={{margin:'25px'}}></div>
@@ -118,7 +118,7 @@ const Service = () => {
                       <P mobile2>
                         <StrongSpan>Free</StrongSpan>
                       </P>
-                      <MSpan> 비용없이 팀 프로젝트를 경험<Br/>할 수 있습니다.</MSpan>
+                      <MSpan>  비용없이 팀 프로젝트를 경험할 수 있습니다.</MSpan>
                     </Miv>
                   
               </Inner>
@@ -331,6 +331,9 @@ const ListBox = styled.div`
     width: 100%;
     margin: -20px;
     line-height:20px;
+    display: flex;
+    justify-content: center;
+    gap:20px;
   }
 `;
 
@@ -393,6 +396,23 @@ const Inner = styled.div`
     }
 `;
 
+const DescDiv = styled.div`
+margin-top: 30px;
+font-size: 20px;
+letter-spacing: -0.5px;
+line-height: 1.3em;
+ span{
+   background-color: #f2f5fa;
+ }
+@media ${props => props.theme.tablet}{
+   widht: 300px;
+}
+@media ${props => props.theme.mobile}{
+   width:100%;
+   font-size:18px;
+   margin: auto;
+}
+`;
 
 const DescText = styled.p`
    margin-top: 30px;
@@ -444,18 +464,32 @@ const M = styled.b`
 `;
 
 const Miv = styled.div`
+text-align:left;
+    display: flex;
+    justify-content: center;
+    width:100%
+    margin:auto;
+    gap: 10px;  
+  
   @media ${props => props.theme.mobile}{
     text-align:left;
     display: flex;
-    width:330px;
+    justify-content: center;
+    width:100%
     margin:auto;
+    gap: 10px;
+    &nbsp{
+      none;
+    }
  }
 `;
 
 const MSpan = styled.span`
+margin: 5px 0 0 20px; 
   @media ${props => props.theme.mobile}{
     text-align:left;
-    margin: 5px 0 0 20px;
+    margin: 5px 0 0 10px;
+    width:50%;
   }
 `;
 
@@ -571,7 +605,7 @@ const MobileMargin=styled.div`
 
 
 
-const Summary = styled.div`
+const Summary = styled.p`
   text-align:left;
   width:105%;
   margin: 0 13px;
@@ -666,6 +700,11 @@ const WhoDesc = styled.div`
   text-align: center;
   margin:0 30px 10px 50px;
   width:20%;
+  @media ${props => props.theme.mobile}{
+    text-align: left;
+    margin:0;
+    width:90px;
+    }
 `;
 
 const WhoDescLine = styled.div`
@@ -688,6 +727,7 @@ const WhoDescLine = styled.div`
   `}
   @media ${props => props.theme.mobile}{
     margin-top:30px;
+    width: 30%;
  }
 `;
 
@@ -895,6 +935,11 @@ const FooterBox = styled.div`
   padding:10px;
   line-height:110px;
   margin:0 0 -100px;
+  @media ${props => props.theme.mobile}{
+    height:150px;
+    position: relative;
+    
+  } 
 `;
 
 
@@ -905,5 +950,11 @@ const Btn = styled.button`
   height:40px;
   padding:10px;
   background-color:white;
-  border-radius:25px
+  border-radius:25px;
+  @media ${props => props.theme.mobile}{
+    position: absolute;
+    top: 100px;
+    right: 115px;
+    margin: 0; 
+  } 
 `;
