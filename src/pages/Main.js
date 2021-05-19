@@ -62,7 +62,7 @@ const Main = () => {
                            </DescText>
                         </React.Fragment>)}
                         <ServiceBtn onClick={() => history.push('/service')}>
-                           프로젝트 시작하기
+                           더 알아보기
                         </ServiceBtn>
                      </MentBox>
                      <ImgBox>

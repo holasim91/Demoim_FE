@@ -26,9 +26,12 @@ const Header = () => {
     dispatch(alarmAction.setAlarmCntAPI());
   }, [dispatch]);
 
-  setInterval(function AlarmCountChk(){
+
+  function AlarmCountChk(){
     dispatch(alarmAction.setAlarmCntAPI());
-  },5000)
+  }
+
+  setInterval(AlarmCountChk(), 5000)
 
   const [open, setOpen] = React.useState(false);
   const openBar = () => setOpen(true);
