@@ -48,3 +48,15 @@ export const ChangeTimeType = (time) => {
   const changedTime = moment(time).format('YYYY.MM.DD HH:mm')
 return changedTime
 }
+
+//핸드폰번호 
+export const cellPhoneNum = (userNumber) => {
+  const _reg = /^\d{3}\d{3,4}\d{4}$/;
+  return _reg.test(userNumber)
+}
+
+//인증번호 숫자6자리
+export const certNumberCheck = (certNumber) => {
+  const _reg = /^\d{6}$/;
+  return _reg.test(certNumber)
+}
