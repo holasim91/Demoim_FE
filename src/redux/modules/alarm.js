@@ -4,6 +4,7 @@ import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from '../../shared/Cookies';
 
+
 const SET_ALARM = "SET_ALARM";
 const DELETE_ALARM = "DELETE_ALARM";
 const SET_BELL = "SET_BELL";
@@ -44,12 +45,14 @@ function reFresh(userId) {
   }
 }
 
+// 새 알람 갯수
 function setAlarmCntAPI(userId){
   return function (dispatch, getState, { history }) {
-
+    if(getCookie('token')===undefined){
+      return;
+    }
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
-
     axios({
       method: 'get',
       url: `${config.api}/api/alarm/before`,
@@ -61,6 +64,7 @@ function setAlarmCntAPI(userId){
     }).catch((err) => {
       console.log('알람 조회 에러::', err);
     })
+    
   }
 }
 
@@ -77,7 +81,6 @@ const setAlarmAPI = (userId) => {
         'authorization': token,
       },
     }).then((res) => {
-      console.log('알람요청::', res)
       dispatch(setAlarm(res.data));
       dispatch(setAlarmCntAPI());
 
@@ -94,7 +97,6 @@ const deleteAlarmAPI = (alarmId) => {
       method: 'delete',
       url: `${config.api}/api/alarm?alarm_id=${alarmId}`
     }).then((res) => {
-      console.log('알람 삭제 완료::', res);
       dispatch(deleteAlarm(alarmId));
       alert("알람이 삭제 되었습니다.")
       dispatch(reFresh());
@@ -114,9 +116,8 @@ const deleteAlarmAllAPI = (alarmId) => {
       method: 'delete',
       url: `${config.api}/api/alarm/all`
     }).then((res) => {
-      console.log('알람 삭제 완료::', res); 
       dispatch(deleteAlarm(alarmId));
-      alert("알람이 모두 되었습니다.")
+      alert("알람이 모두 삭제 되었습니다.")
       dispatch(reFresh());
 
     }).catch((err) => {

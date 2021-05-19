@@ -313,16 +313,30 @@ const ListBox = styled.div`
   display: flex;
   width:500px;
   margin: 10px auto;
+  box-sizing: border-box;
   @media ${props => props.theme.tablet}{
     width: 550px;
   }
   @media ${props => props.theme.mobile}{
     width: 100%;
-    margin: -20px;
+    margin: 0 0 0 -10px;
     line-height:20px;
     display: flex;
     justify-content: center;
     gap:20px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 420px){ 
+    font-size:12px;
+    margin: 10px 0 0 -10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  @media (max-width: 375px){ 
+    font-size:10px;
+    margin: 10px 0 0 -20px;
+    width: 100%;
+    box-sizing: border-box;
   }
 `;
 
@@ -333,6 +347,9 @@ const ImgCircle = styled.img`
   overflow: hidden;
   @media ${props => props.theme.mobile}{
     width: 90px;
+  }
+  @media (max-width: 375px){ 
+    margin: 0 0 0 10px;
   }
  
 `;
@@ -489,11 +506,17 @@ const Big = styled.b`
     ${props =>
       props.mobile2 &&
       css`
-      font-size: 17px;
+      font-size: 15px;
       margin: 50px 5px 5px 0 ;
       white-space: break-spaces;
       `}
   }
+
+  @media (max-width: 375px){
+    font-size: 15px; 
+  
+  }
+
 `;
 
 const GrayBox = styled.div`
@@ -690,14 +713,19 @@ const WhoDesc = styled.div`
   width:20%;
   @media ${props => props.theme.mobile}{
     text-align: left;
-    margin:0;
-    width:90px;
-    }
+    margin:0 0 0 20%;
+    width:20%;
+  }
+
+  @media (max-width: 375px){
+    margin:0 15px 0 20px;
+  }
+  @media (max-width: 414px){
+    margin: 0 15px 0 13px;
+  }
 `;
 
 const WhoDescLine = styled.div`
-  lineHeight: 30px;
-  
   ${props =>
     props.third &&
     css`
@@ -714,9 +742,14 @@ const WhoDescLine = styled.div`
     margin-top:20px;
   `}
   @media ${props => props.theme.mobile}{
-    margin-top:30px;
-    width: 30%;
+    margin: 33px 0 0 0 ;
+    width: 55%;
  }
+ @media (max-width: 375px){
+    font-size: 10px; 
+    margin: 33px 0 0 0 ;
+    width: 55%;
+  }
 `;
 
 
