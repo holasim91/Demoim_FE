@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux"
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
+import { useDispatch } from "react-redux"
 import ExhibitionList from "../Exhibition/ExhibitionList";
 import { actionCreators as userAction} from "../../redux/modules/user";
 

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux"
-import SmallTalkList from "../SmallTalk/SmallTalkList";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React  from 'react';
+import { useDispatch } from "react-redux"
 import { actionCreators as userAction } from "../../redux/modules/user";
 import MySmallTalkList from "../SmallTalk/MySmallTalkList";
 

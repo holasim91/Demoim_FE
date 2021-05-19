@@ -1,8 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
-import { Container, MobileBar } from "../elements";
-import { history } from "../redux/configStore";
-import { useMediaQuery } from "react-responsive";
+import { Container } from "../elements";
 import Team from "../images/team.svg";
 import De_icon from "../images/de_icon.svg";
 import Planner_icon from "../images/planner_icon.svg";
@@ -12,15 +10,6 @@ import Project_img02 from "../images/project_img02.png"
 import Project_img03 from "../images/project_img03.png"
 
 const Service = () => {
-
-  const isTablet = useMediaQuery({
-    query: "(min-width:769px) and (max-width:1200px)"
- });
-
- const isMobile = useMediaQuery({
-    query: "(max-width:768px)"
- });
-
 
   return (
     <React.Fragment>
@@ -344,7 +333,6 @@ const ImgCircle = styled.img`
   overflow: hidden;
   @media ${props => props.theme.mobile}{
     width: 90px;
-    margin:;
   }
  
 `;
@@ -467,7 +455,7 @@ const Miv = styled.div`
 text-align:left;
     display: flex;
     justify-content: center;
-    width:100%
+    width:100%;
     margin:auto;
     gap: 10px;  
   
@@ -475,7 +463,7 @@ text-align:left;
     text-align:left;
     display: flex;
     justify-content: center;
-    width:100%
+    width:100%;
     margin:auto;
     gap: 10px;
     &nbsp{

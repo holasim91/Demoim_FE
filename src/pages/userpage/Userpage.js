@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
 import styled from "styled-components";
 import "../../shared/theme";
-import { Text, Grid, Button, Container } from "../../elements";
+import {  Container } from "../../elements";
 import EditPen from '../../images/editpen.svg';
 import DefaultProfile from '../../images/def_profile.svg';
 import DoubleTabMenu from "../../components/Userpage/DoubleTabMenu";

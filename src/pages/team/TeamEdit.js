@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Container, Input, CheckBox, Upload } from "../../elements";
 import { useDispatch, useSelector } from "react-redux";

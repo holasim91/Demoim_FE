@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { Text, Grid, Button, Container } from "../elements";
+import { Container } from "../elements";
 import { history } from "../redux/configStore";
 import "../shared/theme";
 
 import { actionCreators } from "../redux/modules/user";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 const Login = () => {

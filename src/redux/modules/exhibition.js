@@ -109,7 +109,6 @@ const addExihibitionAPI = (formdata) => {
       data: formdata,
     })
       .then((res) => {
-        console.log(res.data)
         dispatch(addExihibition(res.data));
         history.push("/exhibition");
       })
@@ -134,7 +133,7 @@ const getExihibitionAPI = (page, size) => {
 
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 };
@@ -152,7 +151,7 @@ const getNextExihibitionPostsAPI = (page, size) => {
         :dispatch(setNextPost(res.data, page, false))
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 };
@@ -171,7 +170,7 @@ const getOneExihibitionAPI = (id) => {
         dispatch(exhibitionCommentActions.getExihibitionCommentAPI(res.data.exhibitionId))
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 };

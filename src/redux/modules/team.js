@@ -92,7 +92,7 @@ const getNextTeamMakingAPI= (page, size) => {
       },
     })
       .then((res) => {
-        res.data.length === 6?
+        res.data.length === 9?
         dispatch(setNextTeam(res.data, page+1, true))
         :dispatch(setNextTeam(res.data, page, false))
         dispatch(loading(false));

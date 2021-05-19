@@ -7,13 +7,11 @@ import { actionCreators as alarmAction } from "../redux/modules/alarm";
 
 const Alarm = (props) => {
   const dispatch = useDispatch();
-  const userId = props.match.params.userId;
   const alarmList = useSelector((state) => state.alarm.alarmList);
-  const user = useSelector((state) => state.user.user);
   const alarmCnt = useSelector((state)=> state.alarm.alarmCnt);
 
   const onDeleteAlarmAll = () =>{
-    if (alarmList.length == 0){
+    if (alarmList.length === 0){
       alert("삭제 할 알람이 없습니다!");
     }else{
       dispatch(alarmAction.deleteAlarmAllAPI(props.id));

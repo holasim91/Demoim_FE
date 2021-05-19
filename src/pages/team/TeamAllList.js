@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { TeamList } from "../../components";
 import { Container } from "../../elements";
@@ -15,30 +15,37 @@ const TeamAllList = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const {page, hasMorePosts} = useSelector((state) => state.team);
-  const [test, setTest] = useState(1)
-  console.log('before Effect', test)
+  const [cate, setCate] = useState('all')
   React.useEffect(() => {
-    console.log('component Mount!')
-    console.log(test === 1 ? 'test is 1' : 'not working')
-    dispatch(teamActions.getTeamMakingAPI(1, 9));
     if (user) {
       dispatch(userAction.loginCheckAPI());
     }
-  }, []);
-  const categories = ['전체보기','프론트엔드','백엔드','디자이너','기획자']
-  const showCategory = (e) => {
-    if (e.target.value === "전체보기") {
-      dispatch(teamActions.getTeamMakingAPI(1, 9));
-    } else if (e.target.value ===categories[1]) {
-      dispatch(teamActions.getFrontTeamMaking(1, 9));
-    } else if (e.target.value === "백엔드") {
-      dispatch(teamActions.getBackTeamMaking(1, 9));
-    } else if (e.target.value === "디자이너") {
-      dispatch(teamActions.getDesignerTeamMaking(1, 9));
-    } else if (e.target.value === categories[4]) {
-      dispatch(teamActions.getPlannerTeamMaking(1, 9));
+  }, [dispatch, user]);
+  React.useEffect(()=>{
+    switch (cate) {
+      case 'all':
+        dispatch(teamActions.getTeamMakingAPI(1, 9));
+        break;
+      case 'fe':
+        dispatch(teamActions.getFrontTeamMaking(1, 9));
+        break;
+      case 'be':
+        dispatch(teamActions.getBackTeamMaking(1, 9));
+        break;
+      case 'designer':
+        dispatch(teamActions.getDesignerTeamMaking(1, 9));
+        break;
+      case 'planner':
+        dispatch(teamActions.getPlannerTeamMaking(1, 9));
+        break;
+      default:
+        dispatch(teamActions.getTeamMakingAPI(1, 9));
+        break;
     }
-  };
+  },[cate, dispatch])
+  const changeCate = useCallback((e) =>{
+      setCate(e.target.value)
+  },[])
 
   return (
     <React.Fragment>
@@ -48,12 +55,12 @@ const TeamAllList = () => {
         </TitleBox>
         <TopBox>
           <CategoryBox>
-            <Select onChange={(e) => showCategory(e)}>
-              <option value="전체보기">전체보기</option>
-              <option value="프론트엔드">프론트엔드</option>
-              <option value="백엔드">백엔드</option>
-              <option value="디자이너">디자이너</option>
-              <option value="기획자">기획자</option>
+            <Select onChange={(e) => changeCate(e)}>
+              <option value="all">전체보기</option>
+              <option value="fe">프론트엔드</option>
+              <option value="be">백엔드</option>
+              <option value="designer">디자이너</option>
+              <option value="planner">기획자</option>
             </Select>
           </CategoryBox>
           <BtnBox>
@@ -78,7 +85,7 @@ const TeamAllList = () => {
       </Container>
       <ContentBox>
         <SimfinityScroll
-                  callNext={()=>dispatch(teamActions.getNextTeamMakingAPI(page,9))}
+                  callNext={()=>dispatch(teamActions.getNextTeamMakingAPI(page, 9))}
                   hasMorePosts={hasMorePosts}
                   page={page}
         >

@@ -4,7 +4,7 @@ import { history } from "../../redux/configStore";
 import moment from "moment";
 import styled from "styled-components";
 import { actionCreators as teamActions } from "../../redux/modules/team";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const ParticipationProjectCard = (props) => {
 

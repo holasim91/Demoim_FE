@@ -6,7 +6,7 @@ import { Editor, TeamDate } from "../../components";
 import { useMediaQuery } from "react-responsive";
 import Swal from "sweetalert2";
 import { actionCreators as imageActions } from "../../redux/modules/image";
-import { Wrapper, TitleBox, ChoiceBox, ConentesBox, BtnBox, WriteBtn, UploadBox, ChoiceTable, SelectBox, LanguageInput, PositionBox, NumberInput, PositionSelect, Line } from "../../components/TeamMaking/TeamEditor";
+import { Wrapper, TitleBox, ChoiceBox, ConentesBox, BtnBox, WriteBtn, ChoiceTable, SelectBox, LanguageInput, PositionBox, NumberInput, PositionSelect, Line } from "../../components/TeamMaking/TeamEditor";
 
 const TeamWrite = (props) => {
 

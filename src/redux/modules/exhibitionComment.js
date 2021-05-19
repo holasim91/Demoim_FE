@@ -113,11 +113,10 @@ const addExhibitionCommentsAPI = (post_id, comment) => {
       },
     })
       .then((res) => {
-        console.log(res);
         dispatch(addExihibitionComment(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 };
@@ -137,7 +136,6 @@ export default handleActions(
         const updated_idx = draft.exhibitionComments.findIndex(
           (comment) => comment.commentId === action.payload.comment_id
         );
-        console.log(updated_idx)
         draft.exhibitionComments[updated_idx] = {
           ...draft.exhibitionComments[updated_idx],
           comments: action.payload.updated_comment,
