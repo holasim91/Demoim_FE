@@ -2,11 +2,9 @@ import { createAction, handleActions } from 'redux-actions';
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookies";
 import Swal from 'sweetalert2';
 import { produce } from 'immer';
-//import { history } from "../redux/configStore";
 import axios from "axios";
 import { actionCreators as SmallTalkActions } from "../modules/smalltalk";
 import { actionCreators as ExhibitionActions } from "../modules/exhibition";
-import { actionCreators as TeamActions } from "../modules/team";
 
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';

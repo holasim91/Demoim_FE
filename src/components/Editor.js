@@ -6,9 +6,6 @@ import axios from "axios";
 import { config } from "../shared/config";
 
 class EditorComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   modules = {
     toolbar: {

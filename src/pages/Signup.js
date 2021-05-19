@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { emailCheck, nicknameCheck, pwContinuous, pwMatch } from "../shared/Common";
-import { Text, Grid, Container } from "../elements";
+import { nicknameCheck, pwContinuous, pwMatch } from "../shared/Common";
+import { Container } from "../elements";
 import "../shared/register.css";
 import "../shared/theme";
 

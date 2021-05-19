@@ -212,7 +212,7 @@ const getSmallTalkPostsAPI = (page, size) => {
         dispatch(loading(false));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 };
@@ -232,7 +232,7 @@ const getNextSmallTalkPostsAPI = (page, size) => {
         dispatch(loading(false));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 };

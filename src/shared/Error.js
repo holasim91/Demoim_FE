@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-import { Text, Grid, Button, Container } from "../elements";
+import { Container } from "../elements";
 import Questionmark from "../images/questionmark.svg"
 
 const Error = () => {

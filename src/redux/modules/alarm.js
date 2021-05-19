@@ -3,7 +3,6 @@ import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from '../../shared/Cookies';
-import { Redirect } from 'react-router';
 
 const SET_ALARM = "SET_ALARM";
 const DELETE_ALARM = "DELETE_ALARM";
@@ -59,8 +58,6 @@ function setAlarmCntAPI(userId){
       },
     }).then((res) => {
       dispatch(setAlarmcnt(res.data));
-      const alarmCnt = res.data;
-
     }).catch((err) => {
       console.log('알람 조회 에러::', err);
     })

@@ -13,4 +13,5 @@ import UserEditpage from "./userpage/UserEditpage";
 import Alarm from "../pages/Alarm";
 import Service from "./Service"
 import Certification from "../pages/userpage/Certification"
-export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Userpage, UserEditpage, TeamEdit, Alarm, Service,Certification };
+import Policy from './Policy'
+export { Main, Signup, Exhibition, ExhibitionWrite, TeamAllList, Login, ExhibitionDetail, TeamDetail, TeamWrite, SmallTalk, Userpage, UserEditpage, TeamEdit, Alarm, Service,Certification, Policy };

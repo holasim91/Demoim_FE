@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useRef } from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { Text, Grid, Container } from "../../elements";
+import { Container } from "../../elements";
 import { FaCamera } from "react-icons/fa";
 import { actionCreators } from "../../redux/modules/user";
 import { actionCreators as imageActions } from "../../redux/modules/image";
@@ -35,7 +36,7 @@ const UserEditpage = (props) => {
 
 
   const fileRef = useRef();
-  const selectFile = (e) => {
+  const selectFile = () => {
     //console.log("Ref", fileRef.current.files[0]);
     //미리보기
     const reader = new FileReader();

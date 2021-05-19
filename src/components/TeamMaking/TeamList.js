@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { TeamCard } from "../../components";
 import { Container } from "../../elements";
-import { FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
@@ -56,21 +55,21 @@ const Grid = styled.div`
   }
 `;
 
-const MoreBox = styled.div`
-  display: none;
+// const MoreBox = styled.div`
+//   display: none;
 
-  @media ${(props) => props.theme.mobile} {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-`;
-const MobileMome = styled(FaChevronDown)`
-  color: #7b7787;
-`;
-const MobileMoreTeam = styled.p`
-  color: #7b7787;
-  cursor: pointer;
-  font-size: 3vw;
-`;
+//   @media ${(props) => props.theme.mobile} {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: column;
+//   }
+// `;
+// const MobileMome = styled(FaChevronDown)`
+//   color: #7b7787;
+// `;
+// const MobileMoreTeam = styled.p`
+//   color: #7b7787;
+//   cursor: pointer;
+//   font-size: 3vw;
+// `;

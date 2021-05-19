@@ -5,13 +5,12 @@ import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
 import NoData from "../../shared/NoData";
-import Swal from "sweetalert2";
 
 const ExhibitionList = () => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
-  const user = useSelector((state) => state.user.user);
+  
   if (exhibitionPosts.length === 0) {
     return (
       <>
@@ -34,10 +33,11 @@ const ExhibitionList = () => {
           <Title>프로젝트 자랑 게시판</Title>
           <TopBox>
             <BtnBox>
-              <WriteBtn               onClick={() => {
-                history.push("/exhibition/write");
-              }}
->
+              <WriteBtn
+                onClick={() => {
+                  history.push("/exhibition/write");
+                }}
+              >
                 글 작성하기
               </WriteBtn>
             </BtnBox>
