@@ -266,12 +266,14 @@ const UserMenu = styled.div`
   @media ${props => props.theme.mobile}{
     display: none;
   }
+
   @media ${props => props.theme.tablet}{
     display: flex;
-    flex-direction: column;
-    padding: 1.4em;
-    gap: 26px;
-    color:red;
+    gap: 35px;
+    margin-bottom: 55px;
+    position: relative;
+    font-size: 0.9em;
+    
   }
 `;
 
