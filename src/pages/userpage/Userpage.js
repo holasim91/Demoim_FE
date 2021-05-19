@@ -22,14 +22,9 @@ const Userpage = (props) => {
   const is_me = otherId === userInfoId ? true : false;
   
   const otherInfo = useSelector((state) => state.otheruser.otherUser);
-  console.log("다른유저의 정보", otherInfo)
 
   React.useEffect(() => {
-    console.log("유저인포아이디", userInfoId);
-    console.log("유저페이지 is_me: ", is_me);
-
     if(is_me){
-      console.log("처음 is_me", is_me)
       dispatch(userAction.loginCheckAPI());
     }else{
       dispatch(otherUserAction.otherCheckAPI(otherId));
@@ -51,10 +46,10 @@ const Userpage = (props) => {
   React.useEffect(() => {
     if (is_me) {
       dispatch(userAction.TabSmallTalkAPI());
-      console.log('나의 스몰토크');
+      
     } else {
       dispatch(userAction.TabSmallTalkAPI(otherId));
-      console.log('다른이의 스몰토크')
+      
     }
 
   },[])

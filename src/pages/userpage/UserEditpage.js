@@ -71,7 +71,6 @@ const UserEditpage = (props) => {
     }
 
     const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
-    //console.log(nickname);
     axios.post(API,
       {
         nickname: nickname,
@@ -115,8 +114,13 @@ const UserEditpage = (props) => {
       return false
     }
 
-    if (description === "") {
+    if (description === "" ) {
       alert('자기소개를 입력해주세요!')
+      return false;
+    }
+
+    if( description.length > 100){
+      alert("자기소개는 100자 이내로 작성부탁드립니다.")
       return false;
     }
 
@@ -170,7 +174,6 @@ const UserEditpage = (props) => {
                           setNickName(e.target.value)
                         }} /><Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
                           onClick={() => {
-                            console.log("수정: 닉네임중복확인")
                             checkNicknameAPI(nickname)
                           }}>중복확인</Button></td>
                   </tr>
@@ -191,11 +194,12 @@ const UserEditpage = (props) => {
                   </tr>
                   <tr>
                     <td>자기소개</td>
-                    <td><TextArea maxLength="100" placeholder={description}
+                    <td><TextArea 
+                      placeholder={description}
                       value={description}
                       onChange={(e) => {
                         setDesc(e.target.value)
-                      }} /></td>
+                      }}/></td>
                   </tr>
                   <tr>
                     <td></td>

@@ -84,7 +84,7 @@ const Header = () => {
             </UserMenu>
           ) : (
             <UserMenu>
-              <NoneActiveLink to='/signup'>
+              <NoneActiveLink to='/certification'>
                 회원가입
             </NoneActiveLink>
               <NoneActiveLink to='/login'>
@@ -133,7 +133,7 @@ const Header = () => {
               </MobileUserMenu>
             ) : (
               <MobileUserMenu>
-                <NoneActiveLink to='/signup' className='userMenu' onClick={closeBar}>
+                <NoneActiveLink to='/certification' className='userMenu' onClick={closeBar}>
                   회원가입
               </NoneActiveLink>
                 <NoneActiveLink to='/login' className='userMenu' onClick={closeBar}>

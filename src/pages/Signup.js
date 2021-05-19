@@ -127,7 +127,6 @@ const Signup = (props) => {
                 }
             })
             .catch((err) => {
-                //console.log(err.response.data.msg);
                 Swal.fire({
                     text: `${err.response.data.msg}`,
                     icon: 'warning',
@@ -149,7 +148,6 @@ const Signup = (props) => {
         }
 
         const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
-        //console.log(nickname);
         axios.post(API,
             {
                 nickname: nickname,
@@ -238,10 +236,18 @@ const Signup = (props) => {
     return (
         <React.Fragment>
             <Container>
+            <PageTitleContainer>
+                <PageTitle>회원가입</PageTitle>
+                <StepBox>
+                <Step bg="#999cda" color="#ffffff">1단계</Step>
+                <StepLine>---------</StepLine>
+                <Step bg="#999cda" color="#ffffff">2단계</Step>
+                </StepBox>
+            </PageTitleContainer>
                 <SignupContainer>
                     <Title>
                         회원가입
-            </Title>
+                    </Title>
                     <SignupForm>
                         <SignupTable>
                             <tbody>
@@ -347,6 +353,61 @@ const Signup = (props) => {
     );
 };
 
+
+const PageTitleContainer = styled.div`
+    width: 578px;
+    margin: 100px auto;
+    padding: 10px auto;
+    text-align:center;
+    box-sizing:border-box;
+    
+    @media ${props => props.theme.tablet}{
+        width: 430px;
+        margin: 80px auto;
+    }
+    @media ${props => props.theme.mobile}{
+        width: 100%;
+        margin: 20px auto;
+    }
+`;
+
+const PageTitle = styled.p`
+  color: #000000;
+  font-size: 28px;
+  font-weight:500;
+  margin:10px;
+  padding:10px;
+  letter-spacing:1.5px;
+`;
+
+const StepBox = styled.div`
+  display:flex;
+  width:150px;
+  align-items:center;
+  margin:0 auto;
+  box-sizing:border-box;
+
+`;
+
+const Step = styled.div`
+  width:50px;
+  height:50px;
+  border-radius:100px;
+  font-size:14px;
+  text-align:center;
+  line-height:50px;
+  background-color: ${(props) => props.bg};
+  color: ${(props) => props.color};
+`;
+
+const StepLine = styled.div`
+  width:50px;
+  height:50px;
+  color:#979797;
+  font-size:10px;
+  line-height:50px;
+  letter-spacing:1px;
+`;
 
 const SignupContainer = styled.div`
     width: 578px;

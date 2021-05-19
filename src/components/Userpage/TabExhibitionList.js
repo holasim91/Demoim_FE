@@ -10,8 +10,6 @@ const TabExhibitionList = (props) => {
 
   //userpage에서 props 가져오기
   const { is_me, otherId} = props;
-  //console.log("탭플젝자랑 is_me:", is_me, "탭플젝자랑 다른유저:", otherId);
-
 
   React.useEffect(() => {
     if(is_me){
