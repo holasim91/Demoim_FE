@@ -7,7 +7,7 @@ const MobileBar = (props) => {
 
 
   return (
-    <>
+    <div>
       { open ? (
         <Wapper>
           <BurgerBox>
@@ -17,17 +17,17 @@ const MobileBar = (props) => {
             {children}
           </BurgerBox>
         </Wapper >) : null}
-    </>
+    </div>
   )
 }
 export default MobileBar;
 
 
 const OpenBar = keyframes`
-  0%{
+  zeroPer{
      opacity: 0;
   }
-  100%{
+  dePer{
     opacity: 1;
   }
 `;
@@ -56,7 +56,7 @@ const BurgerBox = styled.div`
   left:0;
   background-color: #ffffff;
   box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.08);
-  
+
 `;
 
 const CloseBox = styled.div`

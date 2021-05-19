@@ -21,10 +21,8 @@ const Service = () => {
                       <M>서비스 소개</M>
                       <DescDiv>
                         <Summary>
-                          Demoim은 <B>예비 개발자/디자이너/기획자</B>가 팀원을 모아
-                        </Summary>
-                        <Summary right>
-                        자신의 경험을 쌓아 나갈 수 있는<B> 팀 빌딩 플랫폼</B>입니다.
+                          <span style={{color: '#683FEE', fontWeight:'600'}}> De</span>moim은  <B>개발자/디자이너/기획자</B>가<Br/> 팀원을 모아 <br/>
+                          자신의 경험을 쌓아 나갈 수 있는 <Br/><B> 팀 빌딩 플랫폼</B>입니다.
                         </Summary>
                       </DescDiv>
                     </Inner>
@@ -65,7 +63,7 @@ const Service = () => {
                 </DivBox>
                 <DivBox rightFlex>
                   <ImgBox>
-                    <BannerImg src={Team} />
+                    <BannerImg src={Team} alt="배너" />
                   </ImgBox>
                   <DescText>
                     취업을 위한 <Br/> <B>팀 프로젝트 경험</B>은 <br/>
@@ -200,7 +198,7 @@ const Service = () => {
                 <OneP two>
                   팀원도 되어
                 </OneP>
-                <B>협업의 경험을 쌓아보세요</B>
+                <B>협업의 경험을 <Br/> 쌓아보세요</B>
               </TwoDetail>
             </OneContentBox>
           </FlexBox>
@@ -219,7 +217,7 @@ const Service = () => {
                 <ThreeDetail>
                   <B>팀 프로젝트 공유를 통해</B>
                   <OneP three>
-                    타 유저들과 소통하는 재미까지!</OneP>
+                    다른 사람들과 소통하는 재미까지!</OneP>
                 </ThreeDetail>
               </OneContentBox>
               <div style={{margin:' 0 0 0 10px'}} >
@@ -254,12 +252,9 @@ const PurpleRadiusBox = styled.div`
   color: white;
   font-weight: 550;
   border-radius:20px;
-  @media ${props => props.theme.tablet}{
-    
-  }
   @media ${props => props.theme.mobile}{
     font-size: 2.5vw;
-    text-align:center;
+    text-align: center;
     margin-top:15px;
     width:60%;
  }
@@ -319,7 +314,7 @@ const ListBox = styled.div`
   }
   @media ${props => props.theme.mobile}{
     width: 100%;
-    margin: 0 0 0 -10px;
+    margin: 0 0 0 0px;
     line-height:20px;
     display: flex;
     justify-content: center;
@@ -328,13 +323,13 @@ const ListBox = styled.div`
   }
   @media (max-width: 420px){ 
     font-size:12px;
-    margin: 10px 0 0 -10px;
+    margin: 10px 0 0 0px;
     width: 100%;
     box-sizing: border-box;
   }
   @media (max-width: 375px){ 
     font-size:10px;
-    margin: 10px 0 0 -20px;
+    margin: 10px 0 0 0;
     width: 100%;
     box-sizing: border-box;
   }
@@ -351,7 +346,6 @@ const ImgCircle = styled.img`
   @media (max-width: 375px){ 
     margin: 0 0 0 10px;
   }
- 
 `;
 
 const MarginBox = styled.div`
@@ -359,7 +353,7 @@ const MarginBox = styled.div`
 `;
 
 const WhiteBox = styled.div`
-  margin-bottom:80px
+  margin-bottom:80px;
 `;
 
 const BannerBox = styled.div`
@@ -383,9 +377,6 @@ const BannerInner = styled.div`
    justify-content: center;
    margin-left:-50px;
 
-   @media ${props => props.theme.tablet}{
-     
-   }
    @media ${props => props.theme.mobile}{
     padding: 0;
     margin:0;
@@ -410,7 +401,7 @@ line-height: 1.3em;
    background-color: #f2f5fa;
  }
 @media ${props => props.theme.tablet}{
-   widht: 300px;
+   width: 300px;
 }
 @media ${props => props.theme.mobile}{
    width:100%;
@@ -428,7 +419,7 @@ const DescText = styled.p`
       background-color: #f2f5fa;
     }
    @media ${props => props.theme.tablet}{
-      widht: 300px;
+      margin: 25px auto;
    }
    @media ${props => props.theme.mobile}{
       width:100%;
@@ -464,12 +455,11 @@ const M = styled.b`
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 100px;
-
   }
 `;
 
 const Miv = styled.div`
-text-align:left;
+    text-align:left;
     display: flex;
     justify-content: center;
     width:100%;
@@ -484,13 +474,13 @@ text-align:left;
     margin:auto;
     gap: 10px;
     &nbsp{
-      none;
+      display: none;
     }
  }
 `;
 
 const MSpan = styled.span`
-margin: 5px 0 0 20px; 
+  margin: 5px 0 0 20px; 
   @media ${props => props.theme.mobile}{
     text-align:left;
     margin: 5px 0 0 10px;
@@ -514,7 +504,6 @@ const Big = styled.b`
 
   @media (max-width: 375px){
     font-size: 15px; 
-  
   }
 
 `;
@@ -576,25 +565,16 @@ const Logo = styled.p`
   span{
     color:${props => props.theme.main_color};
   }
-  @media ${props => props.theme.mobile}{
-    
-   
-  }
 `;
 
 const ImgBox = styled.div`
    margin-top: -10px;
-   
-
-  @media ${props => props.theme.mobile}{
-      
-   }
 `;
 
 const BannerImg = styled.img`
    width: 100%;
 
-@media ${props => props.theme.mobile}{
+  @media ${props => props.theme.mobile}{
       width:90%;
    }
 `;
@@ -614,10 +594,8 @@ const MobileMargin=styled.div`
   }
 `;  
 
-
-
 const Summary = styled.p`
-  text-align:left;
+  text-align:center;
   width:105%;
   margin: 0 13px;
   ${props =>
@@ -645,33 +623,33 @@ const DeExp = styled.div`
       text-align: left;
       width:120px;
       margin: 0 13px;
-    `},
+    `}
     ${props =>
       props.middle &&
       css`
         text-align: left;
         width:120px;
         margin: auto;
-    `},
+    `}
 `;
 
-const DivBox =styled.div `
+const DivBox =styled.div`
   text-align:left;
-  width:60%; 
+  width: 60%; 
   margin: 10px auto;
   padding:10px;
   ${props =>
     props.rightFlex &&
     css`
       text-align: right;
-      width:50%; 
+      width: 50%; 
       @media ${props => props.theme.tablet}{
         width:70%
       }
       margin: 10px auto;
       padding:10px;
       display:flex;
-      justify-content:space-around;
+      justify-content: space-around;
   `}
   @media ${props => props.theme.mobile}{
     font-size: 5px;
@@ -679,10 +657,9 @@ const DivBox =styled.div `
     margin: 0;
     padding:10px;
   }
-
 `;
 
-const HalfCircleBox= styled.div`
+const HalfCircleBox = styled.div`
   background-color:#d7d5ef; 
   width:450px; 
   padding:20px;
@@ -690,7 +667,6 @@ const HalfCircleBox= styled.div`
   line-height:25px;
   border-radius:50%;
   @media ${props => props.theme.mobile}{
-    
     width:90%; 
     margin: 0;
     padding:20px;
@@ -742,13 +718,14 @@ const WhoDescLine = styled.div`
     margin-top:20px;
   `}
   @media ${props => props.theme.mobile}{
-    margin: 33px 0 0 0 ;
-    width: 55%;
+    font-size: 10px; 
+    margin: 40px 0 0 -11px;
+    width: 63%;
  }
  @media (max-width: 375px){
     font-size: 10px; 
-    margin: 33px 0 0 0 ;
-    width: 55%;
+    margin: 40px 0 0 13px;
+    width: 63%;
   }
 `;
 
@@ -800,7 +777,6 @@ const FlexBox = styled.div`
     margin: auto;
     justify-content:center;
     gap:0;
-    
     ${props =>
       props.two &&
       css`
@@ -867,15 +843,16 @@ const OneP = styled.p`
     props.three &&
     css`
     text-align:center;
-    width: 300px;
+    width: 310px;
     margin : 4px 20px 0 0;
   `}
   @media ${props => props.theme.mobile}{
     font-size: 4vw;
-    width:75%;
-    padding:2px;
-    text-align:center;
-    margin : 0px 0 10px 5px;
+    width: 80%;
+    padding: 5px;
+    text-align: center;
+    margin: 0px 0 10px -7px;
+
     ${props =>
       props.two &&
       css`
@@ -883,7 +860,7 @@ const OneP = styled.p`
       width:80%;
       padding:3px;
       text-align:center;
-      margin : 0px 0 10px 25px;
+      margin : 0px -7px 10px 25px;
     `}
     ${props =>
       props.three &&
@@ -892,23 +869,23 @@ const OneP = styled.p`
       width: 300px;
       margin:4px auto;
       padding:2px;
-      font-size:20px;
+      font-size:17px;
       font-weight:500;
     `}
   }
 `;
 
 const TwoDetail = styled.div`
-  margin:10px 0 0 30x;
+  margin:10px 0 0 -25px;
   letter-spacing: 1.3px; 
   line-height:20px;
   text-align:right; 
   width:250px;
   @media ${props => props.theme.tablet}{
-    width:200px;
+    width:240px;
   }
   @media ${props => props.theme.mobile}{
-    width:150px;
+    width:130px;
   }
 `;  
 
@@ -931,9 +908,22 @@ const ThreeDetail = styled.div`
 const ImgBox2 = styled.img`
   width:300px;
   @media ${props => props.theme.mobile}{
-    width:40%;
+    width: 150px;
+    height: 200px;
   }
-  
+  @media ${props => props.theme.tablet}{
+    margin-left: 80px;
+    width: 200px;
+    height: 250px;
+  } 
+  @media (max-width: 425px){ 
+    width: 150px;
+    height: 200px;
+  }
+  @media (max-width: 375px){ 
+    width: 150px;
+    height: 200px;
+  }
 `;
 
 const ImgBox3 = styled.img`
@@ -942,12 +932,18 @@ const ImgBox3 = styled.img`
   @media ${props => props.theme.tablet}{
     margin-left: 80px;
     width : 300px; 
+    height: 350px;
   } 
   @media ${props => props.theme.mobile}{
     margin-left: -40px;
     width : 200px; 
     z-index: 0;
   } 
+  @media (max-width: 375px){ 
+    margin-left: -40px;
+    width : 200px; 
+    z-index: 0;
+  }
 `;
 const FooterBox = styled.div`
   text-align:center;
@@ -958,11 +954,11 @@ const FooterBox = styled.div`
   margin:0 0 -100px;
   @media ${props => props.theme.mobile}{
     height:150px;
-    position: relative;
-    
+    display: flex;
+    flex-direction: column;
+    margin:0 0 -100px;
   } 
 `;
-
 
 const Btn = styled.button`
   margin:50px; 
@@ -974,9 +970,6 @@ const Btn = styled.button`
   background-color:white;
   border-radius:25px;
   @media ${props => props.theme.mobile}{
-    position: absolute;
-    top: 100px;
-    right: 115px;
-    margin: 0; 
+    margin: -25px auto 0 auto; 
   } 
 `;
