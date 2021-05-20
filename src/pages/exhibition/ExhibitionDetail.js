@@ -127,6 +127,10 @@ const WriteBtn = styled.button`
 const DetailWrapper = styled.div`
   width: 80%;
   margin: 0 auto 100px auto;
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+
 `;
 const Title = styled.div`
   background-color: #f2f5fa;
@@ -182,6 +186,10 @@ const ExhibitionDetailContent = styled.div`
   min-height: 485px;
   border: solid 1px #d8d8d8;
   line-height: 1.5;
+  @media ${(props) => props.theme.mobile} {
+    min-height: 285px;
+  }
+
 `;
 
 export default ExhibitionDetail;
