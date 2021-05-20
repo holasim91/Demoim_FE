@@ -26,9 +26,12 @@ const Header = () => {
     dispatch(alarmAction.setAlarmCntAPI());
   }, [dispatch]);
 
-  setInterval(function AlarmCountChk(){
+
+  function AlarmCountChk(){
     dispatch(alarmAction.setAlarmCntAPI());
-  },5000)
+  }
+
+  setInterval(AlarmCountChk(), 5000)
 
   const [open, setOpen] = React.useState(false);
   const openBar = () => setOpen(true);
@@ -84,7 +87,7 @@ const Header = () => {
             <UserMenu>
               <NoneActiveLink to='/certification'>
                 회원가입
-            </NoneActiveLink>
+              </NoneActiveLink>
               <NoneActiveLink to='/login'>
                 로그인
             </NoneActiveLink>
@@ -136,7 +139,7 @@ const Header = () => {
               </NoneActiveLink>
                 <NoneActiveLink to='/login' className='userMenu' onClick={closeBar}>
                   로그인
-              </NoneActiveLink>
+                </NoneActiveLink>
               </MobileUserMenu>
             )}
           </MobileMenu>
@@ -154,7 +157,7 @@ const Wrapper = styled.div`
   box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.06);
   z-index:30;
   position: sticky;
-  position:-webkit-sticky;
+  position:-webkit-sticky-sticky;
   top:0;
   left:0;
   background-color: white;
@@ -170,7 +173,7 @@ const NavBox = styled.nav`
   display: flex;
   align-items:flex-end;
   justify-content: space-between;
-
+  
   @media ${props => props.theme.mobile}{
     height: 70px;
     justify-content: space-around;
@@ -179,6 +182,13 @@ const NavBox = styled.nav`
     position: relative;
     top:-20px;
   }
+  @media ${props => props.theme.tablet}{
+    height: 110px;
+    width:100%;
+    display: flex;
+    align-items:flex-end;
+    justify-content: space-between;
+    }
 `;
 const Logo = styled.p`
   ${props => props.theme.logo}
@@ -186,13 +196,12 @@ const Logo = styled.p`
   position: relative;
   top:-10px;
   left:50px;
-
   span{
     color:${props => props.theme.main_color};
   }
 
   @media ${props => props.theme.mobile}{
-    font-size:5vw;
+    font-size:30px;
     position: relative;
     top:0;
     left:0;
@@ -215,6 +224,7 @@ const NavLink = styled(Link)`
   @media ${(props) => props.theme.mobile} {
     &:hover {
       text-decoration: none;
+      
     }
   }
 `;
@@ -235,7 +245,18 @@ const NavMenu = styled.div`
   @media ${props => props.theme.mobile}{
     display: none;
   }
+
+  @media ${props => props.theme.tablet}{
+    display: flex;
+    white-space: nowrap;
+    align-items:flex-end; 
+    gap : 77px;
+    font-size:1.06em;
+    padding:0px 0px 20px 0px;
+    color: ${props => props.theme.main_black};
+    }
 `;
+
 const UserMenu = styled.div`
   display: flex;
   gap: 35px;
@@ -245,23 +266,28 @@ const UserMenu = styled.div`
   @media ${props => props.theme.mobile}{
     display: none;
   }
+
+  @media ${props => props.theme.tablet}{
+    display: flex;
+    gap: 35px;
+    margin-bottom: 55px;
+    position: relative;
+    font-size: 0.9em;
+    
+  }
 `;
+
 const NoneActiveLink = styled(ActiveNoneLink)`
   ${LinkStyle}
   font-size:13px;
 
-  &.detalk{
-    margin-right:10px;
-    font-size:14px;
-  }
-
   @media ${props => props.theme.mobile}{
-    font-size:3.7vw;
-    
+    font-size:20px;
+    color: black;
+    margin: 20px 0 0 0;
     &.userMenu{
-      font-size:3vw;
+      font-size:15px;
       color:#7c7788;
-      
     }
   }
 `;
@@ -270,7 +296,8 @@ const LogOutBtn = styled.p`
   cursor:pointer;
   font-size:13px;
   @media ${props => props.theme.mobile}{
-    font-size:3vw;
+    font-size:15px;
+    margin: 12px 0 0 0;
     }
 `;
 
@@ -278,7 +305,13 @@ const MobileMenu = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.4em;
-  gap:26px;
+  gap: 26px;
+  @media ${props => props.theme.tablet}{
+    display: flex;
+    flex-direction: column;
+    padding: 1.4em;
+    gap: 26px;
+  }
 `;
 
 const MobileUserMenu = styled.div`
@@ -286,7 +319,13 @@ const MobileUserMenu = styled.div`
   flex-direction: column;
   gap:30px;
   margin-top: 3.5em;
-  
+  @media ${props => props.theme.tablet}{
+    display: flex;
+  flex-direction: column;
+  gap:30px;
+  margin-top: 3.5em;
+  }
+
 `;
 const BellWraper = styled.div`
     position: relative;
@@ -306,7 +345,13 @@ const Bell = styled(AiOutlineBell)`
   font-size: 1.5em;
   position: relative;
   top:-5px;
-  
+
+  @media ${props => props.theme.mobile}{
+    font-size: 30px;
+    position: relative;
+    top:-5px;
+    color: black;
+  }
 `;
 
 
@@ -344,7 +389,8 @@ const Tooltip = styled.div`
     left: 50px;
     width: 200px;
     height: 10px;
-    line-height:1;;
+    line-height:1;
+    
     color: black;
     br {
       display: none;
@@ -379,17 +425,14 @@ const NewBell = styled.div`
     height: 6px;
     border-radius: 50%;
     background-color: ${props => props.theme.main_color};
-    
-    left: 8%;
+    left: 30px;
   }
 `;
 
 const Bars = styled(FaBars)`
-  
   display: none;
   color:${props => props.theme.main_black};
   
-
   @media ${props => props.theme.mobile}{
     display: block;
     cursor: pointer;
