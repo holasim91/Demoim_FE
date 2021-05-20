@@ -172,7 +172,7 @@ const UploadWrapper = styled.div`
 `;
 
 const WriteWrapper = styled.div`
-  width: 80%;
+
   margin: 0 auto 150px auto;
 `;
 const WriteTitle = styled.div`

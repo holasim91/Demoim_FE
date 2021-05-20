@@ -81,8 +81,8 @@ const Main = () => {
                            팀 프로젝트의 경험을 쌓아 나갈 수 있는<br />
                            <strong>팀 빌딩 플랫폼</strong> 입니다.
                         </DescText>
-                        <ServiceBtn>
-                           프로젝트 시작하기
+                        <ServiceBtn onClick={() => history.push('/service')}>
+                           더 알아보기
                         </ServiceBtn>
                      </React.Fragment>
                   )}

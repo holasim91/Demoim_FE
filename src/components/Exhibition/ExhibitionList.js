@@ -74,6 +74,10 @@ const TopBox = styled.div`
 `;
 const BtnBox = styled.div`
   width: 100px;
+  @media ${(props) => props.theme.mobile} {
+    padding-top: 15px;
+  }
+
 `;
 
 const ExhibitionBoxWrapper = styled.div`
@@ -112,5 +116,6 @@ const WriteBtn = styled.button`
   }
   position: relative;
   z-index: 5;
+
 `;
 export default ExhibitionList;

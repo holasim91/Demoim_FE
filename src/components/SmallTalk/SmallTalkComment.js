@@ -110,7 +110,8 @@ const CommentWrapper = styled.div`
   position: relative;
   top: 2px;
   @media (max-width: 425px) {
-    width: 75%;
+    width: 85%;
+    height: auto;
   }
 
 `;
