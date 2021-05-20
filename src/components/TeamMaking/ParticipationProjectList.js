@@ -15,7 +15,7 @@ const ParticipationProjectList = () => {
       <ParticipationBox>
         {participationList?.activateProject !== null ?
           (participationList?.activateProject?.map((p) => {
-            return <ParticipationProjectCard {...p} key={p.teamId} />
+            return <ParticipationProjectCard {...p} key={p.teamId}/>
           })) :
           (<NoneProjectInfo>참여중인 프로젝트가 없습니다.</NoneProjectInfo>)}
       </ParticipationBox>

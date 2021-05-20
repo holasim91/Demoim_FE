@@ -10,7 +10,7 @@ const HistoryMember = (props) => {
 
   const { nickname, profileImage, position,  userId } = props;
   const isLogin = useSelector((state) => state.user.isLogin);
-  
+  //console.log("참여자1", isLogin, "유저아이디", userId)
   
 
   return (
@@ -19,14 +19,8 @@ const HistoryMember = (props) => {
         <Image size="40" src={profileImage ? profileImage : DefaultProfile} />
       </div>
       <MemberInfoBox onClick={() => {
-        isLogin ? (
-          history.push(`/userpage/${userId}`)
-        ) : (
-          Swal.fire({
-          text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
-          icon: 'warning',
-          confirmButtonColor: "#999cda",
-        }))
+      isLogin ? (
+        history.push(`/userpage/${userId}`)) : (console.log("참여자3", `${userId}`))
       }}>
         <p className="nickname bold">{nickname}</p>
         <p className="position">{position}</p>

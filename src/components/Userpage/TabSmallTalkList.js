@@ -13,11 +13,9 @@ const TabSmallTalkList = (props) => {
 
   React.useEffect(() => {
     if (is_me === true) {
-      dispatch(userAction.TabSmallTalkAPI());
-      
+      dispatch(userAction.TabSmallTalkAPI()); 
     } else {
       dispatch(userAction.TabSmallTalkAPI(otherId));
-      
     }
 
   }, [is_me]);

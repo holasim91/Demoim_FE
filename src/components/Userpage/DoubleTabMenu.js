@@ -1,15 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
+import React, { useDebugValue, useState } from 'react';
 import styled from "styled-components";
 import { TabTeamApplyHistory, TabTeamLeaderHistory, TabTeamParticipateHistory } from "../../components";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { useDispatch } from 'react-redux';
+import Nodata from '../../images/nodata.svg';
+import { history } from "../../redux/configStore";
 
 
 const DoubleTabMenu = (props) => {
-
+  const dispatch = useDispatch();
+  
   const {is_me, otherId} = props;
-
+  
   //프로젝트히스토리-Double Tab Menu 
   const [active, setActive] = useState(0)
   const handleClick = e => {
@@ -18,7 +21,7 @@ const DoubleTabMenu = (props) => {
       setActive(index);
     }
   };
-  const dispatch = useDispatch();
+  
 
   React.useEffect(() => {
 
@@ -51,21 +54,33 @@ const DoubleTabMenu = (props) => {
 
   }, [active]);
 
-
+  React.useEffect(() => {
+    console.log("is_me",is_me,"다른유저",otherId)
+    //window.location.replace(`/userpage/${otherId}`);
+    if(is_me){
+      history.push(`/userpage/${otherId}`);
+    }
+  },[otherId])
+  
   return (
     <React.Fragment>
       {/* 탭 */}
       <DoubleTabs>
         <Connect></Connect>
-        <DubTab onClick={handleClick} active={active === 0} id={0}>지원 프로젝트</DubTab>
+        {is_me ? (<DubTab onClick={handleClick} active={active === 0} id={0}>지원 프로젝트</DubTab>
+        ) : (<DubTab onClick={handleClick} active={active === 0} id={0}>Click 👉🏻</DubTab>)}
+        
         <DubTab onClick={handleClick} active={active === 1} id={1}>참여중/참여완료</DubTab>
         <DubTab onClick={handleClick} className="connects" active={active === 2} id={2}>리더 프로젝트</DubTab>
       </DoubleTabs>
 
       {/* 각 탭의 컨텐츠들 */}
-      <DubContents active={active === 0}>
+      {is_me ? (<DubContents active={active === 0}>
         <TabTeamApplyHistory />
       </DubContents>
+      ) : (<DubContents active={active === 0}>
+        <OtherIdApplyHistory/>
+      </DubContents>) }
       <DubContents active={active === 1}>
         <TabTeamParticipateHistory />
       </DubContents>
@@ -79,6 +94,22 @@ const DoubleTabMenu = (props) => {
 };
 
 
+const OtherIdApplyHistory = styled.div`
+  width:100%;
+
+
+`;
+
+
+const NoneProject = styled.p`
+  margin:50px 20px;
+  color:#7a7786;
+
+`;
+
+const NoData = styled.img`
+width:100%;
+`;
 
 const DoubleTabs = styled.div`
   position:relative;

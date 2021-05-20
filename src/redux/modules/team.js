@@ -313,7 +313,7 @@ const getUserParticipateListAPI = (otherId = null) => {
       method: 'get',
       url:API,
     }).then((res) => {
-      console.log('팀메이킹 프로필의 유저가 참여 프로젝트 목록::', res);
+      //console.log('팀메이킹 프로필의 유저가 참여 프로젝트 목록::', res);
 
 
       let myTeamHistory = {

@@ -24,6 +24,7 @@ const Userpage = (props) => {
   
   const otherInfo = useSelector((state) => state.otheruser.otherUser);
 
+
   React.useEffect(() => {
     if(is_me){
       dispatch(userAction.loginCheckAPI());
@@ -31,7 +32,7 @@ const Userpage = (props) => {
       dispatch(otherUserAction.otherCheckAPI(otherId));
     }
 
-  }, [is_me]);
+  }, [otherId]);
   
   //Tab Menu
   const [active, setActive] = useState(0)
@@ -41,21 +42,6 @@ const Userpage = (props) => {
       setActive(index);
     }
   };
-
-  
-  //index가 변경될때마다 dispatch 
-  React.useEffect(() => {
-    if (is_me) {
-      dispatch(userAction.TabSmallTalkAPI());
-      
-    } else {
-      dispatch(userAction.TabSmallTalkAPI(otherId));
-      
-    }
-
-  },[])
-  
-  
 
 
   return (
@@ -200,7 +186,7 @@ const Tab = styled.button`
     }
   @media (max-width: 420px){
     text-align:center;
-    font-size:13px;
+    font-size:12px;
     width:120px;
   }
 

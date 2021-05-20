@@ -375,10 +375,10 @@ const Button = styled.button`
     cursor: pointer;
   }
   @media ${(props) => props.theme.mobile} {
-    font-size: 0.5vw;
+    font-size: 4px;
   }
   @media (max-width: 420px) {
-    font-size: 1px;
+    font-size: 4px;
     padding: 5px;
   }
 `;
@@ -415,8 +415,6 @@ const CheckBoxTable = styled.table`
     @media (max-width: 420px) {
       font-size: 12px;
       padding: 0px 0px 15px 5px;
-    }
-    td:last-child() {
     }
   }
 `;
