@@ -85,7 +85,7 @@ const WriteWrapper = styled.div`
   background-color: #fff;
   border-radius: 10px;
   @media (max-width: 425px) {
-    width: 75%;
+    width: 85%;
   }
 
 `;

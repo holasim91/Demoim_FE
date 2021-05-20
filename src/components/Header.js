@@ -240,7 +240,6 @@ const NavMenu = styled.div`
     display: none;
   }
 
- ㄴ
 `;
 
 const UserMenu = styled.div`

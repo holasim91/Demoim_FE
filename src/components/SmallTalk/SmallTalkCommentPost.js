@@ -188,6 +188,7 @@ const PostContents = styled.div`
   margin-top: 20px;
   min-height: 50px;
   padding-left: 40px;
+  font-size: 14px;
 `;
 
 const HeaderRight = styled.div`

@@ -251,8 +251,9 @@ const PostBoxBottom = styled.div`
   font-size: 13px;
   padding-left: 60px;
   color:#7a7786;
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     font-size: 11px;
+
   }
 `;
 const PostBoxWrapperForMain = styled.div`
@@ -289,7 +290,8 @@ const PostBoxWrapper = styled.div`
     max-width: 584px;
   }
   @media (max-width: 425px) {
-    width: 75%;
+    width: 85%;
+    height: auto;
   } 
   @media (max-width: 375px) {
     height: 125px;
@@ -339,13 +341,14 @@ const PostContents = styled.textarea`
   resize: none;
   border: none;
   background-color:#f1f1f1;
-  width: 70%;
+  width: 86%;
+  margin-bottom: 10px;
   :focus {
   outline: none;
 }
   @media (max-width: 375px) {
     font-size: 12px;
-    padding-left: 40px;
+    padding-left: 42px;
   }
 `;
 export default SmallTalkPost;
