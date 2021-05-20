@@ -763,7 +763,7 @@ const OneP = styled.p`
     font-weight: 500;
     padding:5px;
     color: white;
-    text-align: left;
+    text-align: center;
     z-index:10;
     }
 
@@ -773,7 +773,7 @@ const OneP = styled.p`
     font-weight: 500;
     padding:5px;
     color: white;
-    text-align: left;
+    text-align: center;
     z-index:10;
     width:150px;
     }
@@ -785,7 +785,7 @@ const TwoP = styled.p`
   font-weight: 500;
   padding:5px;
   color: white;
-  text-align: left;
+  text-align: center;
   z-index:10;
   @media (max-width: 500px){
     background-color: #999cda;
@@ -793,7 +793,7 @@ const TwoP = styled.p`
     font-weight: 500;
     padding:5px;
     color: white;
-    text-align: left;
+    text-align: center;
     z-index:10;
     width: 180px;
   }
@@ -805,7 +805,7 @@ const ThreeP = styled.p`
   font-weight: 500;
   padding:5px;
   color: white;
-  text-align: left;
+  text-align: center;
   z-index:10;
   @media ${props => props.theme.mobile}{
     background-color: #999cda;
@@ -813,7 +813,7 @@ const ThreeP = styled.p`
     font-weight: 500;
     padding:5px;
     color: white;
-    text-align: left;
+    text-align: center;
     z-index:10;
     }
 
@@ -823,7 +823,7 @@ const ThreeP = styled.p`
     font-weight: 500;
     padding:5px;
     color: white;
-    text-align: left;
+    text-align: center;
     z-index:10;
     width:250px;
     }
@@ -911,7 +911,7 @@ const OneContentBox = styled.div`
       position: relative;
       left: 50px;
     }
-    @media (max-width: 370px){
+    @media (max-width: 375px){
       position: relative;
       left: 70px;
     }
@@ -927,7 +927,7 @@ const ThreeContentBox = styled.div`
       position: relative;
       left: 100px;
     }
-    @media (max-width: 370px){
+    @media (max-width: 375px){
       position: relative;
       left: 130px;
     }
@@ -965,7 +965,7 @@ const ImgBox1 = styled.img`
       margin-right: 50px;
       z-index:0;
     }
-    @media (max-width: 370px){
+    @media (max-width: 375px){
       width: 200px;
       height: 250px;
       position: relative;
@@ -1009,7 +1009,7 @@ const ImgBox3 = styled.img`
       margin-right: 100px;
       z-index:0;
     }
-    @media (max-width: 370px){
+    @media (max-width: 375px){
       width: 200px;
       height: 250px;
       position: relative;
