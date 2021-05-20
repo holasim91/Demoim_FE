@@ -182,13 +182,7 @@ const NavBox = styled.nav`
     position: relative;
     top:-20px;
   }
-  @media ${props => props.theme.tablet}{
-    height: 110px;
-    width:100%;
-    display: flex;
-    align-items:flex-end;
-    justify-content: space-between;
-    }
+  
 `;
 const Logo = styled.p`
   ${props => props.theme.logo}
@@ -246,7 +240,7 @@ const NavMenu = styled.div`
     display: none;
   }
 
- 
+ ㄴ
 `;
 
 const UserMenu = styled.div`
