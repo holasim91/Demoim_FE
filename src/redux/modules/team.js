@@ -4,6 +4,7 @@ import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
 import { actionCreators as applyActions } from "../modules/apply";
+import Swal from "sweetalert2";
 
 const SET_TEAM = "SET_TEAM";
 const SET_NEXT_TEAM = "SET_NEXT_TEAM";
@@ -175,6 +176,11 @@ const deleteTeamMakingAPI = (teamId, move = 'team') => {
 
       dispatch(deleteTeam(teamId));
       dispatch(deleteLeaderHistory(teamId));
+      Swal.fire({
+        icon: "success",
+        text: "삭제 성공!",
+        confirmButtonColor: "#999cda",
+      })
 
       if (move === 'team') {
         history.replace('/team');
