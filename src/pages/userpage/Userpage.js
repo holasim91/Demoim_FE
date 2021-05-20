@@ -25,6 +25,7 @@ const Userpage = (props) => {
   const otherInfo = useSelector((state) => state.otheruser.otherUser);
 
 
+  //파람(otherId)가 변경될때마다 해당유저의프로필정보 가져오기
   React.useEffect(() => {
     if(is_me){
       dispatch(userAction.loginCheckAPI());
@@ -33,6 +34,8 @@ const Userpage = (props) => {
     }
 
   }, [otherId]);
+
+
   
   //Tab Menu
   const [active, setActive] = useState(0)
@@ -127,7 +130,7 @@ const UserInfoBox = styled.div`
   background: -webkit-linear-gradient( #F2F5FA, #ffffff);
   background: -moz-linear-gradient(#F2F5FA, #ffffff);
   background: -o-linear-gradient(#F2F5FA, #ffffff);
-  background: linear-gradient(#F2F5FA, #ffffff);
+  background: linear-gradient(#f0f4fa, #ffffff);
 `;
 
 //TabMenu
@@ -150,10 +153,10 @@ const Tabs = styled.div`
   @media ${props => props.theme.mobile}{
     width:400px;
   }
-  @media (max-width: 420px){
+  @media (max-width: 414px){
     width:100%;
     button:nth-child(1){
-    width:65px;
+    width:70px;
     }
   }
 `;

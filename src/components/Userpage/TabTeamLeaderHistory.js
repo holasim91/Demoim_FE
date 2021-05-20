@@ -2,32 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import { ParticipationProjectCard } from "../../components";
 import { useSelector } from 'react-redux';
-import Nodata from '../../images/nodata.svg';
+import NoData from "../../shared/NoData";
 
 const TabTeamLeaderHistory = () => {
 
   const LeaderList = useSelector((state) => state.team.teamLeaderList);
 
   return (
-    <Wraaper>
+    <Wraper>
       <TitleBox >
         <p><span>#</span>내가 리더인 프로젝트</p>
       </TitleBox>
       <LeaderBox>
-        {LeaderList?.length === 0 ? (<NoneProject><NoData src={Nodata}/></NoneProject>) : (
+        {LeaderList?.length === 0 ? (<NoneProject>작성하신 프로젝트가 없습니다.</NoneProject>) : (
           LeaderList?.map((l) => {
             return (<ParticipationProjectCard {...l} key={l.teamId}isLeader />)
           })
         )}
       </LeaderBox>
 
-    </Wraaper>
+
+    </Wraper>
   )
 }
 
 export default TabTeamLeaderHistory;
 
-const Wraaper = styled.div`
+const Wraper = styled.div`
   display: flex;
   flex-direction: column;
   width:65%;
@@ -75,13 +76,8 @@ const LeaderBox = styled.div`
   }
 `;
 
-
 const NoneProject = styled.p`
   margin:50px 20px;
   color:#7a7786;
-
 `;
 
-const NoData = styled.img`
-width:100%;
-`;

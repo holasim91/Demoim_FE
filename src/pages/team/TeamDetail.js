@@ -217,7 +217,8 @@ const TeamDetail = (props) => {
                   <main>
                     <ApplyBox>
                       <Input multiLine label="메세지" placeholder="리더에게 연락처 및 메세지를 남겨주세요(100자 이내)" modal margin="0px 0px 10px 0px" value={msg} _onChange={(e) => { setMsg(e.target.value) }} />
-                      <Input label="포트폴리오" placeholder="포트폴리오 참고 사이트를 입력해주세요 :)" padding="10px 10px" modal value={site} _onChange={(e) => { setSite(e.target.value) }} type="url" />
+                      <Input label="포트폴리오 " placeholder="ex) http(s)://github.com/lalal" padding="10px 10px" modal value={site} _onChange={(e) => { setSite(e.target.value) }} type="url" />
+                      <ModalInfo>❤포트폴리오 참고 사이트를 입력해주세요</ModalInfo>
                     </ApplyBox>
                   </main>
                 </Modal>
@@ -596,5 +597,14 @@ const ModalButton = styled.button`
 
     @media ${props => props.theme.mobile}{
       font-size:0.85em;  
-   }
-`
+  }
+`;
+
+const ModalInfo = styled.p`
+  margin:4px 0 12px 0;
+  font-size:12px;
+  color:#999cda;
+  
+  //#683fee;
+`;
+

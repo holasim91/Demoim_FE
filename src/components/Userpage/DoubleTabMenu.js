@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { TabTeamApplyHistory, TabTeamLeaderHistory, TabTeamParticipateHistory } from "../../components";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { useDispatch } from 'react-redux';
-import Nodata from '../../images/nodata.svg';
+import NoData from "../../shared/NoData";
 import { history } from "../../redux/configStore";
 
 
@@ -24,7 +24,6 @@ const DoubleTabMenu = (props) => {
   
 
   React.useEffect(() => {
-
     //isMe로 한번 더 나눠주기.
     if (active === 0) {
       if(is_me){
@@ -52,42 +51,37 @@ const DoubleTabMenu = (props) => {
       }
     }
 
-  }, [active]);
+  }, [active, otherId]);
+
 
   React.useEffect(() => {
-    console.log("is_me",is_me,"다른유저",otherId)
-    //window.location.replace(`/userpage/${otherId}`);
     if(is_me){
       history.push(`/userpage/${otherId}`);
     }
   },[otherId])
   
+
+
   return (
     <React.Fragment>
       {/* 탭 */}
       <DoubleTabs>
         <Connect></Connect>
         {is_me ? (<DubTab onClick={handleClick} active={active === 0} id={0}>지원 프로젝트</DubTab>
-        ) : (<DubTab onClick={handleClick} active={active === 0} id={0}>Click 👉🏻</DubTab>)}
+        ) : ("")}
         
         <DubTab onClick={handleClick} active={active === 1} id={1}>참여중/참여완료</DubTab>
         <DubTab onClick={handleClick} className="connects" active={active === 2} id={2}>리더 프로젝트</DubTab>
       </DoubleTabs>
 
       {/* 각 탭의 컨텐츠들 */}
-      {is_me ? (<DubContents active={active === 0}>
-        <TabTeamApplyHistory />
-      </DubContents>
-      ) : (<DubContents active={active === 0}>
-        <OtherIdApplyHistory/>
-      </DubContents>) }
+      {is_me ? (<DubContents active={active === 0}><TabTeamApplyHistory /></DubContents>) : "" }
       <DubContents active={active === 1}>
         <TabTeamParticipateHistory />
       </DubContents>
       <DubContents active={active === 2}>
         <TabTeamLeaderHistory />
       </DubContents>
-
     </React.Fragment>
 
   );
@@ -100,16 +94,6 @@ const OtherIdApplyHistory = styled.div`
 
 `;
 
-
-const NoneProject = styled.p`
-  margin:50px 20px;
-  color:#7a7786;
-
-`;
-
-const NoData = styled.img`
-width:100%;
-`;
 
 const DoubleTabs = styled.div`
   position:relative;
@@ -181,7 +165,7 @@ const DubTab = styled.button`
     }
   @media (max-width: 420px){
     text-align:center;
-    font-size:4px;
+    font-size:10px;
     width:105px;
   }
   &.connects{
