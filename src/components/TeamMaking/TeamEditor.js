@@ -78,9 +78,9 @@ export const UploadBox = styled.div`
 export const ChoiceTable = styled.table`
   width:100%;
   height: 100%;
-  & tr,td{
+  /* & tr,td{
     vertical-align: middle;
-  }
+  } */
 
   & .table_top{
 

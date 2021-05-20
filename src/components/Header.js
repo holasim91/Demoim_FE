@@ -51,7 +51,7 @@ const Header = () => {
           </NavLink>
           <NavMenu className={isLogin ? "addUserLog" : ""}>
             <NavLink to='/service' className='service'>
-              서비스소개
+              서비스 소개
             </NavLink>
             <NavLink to='/team' className='team'>
               팀 메이킹
@@ -102,7 +102,7 @@ const Header = () => {
             </Logo>
             <Line />
             <NoneActiveLink to='/service'className='service' onClick={closeBar}>
-              서비스소개
+              서비스 소개
             </NoneActiveLink>
             <NoneActiveLink to='/team' className='team' onClick={closeBar}>
               팀 메이킹
