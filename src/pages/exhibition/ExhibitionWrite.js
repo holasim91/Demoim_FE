@@ -14,7 +14,8 @@ const ExhibitionWrite = (props) => {
   const dispatch = useDispatch();
   const post_id = Number(props.match.params.exhibitionId)
   const edited_post = useSelector((state) => state.exhibition.exhibitionPostDetail)
-  
+  const {user} = useSelector((state) => state.user);
+
   useEffect(() => {
     if (!post_id) {
       return
@@ -53,6 +54,15 @@ const ExhibitionWrite = (props) => {
     }
     
   };
+
+if(!user){
+  Swal.fire({
+    icon: "warning",
+    text: "로그인을 해주세요!.",
+    confirmButtonColor: "#999cda",
+  })
+  history.push("/exhibition");
+}
 
   // 자랑하기 등록
   const addExhibition = () => {

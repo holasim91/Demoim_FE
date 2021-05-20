@@ -5,12 +5,14 @@ import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
 import NoData from "../../shared/NoData";
+import Swal from "sweetalert2";
 
 const ExhibitionList = () => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
-  
+  const {user} = useSelector((state) => state.user);
+
   if (exhibitionPosts.length === 0) {
     return (
       <>
@@ -35,6 +37,15 @@ const ExhibitionList = () => {
             <BtnBox>
               <WriteBtn
                 onClick={() => {
+                  if (!user) {
+                    Swal.fire({
+                      text: "로그인 후 사용해주세요 :)",
+                      icon: "warning",
+                      confirmButtonColor: "#999cda",
+                    });
+                    return false;
+                  }
+  
                   history.push("/exhibition/write");
                 }}
               >
