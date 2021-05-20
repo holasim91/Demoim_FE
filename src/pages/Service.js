@@ -167,6 +167,8 @@ const Service = () => {
                   Demoim 100% 활용법
           </PurpleRadiusToolTip>
           <MarginBox/>
+         
+          <MarginBox/>
           <FlexBox>
             <OneContentBox>
               <OneDetail>
@@ -186,6 +188,8 @@ const Service = () => {
       <MarginBox/>
       <BannerBox>
       <Inner>
+          <MarginBox/>
+          <MarginBox/>
           <MarginBox/>
           <FlexBox>
             <ImgBox2 src = {Project_img02} alt="배너"/>
@@ -975,10 +979,10 @@ const ImgBox1 = styled.img`
     }
 `;
 const ImgBox2 = styled.img`
-    width: 200px;
-    height: 170px;
+    width: 250px;
+    height: 210px;
     position: relative;
-    top: 0px;
+    top: -19px;
     @media (max-width: 500px){
       width: 200px;
       height: 170px;
