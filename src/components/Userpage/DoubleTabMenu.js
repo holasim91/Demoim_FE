@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { TabTeamApplyHistory, TabTeamLeaderHistory, TabTeamParticipateHistory } from "../../components";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { useDispatch } from 'react-redux';
-import NoData from "../../shared/NoData";
 import { history } from "../../redux/configStore";
 
 

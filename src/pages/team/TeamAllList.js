@@ -24,7 +24,6 @@ const TeamAllList = () => {
   React.useEffect(()=>{
     switch (cate) {
       case 'all':
-        console.log('all')
         dispatch(teamActions.getTeamMakingAPI(1, 9));
         break;
       case 'fe':
@@ -40,7 +39,6 @@ const TeamAllList = () => {
         dispatch(teamActions.getPlannerTeamMaking(1, 9));
         break;
       default:
-        console.log('default')
         dispatch(teamActions.getTeamMakingAPI(1, 9));
         break;
     }
