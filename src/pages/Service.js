@@ -167,19 +167,18 @@ const Service = () => {
                   Demoim 100% 활용법
           </PurpleRadiusToolTip>
           <MarginBox/>
-          <OneAndThreeTitle>
-            ONE
-            <br/>
-          </OneAndThreeTitle>
           <FlexBox>
-            <OneContentBox margin>
+            <OneContentBox>
               <OneDetail>
-                <M2>프로젝트를 만들어</M2>
+                <OneTitleBox>
+                  ONE
+                </OneTitleBox>
+                <M1>프로젝트를 만들어</M1>
                 <OneP>
                   팀원을 모집해보고</OneP>
               </OneDetail>
             </OneContentBox>
-            <ImgBox2 src = {Project_img01} alt="배너"/>
+            <ImgBox1 src = {Project_img01} alt="배너"/>
           </FlexBox>
         </Inner>
       </BannerBox>
@@ -188,44 +187,41 @@ const Service = () => {
       <BannerBox>
       <Inner>
           <MarginBox/>
-          <TwoTitle>
-            TWO
-          </TwoTitle>
-          <FlexBox two>
-            <ImgBox2 src = {Project_img02} alt="배너" />
-            <OneContentBox>
-              <TwoDetail>
-                <OneP two>
-                  팀원도 되어
-                </OneP>
-                <B>협업의 경험을 <Br/> 쌓아보세요</B>
-              </TwoDetail>
-            </OneContentBox>
+          <FlexBox>
+            <ImgBox2 src = {Project_img02} alt="배너"/>
+            <TwoContentBox>
+              <OneDetail>
+                <TwoTitleBox>
+                  TWO
+                </TwoTitleBox>
+                <M2>팀원도 되어</M2>
+                <TwoP>
+                  협업의 경험을 쌓아보세요</TwoP>
+              </OneDetail>
+            </TwoContentBox>
+            
           </FlexBox>
         </Inner>
       </BannerBox>
       <MarginBox/>
       <BannerBox>
         <Inner>
-            <MarginBox/>
-       
-            <OneAndThreeTitle>
-              THREE
-            </OneAndThreeTitle>
-            <FlexBox three>
-              <OneContentBox>
-                <ThreeDetail>
-                  <B>팀 프로젝트 공유를 통해</B>
-                  <OneP three>
-                    다른 사람들과 소통하는 재미까지!</OneP>
-                </ThreeDetail>
-              </OneContentBox>
-              <div style={{margin:' 0 0 0 10px'}} >
-                <ImgBox3 three src = {Project_img03} alt="배너"/>
-              </div>
-            </FlexBox>
-          </Inner>
-         
+          <MarginBox/>
+          <MarginBox/>
+          <FlexBox>
+            <ThreeContentBox>
+              <OneDetail>
+                <OneTitleBox>
+                  THREE
+                </OneTitleBox>
+                <M3>팀 프로젝트 공유를 통해</M3>
+                <ThreeP>
+                  다른 사람들과 소통하는 재미까지!</ThreeP>
+              </OneDetail>
+            </ThreeContentBox>
+            <ImgBox3 src = {Project_img03} alt="배너"/>
+          </FlexBox>
+        </Inner>
       </BannerBox>
       <MarginBox/>
       <MarginBox/>
@@ -730,221 +726,301 @@ const WhoDescLine = styled.div`
 `;
 
 
-const OneAndThreeTitle = styled.div`
-  font-size:30px;
-  font-weight:300;
-  width:450px;
-  margin:0 auto 40px;
-  text-align:left;
-  @media ${props => props.theme.mobile}{
-    width:10%;
-    text-align:left;
-    margin: 25px 0 0 40px;
- }
-`;
-const TwoTitle = styled.div`
-  font-size:30px;
-  font-weight:300;
-  width:490px;
-  margin:0 auto 40px;
-  text-align:right;
-  @media ${props => props.theme.mobile}{
-    width:70%;
-    text-align:right;
-    margin:auto;
-    margin:50px auto 40px;
- }
-`;
-
-const FlexBox = styled.div`
-  width:65%; 
-  display:flex;
-  margin:auto;
-  justify-content:center;
-  gap:20px;
-  ${props =>
-    props.three &&
-    css`
-    width:65%; 
-    display:flex;
-    margin:auto;
-    justify-content:center;
-    gap:5%;
-  `}
-  @media ${props => props.theme.mobile}{
-    display:flex;
-    width: 90%;
-    margin: auto;
-    justify-content:center;
-    gap:0;
-    ${props =>
-      props.two &&
-      css`
-      gap:5%;
-    `}
-    
- }
-`;
-
-const OneContentBox = styled.div`
-  width:35%; 
-  ${props =>
-    props.margin &&
-    css`
-    margin:0 0 50px 0;
-  `}
-  @media ${props => props.theme.mobile}{
-    width:50%; 
-    z-index: 10;
-  }
-`;
-
-const OneDetail = styled.div`
-  margin:50px 2% 0 30%;
-  letter-spacing: 1.3px; 
-  line-height:20px;
-  text-align:center; 
-  width:200px;
-  @media ${props => props.theme.mobile}{
-    font-size: 30px;
-    width:100%; 
-    margin:50px 2% 0 0;
-    text-align:left; 
-    z-index:10;
-  }
+const M1 = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  z-index:10;
 `;  
 const M2 = styled.div`
-  margin: 10px 0 10px 0;
   font-size: 20px;
-  font-weight:bold;
-  @media ${props => props.theme.mobile}{
-    font-size: 4vw;
-    font-weight:bold;
-    margin : 0px 0 10px 5px;
-  }
+  font-weight: 500;
+  text-align: right;
+  @media (max-width: 500px){
+      font-size: 20px;
+      font-weight: 500;
+      text-align: right;
+    }
+`;  
+const M3 = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  z-index:10;
 `;  
 
 const OneP = styled.p`
-  background-color:#999cda;
-  color:white;
-  width:164px;
-  text-align:center;
-  margin:4px auto;
-  padding:2px;
-  font-size:20px;
-  font-weight:500;
-  ${props =>
-    props.two &&
-    css`
-    width : 110px;
-    margin : 50px 0 10px 48%;
-  `}
-  ${props =>
-    props.three &&
-    css`
-    text-align:center;
-    width: 310px;
-    margin : 4px 20px 0 0;
-  `}
+  background-color: #999cda;
+  font-size: 17px;
+  font-weight: 500;
+  padding:5px;
+  color: white;
+  text-align: left;
+  z-index:10;
   @media ${props => props.theme.mobile}{
-    font-size: 4vw;
-    width: 80%;
-    padding: 5px;
-    text-align: center;
-    margin: 0px 0 10px -7px;
+    background-color: #999cda;
+    font-size: 17px;
+    font-weight: 500;
+    padding:5px;
+    color: white;
+    text-align: left;
+    z-index:10;
+    }
 
-    ${props =>
-      props.two &&
-      css`
-      font-size: 17px;
-      width:80%;
-      padding:3px;
-      text-align:center;
-      margin : 0px -7px 10px 25px;
-    `}
-    ${props =>
-      props.three &&
-      css`
-      text-align:center;
-      width: 300px;
-      margin:4px auto;
-      padding:2px;
-      font-size:17px;
-      font-weight:500;
-    `}
+    @media (max-width: 500px){
+      background-color: #999cda;
+    font-size: 17px;
+    font-weight: 500;
+    padding:5px;
+    color: white;
+    text-align: left;
+    z-index:10;
+    width:150px;
+    }
+`;
+
+const TwoP = styled.p`
+  background-color: #999cda;
+  font-size: 17px;
+  font-weight: 500;
+  padding:5px;
+  color: white;
+  text-align: left;
+  z-index:10;
+  @media (max-width: 500px){
+    background-color: #999cda;
+    font-size: 17px;
+    font-weight: 500;
+    padding:5px;
+    color: white;
+    text-align: left;
+    z-index:10;
+    width: 180px;
   }
 `;
 
-const TwoDetail = styled.div`
-  margin:10px 0 0 -25px;
-  letter-spacing: 1.3px; 
-  line-height:20px;
-  text-align:right; 
-  width:250px;
-  @media ${props => props.theme.tablet}{
-    width:240px;
-  }
-  @media ${props => props.theme.mobile}{
-    width:130px;
-  }
-`;  
-
-const ThreeDetail = styled.div`
-  margin:50px 200px 0 10%;
-  letter-spacing: 1.3px; 
-  line-height:20px;
-  text-align:left; 
-  width:250px;
+const ThreeP = styled.p`
+  background-color: #999cda;
+  font-size: 17px;
+  font-weight: 500;
+  padding:5px;
+  color: white;
+  text-align: left;
   z-index:10;
-  @media ${props => props.theme.tablet}{
-    margin:50px 500px 0 10%;
-    z-index:10;
-  }
   @media ${props => props.theme.mobile}{
-    width:300px;
-  }
+    background-color: #999cda;
+    font-size: 17px;
+    font-weight: 500;
+    padding:5px;
+    color: white;
+    text-align: left;
+    z-index:10;
+    }
+
+    @media (max-width: 500px){
+      background-color: #999cda;
+    font-size: 17px;
+    font-weight: 500;
+    padding:5px;
+    color: white;
+    text-align: left;
+    z-index:10;
+    width:250px;
+    }
+`;
+
+const FlexBox = styled.div`
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 50px 0 0 0;
+  gap: 5%;
+
+  @media ${props => props.theme.mobile}{
+    width:90%;
+    display:inline-flexbox;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    box-sizing: border-box;
+    }
+
+    @media (max-width: 500px){
+    width:90%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    box-sizing: border-box;
+    }
+`;
+
+const OneTitleBox = styled.div`
+    text-align: left;
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom:30px;
+    z-index:10;
+    @media ${props => props.theme.tablet}{
+      text-align: left;
+      font-size: 40px;
+      font-weight: 300;
+      margin-bottom:30px;
+    }
+    @media (max-width: 420px){ 
+      text-align: left;
+      font-size: 30px;
+      font-weight: 300;
+      margin-bottom:30px;
+    }
+    @media (max-width: 375px){ 
+      text-align: left;
+      font-size: 30px;
+      font-weight: 300;
+      margin-bottom:30px;
+    }
+
+`;
+
+const TwoTitleBox = styled.div`
+    text-align: right;
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom:30px;
+    @media ${props => props.theme.tablet}{
+      text-align: right;
+      font-size: 40px;
+      font-weight: 300;
+      margin-bottom:30px;
+    }
+    @media ${props => props.theme.mobile}{
+      text-align: right;
+      font-size: 30px;
+      font-weight: 300;
+      margin-bottom:30px;
+      
+    }
+`;
+
+
+
+const OneContentBox = styled.div`
+   @media (max-width: 500px){
+      position: relative;
+      left: 50px;
+    }
+    @media (max-width: 370px){
+      position: relative;
+      left: 70px;
+    }
+`;
+const TwoContentBox = styled.div`
+    @media (max-width: 500px){
+      position: relative;
+      margin-right: 100px;
+    }
+`;
+const ThreeContentBox = styled.div`
+   @media (max-width: 500px){
+      position: relative;
+      left: 100px;
+    }
+    @media (max-width: 370px){
+      position: relative;
+      left: 130px;
+    }
+`;
+
+const OneDetail = styled.div`
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 8px;
+  z-index:10;
 `;  
 
-const ImgBox2 = styled.img`
-  width:300px;
-  @media ${props => props.theme.mobile}{
-    width: 150px;
-    height: 200px;
-  }
-  @media ${props => props.theme.tablet}{
-    margin-left: 80px;
+const ImgBox1 = styled.img`
+    width: 300px;
+    height: 350px;
+    position: relative;
+    top: -80px;
+
+    @media ${props => props.theme.mobile}{
     width: 200px;
     height: 250px;
-  } 
-  @media (max-width: 425px){ 
-    width: 150px;
-    height: 200px;
-  }
-  @media (max-width: 375px){ 
-    width: 150px;
-    height: 200px;
-  }
+    position: relative;
+    top: -30px;
+    right:-30px;
+    z-index:0;
+    }
+
+    @media (max-width: 500px){
+      width: 200px;
+      height: 250px;
+      position: relative;
+      top: -30px;
+      margin-right: 50px;
+      z-index:0;
+    }
+    @media (max-width: 370px){
+      width: 200px;
+      height: 250px;
+      position: relative;
+      top: -30px;
+      margin-right: 70px;
+      z-index:0;
+    }
+`;
+const ImgBox2 = styled.img`
+    width: 200px;
+    height: 170px;
+    position: relative;
+    top: 0px;
+    @media (max-width: 500px){
+      width: 200px;
+      height: 170px;
+      position: relative;
+      top: 0px;
+      left: 80px;
+    }
 `;
 
 const ImgBox3 = styled.img`
-  width : 350px; 
-  z-index: 0;
-  @media ${props => props.theme.tablet}{
-    margin-left: 80px;
-    width : 300px; 
+    width: 300px;
     height: 350px;
-  } 
-  @media ${props => props.theme.mobile}{
-    margin-left: -40px;
-    width : 200px; 
-    z-index: 0;
-  } 
-  @media (max-width: 375px){ 
-    margin-left: -40px;
-    width : 200px; 
-    z-index: 0;
-  }
+    position: relative;
+    top: -40px;
+    @media ${props => props.theme.mobile}{
+      width: 200px;
+      height: 250px;
+      position: relative;
+      top: 0px;
+      z-index:0;
+    }
+
+    @media (max-width: 500px){
+      width: 200px;
+      height: 250px;
+      position: relative;
+      top: -30px;
+      margin-right: 100px;
+      z-index:0;
+    }
+    @media (max-width: 370px){
+      width: 200px;
+      height: 250px;
+      position: relative;
+      top: -30px;
+      margin-right: 100px;
+      z-index:0;
+    }
 `;
+
+
+
 const FooterBox = styled.div`
   text-align:center;
   background-color:#ebf2ff;
