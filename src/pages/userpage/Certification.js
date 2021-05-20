@@ -365,7 +365,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   margin: 0 auto;
-  padding: 5px 10px;
+  padding: 5px;
   color: #ffffff;
   border: none;
   border-radius: 13.5px;
@@ -379,7 +379,7 @@ const Button = styled.button`
   }
   @media (max-width: 420px) {
     font-size: 10px;
-    /* padding: 5px; */
+    padding: 5px;
   }
 `;
 
@@ -425,6 +425,10 @@ const CheckContents = styled.div`
   color: #7a7786;
   vertical-align: middle;
   cursor: pointer;
+  @media (max-width: 420px) {
+    font-size:8px;
+    padding-left:5px;
+    }
 `;
 
 const NextBtn = styled.div`

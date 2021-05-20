@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { ParticipationProjectCard } from "../../components";
 import { useSelector } from 'react-redux';
-import NoData from "../../shared/NoData";
 
 const TabTeamLeaderHistory = () => {
 

@@ -11,19 +11,19 @@ import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 import { actionCreators as exhibitionActions } from "../redux/modules/exhibition";
 import MySmallTalkList from "../components/SmallTalk/MySmallTalkList";
 import MyExhibitionList from "../components/Exhibition/MyExhibitionList";
-import Feedback from "../images/feedback.svg";
+import DaisyFeedback from "../images/daisy_feedback.svg";
 import Swal from "sweetalert2";
 
 const Main = () => {
    const dispatch = useDispatch();
    
    const isLogin = useSelector((state) => state.user.isLogin);
-   const formURL = "https://forms.gle/rKQJvfFboYBSq7Ah6"
+   const formURL = "https://forms.gle/i3tP9YjZF2C1vmp59" //구글설문폼
 
    React.useEffect(() => {
       dispatch(teamActions.getTeamMakingAPI(1, 6));
       dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
-      dispatch(exhibitionActions.getExihibitionAPI(1,6))
+      dispatch(exhibitionActions.getExihibitionAPI(1,6));
    }, [dispatch]);
 
 
@@ -140,20 +140,9 @@ const Main = () => {
                <MySmallTalkList />
             </DetalkBox>
             <FeedbackBtn>
-            {isLogin ? (
-                  <Atag href={formURL} target="#" rel="noreferrer noopener">
-                     <FeedbackFormImg src={Feedback}/>
-                  </Atag>
-            ) : (
-               <FeedbackFormImg 
-               onClick={() => {
-                  Swal.fire({
-                     text: '로그인 후 작성 부탁드립니다',
-                     icon: 'warning',
-                     confirmButtonColor: "#999cda",
-                     footer: '<a href=http://localhost:3000/login>로그인하러 가기👏🏻</a>',
-                  })
-               }}src={Feedback}/>)}
+               <Atag href={formURL} target="#" rel="noreferrer noopener">
+                  <FeedbackFormImg src={DaisyFeedback}/>
+               </Atag>                  
             </FeedbackBtn>
          </Container>
       </React.Fragment>
