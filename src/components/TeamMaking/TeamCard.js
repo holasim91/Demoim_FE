@@ -81,7 +81,7 @@ const Grid = styled.div`
   background-color: ${props => props.theme.main_gray};
   ${Flex}
   align-items: center;
-  gap:5px;
+  grid-gap:5px;
   border-radius: 4px;
   padding-top: 20px;
   transition: all 0.3s;
