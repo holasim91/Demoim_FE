@@ -182,13 +182,7 @@ const NavBox = styled.nav`
     position: relative;
     top:-20px;
   }
-  @media ${props => props.theme.tablet}{
-    height: 110px;
-    width:100%;
-    display: flex;
-    align-items:flex-end;
-    justify-content: space-between;
-    }
+  
 `;
 const Logo = styled.p`
   ${props => props.theme.logo}
@@ -246,15 +240,7 @@ const NavMenu = styled.div`
     display: none;
   }
 
-  @media ${props => props.theme.tablet}{
-    display: flex;
-    white-space: nowrap;
-    align-items:flex-end; 
-    gap : 77px;
-    font-size:1.06em;
-    padding:0px 0px 20px 0px;
-    color: ${props => props.theme.main_black};
-    }
+ ㄴ
 `;
 
 const UserMenu = styled.div`
@@ -267,14 +253,7 @@ const UserMenu = styled.div`
     display: none;
   }
 
-  @media ${props => props.theme.tablet}{
-    display: flex;
-    gap: 35px;
-    margin-bottom: 55px;
-    position: relative;
-    font-size: 0.9em;
-    
-  }
+  
 `;
 
 const NoneActiveLink = styled(ActiveNoneLink)`
@@ -295,10 +274,7 @@ const NoneActiveLink = styled(ActiveNoneLink)`
 const LogOutBtn = styled.p`
   cursor:pointer;
   font-size:13px;
-  @media ${props => props.theme.mobile}{
-    font-size:15px;
-    margin: 12px 0 0 0;
-    }
+  
 `;
 
 const MobileMenu = styled.div`
@@ -306,12 +282,7 @@ const MobileMenu = styled.div`
   flex-direction: column;
   padding: 1.4em;
   gap: 26px;
-  @media ${props => props.theme.tablet}{
-    display: flex;
-    flex-direction: column;
-    padding: 1.4em;
-    gap: 26px;
-  }
+ 
 `;
 
 const MobileUserMenu = styled.div`
@@ -319,12 +290,7 @@ const MobileUserMenu = styled.div`
   flex-direction: column;
   gap:30px;
   margin-top: 3.5em;
-  @media ${props => props.theme.tablet}{
-    display: flex;
-  flex-direction: column;
-  gap:30px;
-  margin-top: 3.5em;
-  }
+  
 
 `;
 const BellWraper = styled.div`
