@@ -375,11 +375,11 @@ const Button = styled.button`
     cursor: pointer;
   }
   @media ${(props) => props.theme.mobile} {
-    font-size: 4px;
+    font-size: 12px;
   }
   @media (max-width: 420px) {
-    font-size: 4px;
-    padding: 5px;
+    font-size: 10px;
+    /* padding: 5px; */
   }
 `;
 

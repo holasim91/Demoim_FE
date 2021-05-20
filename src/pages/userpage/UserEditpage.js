@@ -370,7 +370,7 @@ const EditTable = styled.table`
           width:180px;
           margin-right:14px;
           @media ${props => props.theme.mobile}{
-          font-size: 4px;
+          font-size: 10px;
           width:80px;
           margin-right:10px;
           }
@@ -424,7 +424,7 @@ const Button = styled.button`
         cursor: pointer;
     }
     @media ${props => props.theme.mobile}{
-        font-size: 4px;
+        font-size: 12px;
     }
     
 `;

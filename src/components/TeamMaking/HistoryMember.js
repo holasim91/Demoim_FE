@@ -10,8 +10,6 @@ const HistoryMember = (props) => {
 
   const { nickname, profileImage, position,  userId } = props;
   const isLogin = useSelector((state) => state.user.isLogin);
-  //console.log("참여자1", isLogin, "유저아이디", userId)
-  
 
   return (
     <ParticipationMember>
@@ -20,7 +18,7 @@ const HistoryMember = (props) => {
       </div>
       <MemberInfoBox onClick={() => {
       isLogin ? (
-        history.push(`/userpage/${userId}`)) : (console.log("참여자3", `${userId}`))
+        history.push(`/userpage/${userId}`)) : (console.log("참여자3"))
       }}>
         <p className="nickname bold">{nickname}</p>
         <p className="position">{position}</p>
