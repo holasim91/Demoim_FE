@@ -210,7 +210,13 @@ const LinkStyle = css`
 
 const NavLink = styled(Link)`
   ${LinkStyle}
-
+  @media ${(props) => props.theme.tablet} {
+    color: black;
+    margin: 0 23px 0 26px;
+    font-size: 15px;
+    font-weight: 400;
+  }
+ 
   &.active {
     color: ${(props) => props.theme.main_color};
   }
@@ -218,7 +224,6 @@ const NavLink = styled(Link)`
   @media ${(props) => props.theme.mobile} {
     &:hover {
       text-decoration: none;
-      
     }
   }
 `;
@@ -227,15 +232,13 @@ const NavMenu = styled.div`
   display: flex;
   white-space: nowrap;
   align-items:flex-end; 
-  gap : 77px;
+  gap : 50px;
   font-size:1.06em;
   padding:0px 0px 20px 0px;
   color: ${props => props.theme.main_black};
-
   &.addUserLog{
     gap:45px;
   }
-
   @media ${props => props.theme.mobile}{
     display: none;
   }
@@ -248,20 +251,32 @@ const UserMenu = styled.div`
   margin-bottom: 55px;
   position: relative;
   font-size: 0.9em;
+  
+  @media ${(props) => props.theme.tablet} {
+    gap: 30px;
+  }
   @media ${props => props.theme.mobile}{
     display: none;
   }
-
   
 `;
 
 const NoneActiveLink = styled(ActiveNoneLink)`
   ${LinkStyle}
   font-size:13px;
+  
+
+  @media ${(props) => props.theme.tablet} {
+    font-size:13px;
+    width: 50px;
+    font-weight: 400;
+    margin: 0 0 0 15px;
+  }
 
   @media ${props => props.theme.mobile}{
     font-size:20px;
     color: black;
+    width: 100px;
     margin: 20px 0 0 0;
     &.userMenu{
       font-size:15px;
