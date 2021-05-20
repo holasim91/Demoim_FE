@@ -124,15 +124,15 @@ const LoginTable = styled.table`
         font-size: 14px;
         }
     @media ${props => props.theme.mobile}{
-        font-size: 1px;
+        font-size: 12px;
         }
     }
     td:nth-child(1){
     box-sizing: border-box;
     padding: 15px 30px 0px 18px;
     @media ${props => props.theme.mobile}{
-        font-size: 4px;
-        padding: 15px 10px 0px 10px;
+        font-size: 12px;
+        padding: 15px 10px 0px 0px;
         }
     }
 `;

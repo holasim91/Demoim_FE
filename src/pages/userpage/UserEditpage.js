@@ -173,7 +173,7 @@ const UserEditpage = (props) => {
                         value={nickname}
                         onChange={(e) => {
                           setNickName(e.target.value)
-                        }} /><Button width="8vw" margin="0 16px 0 0" padding="12px" font-size="0.5vw"
+                        }} /><Button margin="0 16px 0 0" padding="12px"
                           onClick={() => {
                             checkNicknameAPI(nickname)
                           }}>중복확인</Button></td>
@@ -260,13 +260,6 @@ const ProfileImgBox = styled.div`
   position:relative;
   width:100px;
   margin:10px auto;
-  /* @media ${props => props.theme.tablet}{
-    width:200px;
-        }
-  @media ${props => props.theme.mobile}{
-    width:100px;
-    } */
-  
 `;
 
 const ProfileImg = styled.img`
@@ -354,7 +347,7 @@ const EditTable = styled.table`
         font-size: 14px;
         }
     @media ${props => props.theme.mobile}{
-        font-size: 4px;
+        font-size: 10px;
         }
     }
     & td:nth-child(1){
@@ -431,7 +424,7 @@ const Button = styled.button`
         cursor: pointer;
     }
     @media ${props => props.theme.mobile}{
-        font-size: 0.5vw;
+        font-size: 4px;
     }
     
 `;

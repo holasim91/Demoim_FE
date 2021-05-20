@@ -21,16 +21,11 @@ const initialState = {
 const otherCheckAPI = (otherId) => {
   return function (dispatch, getState, { history }) {
 
-    // const token = getCookie('token');
-    // axios.defaults.headers.common['authorization'] = token;
-    console.log("OtherAPI아이디 :",otherId);
     const API = `http://54.180.142.197/api/user/profile?user_id=${otherId}`
     axios({
       method: "get",
       url: API,
     }).then((res) => {
-      console.log("OtherCheck 서버응답!:", res.data);
-
       dispatch(setOtherUser({
         id: res.data.userid, 
         description: res.data.description,
@@ -42,7 +37,7 @@ const otherCheckAPI = (otherId) => {
         applyteamid:res.data.applyTeamIdList,
       }))
     }).catch((err) => {
-      console.log("OTHERcheck에러:", err);
+      //console.log("OTHERcheck에러:", err);
     })
   }
 }
