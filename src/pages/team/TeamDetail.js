@@ -350,13 +350,14 @@ const InfoText = styled.p`
 //리팩토링필요
 const ProjectBox = styled.div`
   display:flex;
+  margin:4px 0;
 `;
 
 const ProjectTitle = styled.p`
 display:inline-block;
   font-size:15px;
   line-height: 1.4em;
-  width:85px;
+  width:100px;
 
   & span{
     background-color:#e5ecf7;
@@ -366,6 +367,10 @@ display:inline-block;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.27);
     margin-right: 5px;
     font-weight: 600;
+  }
+  @media ${props => props.theme.mobile}{
+    font-size: 12px;
+    width: 100px;
   }
   @media (max-width:420px){
     width:85px;
@@ -379,7 +384,7 @@ const ProjectPeriod = styled.div`
   margin-left: -8px;
   @media (max-width:420px){
     font-size:12px;
-    margin-left: 0px;
+    margin-left: -4px;
     }
 `;
 
@@ -403,6 +408,10 @@ const MemberTitle = styled.p`
     margin-right: 5px;
     font-weight: 600;
   }
+  @media ${props => props.theme.mobile}{
+    font-size: 15px;
+    width: 70px;
+  }
   @media (max-width:420px){
     width:70px;
       font-size:12px;
@@ -413,6 +422,10 @@ const MemberPosition = styled.div`
   font-size: 15px;
   line-height:1.4em;
   margin-left: -8px;
+  @media ${props => props.theme.mobile}{
+    font-size: 15px;
+    margin-left: -1px;
+  }
   @media (max-width:420px){
     font-size:12px;
     margin-left: 0px;
