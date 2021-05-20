@@ -81,6 +81,11 @@ const WriteWrapper = styled.div`
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.07);
   background-color: #fff;
   border-radius: 10px;
+  @media ${(props) => props.theme.mobile} {
+    margin: 20px auto 0 auto;
+
+  }
+
 `;
 
 const ProfileImage = styled.img`
