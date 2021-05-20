@@ -186,17 +186,21 @@ const TeamDetail = (props) => {
             <ContentInnerBox>
               <InfoBox>
                 <InfoText>
-                  <span>모집기간</span> {recruitBegin}-{recruitEnd}
+                  <span>모집기간</span> {recruitBegin}~{recruitEnd}
                 </InfoText>
-                <InfoText>
-                  <span>프로젝트 기간</span> {projectBegin}-{projectEnd}
-                </InfoText>
-                <InfoText>
-                  <span>인원</span> {team.front !== 0 && `프론트엔드 ${team.front}명 `}
+                <ProjectBox>
+                  <ProjectTitle><span>프로젝트 기간</span></ProjectTitle>
+                  <ProjectPeriod>{projectBegin}~{projectEnd}</ProjectPeriod>
+                </ProjectBox>
+                <MemberBox>
+                  <MemberTitle><span>인원</span></MemberTitle>
+                  <MemberPosition>
+                  {team.front !== 0 && `프론트엔드 ${team.front}명 `}
                   {team.back !== 0 && `백엔드 ${team.back}명 `}
                   {team.designer !== 0 && `디자이너 ${team.designer}명 `}
                   {team.planner !== 0 && `기획자 ${team.planner}명 `}
-                </InfoText>
+                  </MemberPosition>
+                </MemberBox>
                 <InfoText>
                   <span>언어</span> {team.stack}
                 </InfoText>
@@ -319,7 +323,7 @@ const InfoBox = styled.div`
   width:100%;
   ${Flex}
   box-sizing: border-box;
-  gap:10px;
+  grid-gap:10px;
   background-color: #ffffff;
   padding:15px;
 `;
@@ -343,6 +347,80 @@ const InfoText = styled.p`
   }
 
 `
+//리팩토링필요
+const ProjectBox = styled.div`
+  display:flex;
+`;
+
+const ProjectTitle = styled.p`
+display:inline-block;
+  font-size:15px;
+  line-height: 1.4em;
+  width:85px;
+
+  & span{
+    background-color:#e5ecf7;
+    padding:2px 10px;
+    font-size:0.8em;
+    border-radius: 15px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.27);
+    margin-right: 5px;
+    font-weight: 600;
+  }
+  @media (max-width:420px){
+    width:85px;
+      font-size:12px;
+  }
+`;
+
+const ProjectPeriod = styled.div`
+  font-size: 15px;
+  line-height:1.4em;
+  margin-left: -8px;
+  @media (max-width:420px){
+    font-size:12px;
+    margin-left: 0px;
+    }
+`;
+
+
+const MemberBox = styled.div`
+  display:flex;
+`;
+
+const MemberTitle = styled.p`
+  display:inline-block;
+  font-size:15px;
+  line-height: 1.4em;
+  width:60px;
+
+  & span{
+    background-color:#e5ecf7;
+    padding:2px 10px;
+    font-size:0.8em;
+    border-radius: 15px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.27);
+    margin-right: 5px;
+    font-weight: 600;
+  }
+  @media (max-width:420px){
+    width:70px;
+      font-size:12px;
+  }
+`;
+
+const MemberPosition = styled.div`
+  font-size: 15px;
+  line-height:1.4em;
+  margin-left: -8px;
+  @media (max-width:420px){
+    font-size:12px;
+    margin-left: 0px;
+    }
+
+`;
+
+
 const Title = styled.p`
   font-size:21px;
   line-height: 1.4em;
@@ -402,13 +480,13 @@ const LeaderBox = styled.div`
 
 const LeaderContent = styled.div`
   display: flex;
-  gap:20px;
+  grid-gap:20px;
   justify-content: flex-start;
   align-items: center;
 
    @media ${props => props.theme.mobile}{
     flex-direction:column;
-    gap:10px;
+    grid-gap:10px;
   }
 `;
 
@@ -520,7 +598,7 @@ const LeaderMenu = styled.div`
 display: flex;
 justify-content: flex-end;
 width:100%;
-gap:7px;
+grid-gap:7px;
 margin:15px 0px;
 padding-right: 20px;
 

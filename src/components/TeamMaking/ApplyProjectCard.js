@@ -27,13 +27,20 @@ const ApplyProjectCard = (props) => {
           [프로젝트] {title}
         </Titlebox>
         <ProjectInfoBox>
-          <p><span>모집 기간</span> {recruitBegin} ~ {recruitEnd}</p>
-          <p><span>프로젝트 기간</span> {projectBegin} ~ {projectEnd}</p>
-          <p><span>인원</span> {front !== 0 && `프론트엔드 ${front}명 `}
+        <p><span>모집 기간</span> {recruitBegin} ~ {recruitEnd}</p>
+        <ProjectBox>
+            <ProjectTitle><span>프로젝트 기간</span></ProjectTitle>
+            <ProjectPeriod>{projectBegin} ~ {projectEnd}</ProjectPeriod>                
+          </ProjectBox>
+          <MemberInfoBox>
+            <MemberTitle><span>인원</span></MemberTitle>
+            <MemberPosition>
+            {front !== 0 && `프론트엔드 ${front}명 `}
             {back !== 0 && `백엔드 ${back}명 `}
             {designer !== 0 && `디자이너 ${designer}명 `}
             {planner !== 0 && `기획자 ${planner}명 `}
-          </p>
+            </MemberPosition>
+          </MemberInfoBox>
           <p><span>언어</span> {stack}</p>
           <p><span>장소</span> {location}</p>
         </ProjectInfoBox>
@@ -116,4 +123,96 @@ const Titlebox = styled.div`
   margin-bottom: 15px;
   font-weight: 500;
   cursor: pointer;
+`;
+
+//리팩토링필요
+const ProjectBox = styled.div`
+  display:flex;
+`;
+
+const ProjectTitle = styled.p`
+display:inline-block;
+  font-size:15px;
+  line-height: 1.4em;
+  width:100px;
+
+  & span{
+    background-color:#e5ecf7;
+    padding:2px 10px;
+    font-size:0.8em;
+    border-radius: 15px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.27);
+    margin-right: 5px;
+    font-weight: 500;
+  }
+  @media (max-width:420px){
+    width:95px;
+      font-size:12px;
+  }
+`;
+
+const ProjectPeriod = styled.div`
+    font-size: 15px;
+    margin-left: 0px;
+    padding-top: 10px;
+  @media ${props => props.theme.tablet}{
+    font-size:15px;
+    margin-left: 0px;
+    padding-top: 10px;
+  }
+  @media ${props => props.theme.mobile}{
+    font-size:12px;
+    margin-left: 0px;
+    padding-top: 12px;
+  }
+
+  @media (max-width:420px){
+    font-size:12px;
+    padding-top:8px;
+    margin-left: -12px;
+    }
+`;
+
+
+const MemberInfoBox = styled.div`
+  display:flex;
+  
+`;
+
+const MemberTitle = styled.p`
+  display:inline-block;
+  font-size:15px;
+  line-height: 1.4em;
+  width:60px;
+
+  & span{
+    background-color:#e5ecf7;
+    padding:2px 10px;
+    font-size:0.8em;
+    border-radius: 15px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.27);
+    margin-right: 5px;
+    font-weight: 500;
+  }
+  @media (max-width:420px){
+      width:70px;
+      font-size:12px;
+  }
+`;
+
+const MemberPosition = styled.div`
+  font-size: 15px;
+  line-height:1.4em;
+  margin-left: -8px;
+  padding-top: 6px;
+  @media ${props => props.theme.mobile}{
+    font-size:12px;
+    margin-left: -8px;
+    padding-top: 8px;
+  }
+  @media (max-width:420px){
+    font-size:12px;
+    margin-left: 0px;
+    }
+
 `;
