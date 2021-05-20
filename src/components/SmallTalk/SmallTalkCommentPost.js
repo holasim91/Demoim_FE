@@ -165,13 +165,24 @@ const CommentHeader = styled.div`
   justify-content: space-between;
 `;
 const ProfileImage = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 100px;
+  @media (max-width: 375px) {
+    width: 30px;
+  height: 30px;
+
+  }
+
 `;
 const UserName = styled.div`
   padding-left: 10px;
   cursor: pointer;
+  @media (max-width: 375px) {
+    font-size: 13px;
+
+  }
+
 `;
 
 const HeaderLeft = styled.div`
@@ -183,12 +194,22 @@ const PostDate = styled.div`
   font-size: 15px;
   display: flex;
   flex-direction: row-reverse;
+  @media (max-width: 375px) {
+    font-size: 13px;
+
+  }
+
 `;
 const PostContents = styled.div`
-  margin-top: 20px;
+  margin-top: 10px;
   min-height: 50px;
   padding-left: 40px;
   font-size: 14px;
+  @media (max-width: 375px) {
+    font-size: 12px;
+
+  }
+
 `;
 
 const HeaderRight = styled.div`

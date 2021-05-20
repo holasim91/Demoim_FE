@@ -98,6 +98,11 @@ const ProfileImage = styled.img`
   height: 40px;
   border-radius: 100px;
   margin-right: 10px;
+  @media (max-width: 375px) {
+    width: 30px;
+  height: 30px;
+  }
+
 `;
 
 const CommentWrapper = styled.div`
