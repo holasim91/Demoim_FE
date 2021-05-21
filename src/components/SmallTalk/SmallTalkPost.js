@@ -319,14 +319,14 @@ const ProfileImage = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 100px;
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     width: 30px;
     height: 30px;
   }
 `;
 const UserName = styled.div`
   padding-left: 10px;
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     font-size: 13px;
   }
 `;
@@ -335,7 +335,7 @@ const PostDate = styled.div`
   font-size: 15px;
   display: flex;
   flex-direction: row-reverse;
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     font-size: 12px;
   }
 `;
