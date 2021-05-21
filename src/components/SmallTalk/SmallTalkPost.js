@@ -265,7 +265,7 @@ const PostBoxWrapperForMain = styled.div`
   margin: 20px auto 0 auto;
   padding: 17px 28px 0 24px;
   border-radius: 10px;
-  width: 75%;
+  width: 55%;
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   @media ${(props) => props.theme.tablet} {
     /* width: 550px; */
@@ -273,11 +273,13 @@ const PostBoxWrapperForMain = styled.div`
     max-width: 584px;
   }
   @media (max-width: 425px) {
-    width: 75%;
-  }
+    width: 85%;
+    height: auto;
+  } 
   @media (max-width: 375px) {
     height: 125px;
   }
+
 `;
 const PostBoxWrapper = styled.div`
   background-color: ${({ theme }) => theme.main_gray};
