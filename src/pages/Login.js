@@ -70,7 +70,7 @@ const Login = () => {
             </LoginTable>
             <LoginBtn onClick={onLogin}>로그인</LoginBtn>
           </LoginForm>
-          <ToSignup onClick={() => history.push("/signup")}>
+          <ToSignup onClick={() => history.push("/certification")}>
             <span>아직 회원이 아니신가요?</span>
             <span>지금 바로 가입해보세요!</span>
           </ToSignup>

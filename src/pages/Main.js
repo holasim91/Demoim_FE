@@ -11,12 +11,10 @@ import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 import { actionCreators as exhibitionActions } from "../redux/modules/exhibition";
 import MySmallTalkList from "../components/SmallTalk/MySmallTalkList";
 import MyExhibitionList from "../components/Exhibition/MyExhibitionList";
-import DaisyFeedback from "../images/daisy_feedback.svg";
+
 
 const Main = () => {
    const dispatch = useDispatch();
-   
-   const formURL = "https://forms.gle/i3tP9YjZF2C1vmp59" //구글설문폼
 
    React.useEffect(() => {
       dispatch(teamActions.getTeamMakingAPI(1, 6));
@@ -137,58 +135,12 @@ const Main = () => {
                </DetalkTitleBox>
                <MySmallTalkList />
             </DetalkBox>
-            <FeedbackBtn>
-               <Atag href={formURL} target="#" rel="noreferrer noopener">
-                  <FeedbackFormImg src={DaisyFeedback}/>
-               </Atag>                  
-            </FeedbackBtn>
          </Container>
       </React.Fragment>
    )
 }
 
 export default Main
-
-
-//피드백버튼
-const FeedbackBtn = styled.button`
-   position:fixed;
-   right:40px;
-   bottom:30px;
-   width:100px;
-   height:100px;
-   outline:none;
-   border:none;
-   /* border: 1px solid #683fee; */
-   background-color:transparent;
-   margin:2px;
-   cursor:pointer;
-   @media ${props => props.theme.tablet}{
-      right:30px;
-      bottom:20px;
-   }
-   @media ${props => props.theme.mobile}{
-      right:10px;
-      bottom:10px;
-   }
-   @media (max-width: 420px){
-      right:10px;
-      bottom:10px;
-      width:90px;
-      height:90px;
-   }
-`;
-
-const Atag= styled.a`
-   text-decoration:none;
-
-`;
-
-const FeedbackFormImg = styled.img`
-   width:100%;
-
-`;
-
 
 //배너 영역
 const BannerBox = styled.div`
