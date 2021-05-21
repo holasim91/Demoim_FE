@@ -59,9 +59,9 @@ function App() {
             </Switch>
           </ConnectedRouter>
           <FeedbackBtn>
-               <Atag href={formURL} target="#" rel="noreferrer noopener">
-                  <FeedbackFormImg src={DaisyFeedback}/>
-               </Atag>                  
+            <Atag href={formURL} target="#" rel="noreferrer noopener">
+              <FeedbackFormImg src={DaisyFeedback}/>
+            </Atag>                  
             </FeedbackBtn>
         </ContentContainer>
         <Footer />
