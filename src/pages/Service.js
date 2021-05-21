@@ -253,11 +253,36 @@ const PurpleRadiusBox = styled.div`
   font-weight: 550;
   border-radius:20px;
   @media ${props => props.theme.mobile}{
-    font-size: 2.5vw;
+    font-size: 17px;
+    
     text-align: center;
     margin-top:15px;
     width:60%;
  }
+ @media (max-width: 500px){ 
+    font-size: 17px;
+    position: relative;
+    padding: 10px;
+    top: -18px;
+    background-color: #999cda;
+    width:300px;
+    margin: auto;
+    color: white;
+    font-weight: 550;
+    border-radius:20px;
+  }
+  @media (max-width: 375px){ 
+    font-size: 17px;
+    position: relative;
+    padding: 10px;
+    top: -18px;
+    background-color: #999cda;
+    width:300px;
+    margin: auto;
+    color: white;
+    font-weight: 550;
+    border-radius:20px;
+  }
 `;
 
 const PurpleRadiusToolTip = styled.div`
@@ -359,10 +384,10 @@ const WhiteBox = styled.div`
 const BannerBox = styled.div`
    width:100%;
    height: 415px;
-   background: -webkit-linear-gradient( #ebf2ff, #ffffff);
-   background: -moz-linear-gradient(#ebf2ff, #ffffff);
-   background: -o-linear-gradient(#ebf2ff, #ffffff);
-   background: linear-gradient(#ebf2ff, #ffffff);
+   background: -webkit-linear-gradient( #f2f5fa, #ffffff);
+   background: -moz-linear-gradient(#f2f5fa, #ffffff);
+   background: -o-linear-gradient(#f2f5fa, #ffffff);
+   background: linear-gradient(#f2f5fa, #ffffff);
 
    @media ${props => props.theme.mobile}{
       height: auto;
@@ -1041,6 +1066,7 @@ const FooterBox = styled.div`
 `;
 
 const Btn = styled.button`
+  cursor: pointer;
   margin:50px; 
   border:none;
   width:160px; 
