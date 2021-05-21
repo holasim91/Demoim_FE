@@ -99,7 +99,7 @@ const Grid = styled.div`
   }
 
   @media (max-width:420px){
-    min-height: 290px;
+    min-height: 275px;
   }
 `;
 
