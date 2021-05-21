@@ -41,17 +41,19 @@ const SmallTalkCommentPost = (props) => {
             alt="profile"
             src={user.profileImage ? user.profileImage : DefaultProfile}
           />
-
-          <UserName onClick={()=>{ 
-                isLogin ? (
-                  history.push(`/userpage/${user?.userId}`)
-                  ) : (
-                    Swal.fire({
-                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
-                      icon: 'warning',
-                      confirmButtonColor: "#999cda",
-                    })
-                    )}}>{user.nickname}</UserName>
+          <UserName
+            onClick={() => {
+              isLogin
+                ? history.push(`/userpage/${user?.userId}`)
+                : Swal.fire({
+                    text: "더 자세한 정보는 로그인 후 확인 가능합니다😍",
+                    icon: "warning",
+                    confirmButtonColor: "#999cda",
+                  });
+            }}
+          >
+            {user.nickname}
+          </UserName>
         </HeaderLeft>
         <HeaderRight>
           <PostDate>{ChangeTimeType(createdAt)}</PostDate>

@@ -11,15 +11,8 @@ const ExhibitionList = () => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
     (state) => state.exhibition
   );
-  const {user} = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
-  if (exhibitionPosts.length === 0) {
-    return (
-      <>
-        <NoData />
-      </>
-    );
-  }
   if (exihibitionLoading && history.location.pathname !== "/") {
     return (
       <>
@@ -45,7 +38,7 @@ const ExhibitionList = () => {
                     });
                     return false;
                   }
-  
+
                   history.push("/exhibition/write");
                 }}
               >
@@ -55,16 +48,19 @@ const ExhibitionList = () => {
           </TopBox>
         </>
       )}
-
-      <ExhibitionBoxWrapper>
-        {exhibitionPosts.map((post) => (
-          <ExhibitionPost
-            data={post}
-            key={post.exhibitionId}
-            onClick={() => history.push(`/detail/${post.exhibitionId}`)}
-          />
-        ))}
-      </ExhibitionBoxWrapper>
+      {exhibitionPosts.length === 0 ? (
+        <NoData />
+      ) : (
+        <ExhibitionBoxWrapper>
+          {exhibitionPosts.map((post) => (
+            <ExhibitionPost
+              data={post}
+              key={post.exhibitionId}
+              onClick={() => history.push(`/detail/${post.exhibitionId}`)}
+            />
+          ))}
+        </ExhibitionBoxWrapper>
+      )}
     </>
   );
 };
@@ -88,7 +84,6 @@ const BtnBox = styled.div`
   @media ${(props) => props.theme.mobile} {
     padding-top: 15px;
   }
-
 `;
 
 const ExhibitionBoxWrapper = styled.div`
@@ -127,6 +122,5 @@ const WriteBtn = styled.button`
   }
   position: relative;
   z-index: 5;
-
 `;
 export default ExhibitionList;
