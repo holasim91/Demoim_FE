@@ -5,26 +5,25 @@ import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
 import Swal from "sweetalert2";
 
-const SET_SMALLTALK_POST = "SET_SMALLTALK_POST";
-const SET_NEXT_SMALLTALK_POST = "SET_NEXT_SMALLTALK_POST";
-const ADD_SMALLTALK_POST = "ADD_SMALLTALK_POST";
-const DELETE_SMALLTALK_POST = "DELETE_SMALLTALK_POST";
-const UPDATE_SMALLTALK_POST = "UPDATE_SMALLTALK_POST";
-const ADD_SMALLTALK_COMMENT = "ADD_SMALLTALK_COMMENT";
-const DELETE_SMALLTALK_COMMENT = "DELETE_SMALLTALK_COMMENT";
-const UPDATE_SMALLTALK_COMMENT = "UPDATE_SMALLTALK_COMMENT";
-
-const LOADING = "LOADING";
+const SET_SMALLTALK_POST = "SET_SMALLTALK_POST"; //최초 데이터 가져오기
+const SET_NEXT_SMALLTALK_POST = "SET_NEXT_SMALLTALK_POST"; // 무한스크롤을 위한 데이터 가져오기
+const ADD_SMALLTALK_POST = "ADD_SMALLTALK_POST"; // 게시글 추가
+const DELETE_SMALLTALK_POST = "DELETE_SMALLTALK_POST"; // 게시글 삭제
+const UPDATE_SMALLTALK_POST = "UPDATE_SMALLTALK_POST"; // 게시글 수정
+const ADD_SMALLTALK_COMMENT = "ADD_SMALLTALK_COMMENT"; // 댓글 추가
+const DELETE_SMALLTALK_COMMENT = "DELETE_SMALLTALK_COMMENT"; // 댓글 삭제
+const UPDATE_SMALLTALK_COMMENT = "UPDATE_SMALLTALK_COMMENT"; // 댓글 수정
+const LOADING = "LOADING"; // 로딩
 
 const setPost = createAction(SET_SMALLTALK_POST, (post_list, next_page, init_more) => ({
   post_list, next_page, init_more
-}));
+})); // 최초 게시글을 불러오는 액션
 const setNextPost = createAction(SET_NEXT_SMALLTALK_POST, (post_list, next_page, has_more) => ({
   post_list, next_page, has_more
-}));
+})); // 일정 스크롤을 넘길때 다음 게시물을 부르는 액션
 const addPost = createAction(ADD_SMALLTALK_POST, (post_list) => ({
   post_list,
-}));
+})); // 게시물 추가
 const deletePost = createAction(DELETE_SMALLTALK_POST, (post_id) => ({
   post_id,
 }));
@@ -297,15 +296,15 @@ export default handleActions(
       }),
     [UPDATE_SMALLTALK_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        const current_id = action.payload.post_id;
+        const current_id = action.payload.post_id; // 댓글을 달려는 글의 id 
         const target_idx = draft.smallTalkPosts.findIndex(
           (v) => v.smallTalkId === current_id
-        );
+        ); // 해당 아이디가 몇 번째 글인지
         const target_comment = draft.smallTalkPosts[
           target_idx
         ].commentList.findIndex(
           (v) => v.commentId === action.payload.comment_id
-        );
+        ); // 
         draft.smallTalkPosts[target_idx].commentList[target_comment] = {
           ...draft.smallTalkPosts[target_idx].commentList[target_comment],
           comments: action.payload.updated_contents,

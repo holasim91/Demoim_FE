@@ -55,7 +55,9 @@ const TeamDetail = (props) => {
 
   React.useEffect(() => {
     dispatch(teamActions.getDetailTeamMakingAPI(id));
-    dispatch(userAction.loginCheckAPI());
+    if (isLogin) {
+      dispatch(userAction.loginCheckAPI());
+    }
   }, []);
 
 
