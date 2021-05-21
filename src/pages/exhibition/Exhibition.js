@@ -10,7 +10,7 @@ const Exhibition = () => {
   const dispatch = useDispatch();
   const { page, hasMorePosts } = useSelector((state) => state.exhibition);
   useEffect(() => {
-    dispatch(exhibitionActions.getExihibitionAPI(1, 6));
+    dispatch(exhibitionActions.getExihibitionAPI(1, 6)); //자랑하기 첫번째 페이지 글 가져오기
   }, [dispatch]);
 
   return (

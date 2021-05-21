@@ -121,10 +121,9 @@ const getDetailTeamMakingAPI = (teamId) => {
 
     }).then((res) => {
 
-      if (getState().team.teamInfo.leader.id === getState().user.user.id) {
+      if (getState()?.team?.teamInfo?.leader?.id === getState().user.user.id) {
         dispatch(applyActions.getApplyAPI(teamId));
       }
-
     }).catch((error) => {
       console.log(error);
     })
