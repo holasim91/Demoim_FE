@@ -9,12 +9,12 @@ import { useDispatch } from 'react-redux';
 const ParticipationProjectCard = (props) => {
 
 
-  const { title, teamId, member, back, front, designer, planner, begin, end, createAt, recruit, stack, location, isLeader } = props;
+  const { title, teamId, member, back, front, designer, planner, begin, end, stack, location, isLeader } = props;
 
   const dispatch = useDispatch();
 
-  let recruitBegin = moment(createAt).format('YYYY.MM.DD');
-  let recruitEnd = moment(recruit).format('YYYY.MM.DD');
+  // let recruitBegin = moment(createAt).format('YYYY.MM.DD');
+  // let recruitEnd = moment(recruit).format('YYYY.MM.DD');
   let projectBegin = moment(begin).format('YYYY.MM.DD');
   let projectEnd = moment(end).format('YYYY.MM.DD');
 

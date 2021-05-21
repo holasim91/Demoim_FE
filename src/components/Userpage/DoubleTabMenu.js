@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useDebugValue, useState } from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { TabTeamApplyHistory, TabTeamLeaderHistory, TabTeamParticipateHistory } from "../../components";
 import { actionCreators as teamActions } from "../../redux/modules/team";
@@ -87,11 +87,11 @@ const DoubleTabMenu = (props) => {
 };
 
 
-const OtherIdApplyHistory = styled.div`
-  width:100%;
+// const OtherIdApplyHistory = styled.div`
+//   width:100%;
 
 
-`;
+// `;
 
 
 const DoubleTabs = styled.div`

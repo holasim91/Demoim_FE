@@ -6,18 +6,16 @@ import { TeamList } from "../components";
 import { history } from "../redux/configStore";
 import { useMediaQuery } from "react-responsive";
 import { actionCreators as teamActions } from "../redux/modules/team";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as smalltalkActions } from "../redux/modules/smalltalk";
 import { actionCreators as exhibitionActions } from "../redux/modules/exhibition";
 import MySmallTalkList from "../components/SmallTalk/MySmallTalkList";
 import MyExhibitionList from "../components/Exhibition/MyExhibitionList";
 import DaisyFeedback from "../images/daisy_feedback.svg";
-import Swal from "sweetalert2";
 
 const Main = () => {
    const dispatch = useDispatch();
    
-   const isLogin = useSelector((state) => state.user.isLogin);
    const formURL = "https://forms.gle/i3tP9YjZF2C1vmp59" //구글설문폼
 
    React.useEffect(() => {

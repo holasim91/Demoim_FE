@@ -61,7 +61,7 @@ const ExhibitionPostBox = styled.div`
   }
 
   @media (max-width:420px){
-    min-height: 300px;
+    min-height: 275px;
   }
 `;
 

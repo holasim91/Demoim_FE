@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Image } from "../../elements";
 import DefaultProfile from "../../images/def_profile.svg";
 import { useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
 import { history } from "../../redux/configStore";
 
 const HistoryMember = (props) => {
