@@ -11,6 +11,7 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import ScrollTop from "./ScrollTop";
 import Error from "./Error";
+import DaisyFeedback from "../images/daisy_feedback.svg";
 
 
 
@@ -18,6 +19,7 @@ import Error from "./Error";
 function App() {
 
   const dispatch = useDispatch();
+  const formURL = "https://forms.gle/i3tP9YjZF2C1vmp59" //구글설문폼
   const token = getCookie('token') ? true : false;
 
   React.useEffect(() => {
@@ -56,6 +58,11 @@ function App() {
             <Route path="" component={Error} />
             </Switch>
           </ConnectedRouter>
+          <FeedbackBtn>
+               <Atag href={formURL} target="#" rel="noreferrer noopener">
+                  <FeedbackFormImg src={DaisyFeedback}/>
+               </Atag>                  
+            </FeedbackBtn>
         </ContentContainer>
         <Footer />
       </Wrapper>
@@ -74,4 +81,43 @@ const Wrapper = styled.div`
 
 const ContentContainer = styled.div`
   flex:1;
+`;
+
+//피드백버튼
+const FeedbackBtn = styled.button`
+   position:fixed;
+   right:40px;
+   bottom:30px;
+   width:100px;
+   height:100px;
+   outline:none;
+   border:none;
+   /* border: 1px solid #683fee; */
+   background-color:transparent;
+   margin:2px;
+   cursor:pointer;
+   @media ${props => props.theme.tablet}{
+      right:30px;
+      bottom:20px;
+   }
+   @media ${props => props.theme.mobile}{
+      right:10px;
+      bottom:10px;
+   }
+   @media (max-width: 420px){
+      right:10px;
+      bottom:10px;
+      width:90px;
+      height:90px;
+   }
+`;
+
+const Atag= styled.a`
+   text-decoration:none;
+
+`;
+
+const FeedbackFormImg = styled.img`
+   width:100%;
+
 `;
