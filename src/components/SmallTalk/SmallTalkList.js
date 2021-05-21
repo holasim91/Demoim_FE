@@ -16,7 +16,7 @@ const SmallTalkList = () => {
       </>
     );
   }
-if(smallTalkPosts.length === 0){
+if(smallTalkPosts?.length === 0){
   return(
     <NoData />
   )

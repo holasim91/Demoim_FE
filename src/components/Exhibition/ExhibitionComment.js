@@ -10,12 +10,12 @@ import { history } from "../../redux/configStore";
 const ExhibitionComment = (props) => {
   const { post_id } = props;
   const { commentId, comments, user, createdAt } = props.comment;
-  const {isLogin} = useSelector((state) => state.user);
+  const { isLogin } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
-  const currentUser= useSelector(state => state.user)
+  const currentUser = useSelector((state) => state.user);
   const onToggleEdit = () => setIsEdit((state) => !state);
   const onUpdateTextArea = (e) => {
     setCurrent(e.target.value);
@@ -38,22 +38,27 @@ const ExhibitionComment = (props) => {
   return (
     <CommentWrapper>
       <CommentHeader>
-        {user.profileImage ? (
-          <ProfileImage alt="profile" src={user.profileImage} />
-        ) : (
-          <ProfileImage alt="profile" src={DefaultProfile} />
-        )}
+        <HeaderLeft>
+          {user.profileImage ? (
+            <ProfileImage alt="profile" src={user.profileImage} />
+          ) : (
+            <ProfileImage alt="profile" src={DefaultProfile} />
+          )}
+          <UserName
+            onClick={() => {
+              isLogin
+                ? history.push(`/userpage/${user?.userId}`)
+                : Swal.fire({
+                    text: "더 자세한 정보는 로그인 후 확인 가능합니다😍",
+                    icon: "warning",
+                    confirmButtonColor: "#999cda",
+                  });
+            }}
+          >
+            {user.nickname}
+          </UserName>
+        </HeaderLeft>
         <TextBlock>
-          <UserName onClick={()=>{ 
-                isLogin ? (
-                  history.push(`/userpage/${user?.userId}`)
-                  ) : (
-                    Swal.fire({
-                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
-                      icon: 'warning',
-                      confirmButtonColor: "#999cda",
-                    })
-                    )}}>{user.nickname}</UserName>
           <PostDate>{ChangeTimeType(createdAt)}</PostDate>
         </TextBlock>
       </CommentHeader>
@@ -134,6 +139,10 @@ const UpdateTextArea = styled.textarea`
   min-height: 60px;
   resize: none;
 `;
+const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const PostBoxBottom = styled.div`
   display: flex;
@@ -141,7 +150,7 @@ const PostBoxBottom = styled.div`
   align-items: center;
   flex-flow: row-reverse;
   font-size: 13px;
-  color:#7a7786;
+  color: #7a7786;
 
   @media (max-width: 375px) {
     font-size: 11px;
@@ -156,11 +165,12 @@ const CommentWrapper = styled.div`
   border-radius: 10px;
   width: 80%;
   position: relative;
-    top: 2px;
+  top: 2px;
 `;
 const CommentHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 const ProfileImage = styled.img`
   width: 40px;
@@ -183,6 +193,6 @@ const PostDate = styled.div`
 `;
 const CommentContents = styled.div`
   margin-top: 10px;
-  margin-left: 60px;
+  margin-left: 50px;
 `;
 export default ExhibitionComment;
