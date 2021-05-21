@@ -8,6 +8,7 @@ import Teamwork from "../images/teamwork.svg";
 import Project_img01 from "../images/project_img01.png"
 import Project_img02 from "../images/project_img02.png"
 import Project_img03 from "../images/project_img03.png"
+import { history } from "../redux/configStore";
 
 const Service = () => {
 
@@ -232,7 +233,7 @@ const Service = () => {
       <BlueBox>
         <FooterBox>
           <B>지금 바로 리더가 되어 팀을 모아보세요!</B>
-          <Btn><B>팀 꾸리러 가기</B> </Btn>
+          <Btn onClick={() => history.push("/team")}><B>팀 꾸리러 가기</B> </Btn>
         </FooterBox> 
       </BlueBox>
     </React.Fragment>
