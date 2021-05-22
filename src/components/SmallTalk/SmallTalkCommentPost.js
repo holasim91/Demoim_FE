@@ -205,10 +205,11 @@ const PostDate = styled.div`
 const PostContents = styled.div`
   margin-top: 10px;
   min-height: 50px;
-  padding-left: 40px;
+  padding-left: 60px;
   font-size: 14px;
   @media (max-width: 375px) {
     font-size: 12px;
+    padding-left: 40px;
 
   }
 

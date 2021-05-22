@@ -149,7 +149,7 @@ const SmallTalkPost = (props) => {
               ) : (
                 <>
                   <AiFillCaretDown style={{ paddingRight: "5px", color:"#7a7786"  }} />
-                  댓글보기
+                  댓글보기({commentList.length})
                 </>
               )}
             </CommentToggle>
