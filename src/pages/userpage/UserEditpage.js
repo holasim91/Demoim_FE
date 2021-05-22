@@ -121,7 +121,7 @@ const UserEditpage = (props) => {
     }
 
     if( description.length > 100){
-      alert("자기소개는 100자 이내로 작성부탁드립니다.")
+      alert("자기소개는 100자 이내로 작성부탁드립니다. 😭아직 특수문자는 입력이 어려워요")
       return false;
     }
 
@@ -161,7 +161,6 @@ const UserEditpage = (props) => {
                 <input type="text" className="upLoadImg" readOnly />
               </ImgEditBtn>
             </ProfileImgBox>
-            {/* <button onClick={uploadImg}>이미지업로드</button> */}
             <EditForm>
               <EditTable>
                 <tbody>

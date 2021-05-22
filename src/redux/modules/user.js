@@ -155,7 +155,7 @@ const editProfileAPI = (formData) => {
         history.push(`/userpage/${res.data.id}`);
       })
       .catch((err) => {
-        console.log("포지션수정 에러:: " , err);
+        console.log("포지션수정 에러" , err);
         Swal.fire({
           text: `${err.response.data.msg}`,
           icon: 'warning',

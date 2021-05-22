@@ -7,7 +7,7 @@ const MobileBar = (props) => {
 
 
   return (
-    <div>
+    <React.Fragment>
       { open ? (
         <Wapper>
           <BurgerBox>
@@ -17,7 +17,7 @@ const MobileBar = (props) => {
             {children}
           </BurgerBox>
         </Wapper >) : null}
-    </div>
+    </React.Fragment>
   )
 }
 export default MobileBar;
@@ -25,7 +25,7 @@ export default MobileBar;
 
 const OpenBar = keyframes`
   zeroPer{
-     opacity: 0;
+    opacity: 0;
   }
   dePer{
     opacity: 1;
@@ -45,6 +45,7 @@ const Wapper = styled.div`
   @media ${props => props.theme.mobile}{
   display: block;
   animation: ${OpenBar} 0.2s;
+  /* z-index: 99999; */
 }
 `;
 

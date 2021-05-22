@@ -36,6 +36,7 @@ const Certification = () => {
         phoneNum: userNumber,
       })
       .then((res) => {
+        console.log("확실해..?", res)
         Swal.fire({
           text: "입력하신 번호로 인증번호가 발송되었습니다.",
           icon: "success",
@@ -144,12 +145,10 @@ const Certification = () => {
                       }}
                     />
                   </td>
-                  <td>
-                    <Button
-                      onClick={() => {
+                  <td onClick={() => {
                         checkUserNumberAPI(userNumber);
-                      }}
-                    >
+                      }}>
+                    <Button>
                       인증번호요청
                     </Button>
                   </td>
@@ -166,12 +165,10 @@ const Certification = () => {
                       }}
                     />
                   </td>
-                  <td>
-                    <Button
-                      onClick={() => {
+                  <td onClick={() => {
                         checkCertNumber(certNumber);
-                      }}
-                    >
+                      }}>
+                    <Button>
                       인증번호확인
                     </Button>
                   </td>
@@ -196,13 +193,10 @@ const Certification = () => {
                     />
                   </td>
                   <td>개인정보 처리 방침에 대한 이용약관에 동의</td>
-                  <td>
-                    <CheckContents
-                      onClick={() => {
+                  <td onClick={() => {
                         history.push("/policy");
-                      }}
-                    >
-                      {" "}
+                      }}>
+                    <CheckContents>
                       {">"} 전문보기
                     </CheckContents>
                   </td>

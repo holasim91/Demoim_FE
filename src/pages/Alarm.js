@@ -29,8 +29,6 @@ const Alarm = (props) => {
       <Wrapper>
         <TitleBox>
           알림 내역
-          {console.log(alarmCnt)}
-          
       </TitleBox>
         <AllDeleteBox>
           <AllDeleteBtn onClick={onDeleteAlarmAll}>전체 삭제</AllDeleteBtn>
