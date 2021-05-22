@@ -16,12 +16,19 @@ const TeamAllList = () => {
   const user = useSelector((state) => state.user.user);
   const {page, hasMorePosts} = useSelector((state) => state.team);
   const [cate, setCate] = useState('all')
-  React.useEffect(() => {
-    if (user) {
-      dispatch(userAction.loginCheckAPI());
-    }
-  }, [dispatch, user]);
+
+  // async function getUsers(){
+  //   if (user) {
+  //     dispatch(userAction.loginCheckAPI());
+  //   }
+  // }
+
+  // React.useEffect(() => {
+  //   getUsers();
+  // }, []);
+
   React.useEffect(()=>{
+    console.log("여긴?")
     switch (cate) {
       case 'all':
         dispatch(teamActions.getTeamMakingAPI(1, 9));
