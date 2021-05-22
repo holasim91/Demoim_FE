@@ -187,7 +187,7 @@ const Logo = styled.p`
   color: ${props => props.theme.main_black};
   position: relative;
   top:-10px;
-  left:50px;
+  /* left:50px; */
   span{
     color:${props => props.theme.main_color};
   }
@@ -209,7 +209,7 @@ const NavLogoLink = styled(Link)`
   ${LinkStyle}
   @media ${(props) => props.theme.tablet} {
     color: black;
-    margin: 0 0px 0 10px;
+    /* margin: 0 0px 0 10px; */
     font-size: 15px;
     font-weight: 400;
   }
@@ -227,7 +227,7 @@ const NavLink = styled(Link)`
   ${LinkStyle}
   @media ${(props) => props.theme.tablet} {
     color: black;
-    margin: 0 -60px 0 60px;
+    /* margin: 0 -60px 0 60px; */
     font-size: 15px;
     font-weight: 400;
   }
@@ -279,7 +279,7 @@ const NoneActiveLink = styled(ActiveNoneLink)`
   
   @media ${(props) => props.theme.tablet} {
     font-size:13px;
-    width: 50px;
+    width: 25px;
     font-weight: 400;
     margin: 0 0 0 15px;
   }
