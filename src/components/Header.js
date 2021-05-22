@@ -211,7 +211,7 @@ const LinkStyle = css`
 
 const NavLogoLink = styled(Link)`
   ${LinkStyle}
-  @media ${(props) => props.theme.tablet} {
+  @media (max-width: 1200px){ 
     color: black;
     /* margin: 0 0px 0 10px; */
     font-size: 15px;
@@ -228,21 +228,24 @@ const NavLogoLink = styled(Link)`
 `;
 
 const NavLink = styled(Link)`
-  ${LinkStyle}
-  @media ${(props) => props.theme.tablet} {
-    color: black;
-    /* margin: 0 -60px 0 60px; */
-    font-size: 15px;
-    font-weight: 400;
-  }
-  &.active {
-    color: ${(props) => props.theme.main_color};
+  ${LinkStyle};
+
+  @media (max-width: 1200px){ 
+      margin: 0 -60px 0 60px;
+      font-size: 15px;
+      font-weight: 400;
+      color: black;
+    }
+    &.active {
+      color: ${(props) => props.theme.main_color};
   }
   @media ${(props) => props.theme.mobile} {
     &:hover {
       text-decoration: none;
     }
   }
+
+  
 `;
 
 const NavMenu = styled.div`
@@ -256,6 +259,19 @@ const NavMenu = styled.div`
   &.addUserLog{
     gap:45px;
   }
+
+  @media (max-width: 1200px){ 
+    display: flex;
+    white-space: nowrap;
+    align-items:flex-end; 
+    gap : 50px;
+    font-size:1.06em;
+    padding:0px 0px 20px 0px;
+    color: black;
+    &.addUserLog{
+      gap:45px;
+    }
+  }
   @media ${props => props.theme.mobile}{
     display: none;
   }
@@ -268,7 +284,7 @@ const UserMenu = styled.div`
   position: relative;
   font-size: 0.9em;
   
-  @media ${(props) => props.theme.tablet} {
+  @media (max-width: 1200px){ 
     gap: 30px;
   }
   @media ${props => props.theme.mobile}{
@@ -281,7 +297,7 @@ const NoneActiveLink = styled(ActiveNoneLink)`
   ${LinkStyle}
   font-size:13px;
   
-  @media ${(props) => props.theme.tablet} {
+  @media (max-width: 1200px){ 
     font-size:13px;
     width: 50px;
     font-weight: 400;
@@ -310,7 +326,6 @@ const MobileMenu = styled.div`
   flex-direction: column;
   padding: 1.4em;
   gap: 26px;
- 
 `;
 
 const MobileUserMenu = styled.div`
@@ -337,7 +352,7 @@ const Bell = styled(AiOutlineBell)`
   font-size: 1.5em;
   position: relative;
   top:-5px;
-  @media ${props => props.theme.tablet}{
+  @media (max-width: 1200px){ 
     font-size: 1.5em;
     position: relative;
     top:-5px;
@@ -348,6 +363,7 @@ const Bell = styled(AiOutlineBell)`
     position: relative;
     top:-5px;
     color: black;
+    right: 0px;
   }
 `;
 
@@ -378,6 +394,33 @@ const Tooltip = styled.div`
 	top: -11px; 
 	left: 62px; 
 	}
+  @media (max-width: 1200px){ 
+    display: none;
+    text-align: center;
+    line-height:15px;
+    position: absolute;
+    top: 30px;
+    left: -34px;
+    width: 120px;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid #dedfff;
+    background-color: #dedfff;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 550;
+    &:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 6px 10px 6px;
+    border-color: #dedfff transparent;
+    display: block;
+    z-index: 1;
+    top: -11px; 
+    left: 62px; 
+    }
+  }
   @media ${props => props.theme.mobile}{
     
     top: -3px;
@@ -404,7 +447,7 @@ const Tooltip = styled.div`
       left: -9px; 
       }
   }
-`
+`;
 const NewBell = styled.div`
   position: absolute;
   width: 6px;
@@ -413,7 +456,7 @@ const NewBell = styled.div`
   top: -8px;
   right: 80px;
   background-color: ${props => props.theme.main_color};
-  @media ${props => props.theme.tablet}{
+  @media (max-width: 1200px){ 
     position: absolute;
     width: 6px;
     height: 6px;
