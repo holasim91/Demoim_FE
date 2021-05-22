@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
-import { ChangeTimeType } from "../../shared/Common";
+import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 import Swal from "sweetalert2";
 import { history } from "../../redux/configStore";
@@ -59,7 +59,7 @@ const ExhibitionComment = (props) => {
           </UserName>
         </HeaderLeft>
         <TextBlock>
-          <PostDate>{ChangeTimeType(createdAt)}</PostDate>
+          <PostDate>{calcTime(createdAt)}</PostDate>
         </TextBlock>
       </CommentHeader>
       {isEdit ? (
@@ -189,7 +189,7 @@ const UserName = styled.div`
 `;
 const PostDate = styled.div`
   color: #7a7786;
-  font-size: 15px;
+  font-size: 13px;
 `;
 const CommentContents = styled.div`
   margin-top: 10px;

@@ -9,7 +9,7 @@ import "../../css/editor.css";
 import { history } from "../../redux/configStore";
 import Spinner from "../../shared/Spinner";
 import ExhibitionCommentWrite from "../../components/Exhibition/ExhibitionCommentWrite";
-import { ChangeTimeType } from "../../shared/Common";
+import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 import Swal from "sweetalert2";
 
@@ -67,7 +67,7 @@ const ExhibitionDetail = (props) => {
                       confirmButtonColor: "#999cda",
                     })
                     )}}>{post?.user?.nickname} 님</UserName>
-              <PostDate>{ChangeTimeType(post?.createAt)}</PostDate>
+              <PostDate>{calcTime(post?.createAt)}</PostDate>
             </TextBlock>
           </UserInfo>
           {currentUser?.id === post?.user?.userId ? (
@@ -159,7 +159,8 @@ const UserName = styled.div`
 `;
 const PostDate = styled.div`
   color: #7a7786;
-  font-size: 15px;
+  font-size: 13px;
+
 `;
 const ExhibitionDetailContentContainer = styled.div`
   padding: 35px;

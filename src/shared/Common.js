@@ -49,6 +49,24 @@ export const ChangeTimeType = (time) => {
 return changedTime
 }
 
+export function calcTime(time){
+  let currentDate = new Date()
+  let createdDate = new Date(time)
+  if(currentDate.getFullYear() !== createdDate.getFullYear()){
+    return currentDate.getFullYear() - createdDate.getFullYear() + '년 전'
+  }
+  if(currentDate.getMonth() !== createdDate.getMonth()){
+    return currentDate.getMonth() - createdDate.getMonth() + '개월 전'
+  }
+  if(currentDate.getDate() !== createdDate.getDate()){
+    return currentDate.getDate() - createdDate.getDate() + '일 전'
+  }
+  if(currentDate.getHours() !== createdDate.getHours()){
+    return currentDate.getHours() - createdDate.getHours() + '시간 전'
+  }
+}
+
+
 //핸드폰번호 
 export const cellPhoneNum = (userNumber) => {
   const _reg = /^\d{3}\d{3,4}\d{4}$/;

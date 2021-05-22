@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { actionCreators as applyActions } from "../../redux/modules/apply";
 import { actionCreators as userAction } from "../../redux/modules/user";
-import { urlCheck } from "../../shared/Common";
+import { calcTime, urlCheck } from "../../shared/Common";
 import Swal from 'sweetalert2';
 import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
@@ -127,7 +127,8 @@ const TeamDetail = (props) => {
       <Container>
         <TitleBox>
           <Title>[프로젝트] {team.title}</Title>
-          <Date>{moment(team?.createdAt).format('YYYY.MM.DD HH:mm')}</Date>
+          <Date>{calcTime(team?.createdAt)}</Date>
+
         </TitleBox>
         <ContentBox>
           <LeaderBox>

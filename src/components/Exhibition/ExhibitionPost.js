@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import { ChangeTimeType } from "../../shared/Common";
+import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 
 const ExhibitionPost = (props) => {
@@ -27,13 +27,13 @@ const ExhibitionPost = (props) => {
               )}
               <UserName>{data.user.nickname}</UserName>
             </HeaderLeft>
-            <PostDate>{ChangeTimeType(data.createAt)}</PostDate>
+            <PostDate>{calcTime(data.createAt)}</PostDate>
           </PostHeader>
           <ThumbNail {...styles} />
           <Title>{data.title}</Title>
           <Content>
             {removeHtmlTag(data.contents).length > 140
-              ? removeHtmlTag(data.contents).slice(0, 140) + "..."
+              ? removeHtmlTag(data.contents).slice(0, 140) + "... <더보기>"
               : removeHtmlTag(data.contents)}
           </Content>
         </ExhibitionPostBoxContainer>
@@ -92,7 +92,7 @@ const UserName = styled.div`
 `;
 const PostDate = styled.div`
   color: #7a7786;
-  font-size: 15px;
+  font-size: 13px;
 `;
 const ThumbNail = styled.div`
   width: 100%;
