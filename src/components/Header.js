@@ -342,6 +342,7 @@ const Bell = styled(AiOutlineBell)`
     position: relative;
     top:-5px;
     right: -25px;
+  }
   @media ${props => props.theme.mobile}{
     font-size: 30px;
     position: relative;

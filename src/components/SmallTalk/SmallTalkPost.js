@@ -4,7 +4,7 @@ import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import SmallTalkComment from "./SmallTalkComment";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
-import { ChangeTimeType } from "../../shared/Common";
+import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 import { history } from "../../redux/configStore";
 import Swal from "sweetalert2";
@@ -52,7 +52,7 @@ const SmallTalkPost = (props) => {
             <UserName >{user.nickname}</UserName>
           </HeaderLeft>
           <HeaderRight>
-            <PostDate>{ChangeTimeType(createdAt)}</PostDate>
+            <PostDate>{calcTime(createdAt)}</PostDate>
           </HeaderRight>
         </PostBoxHeader>
         <PostContents value={contents}  readOnly/>
@@ -78,7 +78,8 @@ const SmallTalkPost = (props) => {
             <UserName>{user.nickname}</UserName>
           </HeaderLeft>
           <HeaderRight>
-            <PostDate>{ChangeTimeType(createdAt)}</PostDate>
+            <PostDate>{calcTime(createdAt)}</PostDate>
+
           </HeaderRight>
         </PostBoxHeader>
         <PostContents value={contents} readOnly />
@@ -117,7 +118,8 @@ const SmallTalkPost = (props) => {
             )}
           </HeaderLeft>
           <HeaderRight>
-            <PostDate>{ChangeTimeType(createdAt)}</PostDate>
+            <PostDate>{calcTime(createdAt)}</PostDate>
+
           </HeaderRight>
         </PostBoxHeader>
         {isEdit ? (
@@ -332,7 +334,7 @@ const UserName = styled.div`
 `;
 const PostDate = styled.div`
   color: #7a7786;
-  font-size: 15px;
+  font-size: 13px;
   display: flex;
   flex-direction: row-reverse;
   @media (max-width: 425px) {

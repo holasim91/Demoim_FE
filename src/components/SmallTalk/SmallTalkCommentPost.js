@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as smalltalkActions } from "../../redux/modules/smalltalk";
-import { ChangeTimeType } from "../../shared/Common";
+import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 import { history } from "../../redux/configStore";
 import Swal from "sweetalert2";
@@ -56,7 +56,7 @@ const SmallTalkCommentPost = (props) => {
           </UserName>
         </HeaderLeft>
         <HeaderRight>
-          <PostDate>{ChangeTimeType(createdAt)}</PostDate>
+          <PostDate>{calcTime(createdAt)}</PostDate>
         </HeaderRight>
       </CommentHeader>
       {isEdit ? (
@@ -193,7 +193,7 @@ const HeaderLeft = styled.div`
 `;
 const PostDate = styled.div`
   color: #7a7786;
-  font-size: 15px;
+  font-size: 13px;
   display: flex;
   flex-direction: row-reverse;
   @media (max-width: 375px) {
@@ -205,11 +205,11 @@ const PostDate = styled.div`
 const PostContents = styled.div`
   margin-top: 10px;
   min-height: 50px;
-  padding-left: 60px;
+  padding-left: 65px;
   font-size: 14px;
   @media (max-width: 375px) {
     font-size: 12px;
-    padding-left: 40px;
+    padding-left: 45px;
 
   }
 

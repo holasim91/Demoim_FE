@@ -28,7 +28,6 @@ const TeamAllList = () => {
   // }, []);
 
   React.useEffect(()=>{
-    console.log("여긴?")
     switch (cate) {
       case 'all':
         dispatch(teamActions.getTeamMakingAPI(1, 9));
