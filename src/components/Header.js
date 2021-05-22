@@ -16,7 +16,6 @@ const Header = () => {
   const alarmCnt = useSelector((state)=> state.alarm.alarmCnt);
 
   
-
   const LogOut = () => {
     setOpen(false);
     dispatch(actionCreators.logout());
@@ -31,7 +30,8 @@ const Header = () => {
     dispatch(alarmAction.setAlarmCntAPI());
   }
 
-  setInterval(AlarmCountChk(), 5000)
+  setTimeout(function run() { AlarmCountChk(); setTimeout(run, 1700); }, 1700);
+
 
   const [open, setOpen] = React.useState(false);
   const openBar = () => setOpen(true);
@@ -44,11 +44,11 @@ const Header = () => {
       <Container>
         <Bars onClick={openBar} />
         <NavBox>
-          <NavLink to='/'>
+          <NavLogoLink to='/'>
             <Logo>
               <span>De</span>moim
             </Logo>
-          </NavLink>
+          </NavLogoLink>
           <NavMenu className={isLogin ? "addUserLog" : ""}>
             <NavLink to='/service' className='service'>
               서비스 소개
@@ -78,7 +78,6 @@ const Header = () => {
                   )}
                 </BellWraper>
               </NoneActiveLink>
-              
               <LogOutBtn onClick={LogOut}>
                 로그아웃
             </LogOutBtn>
@@ -161,7 +160,6 @@ const Wrapper = styled.div`
   top:0;
   left:0;
   background-color: white;
-
   @media ${props => props.theme.mobile}{
     height: 70px;
   }
@@ -193,7 +191,6 @@ const Logo = styled.p`
   span{
     color:${props => props.theme.main_color};
   }
-
   @media ${props => props.theme.mobile}{
     font-size:30px;
     position: relative;
@@ -208,19 +205,35 @@ const LinkStyle = css`
   cursor: pointer;
 `;
 
+const NavLogoLink = styled(Link)`
+  ${LinkStyle}
+  @media ${(props) => props.theme.tablet} {
+    color: black;
+    margin: 0 0px 0 10px;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  &.active {
+    color: ${(props) => props.theme.main_color};
+  }
+  @media ${(props) => props.theme.mobile} {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+`;
+
 const NavLink = styled(Link)`
   ${LinkStyle}
   @media ${(props) => props.theme.tablet} {
     color: black;
-    margin: 0 23px 0 26px;
+    margin: 0 -60px 0 60px;
     font-size: 15px;
     font-weight: 400;
   }
-
   &.active {
     color: ${(props) => props.theme.main_color};
   }
-
   @media ${(props) => props.theme.mobile} {
     &:hover {
       text-decoration: none;
@@ -242,7 +255,6 @@ const NavMenu = styled.div`
   @media ${props => props.theme.mobile}{
     display: none;
   }
-
 `;
 
 const UserMenu = styled.div`
@@ -265,14 +277,12 @@ const NoneActiveLink = styled(ActiveNoneLink)`
   ${LinkStyle}
   font-size:13px;
   
-
   @media ${(props) => props.theme.tablet} {
     font-size:13px;
     width: 50px;
     font-weight: 400;
     margin: 0 0 0 15px;
   }
-
   @media ${props => props.theme.mobile}{
     font-size:20px;
     color: black;
@@ -305,7 +315,6 @@ const MobileUserMenu = styled.div`
   gap:30px;
   margin-top: 3.5em;
   
-
 `;
 const BellWraper = styled.div`
     position: relative;
@@ -314,7 +323,6 @@ const BellWraper = styled.div`
         display: block;
       }
     }
-
     @media ${props => props.theme.mobile}{
       position: relative;
     }
@@ -325,7 +333,6 @@ const Bell = styled(AiOutlineBell)`
   font-size: 1.5em;
   position: relative;
   top:-5px;
-
   @media ${props => props.theme.mobile}{
     font-size: 30px;
     position: relative;
@@ -350,7 +357,6 @@ const Tooltip = styled.div`
   border-radius: 8px;
   font-size: 12px;
   font-weight: 550;
-
   &:after {
 	content: '';
 	position: absolute;
@@ -362,7 +368,6 @@ const Tooltip = styled.div`
 	top: -11px; 
 	left: 62px; 
 	}
-
   @media ${props => props.theme.mobile}{
     
     top: -3px;
@@ -398,7 +403,15 @@ const NewBell = styled.div`
   top: -8px;
   right: 80px;
   background-color: ${props => props.theme.main_color};
-
+  @media ${props => props.theme.tablet}{
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    top: -8px;
+    right: 105px;
+    background-color: ${props => props.theme.main_color};
+  }
   @media ${props => props.theme.mobile}{
     position: absolute;
     width: 6px;
@@ -432,5 +445,3 @@ const Line = styled.p`
 const PcDetalkBox = styled.div`
   position: relative;
 `;
-
-

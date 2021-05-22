@@ -8,7 +8,7 @@ import { actionCreators as alarmAction } from "../redux/modules/alarm";
 const Alarm = (props) => {
   const dispatch = useDispatch();
   const alarmList = useSelector((state) => state.alarm.alarmList);
-  const alarmCnt = useSelector((state)=> state.alarm.alarmCnt);
+
 
   const onDeleteAlarmAll = () =>{
     if (alarmList.length === 0){

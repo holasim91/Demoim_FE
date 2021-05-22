@@ -45,8 +45,11 @@ function reFresh(userId) {
   }
 }
 
+
+
+
 // 새 알람 갯수
-function setAlarmCntAPI(userId){
+function setAlarmCntAPI(){
   return function (dispatch, getState, { history }) {
     if(getCookie('token')===undefined){
       return;
