@@ -279,7 +279,7 @@ const NoneActiveLink = styled(ActiveNoneLink)`
   
   @media ${(props) => props.theme.tablet} {
     font-size:13px;
-    width: 25px;
+    width: 50px;
     font-weight: 400;
     margin: 0 0 0 15px;
   }
@@ -333,6 +333,11 @@ const Bell = styled(AiOutlineBell)`
   font-size: 1.5em;
   position: relative;
   top:-5px;
+  @media ${props => props.theme.tablet}{
+    font-size: 1.5em;
+    position: relative;
+    top:-5px;
+    right: -25px;
   @media ${props => props.theme.mobile}{
     font-size: 30px;
     position: relative;
@@ -409,7 +414,7 @@ const NewBell = styled.div`
     height: 6px;
     border-radius: 50%;
     top: -8px;
-    right: 105px;
+    right: 80px;
     background-color: ${props => props.theme.main_color};
   }
   @media ${props => props.theme.mobile}{
