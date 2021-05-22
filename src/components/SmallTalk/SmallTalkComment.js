@@ -87,7 +87,7 @@ const CommentTextArea = styled.textarea`
   resize: none;
   box-sizing: border-box;
   padding:10px;
-  z-index: 9999;
+  /* z-index: 9999; */
   :focus {
     outline: none;
   }

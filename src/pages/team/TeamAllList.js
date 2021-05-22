@@ -69,9 +69,10 @@ const TeamAllList = () => {
               onClick={() => {
                 if (!user) {
                   Swal.fire({
-                    text: "로그인 후 사용해주세요 :)",
+                    text: "로그인 후 사용해주세요😘",
                     icon: "warning",
                     confirmButtonColor: "#999cda",
+                    footer: '<a href="http://demoim.co.kr/login" style="text-decoration:none">로그인하러 가기</a>'
                   });
                   return false;
                 }

@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 
 //action
@@ -37,10 +38,18 @@ const otherCheckAPI = (otherId) => {
         applyteamid:res.data.applyTeamIdList,
       }))
     }).catch((err) => {
-      //console.log("OTHERcheck에러:", err);
+      history.replace('/');
+      Swal.fire({
+        icon: "warning",
+        text: "존재하지 않는 회원입니다",
+        confirmButtonColor: "#999cda",
+      })
+      console.log("OTHERcheck에러:", err);
     })
+      
+    }
   }
-}
+
 
 
 //reducer

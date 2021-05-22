@@ -216,7 +216,7 @@ const NavLink = styled(Link)`
     font-size: 15px;
     font-weight: 400;
   }
- 
+
   &.active {
     color: ${(props) => props.theme.main_color};
   }

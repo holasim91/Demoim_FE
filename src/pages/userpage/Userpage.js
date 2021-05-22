@@ -19,7 +19,7 @@ const Userpage = (props) => {
   const otherId = Number(props.match.params.userId);//파람
   const userInfo = useSelector((state) => state.user.user)
   const userInfoId = userInfo?.id
-
+  
   const is_me = otherId === userInfoId ? true : false;
   
   const otherInfo = useSelector((state) => state.otheruser.otherUser);
@@ -36,7 +36,6 @@ const Userpage = (props) => {
   }, [otherId]);
 
 
-  
   //Tab Menu
   const [active, setActive] = useState(0)
   const handleClick = e => {
@@ -45,7 +44,6 @@ const Userpage = (props) => {
       setActive(index);
     }
   };
-
 
   return (
     <React.Fragment>
