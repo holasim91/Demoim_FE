@@ -27,10 +27,14 @@ const Header = () => {
 
 
   function AlarmCountChk(){
+    // console.log("알람")
     dispatch(alarmAction.setAlarmCntAPI());
   }
 
-  setTimeout(function run() { AlarmCountChk(); setTimeout(run, 1700); }, 1700);
+// 
+  setInterval(AlarmCountChk, 6000, 1000)
+
+
 
 
   const [open, setOpen] = React.useState(false);
