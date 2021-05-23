@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,15 +11,15 @@ const ExhibitionCommentWrite = (props) => {
   const { user, isLogin } = useSelector((state) => state.user);
   const [contents, setContents] = useState("");
 
-  const onChangeTextArea = (e) => {
+  const onChangeTextArea = useCallback((e) => {
     setContents(e.target.value);
-  };
-  const onSubmitExhibitionComment = () => {
+  },[]);
+  const onSubmitExhibitionComment = useCallback(() => {
     dispatch(
       exhibitionCommentActions.addExhibitionCommentsAPI(post_id, contents)
     );
     setContents("");
-  };
+  },[dispatch, post_id, contents]);
 
   return (
     <WriteWrapper>

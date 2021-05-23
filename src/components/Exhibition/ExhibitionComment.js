@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
@@ -16,11 +16,11 @@ const ExhibitionComment = (props) => {
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
   const currentUser = useSelector((state) => state.user);
-  const onToggleEdit = () => setIsEdit((state) => !state);
-  const onUpdateTextArea = (e) => {
+  const onToggleEdit = useCallback(() => setIsEdit((state) => !state), []);
+  const onUpdateTextArea = useCallback((e) => {
     setCurrent(e.target.value);
-  };
-  const onClickCommentUpdate = () => {
+  }, []);
+  const onClickCommentUpdate = useCallback(() => {
     dispatch(
       exhibitionCommentActions.updateExhibitionCommentAPI(
         post_id,
@@ -29,12 +29,15 @@ const ExhibitionComment = (props) => {
       )
     );
     setIsEdit(false);
-  };
-  const onClickDeleteComment = () =>
-    dispatch(
-      exhibitionCommentActions.deleteExhibitionCommentAPI(post_id, commentId)
-    );
-
+  }, [dispatch, post_id, commentId, current]);
+  const onClickDeleteComment = useCallback(
+    () =>
+      dispatch(
+        exhibitionCommentActions.deleteExhibitionCommentAPI(post_id, commentId)
+      ),
+    [dispatch, post_id, commentId]
+  );
+// const test = useMemo(() => calcTime(createdAt), [createdAt])
   return (
     <CommentWrapper>
       <CommentHeader>

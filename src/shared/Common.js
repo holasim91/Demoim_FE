@@ -50,19 +50,22 @@ return changedTime
 }
 
 export function calcTime(time){
-  let currentDate = new Date()
-  let createdDate = new Date(time)
-  if(currentDate.getFullYear() !== createdDate.getFullYear()){
-    return currentDate.getFullYear() - createdDate.getFullYear() + '년 전'
+  let currentDate = moment()
+  let createdDate = moment(time)
+  if(currentDate.year() !== createdDate.year()){
+    return currentDate.year() - createdDate.year() + '년 전'
   }
-  if(currentDate.getMonth() !== createdDate.getMonth()){
-    return currentDate.getMonth() - createdDate.getMonth() + '개월 전'
+  if(currentDate.month() !== createdDate.month()){
+    return currentDate.month() - createdDate.month() + '개월 전'
   }
-  if(currentDate.getDate() !== createdDate.getDate()){
-    return currentDate.getDate() - createdDate.getDate() + '일 전'
+  if(currentDate.date() !== createdDate.date()){
+    return currentDate.date() - createdDate.date() + '일 전'
   }
-  if(currentDate.getHours() !== createdDate.getHours()){
-    return currentDate.getHours() - createdDate.getHours() + '시간 전'
+  if(currentDate.hour() !== createdDate.hour()){
+    return currentDate.hour() - createdDate.hour() + '시간 전'
+  }
+  else{
+    return '방금 전'
   }
 }
 

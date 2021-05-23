@@ -11,7 +11,7 @@ const SmallTalkCommentPost = (props) => {
   const dispatch = useDispatch();
   const { post_id } = props;
   const { comments, user, createdAt, commentId } = props.data;
-  const {isLogin} = useSelector((state) => state.user);
+  const { isLogin } = useSelector((state) => state.user);
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
   const onUpdateTextArea = (e) => {
@@ -32,7 +32,7 @@ const SmallTalkCommentPost = (props) => {
     dispatch(smalltalkActions.deleteSmallTalkCommentAPI(post_id, commentId));
   };
   const currentUser = useSelector((state) => state.user);
- const setLineBreak = (comment) =>comment.split('₩n').map(line =>line) //개행?
+  const setLineBreak = (comment) => comment.split("₩n").map((line) => line);
   return (
     <>
       <CommentHeader>
@@ -172,19 +172,15 @@ const ProfileImage = styled.img`
   border-radius: 100px;
   @media (max-width: 375px) {
     width: 30px;
-  height: 30px;
-
+    height: 30px;
   }
-
 `;
 const UserName = styled.div`
   padding-left: 10px;
   cursor: pointer;
   @media (max-width: 375px) {
     font-size: 13px;
-
   }
-
 `;
 
 const HeaderLeft = styled.div`
@@ -198,9 +194,7 @@ const PostDate = styled.div`
   flex-direction: row-reverse;
   @media (max-width: 375px) {
     font-size: 13px;
-
   }
-
 `;
 const PostContents = styled.div`
   margin-top: 10px;
@@ -210,9 +204,7 @@ const PostContents = styled.div`
   @media (max-width: 375px) {
     font-size: 12px;
     padding-left: 45px;
-
   }
-
 `;
 
 const HeaderRight = styled.div`

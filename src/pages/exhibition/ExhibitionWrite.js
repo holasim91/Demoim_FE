@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Editor } from "../../components";
@@ -39,8 +39,8 @@ const ExhibitionWrite = (props) => {
   const [title, setTitle] = useState(post_id ? edited_post.title : "");
   const [contents, setContents] = useState(post_id ? edited_post.contents : "");
 
-  const onChangeTitle = (e) => setTitle(e.target.value);
-  const onEditorChange = (value) => setContents(value);
+  const onChangeTitle = useCallback((e) => (setTitle(e.target.value)),[]);
+  const onEditorChange = useCallback((value) => setContents(value),[]);
   const thumbnailRef = useRef();
 
   const changeFile = (e) => {
