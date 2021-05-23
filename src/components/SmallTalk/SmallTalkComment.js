@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button } from "../../elements";
@@ -10,10 +10,10 @@ const SmallTalkComment = (props) => {
   const { comments, post_id } = props;
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const onChangeComment = (e) => setComment(e.target.value);
+  const onChangeComment = useCallback((e) => setComment(e.target.value), []);
   const [comment, setComment] = useState("");
   const addComment = () => {
-    dispatch(smalltalkActions.addSmallTalkCommentAPI(comment,  post_id));
+    dispatch(smalltalkActions.addSmallTalkCommentAPI(comment, post_id));
     setComment("");
   };
   return (
@@ -86,12 +86,11 @@ const CommentTextArea = styled.textarea`
   min-height: 100px;
   resize: none;
   box-sizing: border-box;
-  padding:10px;
+  padding: 10px;
   /* z-index: 9999; */
   :focus {
     outline: none;
   }
-
 `;
 const ProfileImage = styled.img`
   width: 40px;
@@ -100,9 +99,8 @@ const ProfileImage = styled.img`
   margin-right: 10px;
   @media (max-width: 375px) {
     width: 30px;
-  height: 30px;
+    height: 30px;
   }
-
 `;
 
 const CommentWrapper = styled.div`
@@ -118,7 +116,6 @@ const CommentWrapper = styled.div`
     width: 85%;
     height: auto;
   }
-
 `;
 
 export default SmallTalkComment;

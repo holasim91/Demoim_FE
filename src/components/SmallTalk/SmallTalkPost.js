@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import SmallTalkComment from "./SmallTalkComment";
@@ -7,36 +7,36 @@ import { actionCreators as smalltalkActions } from "../../redux/modules/smalltal
 import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 import { history } from "../../redux/configStore";
-import Swal from "sweetalert2";
+import { WarningAlert } from "../../shared/Alerts";
 
 const SmallTalkPost = (props) => {
   const dispatch = useDispatch();
   const { location } = props;
   const { contents, createdAt, user, smallTalkId, commentList } = props.data;
-  const {isLogin} = useSelector((state) => state.user);
+  const { isLogin } = useSelector((state) => state.user);
 
   const [isOpen, setIsOpen] = useState(false); //댓글 창 토글
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
-  const onClickToggle = () => {
+  const onClickToggle = useCallback(() => {
     if (!isOpen) {
       setIsOpen(true);
     } else {
       setIsOpen(false);
     }
-  };
-  const onClickUpdate = () => setIsEdit((state) => !state);
-  const onDeletePost = () =>
-    dispatch(smalltalkActions.deleteSmallTalkPostAPI(smallTalkId));
+  }, [isOpen]);
+  const onClickUpdate = useCallback(() => setIsEdit((state) => !state), []);
+  const onDeletePost = useCallback(
+    () => dispatch(smalltalkActions.deleteSmallTalkPostAPI(smallTalkId)),
+    [smallTalkId, dispatch]
+  );
   const [current, setCurrent] = useState(contents);
-  const onUpdatePost = () => {
-    dispatch(
-      smalltalkActions.updateSmallTalkPostAPI(smallTalkId, current)
-    );
+  const onUpdatePost = useCallback(() => {
+    dispatch(smalltalkActions.updateSmallTalkPostAPI(smallTalkId, current));
     setIsEdit(false);
-  };
-  const onUpdateTextArea = (e) => {
+  }, [dispatch, smallTalkId, current]);
+  const onUpdateTextArea = useCallback((e) => {
     setCurrent(e.target.value);
-  };
+  }, []);
 
   const currentUser = useSelector((state) => state.user);
   if (location === "/") {
@@ -49,13 +49,13 @@ const SmallTalkPost = (props) => {
             ) : (
               <ProfileImage alt="profile" src={DefaultProfile} />
             )}
-            <UserName >{user.nickname}</UserName>
+            <UserName>{user.nickname}</UserName>
           </HeaderLeft>
           <HeaderRight>
             <PostDate>{calcTime(createdAt)}</PostDate>
           </HeaderRight>
         </PostBoxHeader>
-        <PostContents value={contents}  readOnly/>
+        <PostContents value={contents} readOnly />
       </PostBoxWrapperForMain>
     );
   }
@@ -68,18 +68,12 @@ const SmallTalkPost = (props) => {
             {user.profileImage ? (
               <ProfileImage alt="profile" src={user.profileImage} />
             ) : (
-              <ProfileImage
-                alt="profile"
-                src={
-                  DefaultProfile
-                }
-              />
+              <ProfileImage alt="profile" src={DefaultProfile} />
             )}
             <UserName>{user.nickname}</UserName>
           </HeaderLeft>
           <HeaderRight>
             <PostDate>{calcTime(createdAt)}</PostDate>
-
           </HeaderRight>
         </PostBoxHeader>
         <PostContents value={contents} readOnly />
@@ -95,31 +89,25 @@ const SmallTalkPost = (props) => {
             {user.profileImage ? (
               <ProfileImage alt="profile" src={user.profileImage} />
             ) : (
-              <ProfileImage
-                alt="profile"
-                src={
-                  DefaultProfile
-                }
-              />
+              <ProfileImage alt="profile" src={DefaultProfile} />
             )}
             {user.nickname ? (
-              <UserName style={{cursor:'pointer'}} onClick={()=>{ 
-                isLogin ? (
-                  history.push(`/userpage/${user?.userId}`)
-                  ) : (
-                    Swal.fire({
-                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
-                      icon: 'warning',
-                      confirmButtonColor: "#999cda",
-                    })
-                    )}}>{user.nickname}</UserName>
+              <UserName
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  isLogin
+                    ? history.push(`/userpage/${user?.userId}`)
+                    : WarningAlert("더 자세한 정보는 로그인 후 확인 가능합니다😍")
+                }}
+              >
+                {user.nickname}
+              </UserName>
             ) : (
               <UserName>닉네임 없음</UserName>
             )}
           </HeaderLeft>
           <HeaderRight>
             <PostDate>{calcTime(createdAt)}</PostDate>
-
           </HeaderRight>
         </PostBoxHeader>
         {isEdit ? (
@@ -130,7 +118,7 @@ const SmallTalkPost = (props) => {
           />
         ) : (
           <PostContents value={contents} readOnly />
-          )}
+        )}
         {isEdit ? (
           <UpdatePostBoxBottom>
             <div className="updateCancel" onClick={onClickUpdate}>
@@ -145,19 +133,23 @@ const SmallTalkPost = (props) => {
             <CommentToggle onClick={onClickToggle}>
               {isOpen ? (
                 <>
-                  <AiFillCaretUp style={{ paddingRight: "5px", color:"#7a7786" }} />
+                  <AiFillCaretUp
+                    style={{ paddingRight: "5px", color: "#7a7786" }}
+                  />
                   댓글닫기
                 </>
               ) : (
                 <>
-                  <AiFillCaretDown style={{ paddingRight: "5px", color:"#7a7786"  }} />
+                  <AiFillCaretDown
+                    style={{ paddingRight: "5px", color: "#7a7786" }}
+                  />
                   댓글보기({commentList.length})
                 </>
               )}
             </CommentToggle>
 
             {currentUser.isLogin &&
-              currentUser.user.nickname === user.nickname ? (
+            currentUser.user.nickname === user.nickname ? (
               <EditToggle>
                 <div className="editPost" onClick={onClickUpdate}>
                   수정하기
@@ -227,7 +219,7 @@ const UpdatePostBoxBottom = styled.div`
   align-items: center;
   flex-direction: row-reverse;
   font-size: 13px;
-  color:#7a7786;
+  color: #7a7786;
   .updateCancel {
     padding-left: 20px;
     cursor: pointer;
@@ -252,10 +244,9 @@ const PostBoxBottom = styled.div`
   justify-content: space-between;
   font-size: 13px;
   padding-left: 60px;
-  color:#7a7786;
+  color: #7a7786;
   @media (max-width: 425px) {
     font-size: 11px;
-
   }
   @media (max-width: 375px) {
     padding-left: 40px;
@@ -277,11 +268,10 @@ const PostBoxWrapperForMain = styled.div`
   @media (max-width: 425px) {
     width: 85%;
     height: auto;
-  } 
+  }
   @media (max-width: 375px) {
     height: 125px;
   }
-
 `;
 const PostBoxWrapper = styled.div`
   background-color: ${({ theme }) => theme.main_gray};
@@ -299,7 +289,7 @@ const PostBoxWrapper = styled.div`
   @media (max-width: 425px) {
     width: 85%;
     height: auto;
-  } 
+  }
   @media (max-width: 375px) {
     height: 125px;
   }
@@ -347,12 +337,12 @@ const PostContents = styled.textarea`
   padding-left: 60px;
   resize: none;
   border: none;
-  background-color:#f1f1f1;
+  background-color: #f1f1f1;
   width: 86%;
   margin-bottom: 10px;
   :focus {
-  outline: none;
-}
+    outline: none;
+  }
   @media (max-width: 375px) {
     font-size: 12px;
     padding-left: 42px;

@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
+import { SuccessAlert } from "../../shared/Alerts";
 
 const SET_EXHIBITION_COMMENT = "SET_EXHIBITION_COMMENT";
 const ADD_EXHIBITION_COMMENT = "ADD_EXHIBITION_COMMENT";
@@ -51,6 +52,7 @@ const deleteExhibitionCommentAPI = (post_id, comment_id) => {
       params: { comment_id: Number(comment_id) },
     })
       .then((res) => {
+        SuccessAlert("삭제 성공!")
         dispatch(deleteExihibitionComment( comment_id));
         history.push(`/exhibition/detail/${post_id}`);
       })

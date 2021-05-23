@@ -5,7 +5,7 @@ import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
 import NoData from "../../shared/NoData";
-import Swal from "sweetalert2";
+import { WarningAlert } from "../../shared/Alerts";
 
 const ExhibitionList = () => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
@@ -31,12 +31,7 @@ const ExhibitionList = () => {
               <WriteBtn
                 onClick={() => {
                   if (!user) {
-                    Swal.fire({
-                      text: "로그인 후 사용해주세요😘",
-                      icon: "warning",
-                      confirmButtonColor: "#999cda",
-                      footer: '<a href="http://demoim.co.kr/login" style="text-decoration:none">로그인하러 가기</a>'
-                    });
+                    WarningAlert("로그인 후 사용해주세요😘",'<a href="/login" style="text-decoration:none">로그인하러 가기</a>')
                     return false;
                   }
                   history.push("/exhibition/write");

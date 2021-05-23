@@ -5,13 +5,13 @@ import { actionCreators as smalltalkActions } from "../../redux/modules/smalltal
 import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 import { history } from "../../redux/configStore";
-import Swal from "sweetalert2";
+import { WarningAlert } from "../../shared/Alerts";
 
 const SmallTalkCommentPost = (props) => {
   const dispatch = useDispatch();
   const { post_id } = props;
   const { comments, user, createdAt, commentId } = props.data;
-  const {isLogin} = useSelector((state) => state.user);
+  const { isLogin } = useSelector((state) => state.user);
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 토글
   const [current, setCurrent] = useState(comments);
   const onUpdateTextArea = (e) => {
@@ -32,7 +32,7 @@ const SmallTalkCommentPost = (props) => {
     dispatch(smalltalkActions.deleteSmallTalkCommentAPI(post_id, commentId));
   };
   const currentUser = useSelector((state) => state.user);
- const setLineBreak = (comment) =>comment.split('₩n').map(line =>line) //개행?
+  const setLineBreak = (comment) => comment.split("₩n").map((line) => line);
   return (
     <>
       <CommentHeader>
@@ -45,11 +45,7 @@ const SmallTalkCommentPost = (props) => {
             onClick={() => {
               isLogin
                 ? history.push(`/userpage/${user?.userId}`)
-                : Swal.fire({
-                    text: "더 자세한 정보는 로그인 후 확인 가능합니다😍",
-                    icon: "warning",
-                    confirmButtonColor: "#999cda",
-                  });
+                : WarningAlert("더 자세한 정보는 로그인 후 확인 가능합니다😍")
             }}
           >
             {user.nickname}
@@ -172,19 +168,15 @@ const ProfileImage = styled.img`
   border-radius: 100px;
   @media (max-width: 375px) {
     width: 30px;
-  height: 30px;
-
+    height: 30px;
   }
-
 `;
 const UserName = styled.div`
   padding-left: 10px;
   cursor: pointer;
   @media (max-width: 375px) {
     font-size: 13px;
-
   }
-
 `;
 
 const HeaderLeft = styled.div`
@@ -198,9 +190,7 @@ const PostDate = styled.div`
   flex-direction: row-reverse;
   @media (max-width: 375px) {
     font-size: 13px;
-
   }
-
 `;
 const PostContents = styled.div`
   margin-top: 10px;
@@ -210,9 +200,7 @@ const PostContents = styled.div`
   @media (max-width: 375px) {
     font-size: 12px;
     padding-left: 45px;
-
   }
-
 `;
 
 const HeaderRight = styled.div`

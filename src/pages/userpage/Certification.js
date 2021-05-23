@@ -5,12 +5,13 @@ import { certNumberCheck, cellPhoneNum } from "../../shared/Common";
 import { Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import axios from "axios";
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 
 const Certification = () => {
   const [userNumber, setUserNumber] = React.useState("");
   const [resCertNumber, setresCertNumber] = React.useState("");
   const [certNumber, setCertNumber] = React.useState("");
-
+  const [disable, setDisable] = React.useState(false)
   const [check, setCheck] = React.useState({ check: false });
 
   //체크박스
@@ -22,11 +23,7 @@ const Certification = () => {
   //인증번호요청
   const checkUserNumberAPI = (userNumber) => {
     if (userNumber === "" || !cellPhoneNum(userNumber)) {
-      Swal.fire({
-        text: "휴대폰번호를 확인해주세요~",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      });
+      WarningAlert("휴대폰번호를 확인해주세요!")
       return false;
     }
 
@@ -36,47 +33,28 @@ const Certification = () => {
         phoneNum: userNumber,
       })
       .then((res) => {
-        console.log("확실해..?", res)
-        Swal.fire({
-          text: "입력하신 번호로 인증번호가 발송되었습니다.",
-          icon: "success",
-          confirmButtonColor: "#999cda",
-        });
+        SuccessAlert( "입력하신 번호로 인증번호가 발송되었습니다.")
         setresCertNumber(res.data.certNumber);
       })
       .catch((err) => {
-        Swal.fire({
-          text: `${err.response.data.msg}`,
-          icon: "warning",
-          confirmButtonColor: "#999cda",
-        });
+        ErrorAlert( `${err.response.data.msg}`)
       });
+      setDisable(true)
   };
 
   //인증번호확인
 
   const checkCertNumber = (certNumber) => {
     if (certNumber === "" || !certNumberCheck(certNumber)) {
-      Swal.fire({
-        text: "문자받으신 인증번호 6자리를 입력해주세요!",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      });
+      WarningAlert( "문자받으신 인증번호 6자리를 입력해주세요!")
+
       return false;
     }
 
     if (certNumber !== resCertNumber) {
-      Swal.fire({
-        text: "인증번호가 유효하지 않습니다!",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      });
+      WarningAlert("인증번호가 유효하지 않습니다!")
     } else {
-      Swal.fire({
-        text: "인증성공!",
-        icon: "success",
-        confirmButtonColor: "#999cda",
-      });
+      SuccessAlert("인증성공!")
     }
   };
 
@@ -85,29 +63,18 @@ const Certification = () => {
   //NextBtn
   const toSignup = () => {
     if (userNumber === "") {
-      Swal.fire({
-        text: "휴대폰번호를 확인해주세요~",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      });
+      WarningAlert( "휴대폰번호를 확인해주세요!")
       return false;
     }
 
     if (certNumber === "" || !certNumberCheck(certNumber)) {
-      Swal.fire({
-        text: "문자받으신 인증번호 6자리를 입력해주세요!",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      });
+      WarningAlert( "문자받으신 인증번호 6자리를 입력해주세요!")
+
       return false;
     }
 
     if (check.check === false) {
-      Swal.fire({
-        text: "이용약관 동의 후 회원가입이 가능합니다.",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      });
+      WarningAlert("이용약관 동의 후 회원가입이 가능합니다.")
       return false;
     }
     history.push("/signup");
@@ -145,13 +112,27 @@ const Certification = () => {
                       }}
                     />
                   </td>
-                  <td onClick={() => {
+                  {disable ? (
+                    <td
+                      onClick={() => {
+                        Swal.fire({
+                          text: "이미 요청을 하셨습니다!",
+                          icon: "warning",
+                          confirmButtonColor: "#999cda",
+                        });
+                      }}
+                    >
+                      <DisabledButton>인증번호요청</DisabledButton>
+                    </td>
+                  ) : (
+                    <td
+                      onClick={() => {
                         checkUserNumberAPI(userNumber);
-                      }}>
-                    <Button>
-                      인증번호요청
-                    </Button>
-                  </td>
+                      }}
+                    >
+                      <Button>인증번호요청</Button>
+                    </td>
+                  )}{" "}
                 </tr>
                 <tr>
                   <td>인증번호입력</td>
@@ -165,12 +146,12 @@ const Certification = () => {
                       }}
                     />
                   </td>
-                  <td onClick={() => {
-                        checkCertNumber(certNumber);
-                      }}>
-                    <Button>
-                      인증번호확인
-                    </Button>
+                  <td
+                    onClick={() => {
+                      checkCertNumber(certNumber);
+                    }}
+                  >
+                    <Button>인증번호확인</Button>
                   </td>
                 </tr>
               </tbody>
@@ -193,12 +174,12 @@ const Certification = () => {
                     />
                   </td>
                   <td>개인정보 처리 방침에 대한 이용약관에 동의</td>
-                  <td onClick={() => {
-                        history.push("/policy");
-                      }}>
-                    <CheckContents>
-                      {">"} 전문보기
-                    </CheckContents>
+                  <td
+                    onClick={() => {
+                      history.push("/policy");
+                    }}
+                  >
+                    <CheckContents>{">"} 전문보기</CheckContents>
                   </td>
                 </tr>
               </tbody>
@@ -365,6 +346,26 @@ const Button = styled.button`
   border-radius: 13.5px;
   background-color: #999cda;
   font-size: 12px;
+  &:hover {
+    cursor: pointer;
+  }
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
+  @media (max-width: 420px) {
+    font-size: 10px;
+    padding: 5px;
+  }
+`;
+const DisabledButton = styled.button`
+  margin: 0 auto;
+  padding: 5px;
+  color: #ffffff;
+  border: none;
+  border-radius: 13.5px;
+  background-color: #D8D8DA;
+  font-size: 12px;
+  :disabled
   &:hover {
     cursor: pointer;
   }

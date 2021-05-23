@@ -3,7 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
-import Swal from "sweetalert2";
+import { SuccessAlert } from "../../shared/Alerts";
 
 const SET_SMALLTALK_POST = "SET_SMALLTALK_POST"; //최초 데이터 가져오기
 const SET_NEXT_SMALLTALK_POST = "SET_NEXT_SMALLTALK_POST"; // 무한스크롤을 위한 데이터 가져오기
@@ -160,11 +160,7 @@ const deleteSmallTalkPostAPI = (id) => {
     })
       .then((res) => {
         dispatch(deletePost(id));
-        Swal.fire({
-          text: "삭제 성공!",
-          confirmButtonColor: "#999cda",
-        })
-
+        SuccessAlert("삭제 성공!")
         history.push("/smalltalk");
       })
       .catch((error) => {

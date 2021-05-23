@@ -12,11 +12,11 @@ const SmallTalkWrite = () => {
   const [contents, setContents] = useState("");
   const token = getCookie("token");
 
-  const onChangeTextArea = useCallback((e) =>setContents(e.target.value),[]) 
-  const onSubmitSmallTalk = () => {
+  const onChangeTextArea = useCallback((e) => setContents(e.target.value), []);
+  const onSubmitSmallTalk = useCallback(() => {
     dispatch(smalltalkActions.addSmallTalkPostAPI(contents, token));
     setContents("");
-  };
+  }, [contents, token, dispatch]);
 
   return (
     <WriteWrapper>
@@ -33,7 +33,6 @@ const SmallTalkWrite = () => {
               placeholder="프로젝트와 관련된 이야기들을 적어보세요."
               value={contents}
               onChange={onChangeTextArea}
-
             />
           </WriteTop>
           <WriteBottom>
@@ -87,7 +86,6 @@ const WriteWrapper = styled.div`
   @media (max-width: 425px) {
     width: 85%;
   }
-
 `;
 
 const ProfileImage = styled.img`
@@ -103,11 +101,10 @@ const TextArea = styled.textarea`
   min-height: 100px;
   resize: none;
   box-sizing: border-box;
-  padding:10px;
+  padding: 10px;
   :focus {
     outline: none;
   }
 `;
-
 
 export default SmallTalkWrite;
