@@ -198,6 +198,7 @@ const UserEditpage = (props) => {
                       placeholder={description}
                       value={description}
                       onChange={(e) => {
+                        console.log(e.target.value)
                         setDesc(e.target.value)
                       }}/></td>
                   </tr>
