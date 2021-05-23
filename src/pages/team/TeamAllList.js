@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 import TeamIcon from "../../images/teamMaking.svg";
 import Arrow from "../../images/arrow.jpg";
 import { actionCreators as teamActions } from "../../redux/modules/team";
-import { actionCreators as userAction } from "../../redux/modules/user";
 import SimfinityScroll from "../../shared/SimfinityScroll";
 
 const TeamAllList = () => {
