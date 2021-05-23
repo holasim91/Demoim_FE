@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { actionCreators as exhibitionCommentActions } from "../../redux/modules/exhibitionComment";
 import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
-import Swal from "sweetalert2";
 import { history } from "../../redux/configStore";
+import { WarningAlert } from "../../shared/Alerts";
 
 const ExhibitionComment = (props) => {
   const { post_id } = props;
@@ -51,11 +51,7 @@ const ExhibitionComment = (props) => {
             onClick={() => {
               isLogin
                 ? history.push(`/userpage/${user?.userId}`)
-                : Swal.fire({
-                    text: "더 자세한 정보는 로그인 후 확인 가능합니다😍",
-                    icon: "warning",
-                    confirmButtonColor: "#999cda",
-                  });
+                : WarningAlert("더 자세한 정보는 로그인 후 확인 가능합니다😍")
             }}
           >
             {user.nickname}

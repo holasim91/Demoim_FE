@@ -4,7 +4,7 @@ import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
 import {actionCreators as exhibitionCommentActions} from './exhibitionComment'
-import Swal from "sweetalert2";
+import {SuccessAlert} from '../../shared/Alerts'
 const SET_EXHIBITION_POST = "SET_EXHIBITION_POST";
 const SET_NEXT_EXHIBITION_POST = "SET_NEXT_EXHIBITION_POST";
 const SET_ONE_EXHIBITION_POST = "SET_ONE_EXHIBITION_POST";
@@ -55,11 +55,7 @@ const deleteExihibitionAPI = (id) => {
       }
     })
       .then((res) => {
-        Swal.fire({
-          icon: "success",
-          text: "삭제 성공!",
-          confirmButtonColor: "#999cda",
-        })
+        SuccessAlert("삭제 성공!")
         history.push(`/exhibition`);
       })
       .catch((err) => {

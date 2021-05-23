@@ -7,7 +7,7 @@ import { actionCreators as smalltalkActions } from "../../redux/modules/smalltal
 import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
 import { history } from "../../redux/configStore";
-import Swal from "sweetalert2";
+import { WarningAlert } from "../../shared/Alerts";
 
 const SmallTalkPost = (props) => {
   const dispatch = useDispatch();
@@ -97,11 +97,7 @@ const SmallTalkPost = (props) => {
                 onClick={() => {
                   isLogin
                     ? history.push(`/userpage/${user?.userId}`)
-                    : Swal.fire({
-                        text: "더 자세한 정보는 로그인 후 확인 가능합니다😍",
-                        icon: "warning",
-                        confirmButtonColor: "#999cda",
-                      });
+                    : WarningAlert("더 자세한 정보는 로그인 후 확인 가능합니다😍")
                 }}
               >
                 {user.nickname}
