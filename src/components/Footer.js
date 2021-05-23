@@ -22,8 +22,8 @@ const Footer = () => {
             <span>De</span>moim
           </Logo>
           {isPc && <React.Fragment>
-            <Text>© 2021 Project Demoim.</Text>
-            <Text margin='3px 0px 0px 0px'>All rights reserved.</Text>
+            <SubText>© 2021 Project Demoim.</SubText>
+            <SubText margin='3px 0px 0px 0px'>All rights reserved.</SubText>
           </React.Fragment>}
           {isMobile && <React.Fragment>
             <Text size="2vw">© 2021 Project Demoim.</Text>
@@ -39,13 +39,14 @@ export default Footer;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 150px;
+  height: 107px;
   /* margin: 424px 0 0; */
   /* padding: 0px 100px 29px 70px; */
   background-color: #f1f1f1;
 `;
 
 const Logo = styled.p`
+  font-size: 24px;
   ${props => props.theme.logo}
   color: ${props => props.theme.main_black};
 
@@ -53,8 +54,12 @@ const Logo = styled.p`
     color:${props => props.theme.main_color};
   }
 
+  @media ${props => props.theme.tablet}{
+    font-size: 24px;
+  }
+
   @media ${props => props.theme.mobile}{
-    font-size: 2em;
+    font-size: 24px;
   }
 `;
 
@@ -62,7 +67,19 @@ const Content = styled.div`
   width:80%;
   display: flex;
   flex-direction: column;
-  margin-top: 70px;
+  margin-top: 40px;
   padding-left:10px;
-  margin: 47px 0px 0px 41px;
-`
+  margin: 28px 0px 0px 20px;
+  
+`;
+
+const SubText = styled.p`
+  font-size: 13px;
+  @media ${props => props.theme.tablet}{
+    font-size: 13px;
+  }
+
+  @media ${props => props.theme.mobile}{
+    font-size: 13px;
+  }
+`;

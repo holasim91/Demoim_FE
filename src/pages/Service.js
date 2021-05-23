@@ -216,9 +216,9 @@ const Service = () => {
           <FlexBox>
             <ThreeContentBox>
               <OneDetail>
-                <OneTitleBox>
+                <ThreeTitleBox>
                   3
-                </OneTitleBox>
+                </ThreeTitleBox>
                 <M3>팀 프로젝트 공유를 통해</M3>
                 <ThreeP>
                   다른 사람들과 소통하는 재미까지!</ThreeP>
@@ -889,7 +889,7 @@ const FlexBox = styled.div`
 
 const OneTitleBox = styled.div`
     position: relative;
-    right:30px;
+    right:20px;
     text-align: left;
     font-size: 65px;
     font-weight: 300;
@@ -897,7 +897,7 @@ const OneTitleBox = styled.div`
     z-index:10;
     @media ${props => props.theme.tablet}{
       position: relative;
-      right:30px;
+      right:20px;
       text-align: left;
       font-size: 65px;
       font-weight: 300;
@@ -905,7 +905,7 @@ const OneTitleBox = styled.div`
     }
     @media (max-width: 420px){ 
       position: relative;
-      right:30px;
+      right:20px;
       text-align: left;
       font-size: 65px;
       font-weight: 300;
@@ -914,7 +914,7 @@ const OneTitleBox = styled.div`
     }
     @media (max-width: 375px){ 
       position: relative;
-      right:30px;
+      right:20px;
       text-align: left;
       font-size: 65px;
       font-weight: 300;
@@ -926,7 +926,7 @@ const OneTitleBox = styled.div`
 
 const TwoTitleBox = styled.div`
       position: relative;
-      left:25px;
+      left:15px;
       text-align: right;
       font-size: 65px;
       font-weight: 300;
@@ -935,7 +935,7 @@ const TwoTitleBox = styled.div`
     
     @media ${props => props.theme.tablet}{
       position: relative;
-      left:25px;
+      left:15px;
       text-align: right;
       font-size: 65px;
       font-weight: 300;
@@ -944,7 +944,7 @@ const TwoTitleBox = styled.div`
     }
     @media ${props => props.theme.mobile}{
       position: relative;
-      left:25px;
+      left:5;
       text-align: right;
       font-size: 65px;
       font-weight: 300;
@@ -952,6 +952,43 @@ const TwoTitleBox = styled.div`
       z-index:10;
       
     }
+`;
+
+const ThreeTitleBox = styled.div`
+    position: relative;
+    right:15px;
+    text-align: left;
+    font-size: 65px;
+    font-weight: 300;
+    margin-bottom:25px;
+    z-index:10;
+    @media ${props => props.theme.tablet}{
+      position: relative;
+      right:15px;
+      text-align: left;
+      font-size: 65px;
+      font-weight: 300;
+      margin-bottom:25px;
+    }
+    @media (max-width: 420px){ 
+      position: relative;
+      right:3px;
+      text-align: left;
+      font-size: 65px;
+      font-weight: 300;
+      margin-bottom:25px;
+      z-index:10;
+    }
+    @media (max-width: 375px){ 
+      position: relative;
+      right:3px;
+      text-align: left;
+      font-size: 65px;
+      font-weight: 300;
+      margin-bottom:25px;
+      z-index:10;
+    }
+
 `;
 
 
@@ -1019,8 +1056,9 @@ const ImgBox1 = styled.img`
       width: 200px;
       height: 250px;
       position: relative;
+      right:20px;
       top: -30px;
-      margin-right: 70px;
+      margin-right: 0px;
       z-index:0;
     }
 `;
@@ -1064,7 +1102,7 @@ const ImgBox3 = styled.img`
       height: 250px;
       position: relative;
       top: -30px;
-      margin-right: 100px;
+      right:20px;
       z-index:0;
     }
 `;
