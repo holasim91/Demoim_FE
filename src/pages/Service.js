@@ -174,7 +174,7 @@ const Service = () => {
             <OneContentBox>
               <OneDetail>
                 <OneTitleBox>
-                  ONE
+                  1
                 </OneTitleBox>
                 <M1>프로젝트를 만들어</M1>
                 <OneP>
@@ -197,7 +197,7 @@ const Service = () => {
             <TwoContentBox>
               <OneDetail>
                 <TwoTitleBox>
-                  TWO
+                  2
                 </TwoTitleBox>
                 <M2>팀원도 되어</M2>
                 <TwoP>
@@ -217,7 +217,7 @@ const Service = () => {
             <ThreeContentBox>
               <OneDetail>
                 <OneTitleBox>
-                  THREE
+                  3
                 </OneTitleBox>
                 <M3>팀 프로젝트 공유를 통해</M3>
                 <ThreeP>
@@ -888,48 +888,68 @@ const FlexBox = styled.div`
 `;
 
 const OneTitleBox = styled.div`
+    position: relative;
+    right:30px;
     text-align: left;
-    font-size: 40px;
+    font-size: 65px;
     font-weight: 300;
-    margin-bottom:30px;
+    margin-bottom:25px;
     z-index:10;
     @media ${props => props.theme.tablet}{
+      position: relative;
+      right:30px;
       text-align: left;
-      font-size: 40px;
+      font-size: 65px;
       font-weight: 300;
-      margin-bottom:30px;
+      margin-bottom:25px;
     }
     @media (max-width: 420px){ 
+      position: relative;
+      right:30px;
       text-align: left;
-      font-size: 30px;
+      font-size: 65px;
       font-weight: 300;
-      margin-bottom:30px;
+      margin-bottom:25px;
+      z-index:10;
     }
     @media (max-width: 375px){ 
+      position: relative;
+      right:30px;
       text-align: left;
-      font-size: 30px;
+      font-size: 65px;
       font-weight: 300;
-      margin-bottom:30px;
+      margin-bottom:25px;
+      z-index:10;
     }
 
 `;
 
 const TwoTitleBox = styled.div`
-    text-align: right;
-    font-size: 40px;
-    font-weight: 300;
-    margin-bottom:30px;
-    @media ${props => props.theme.tablet}{
+      position: relative;
+      left:25px;
       text-align: right;
-      font-size: 40px;
+      font-size: 65px;
       font-weight: 300;
-      margin-bottom:30px;
+      margin-bottom:25px;
+      z-index:10;
+    
+    @media ${props => props.theme.tablet}{
+      position: relative;
+      left:25px;
+      text-align: right;
+      font-size: 65px;
+      font-weight: 300;
+      margin-bottom:25px;
+      z-index:10;
     }
     @media ${props => props.theme.mobile}{
+      position: relative;
+      left:25px;
       text-align: right;
-      font-size: 30px;
+      font-size: 65px;
       font-weight: 300;
-      margin-bottom:30px;
+      margin-bottom:25px;
+      z-index:10;
       
     }
 `;
