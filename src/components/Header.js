@@ -85,7 +85,7 @@ const Header = () => {
               </NoneActiveLink>
               <LogOutBtn onClick={LogOut}>
                 로그아웃
-            </LogOutBtn>
+              </LogOutBtn>
             </UserMenu>
           ) : (
             <UserMenu>
@@ -130,7 +130,6 @@ const Header = () => {
                       </Tooltip>
                     )}
                   </BellWraper>
-                  
                 </NoneActiveLink>
                 <LogOutBtn onClick={LogOut} className='userMenu'>
                   로그아웃
@@ -240,7 +239,7 @@ const NavLink = styled(Link)`
   ${LinkStyle};
 
   @media (max-width: 1200px){ 
-      margin: 0 -60px 0 60px;
+      margin: 0 20px 0 20px;
       font-size: 15px;
       font-weight: 400;
       color: black;
@@ -248,6 +247,17 @@ const NavLink = styled(Link)`
     &.active {
       color: ${(props) => props.theme.main_color};
   }
+
+  @media (max-width: 855px){ 
+      margin: 0 10px 0 10px;
+      font-size: 15px;
+      font-weight: 400;
+      color: black;
+    }
+    &.active {
+      color: ${(props) => props.theme.main_color};
+  }
+
   @media ${(props) => props.theme.mobile} {
     &:hover {
       text-decoration: none;
@@ -270,12 +280,13 @@ const NavMenu = styled.div`
   }
 
   @media (max-width: 1200px){ 
+    
     display: flex;
     white-space: nowrap;
     align-items:flex-end; 
-    gap : 50px;
+    gap : 0;
     font-size:1.06em;
-    padding:0px 0px 20px 0px;
+    padding:0px 0px 20px 30px;
     color: black;
     &.addUserLog{
       gap:45px;
@@ -287,14 +298,17 @@ const NavMenu = styled.div`
 `;
 
 const UserMenu = styled.div`
+  position: relative; 
   display: flex;
-  gap: 35px;
+  gap:35px;
   margin-bottom: 55px;
-  position: relative;
-  font-size: 0.9em;
-  
-  @media (max-width: 1200px){ 
-    gap: 30px;
+
+  @media ${props => props.theme.tablet}{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap:0;
+    
   }
   @media ${props => props.theme.mobile}{
     display: none;
@@ -308,9 +322,9 @@ const NoneActiveLink = styled(ActiveNoneLink)`
   
   @media (max-width: 1200px){ 
     font-size:13px;
-    width: 50px;
+    width:54px;
     font-weight: 400;
-    margin: 0 0 0 15px;
+    margin: 0 0 0 5px;
   }
   @media ${props => props.theme.mobile}{
     font-size:20px;
@@ -327,7 +341,6 @@ const NoneActiveLink = styled(ActiveNoneLink)`
 const LogOutBtn = styled.p`
   cursor:pointer;
   font-size:13px;
-  
 `;
 
 const MobileMenu = styled.div`
@@ -358,14 +371,16 @@ const BellWraper = styled.div`
 
 
 const Bell = styled(AiOutlineBell)`
-  font-size: 1.5em;
+  font-size: 20px;
   position: relative;
   top:-5px;
-  @media (max-width: 1200px){ 
-    font-size: 1.5em;
-    position: relative;
+
+  @media ${props => props.theme.tablet}{
+    font-size: 20px;
+    position: absolute;
     top:-5px;
-    right: -25px;
+  
+    color: #000000;
   }
   @media ${props => props.theme.mobile}{
     font-size: 30px;
