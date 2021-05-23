@@ -15,6 +15,7 @@ const SmallTalk = () => {
   useEffect(() => {
     dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
   }, [dispatch]);
+  
   return (
     <>
       <SubMenus />

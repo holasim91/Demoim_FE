@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -137,11 +137,24 @@ const UserEditpage = (props) => {
     dispatch(actionCreators.editProfileAPI(formData));
   };
 
+
+
+//닉네임
+const handleNickName = (e) => {
+  setNickName(e.target.value)
+}
+
   //희망포지션 설렉트박스
   const handleOnChange = (e) => {
     const selectedPosition = e.target.value;
     setPosition(selectedPosition)
   }
+
+//포지션
+const handleDesc = (e) => {
+  setDesc(e.target.value)
+}
+
 
   return (
     <React.Fragment>
@@ -170,12 +183,12 @@ const UserEditpage = (props) => {
                       <Input placeholder={nickname}
                         maxLength="6"
                         value={nickname}
-                        onChange={(e) => {
-                          setNickName(e.target.value)
-                        }} /><Button margin="0 16px 0 0" padding="12px"
+                        onChange={handleNickName}/>
+                        <Button margin="0 16px 0 0" padding="12px"
                           onClick={() => {
                             checkNicknameAPI(nickname)
-                          }}>중복확인</Button></td>
+                        }}>중복확인</Button>
+                    </td>
                   </tr>
                   <tr>
                     <td></td>
@@ -197,10 +210,7 @@ const UserEditpage = (props) => {
                     <td><TextArea 
                       placeholder={description}
                       value={description}
-                      onChange={(e) => {
-                        console.log(e.target.value)
-                        setDesc(e.target.value)
-                      }}/></td>
+                      onChange={handleDesc}/></td>
                   </tr>
                   <tr>
                     <td></td>
@@ -220,10 +230,6 @@ const UserEditpage = (props) => {
 
 
 UserEditpage.defaultProps = {
-  username: "g0rden@never.com",
-  nickname: "가나다라마바",
-  position: "프론트트트",
-  desc: "안녕하슈",
   profileImage: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
 }
 
@@ -454,6 +460,7 @@ const TextArea = styled.textarea`
     margin-top:8px;
     background-color: #f1f1f1;
     font-size:12px;
+    white-space:pre-line;
     @media ${props => props.theme.mobile}{
       width:150px; 
     }

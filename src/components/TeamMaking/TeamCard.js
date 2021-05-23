@@ -34,16 +34,16 @@ const TeamCard = React.memo((props) => {
       <Grid onClick={() => { history.push(`/team/detail/${teamId}`) }} >
         <ImgBox {...styles} />
         <MentBox>
-          <Text className='more'>[프로젝트] {title} </Text>
-          <Text>[모집 기간] {recruitBegin} ~ {recruitEnd}</Text>
-          <Text>[프로젝트 기간]{ProjectBegin} ~ {ProjectEnd}</Text>
-          <Text>[인원] {front !== 0 && `프론트엔드 ${front}명 `}
+          <Text className='more'><Bold bold>[프로젝트]</Bold>&nbsp;{title} </Text>
+          <Text><Bold bold>[모집 기간]</Bold>&nbsp;{recruitBegin} ~ {recruitEnd}</Text>
+          <Text><Bold bold>[프로젝트 기간]</Bold>&nbsp;{ProjectBegin} ~ {ProjectEnd}</Text>
+          <Text><Bold bold>[인원]</Bold>&nbsp;{front !== 0 && `프론트엔드 ${front}명 `}
             {back !== 0 && `백엔드 ${back}명 `}
             {designer !== 0 && `디자이너 ${designer}명 `}
             {planner !== 0 && `기획자 ${planner}명 `}
           </Text>
         </MentBox>
-        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 0px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)">{recruitState === 'ACTIVATED' ? '모집 중' : '모집 완료'}</Button>
+        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 15px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)">{recruitState === 'ACTIVATED' ? '모집 중' : '모집 완료'}</Button>
       </Grid>
 
     </React.Fragment>
@@ -126,7 +126,7 @@ const ImgBox = styled.div`
 const MentBox = styled.div`
   width:90%;
   ${Flex}
-  gap:4px;
+  grid-gap:6px;
   padding-top:7px;
 `;
 
@@ -145,3 +145,6 @@ const Text = styled.div`
   }
 `;
 
+const Bold = styled.b`
+font-weight: ${(props) => (props.bold ? "700" : "")};
+`;
