@@ -39,8 +39,10 @@ export default Footer;
 
 const Wrapper = styled.div`
   width: 100%;
-  min-height: 185px;
-  background-color: ${props => props.theme.main_gray};
+  height: 150px;
+  /* margin: 424px 0 0; */
+  /* padding: 0px 100px 29px 70px; */
+  background-color: #f1f1f1;
 `;
 
 const Logo = styled.p`
@@ -52,14 +54,15 @@ const Logo = styled.p`
   }
 
   @media ${props => props.theme.mobile}{
-    font-size: 1.56em;
+    font-size: 2em;
   }
 `;
 
 const Content = styled.div`
-  width:100%;
+  width:80%;
   display: flex;
   flex-direction: column;
   margin-top: 70px;
   padding-left:10px;
+  margin: 47px 0px 0px 41px;
 `
