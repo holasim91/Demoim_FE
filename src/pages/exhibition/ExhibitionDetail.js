@@ -11,7 +11,7 @@ import Spinner from "../../shared/Spinner";
 import ExhibitionCommentWrite from "../../components/Exhibition/ExhibitionCommentWrite";
 import { calcTime } from "../../shared/Common";
 import DefaultProfile from "../../images/def_profile.svg";
-import Swal from "sweetalert2";
+import { WarningAlert } from "../../shared/Alerts";
 
 const ExhibitionDetail = (props) => {
   const dispatch = useDispatch();
@@ -61,11 +61,7 @@ const ExhibitionDetail = (props) => {
                 isLogin ? (
                   history.push(`/userpage/${post.user?.userId}`)
                   ) : (
-                    Swal.fire({
-                      text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
-                      icon: 'warning',
-                      confirmButtonColor: "#999cda",
-                    })
+                    WarningAlert( '더 자세한 정보는 로그인 후 확인 가능합니다😍')
                     )}}>{post?.user?.nickname} 님</UserName>
               <PostDate>{calcTime(post?.createAt)}</PostDate>
             </TextBlock>

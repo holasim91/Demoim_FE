@@ -8,7 +8,7 @@ import { AiOutlineBell } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
 import { actionCreators as alarmAction } from "../redux/modules/alarm";
-
+import KorLogo from '../images/demoim_kor.svg'
 const Header = () => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -51,6 +51,7 @@ const Header = () => {
           <NavLogoLink to='/'>
             <Logo>
               <span>De</span>moim
+              <KoreanLogo src={KorLogo}/>
             </Logo>
           </NavLogoLink>
           <NavMenu className={isLogin ? "addUserLog" : ""}>
@@ -153,7 +154,15 @@ const Header = () => {
 }
 
 export default Header;
+const KoreanLogo = styled.img `
+position: absolute;
+top: -20px;
+@media ${props => props.theme.mobile}{
+  top: -10px;
+   padding-left: 7px;
+  }
 
+`
 const Wrapper = styled.div`
   width: 100%;
   height: 108px;

@@ -254,7 +254,7 @@ const PostBoxBottom = styled.div`
 `;
 const PostBoxWrapperForMain = styled.div`
   background-color: ${({ theme }) => theme.main_gray};
-  min-height: 80px;
+  /* min-height: 80px; */
   margin: 20px auto 0 auto;
   padding: 17px 28px 0 24px;
   border-radius: 10px;
@@ -268,30 +268,21 @@ const PostBoxWrapperForMain = styled.div`
   @media (max-width: 425px) {
     width: 85%;
     height: auto;
-  }
-  @media (max-width: 375px) {
-    height: 125px;
   }
 `;
 const PostBoxWrapper = styled.div`
   background-color: ${({ theme }) => theme.main_gray};
-  min-height: 80px;
   margin: 20px auto 0 auto;
-  padding: 17px 28px 0 24px;
+  padding: 0 28px 0 24px;
   border-radius: 10px;
   width: 55%;
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   @media ${(props) => props.theme.tablet} {
-    /* width: 550px; */
-    height: 156px;
     max-width: 584px;
   }
   @media (max-width: 425px) {
     width: 85%;
     height: auto;
-  }
-  @media (max-width: 375px) {
-    height: 125px;
   }
 `;
 
@@ -333,17 +324,17 @@ const PostDate = styled.div`
 `;
 const PostContents = styled.textarea`
   /* margin-top: 20px; */
-  min-height: 50px;
+  /* min-height: 50px; */
   padding-left: 60px;
   resize: none;
   border: none;
   background-color: #f1f1f1;
   width: 86%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   :focus {
     outline: none;
   }
-  @media (max-width: 375px) {
+  @media (max-width: 425px) {
     font-size: 12px;
     padding-left: 42px;
   }

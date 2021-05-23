@@ -5,7 +5,7 @@ export const WarningAlert = (warning_text, footer) =>{
     text: warning_text,
     icon: "warning",
     confirmButtonColor: "#999cda",
-    footer:footer
+    footer: footer
   })
 }
 //성공 alert
