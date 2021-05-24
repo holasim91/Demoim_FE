@@ -247,9 +247,8 @@ const PostBoxBottom = styled.div`
   color: #7a7786;
   @media (max-width: 425px) {
     font-size: 11px;
-  }
-  @media (max-width: 375px) {
     padding-left: 40px;
+
   }
 `;
 const PostBoxWrapperForMain = styled.div`

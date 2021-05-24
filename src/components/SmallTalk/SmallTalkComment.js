@@ -107,7 +107,7 @@ const CommentWrapper = styled.div`
   background-color: #f2f5fa;
   min-height: 80px;
   margin: 0 auto;
-  padding: 17px 28px 0 24px;
+  padding: 5px 28px 0 24px;
   border-radius: 10px;
   width: 55%;
   position: relative;
