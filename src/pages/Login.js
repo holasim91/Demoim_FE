@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Swal from "sweetalert2";
 import { Container } from "../elements";
 import { history } from "../redux/configStore";
 import "../shared/theme";
-
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../shared/Alerts";
 import { actionCreators } from "../redux/modules/user";
 
 import { useDispatch } from "react-redux";
@@ -18,19 +17,11 @@ const Login = () => {
   const onLogin = () => {
 
     if (email === "") {
-      Swal.fire({
-        text: "이메일을 입력해주세요!",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("이메일을 입력해주세요~")
       return
     }
     if (pw === "") {
-      Swal.fire({
-        text: "비밀번호를 입력해주세요!",
-        icon: "warning",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("비밀번호를 입력해주세요!")
       return
     }
 

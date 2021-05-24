@@ -3,7 +3,7 @@ import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from '../../shared/Cookies';
-
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts"
 
 const SET_ALARM = "SET_ALARM";
 const DELETE_ALARM = "DELETE_ALARM";
@@ -101,7 +101,7 @@ const deleteAlarmAPI = (alarmId) => {
       url: `${config.api}/api/alarm?alarm_id=${alarmId}`
     }).then((res) => {
       dispatch(deleteAlarm(alarmId));
-      alert("알람이 삭제 되었습니다.")
+      SuccessAlert("알람이 삭제 되었습니다.")
       dispatch(reFresh());
 
     }).catch((err) => {
@@ -120,7 +120,7 @@ const deleteAlarmAllAPI = (alarmId) => {
       url: `${config.api}/api/alarm/all`
     }).then((res) => {
       dispatch(deleteAlarm(alarmId));
-      alert("알람이 모두 삭제 되었습니다.")
+      SuccessAlert("알람이 모두 삭제 되었습니다.")
       dispatch(reFresh());
 
     }).catch((err) => {

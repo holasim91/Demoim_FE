@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { Container } from "../../elements";
 import { FaCamera } from "react-icons/fa";
 import { actionCreators } from "../../redux/modules/user";
@@ -12,6 +11,8 @@ import DefaultProfile from "../../images/def_profile.svg";
 import axios from "axios";
 import { nicknameCheck } from "../../shared/Common";
 import { config } from "../../shared/config";
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+
 
 const UserEditpage = (props) => {
   const dispatch = useDispatch();
@@ -54,21 +55,12 @@ const UserEditpage = (props) => {
   const checkNicknameAPI = (nickname) => {
 
     if (nickname === '') {
-      Swal.fire({
-        text: '닉네임을 입력해주세요~',
-        icon: 'warning',
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("닉네임을 입력해주세요~")
       return false;
     }
 
     if (!nicknameCheck(nickname)) {
-      Swal.fire({
-        // title: '닉네임 형식 확인!',
-        text: '🤪닉네임은 한글,영문,숫자 조합 2~6자리 가능',
-        icon: 'warning',
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("🤪닉네임은 한글,영문,숫자 조합 2~6자리 가능")
       return false;
     }
 
@@ -79,25 +71,13 @@ const UserEditpage = (props) => {
       })
       .then((res) => {
         if (res.data.msg === "false") {
-          Swal.fire({
-            text: '이미 등록된 닉네임입니다!',
-            icon: 'warning',
-            confirmButtonColor: "#999cda",
-          })
+          WarningAlert("이미 등록된 닉네임입니다!")
         } else {
-          Swal.fire({
-            text: '사용 가능한 닉네임 입니다!',
-            icon: 'success',
-            confirmButtonColor: "#999cda",
-          })
+          WarningAlert("이미 등록된 닉네임입니다!")
         }
       })
       .catch((err) => {
-        Swal.fire({
-          text: `${err.response.data.msg}`,
-          icon: 'warning',
-          confirmButtonColor: "#999cda",
-        })
+        ErrorAlert( `${err.response.data.msg}`)
       })
   }
 
@@ -107,27 +87,26 @@ const UserEditpage = (props) => {
 
     //닉네임
     if (nickname === "") {
-      alert('닉네임을 입력해주세요!')
+      WarningAlert("닉네임을 입력해주세요!")
       return false;
     }
 
     if (position === "선택하기" || position === "") {
-      alert('포지션을 선택해주세요!')
+      WarningAlert("포지션을 선택해주세요")
       return false
     }
 
     if (description === "" ) {
-      alert('자기소개를 입력해주세요!')
+      WarningAlert("자기소개를 입력해주세요!")
       return false;
     }
 
     if( description.length > 100){
-      alert("자기소개는 100자 이내로 작성부탁드립니다. 😭아직 특수문자는 입력이 어려워요")
+      WarningAlert("자기소개는 100자 이내로 작성부탁드립니다. 😭아직 특수문자는 입력이 어려워요")
       return false;
     }
 
     const file = fileRef.current.files[0];
-    //console.log(description);
     const userEditInfo = `{nickname:${nickname}, position:${position}, description:${description}}`
 
     //formData
@@ -155,7 +134,6 @@ const handleNickName = (e) => {
 //포지션
 const handleDesc = (e) => {
   const descc = e.target.value;
-  //console.log(descc);
   setDesc(descc)
 }
 
