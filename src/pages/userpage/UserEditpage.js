@@ -11,6 +11,7 @@ import { history } from "../../redux/configStore";
 import DefaultProfile from "../../images/def_profile.svg";
 import axios from "axios";
 import { nicknameCheck } from "../../shared/Common";
+import { config } from "../../shared/config";
 
 const UserEditpage = (props) => {
   const dispatch = useDispatch();
@@ -71,7 +72,7 @@ const UserEditpage = (props) => {
       return false;
     }
 
-    const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
+    const API = `${config.api}/api/signup/nicknamedupchk?nickname=${nickname}`;
     axios.post(API,
       {
         nickname: nickname,
@@ -126,14 +127,15 @@ const UserEditpage = (props) => {
     }
 
     const file = fileRef.current.files[0];
+    //console.log(description);
     const userEditInfo = `{nickname:${nickname}, position:${position}, description:${description}}`
 
     //formData
     let formData = new FormData();
-    formData.append('file', file);
-    formData.append('userEditInfo', userEditInfo);
-    //console.log(formData.get('file'))
-
+    formData.append("file", file);
+    formData.append("userEditInfo", userEditInfo);
+    console.log(formData.get("userEditInfo"))
+    console.log(formData.keys())
     dispatch(actionCreators.editProfileAPI(formData));
   };
 
@@ -152,7 +154,9 @@ const handleNickName = (e) => {
 
 //포지션
 const handleDesc = (e) => {
-  setDesc(e.target.value)
+  const descc = e.target.value;
+  //console.log(descc);
+  setDesc(descc)
 }
 
 
@@ -208,6 +212,7 @@ const handleDesc = (e) => {
                   <tr>
                     <td>자기소개</td>
                     <td><TextArea 
+                      rows={5}
                       placeholder={description}
                       value={description}
                       onChange={handleDesc}/></td>

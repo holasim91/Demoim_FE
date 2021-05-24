@@ -5,6 +5,7 @@ import { produce } from 'immer';
 import axios from "axios";
 import { actionCreators as SmallTalkActions } from "../modules/smalltalk";
 import { actionCreators as ExhibitionActions } from "../modules/exhibition";
+import { config } from "../../shared/config";
 
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
@@ -20,7 +21,7 @@ const initialState = {
 
 const signupAPI = (email, pw, nickname, position) => {
   return function (dispatch, getState, { history }) {
-    const API = 'http://54.180.142.197/api/signup'
+    const API = `${config.api}/api/signup`
     axios({
       method: "post",
       url: API,
@@ -47,7 +48,7 @@ const signupAPI = (email, pw, nickname, position) => {
 
 const loginAPI = (email, pw) => {
   return function (dispatch, getState, { history }) {
-    const API = 'http://54.180.142.197/api/login';
+    const API = `${config.api}/api/login`;
     axios({
       method: "post",
       url: API,
@@ -97,7 +98,7 @@ const loginCheckAPI = () => {
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
 
-    const API = 'http://54.180.142.197/api/mypage/profile'
+    const API = `${config.api}/api/mypage/profile`;
     axios({
       method: "get",
       url: API,
@@ -127,14 +128,14 @@ const editProfileAPI = (formData) => {
     const token = getCookie('token');
     axios.defaults.headers.common['authorization'] = token;
 
-    const API = 'http://54.180.142.197/api/mypage/profile'
+    const API = `${config.api}/api/mypage/profile`
     axios({
       method: "put",
       url: API,
       data: formData,
       headers: {
-        // 'Content-Type': 'multipart/form-data',
-        'authorization': token,
+        "Content-Type": "multipart/form-data",
+        "authorization": token,
       },
     })
       .then((res) => {
@@ -175,9 +176,9 @@ const TabSmallTalkAPI = (otherId = null) => {
     
     let API;
     if (otherId === null) {
-      API = 'http://54.180.142.197/api/mypage/smalltalk'
+      API = `${config.api}/api/mypage/smalltalk`
     } else {
-      API = `http://54.180.142.197/api/mypage/smalltalk?user_id=${otherId}`
+      API = `${config.api}/api/mypage/smalltalk?user_id=${otherId}`
     }
       axios({
         method: "get",
@@ -204,9 +205,9 @@ const TabExhibitionAPI = (otherId) => {
     axios.defaults.headers.common['authorization'] = token;
     let API;
     if (!otherId) {
-      API = 'http://54.180.142.197/api/mypage/exhibition'
+      API = `${config.api}/api/mypage/exhibition`
     } else {
-      API = `http://54.180.142.197/api/mypage/exhibition?user_id=${otherId}`
+      API = `${config.api}/api/mypage/exhibition?user_id=${otherId}`
     }
     axios({
       method: "get",
