@@ -5,6 +5,7 @@ import { nicknameCheck, pwContinuous, pwMatch } from "../shared/Common";
 import { Container } from "../elements";
 import "../shared/register.css";
 import "../shared/theme";
+import { config } from "../shared/config";
 
 import { actionCreators } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
@@ -104,7 +105,7 @@ const Signup = (props) => {
             return false;
         }
 
-        const API = `http://54.180.142.197/api/signup/usernamedupchk?username=${email}`;
+        const API = `${config.api}/api/signup/usernamedupchk?username=${email}`;
         axios.post(API,
             {
                 username: email,
@@ -147,7 +148,7 @@ const Signup = (props) => {
             return false;
         }
 
-        const API = `http://54.180.142.197/api/signup/nicknamedupchk?nickname=${nickname}`;
+        const API = `${config.api}/api/signup/nicknamedupchk?nickname=${nickname}`;
         axios.post(API,
             {
                 nickname: nickname,

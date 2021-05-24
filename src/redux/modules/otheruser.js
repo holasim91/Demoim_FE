@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
 import Swal from 'sweetalert2';
-
+import { config } from "../../shared/config";
 
 //action
 const SET_OTHER_USER = 'SET_OTHER_USER';
@@ -22,7 +22,7 @@ const initialState = {
 const otherCheckAPI = (otherId) => {
   return function (dispatch, getState, { history }) {
 
-    const API = `http://54.180.142.197/api/user/profile?user_id=${otherId}`
+    const API = `${config.api}/api/user/profile?user_id=${otherId}`
     axios({
       method: "get",
       url: API,

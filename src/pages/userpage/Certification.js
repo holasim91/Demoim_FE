@@ -6,6 +6,7 @@ import { Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import axios from "axios";
 import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { config } from "../../shared/config";
 
 const Certification = () => {
   const [userNumber, setUserNumber] = React.useState("");
@@ -27,7 +28,7 @@ const Certification = () => {
       return false;
     }
 
-    const API = `http://54.180.142.197/api/signup/certNumber`;
+    const API = `${config.api}/api/signup/certNumber`;
     axios
       .post(API, {
         phoneNum: userNumber,
