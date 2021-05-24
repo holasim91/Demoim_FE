@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
-import Swal from 'sweetalert2';
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 import { actionCreators as teamActions } from "../modules/team";
 import { actionCreators as userActions } from "../modules/user";
 const SET_APPLY = "SET_APPLY";
@@ -32,21 +32,12 @@ const addApplyAPI = (teamId, msg, site) => {
         portfolio: site,
       }
     }).then((res) => {
-
-      Swal.fire({
-        text: `${res.data.msg}`,
-        icon: 'success',
-        confirmButtonColor: "#999cda",
-      })
+      SuccessAlert(`${res.data.msg}`)
       //applyteamid 세팅을 위해 호출.
       dispatch(userActions.loginCheckAPI());
     }).catch((err) => {
       console.log("지원하기 에러:", err.response.data.msg);
-      Swal.fire({
-        text: `${err.response.data.msg}`,
-        icon: 'warning',
-        confirmButtonColor: "#999cda",
-      })
+      ErrorAlert(`${err.response.data.msg}`)
     })
   }
 }
@@ -84,22 +75,12 @@ const deleteApplyAPI = (teamId) => {
       method: 'delete',
       url: `${config.api}/api/apply?team_id=${teamId}`,
     }).then((res) => {
-
-      Swal.fire({
-        text: `${res.data.msg}`,
-        icon: 'success',
-        confirmButtonColor: "#999cda",
-      })
-
+      SuccessAlert(`${res.data.msg}`)
       dispatch(teamActions.getUserApplyListAPI());
 
     }).catch((err) => {
       console.log("지원삭제 에러:", err);
-      Swal.fire({
-        text: `${err.response.data.msg}`,
-        icon: 'warning',
-        confirmButtonColor: "#999cda",
-      })
+      ErrorAlert(`${err.response.data.msg}`)
     })
 
   }
@@ -114,21 +95,13 @@ const choiceApplyAPI = (applyId) => {
       url: `${config.api}/api/apply/choice?apply_id=${applyId}`,
     }).then((res) => {
       console.log(res)
-      Swal.fire({
-        text: `${res.data.msg}`,
-        icon: 'success',
-        confirmButtonColor: "#999cda",
-      })
+      SuccessAlert(`${res.data.msg}`)
 
       let waitingMembers = res.data.applicantList.filter((r) => r.applyState === 'WAITING');
       dispatch(setApply(waitingMembers));
     }).catch((err) => {
       console.log('리더 지원자 선택 에러:', err);
-      Swal.fire({
-        text: `${err.response.data.msg}`,
-        icon: 'warning',
-        confirmButtonColor: "#999cda",
-      })
+      ErrorAlert(`${err.response.data.msg}`)
     })
 
   }

@@ -23,7 +23,6 @@ const Userpage = (props) => {
   const is_me = otherId === userInfoId ? true : false;
   
   const otherInfo = useSelector((state) => state.otheruser.otherUser);
-  const setLineBreak = (comment) => comment.split("₩n").map((line) => line);
 
 
   //파람(otherId)가 변경될때마다 해당유저의프로필정보 가져오기

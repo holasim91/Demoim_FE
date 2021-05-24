@@ -4,7 +4,7 @@ import { TeamList } from "../../components";
 import { Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
-import Swal from "sweetalert2";
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 import TeamIcon from "../../images/teamMaking.svg";
 import Arrow from "../../images/arrow.jpg";
 import { actionCreators as teamActions } from "../../redux/modules/team";
@@ -73,12 +73,7 @@ const TeamAllList = () => {
             <MakingBtn
               onClick={() => {
                 if (!user) {
-                  Swal.fire({
-                    text: "로그인 후 사용해주세요😘",
-                    icon: "warning",
-                    confirmButtonColor: "#999cda",
-                    footer: '<a href="http://demoim.co.kr/login" style="text-decoration:none">로그인하러 가기</a>'
-                  });
+                  WarningAlert("로그인 후 사용해주세요😘",'<a href="http://demoim.co.kr/login" style="text-decoration:none">로그인하러 가기</a>')
                   return false;
                 }
                 history.push("/team/write");

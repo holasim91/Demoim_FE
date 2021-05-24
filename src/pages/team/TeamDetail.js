@@ -10,7 +10,7 @@ import { actionCreators as teamActions } from "../../redux/modules/team";
 import { actionCreators as applyActions } from "../../redux/modules/apply";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { calcTime, urlCheck } from "../../shared/Common";
-import Swal from 'sweetalert2';
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
 import moment from "moment";
@@ -29,20 +29,12 @@ const TeamDetail = (props) => {
   const openModal = () => {
 
     if (!user) {
-      Swal.fire({
-        text: '로그인 후 사용해주세요 :)',
-        icon: 'warning',
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("로그인 후 사용해주세요😘",'<a href="http://demoim.co.kr/login" style="text-decoration:none">로그인하러 가기</a>')
       return false;
     }
 
     if (user?.applyteamid.some(t => t === Number(id))) {
-      Swal.fire({
-        icon: "warning",
-        text: '이미 지원한 게시글입니다.',
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("이미 지원한 게시글입니다😘")
       return false;
     }
 
@@ -73,40 +65,23 @@ const TeamDetail = (props) => {
   //지원하기 함수.
   const applyTeam = () => {
     if (msg === "") {
-
-      Swal.fire({
-        icon: "warning",
-        text: "리더에게 보낼 메세지를 입력해주세요!",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("리더에게 보낼 메세지를 입력해주세요!")
       return false;
     }
 
     if (site === "") {
-      Swal.fire({
-        icon: "warning",
-        text: "포트폴리오 사이트를 입력해주세요!",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("포트폴리오 사이트를 입력해주세요!")
       return false;
     }
 
     if (!urlCheck(site)) {
-      Swal.fire({
-        icon: "warning",
-        text: "올바른 사이트 주소를 입력해주세요!",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("올바른 사이트 주소를 입력해주세요!")
       return false;
     }
 
 
     if (msg.length > 99) {
-      Swal.fire({
-        icon: "warning",
-        text: "리더에게 남기는 메세지는 100자 이내로 적어주세요!",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("리더에게 남기는 메세지는 100자 이내로 적어주세요!")
       return false;
     }
 
@@ -157,11 +132,9 @@ const TeamDetail = (props) => {
                         isLogin ? (
                           history.push(`/userpage/${team?.leader?.id}`)
                           ) : (
-                            Swal.fire({
-                              text: '더 자세한 정보는 로그인 후 확인 가능합니다😍',
-                              icon: 'warning',
-                              confirmButtonColor: "#999cda",
-                            })
+                            WarningAlert(
+                              "로그인 후 사용해주세요😘",
+                              '<a href="http://demoim.co.kr/login" style="text-decoration:none">로그인하러 가기</a>')
                             )}} className="nickname">
                         {team?.leader?.nickname}
                       </LeaderInfoText>

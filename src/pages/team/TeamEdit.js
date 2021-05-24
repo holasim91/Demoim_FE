@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { Editor, TeamDate } from "../../components";
 import { useMediaQuery } from "react-responsive";
-import Swal from "sweetalert2";
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 import { actionCreators as imageActions } from "../../redux/modules/image";
 import { Wrapper, TitleBox, ChoiceBox, ConentesBox, BtnBox, WriteBtn, ChoiceTable, SelectBox, LanguageInput, PositionBox, NumberInput, PositionSelect, Line } from "../../components/TeamMaking/TeamEditor";
 import { history } from "../../redux/configStore";
@@ -21,11 +21,7 @@ const TeamEdit = (props) => {
   React.useEffect(() => {
     //ux 개선은 후에.. 수정페이지 들어오자마자 teamInfo 불러오기.
     if (teamInfo?.teamId !== teamId) {
-      Swal.fire({
-        text: '새로고침시 프로젝트 수정을 다시 시도해주세요!',
-        icon: 'warning',
-        confirmButtonColor: "#999cda",
-      });
+      WarningAlert("새로고침시 프로젝트 수정을 다시 시도해주세요!")
       history.push(`/team/detail/${teamId}`);
       return false;
     }
@@ -202,49 +198,28 @@ const TeamEdit = (props) => {
   const editTeam = () => {
 
     if (title === '') {
-
-      Swal.fire({
-        icon: "warning",
-        text: "제목을 입력해주세요.",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("제목을 입력해주세요!")
       return false;
     }
 
     if (contents === '') {
-      Swal.fire({
-        icon: "warning",
-        text: "내용을 입력해주세요.",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("내용을 입력해주세요!")
       return false;
     }
 
     if (stack === '') {
-      Swal.fire({
-        icon: "warning",
-        text: "선호언어를 입력해주세요.",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("선호언어를 입력해주세요!")
       return false;
     }
 
     if (front.member === 0 && back.member === 0 && design.member === 0 && plan.member === 0) {
-      Swal.fire({
-        icon: "warning",
-        text: "모집 인원을 체크해주세요.",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("모집인원을 체크해주세요!")
       return false;
     }
 
     let allMember = Number(front.member) + Number(back.member) + Number(design.member) + Number(plan.member);
     if (allMember >= 10) {
-      Swal.fire({
-        icon: "warning",
-        text: "모집인원은 리더 포함 10명을 넘길 수 없습니다.",
-        confirmButtonColor: "#999cda",
-      })
+      WarningAlert("모집인원은 리더 포함 10명을 넘길 수 없습니다.")
       return false;
     }
 

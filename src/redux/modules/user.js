@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookies";
-import Swal from 'sweetalert2';
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 import { produce } from 'immer';
 import axios from "axios";
 import { actionCreators as SmallTalkActions } from "../modules/smalltalk";
@@ -33,15 +33,12 @@ const signupAPI = (email, pw, nickname, position) => {
       },
     })
       .then((res) => {
-        Swal.fire({
-          icon: "success",
-          text: "회원가입 성공!",
-          confirmButtonColor: "#999cda",
-        })
+        SuccessAlert("회원가입 성공!")
         history.push('/login');
       })
       .catch((err) => {
         console.log("회원가입에러:", err)
+        ErrorAlert("회원가입 실패😭")
       })
   }
 }
@@ -73,20 +70,11 @@ const loginAPI = (email, pw) => {
         setCookie('token', token);
 
         axios.defaults.headers.common['authorization'] = token;
-
-        Swal.fire({
-          icon: "success",
-          text: "Welcome Mate!",
-          confirmButtonColor: " #999cda",
-        })
+        SuccessAlert("Welcome Mate!")
         history.replace('/');
       })
       .catch((err) => {
-        Swal.fire({
-          text: `${err.response.data.message}`,
-          icon: 'warning',
-          confirmButtonColor: "#999cda",
-        })
+        ErrorAlert(`${err.response.data.message}`)
       })
   }
 }
@@ -139,11 +127,7 @@ const editProfileAPI = (formData) => {
       },
     })
       .then((res) => {
-        Swal.fire({
-          icon: "success",
-          text: "수정완료!!",
-          confirmButtonColor: "#999cda",
-        })
+        SuccessAlert("수정완료")
 
         dispatch(setUser({
           id: res.data.id,
@@ -157,11 +141,7 @@ const editProfileAPI = (formData) => {
       })
       .catch((err) => {
         console.log("포지션수정 에러" , err);
-        Swal.fire({
-          text: `${err.response.data.msg}`,
-          icon: 'warning',
-          confirmButtonColor: "#999cda",
-        })
+        ErrorAlert(`${err.response.data.msg}`)
       })
   }
 }
@@ -231,10 +211,7 @@ const logout = () => {
     deleteCookie('token');
     axios.defaults.headers.common['Authorization'] = null;
     delete axios.defaults.headers.common['Authorization'];
-    Swal.fire({
-      text: "See you soon, Mate!",
-      confirmButtonColor: "#999cda",
-    });
+    SuccessAlert("See you soon, Mate!")
     dispatch(logOut());
     history.replace('/');
   }

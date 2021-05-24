@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
-import Swal from 'sweetalert2';
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 import { config } from "../../shared/config";
 
 //action
@@ -39,11 +39,7 @@ const otherCheckAPI = (otherId) => {
       }))
     }).catch((err) => {
       history.replace('/');
-      Swal.fire({
-        icon: "warning",
-        text: "존재하지 않는 회원입니다",
-        confirmButtonColor: "#999cda",
-      })
+      ErrorAlert("존재하지 않는 회원입니다")
       console.log("OTHERcheck에러:", err);
     })
       

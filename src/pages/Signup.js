@@ -1,15 +1,15 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import Swal from "sweetalert2";
 import { nicknameCheck, pwContinuous, pwMatch } from "../shared/Common";
 import { Container } from "../elements";
 import "../shared/register.css";
 import "../shared/theme";
 import { config } from "../shared/config";
-
+import { SuccessAlert, WarningAlert, ErrorAlert } from "../shared/Alerts";
 import { actionCreators } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+
 
 //username= email
 const Signup = (props) => {
@@ -97,11 +97,7 @@ const Signup = (props) => {
     const checkEmailAPI = (email) => {
 
         if (email === '') {
-            Swal.fire({
-                text: '이메일을 입력해주세요~',
-                icon: 'warning',
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("이메일을 입력해주세요~")
             return false;
         }
 
@@ -112,27 +108,15 @@ const Signup = (props) => {
             })
             .then((res) => {
                 if (res.data.msg === "false") {
-                    Swal.fire({
-                        text: '이미 등록된 이메일입니다!',
-                        icon: 'warning',
-                        confirmButtonColor: "#999cda",
-                    })
+                    WarningAlert("이미 등록된 이메일입니다.")
                     setEmailDup(false);
                 } else {
-                    Swal.fire({
-                        text: '사용 가능한 이메일 입니다.',
-                        icon: 'success',
-                        confirmButtonColor: "#999cda",
-                    })
+                    SuccessAlert("사용가능한 이메일입니다.")
                     setEmailDup(true);
                 }
             })
             .catch((err) => {
-                Swal.fire({
-                    text: `${err.response.data.msg}`,
-                    icon: 'warning',
-                    confirmButtonColor: "#999cda",
-                })
+                ErrorAlert(`${err.response.data.msg}`)
             })
     }
 
@@ -140,11 +124,7 @@ const Signup = (props) => {
     const checkNicknameAPI = (nickname) => {
 
         if (nickname === '') {
-            Swal.fire({
-                text: '닉네임을 입력해주세요~',
-                icon: 'warning',
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("닉네임을 입력해주세요~")
             return false;
         }
 
@@ -155,27 +135,15 @@ const Signup = (props) => {
             })
             .then((res) => {
                 if (res.data.msg === "false") {
-                    Swal.fire({
-                        text: '이미 등록된 닉네임입니다!',
-                        icon: 'warning',
-                        confirmButtonColor: "#999cda",
-                    })
+                    WarningAlert("이미 등록된 닉네임입니다!")
                     setNicknameDup(false);
                 } else {
-                    Swal.fire({
-                        text: '사용 가능한 닉네임 입니다!',
-                        icon: 'success',
-                        confirmButtonColor: "#999cda",
-                    })
+                    WarningAlert("이미 등록된 닉네임입니다!")
                     setNicknameDup(true);
                 }
             })
             .catch((err) => {
-                Swal.fire({
-                    text: `${err.response.data.msg}`,
-                    icon: 'warning',
-                    confirmButtonColor: "#999cda",
-                })
+                ErrorAlert( `${err.response.data.msg}`)
             })
     }
 
@@ -190,73 +158,41 @@ const Signup = (props) => {
     //회원가입하기!
     const signUp = () => {
         if (email === '') {
-            Swal.fire({
-                text: "이메일을 입력해주세요!",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("이메일을 입력해주세요!")
             return false;
         }
         if (nickname === '') {
-            Swal.fire({
-                text: "이메일을 입력해주세요!",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("닉네임을 입력해주세요!")
             return false;
         }
 
         if (emailDup === false) {
-            Swal.fire({
-                text: "이메일을 입력해주세요!",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("이메일 중복확인을 해주세요!")
             return false;
         }
 
         if (pw === '') {
-            Swal.fire({
-                text: "비밀번호를 입력해주세요!",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("비밀번호를 입력해주세요!")
             return false;
         }
 
         if (pwCheck === '') {
-            Swal.fire({
-                text: "비밀번호를 다시 한 번 확인 해주세요!",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("비밀번호를 다시 한 번 확인해주세요!")
             return false;
         }
 
         if (nicknameDup === false) {
-            Swal.fire({
-                text: "닉네임 중복확인을 해주세요!",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("닉네임 중복확인을 해주세요!")
             return false;
         }
 
         if (position === "선택하기" || position === "") {
-            Swal.fire({
-                text: "포지션을 선택해주세요! 마이페이지-회원정보수정에서 변경가능합니다.",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("포지션을 선택해주세요! 마이페이지-회원정보수정에서 변경가능합니다.")
             return false
         }
 
         if (pw !== pwCheck) {
-            Swal.fire({
-                text: "비밀번호 확인이 일치하지 않습니다!",
-                icon: "warning",
-                confirmButtonColor: "#999cda",
-            })
+            WarningAlert("비밀번호 확인이 일치하지 않습니다!")
             return false;
         }
 
@@ -370,11 +306,6 @@ const Signup = (props) => {
                                         </Select>
                                     </td>
                                 </tr>
-                                {/* <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr> */}
                             </tbody>
                         </SignupTable>
                         <SignupBtn onClick={signUp} tabIndex="0">회원가입하기</SignupBtn>
