@@ -10,9 +10,6 @@ export const emailCheck = (email) => {
 
 }
 
-// let _reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,5}$/;
-
-//닉네임
 //닉네임은 한글,영문,숫자만가능하며 2~6자리가능
 export const nicknameCheck = (nickname) => {
   let _reg = /^[a-zA-Zㄱ-힣0-9]{2,6}$/;
@@ -21,7 +18,7 @@ export const nicknameCheck = (nickname) => {
 }
 
 
-//비밀번호영어숫자특수기호
+//비밀번호 영어숫자특수기호
 export const pwMatch = (pw) => {
 
   //const _reg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{4,20}$/;
@@ -70,7 +67,13 @@ export function calcTime(time){
 }
 
 
-//핸드폰번호 
+//핸드폰번호 하이픈,점,공백 제거
+export const specialCharsCheck = (userNumber) => {
+
+  return userNumber.replace(/[.-]|\s/gm,'');
+}
+
+//핸드폰번호 자릿수정규식체크
 export const cellPhoneNum = (userNumber) => {
   const _reg = /^\d{3}\d{3,4}\d{4}$/;
   return _reg.test(userNumber)
