@@ -47,23 +47,17 @@ return changedTime
 }
 
 export function calcTime(time){
-  let currentDate = moment()
-  let createdDate = moment(time)
-  if(currentDate.year() !== createdDate.year()){
-    return currentDate.year() - createdDate.year() + '년 전'
-  }
-  if(currentDate.month() !== createdDate.month()){
-    return currentDate.month() - createdDate.month() + '개월 전'
-  }
-  if(currentDate.date() !== createdDate.date()){
-    return currentDate.date() - createdDate.date() + '일 전'
-  }
-  if(currentDate.hour() !== createdDate.hour()){
-    return currentDate.hour() - createdDate.hour() + '시간 전'
-  }
-  else{
-    return '방금 전'
-  }
+    //만약 말일의경우 하루 차이임에도 불구하고 1달전 1년전으로 표기됨
+
+    let currentDate = moment()
+    let createdDate = moment(time)
+    const diffHour = parseInt(moment.duration(currentDate.diff(createdDate)).asHours())
+    const diffDay = parseInt(moment.duration(currentDate.diff(createdDate)).asDays())
+    if (diffDay<1){
+      return diffHour +'시간 전'
+    }
+    return diffDay + '일 전'
+  
 }
 
 

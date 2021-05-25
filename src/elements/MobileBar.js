@@ -9,8 +9,8 @@ const MobileBar = (props) => {
   return (
     <React.Fragment>
       { open ? (
-        <Wapper >
-          <BurgerBox>
+        <Wapper onClick={close}>
+          <BurgerBox onClick ={e => e.stopPropagation()}>
             <CloseBox>
               <CloseIcon onClick={close} />
             </CloseBox>
