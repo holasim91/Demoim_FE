@@ -68,7 +68,7 @@ const updateSmallTalkCommentAPI = (post_id, comment_id, comment) => {
       headers: {
         authorization: token,
       },
-      url: "http://54.180.142.197/api/update/comments",
+      url: `${config.api}/api/update/comments`,
       params: { comment_id: Number(comment_id) },
       data: {
         comments: comment,
@@ -88,7 +88,7 @@ const deleteSmallTalkCommentAPI = (post_id, comment_id) => {
       headers: {
         authorization: token,
       },
-      url: "http://54.180.142.197/api/delete/comments",
+      url: `${config.api}/api/delete/comments`,
       params: { comment_id: Number(comment_id) },
     })
       .then((res) => {
