@@ -86,39 +86,39 @@ const ContentContainer = styled.div`
 
 //피드백버튼
 const FeedbackBtn = styled.button`
-   position:fixed;
-   right:40px;
-   bottom:30px;
-   width:100px;
-   height:100px;
-   outline:none;
-   border:none;
+  position:fixed;
+  right:40px;
+  bottom:30px;
+  width:100px;
+  height:100px;
+  outline:none;
+  border:none;
    /* border: 1px solid #683fee; */
-   background-color:transparent;
-   margin:2px;
-   cursor:pointer;
-   @media ${props => props.theme.tablet}{
+  background-color:transparent;
+  margin:2px;
+  cursor:pointer;
+  @media ${props => props.theme.tablet}{
       right:30px;
       bottom:20px;
-   }
-   @media ${props => props.theme.mobile}{
+  }
+  @media ${props => props.theme.mobile}{
       right:10px;
       bottom:10px;
-   }
-   @media (max-width: 420px){
+  }
+  @media (max-width: 420px){
       right:10px;
-      bottom:10px;
+      bottom:50px;
       width:90px;
       height:90px;
-   }
+  }
 `;
 
 const Atag= styled.a`
-   text-decoration:none;
+  text-decoration:none;
 
 `;
 
 const FeedbackFormImg = styled.img`
-   width:100%;
+  width:100%;
 
 `;

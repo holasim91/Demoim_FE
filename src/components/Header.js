@@ -158,7 +158,7 @@ position: absolute;
 top: -20px;
 @media ${props => props.theme.mobile}{
   top: -10px;
-   padding-left: 7px;
+  padding-left: 7px;
   }
 
 `
