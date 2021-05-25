@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Swal from "sweetalert2";
-import { certNumberCheck, cellPhoneNum } from "../../shared/Common";
+import { certNumberCheck, cellPhoneNum, specialCharsCheck } from "../../shared/Common";
 import { Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import axios from "axios";
@@ -21,17 +20,20 @@ const Certification = () => {
     setCheck({ check: checked });
   };
 
-  //인증번호요청
+  //인증번호요청API
   const checkUserNumberAPI = (userNumber) => {
-    if (userNumber === "" || !cellPhoneNum(userNumber)) {
+
+    let _userNumber = specialCharsCheck(userNumber)
+
+    if (_userNumber === "" || !cellPhoneNum(_userNumber)) {
       WarningAlert("휴대폰번호를 확인해주세요!")
       return false;
     }
-
+    
     const API = `${config.api}/api/signup/certNumber`;
     axios
       .post(API, {
-        phoneNum: userNumber,
+        phoneNum: _userNumber,
       })
       .then((res) => {
         SuccessAlert( "입력하신 번호로 인증번호가 발송되었습니다.")
@@ -43,8 +45,8 @@ const Certification = () => {
       setDisable(true)
   };
 
-  //인증번호확인
 
+  //인증번호확인
   const checkCertNumber = (certNumber) => {
     if (certNumber === "" || !certNumberCheck(certNumber)) {
       WarningAlert( "문자받으신 인증번호 6자리를 입력해주세요!")
@@ -58,8 +60,6 @@ const Certification = () => {
       SuccessAlert("인증성공!")
     }
   };
-
-  //checkbox
 
   //NextBtn
   const toSignup = () => {
@@ -116,11 +116,7 @@ const Certification = () => {
                   {disable ? (
                     <td
                       onClick={() => {
-                        Swal.fire({
-                          text: "이미 요청을 하셨습니다!",
-                          icon: "warning",
-                          confirmButtonColor: "#999cda",
-                        });
+                        WarningAlert("이미 요청을 하셨습니다!")
                       }}
                     >
                       <DisabledButton>인증번호요청</DisabledButton>
@@ -133,7 +129,7 @@ const Certification = () => {
                     >
                       <Button>인증번호요청</Button>
                     </td>
-                  )}{" "}
+                  )}
                 </tr>
                 <tr>
                   <td>인증번호입력</td>

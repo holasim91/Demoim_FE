@@ -149,7 +149,6 @@ const handleDesc = (e) => {
             <ProfileImgBox>
               <ProfileImg
                 src={preview ? preview : (userInfo?.profileImage ? userInfo.profileImage : DefaultProfile)} />
-
               <ImgEditBtn>
                 <label htmlFor="img-file"><Camera /></label>
                 <input type="file" id="img-file" ref={fileRef} onChange={selectFile} accept="image/*" />
