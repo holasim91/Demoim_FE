@@ -1,11 +1,12 @@
 import React from "react"
 import styled from 'styled-components'
-import { Container, Text } from "../elements";
+import { Container, } from "../elements";
 import { useMediaQuery } from "react-responsive"
+import { history } from "../redux/configStore";
 
 const Footer = () => {
 
-
+  const NotionURL = "" //팀소개노션링크
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)"
   });
@@ -21,14 +22,30 @@ const Footer = () => {
           <Logo>
             <span>De</span>moim
           </Logo>
-          {isPc && <React.Fragment>
+          {isPc && <TextContainer>
             <SubText>© 2021 Project Demoim.</SubText>
-            <SubText margin='3px 0px 0px 0px'>All rights reserved.</SubText>
-          </React.Fragment>}
+            <SubText padding="0 0 0 12px" onClick={() => {
+                      history.push("/policy");
+                    }}><span>개인정보처리</span></SubText>
+            <SubText padding="0 0 0 12px"><span>팀원소개</span></SubText>
+            <SubText padding="0 0 0 12px">All rights reserved.</SubText>
+          </TextContainer>}
           {isMobile && <React.Fragment>
-            <Text size="2vw">© 2021 Project Demoim.</Text>
-            <Text size="2vw" margin='3px 0px 0px 0px'>All rights reserved.</Text>
-          </React.Fragment>}
+          <TextContainer>
+          <Text onClick={() => {history.push("/policy");
+          }}><span>개인정보처리</span></Text>
+          <Text padding="0 0 0 12px" >
+            <Atag href={NotionURL} target="#" rel="noreferrer noopener">
+            <span>팀원소개</span>
+            </Atag>
+          </Text>
+        </TextContainer>
+          <TextContainer margin="0 0 10px 0">
+            <Text>© 2021 Project Demoim.</Text>
+            <Text padding="0 0 0 12px">All rights reserved.</Text>
+          </TextContainer>
+        </React.Fragment>
+          }
         </Content>
       </Container>
     </Wrapper>
@@ -70,16 +87,67 @@ const Content = styled.div`
   margin-top: 40px;
   padding-left:10px;
   margin: 28px 0px 0px 20px;
-  
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  //justify-content: space-between;
+  width:500px;
+  box-sizing:border-box;
+  margin: ${(props) => props.margin};
+  @media ${props => props.theme.tablet}{
+    width:430px;
+    font-size: 12px;
+  }
+
+  @media ${props => props.theme.mobile}{
+    width:100%;
+    font-size: 12px;
+    margin:5px auto;
+  }
 `;
 
 const SubText = styled.p`
+  display:inline-block;
   font-size: 13px;
+  text-align: left;
+  &span{
+    cursor:pointer;
+  }
+  padding: ${(props) => props.padding};
   @media ${props => props.theme.tablet}{
     font-size: 13px;
   }
 
   @media ${props => props.theme.mobile}{
-    font-size: 13px;
+    font-size: 12px;
   }
+  @media (max-width: 420px){
+    font-size: 12px;
+  }
+`;
+
+const Text = styled.p`
+  display:inline-block;
+  font-size: 13px;
+  text-align: left;
+  &span{
+    cursor:pointer;
+  }
+  padding: ${(props) => props.padding};
+  @media ${props => props.theme.tablet}{
+    font-size: 12px;
+  }
+
+  @media ${props => props.theme.mobile}{
+    font-size: 12px;
+  }
+  @media (max-width: 420px){
+    font-size: 12px;
+  }
+`;
+
+const Atag= styled.a`
+  text-decoration:none;
+
 `;
