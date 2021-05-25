@@ -136,7 +136,6 @@ const Signup = (props) => {
             .then((res) => {
                 console.log(res.data.msg)
                 if (res.data.msg === "false") {
-                    console.log('existed')
                     WarningAlert("이미 등록된 닉네임입니다!")
                     setNicknameDup(false);
                 } else {
