@@ -4,7 +4,7 @@ import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from "../../shared/Cookies";
 import { actionCreators as applyActions } from "../modules/apply";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { SuccessAlert } from "../../shared/Alerts";
 
 const SET_TEAM = "SET_TEAM";
 const SET_NEXT_TEAM = "SET_NEXT_TEAM";

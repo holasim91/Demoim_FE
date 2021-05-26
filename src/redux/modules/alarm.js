@@ -3,7 +3,7 @@ import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
 import { getCookie } from '../../shared/Cookies';
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts"
+import { SuccessAlert } from "../../shared/Alerts"
 
 const SET_ALARM = "SET_ALARM";
 const DELETE_ALARM = "DELETE_ALARM";

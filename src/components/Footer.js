@@ -6,7 +6,7 @@ import { history } from "../redux/configStore";
 
 const Footer = () => {
 
-  const NotionURL = "" //팀소개노션링크
+  const TeamNotionURL = "https://www.notion.so/Demoim-87856b49c18545358ee657b434bff365" //팀소개노션링크
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)"
   });
@@ -24,19 +24,20 @@ const Footer = () => {
           </Logo>
           {isPc && <TextContainer>
             <SubText>© 2021 Project Demoim.</SubText>
-            <SubText padding="0 0 0 12px" onClick={() => {
-                      history.push("/policy");
-                    }}><span>개인정보처리</span></SubText>
-            <SubText padding="0 0 0 12px"><span>팀원소개</span></SubText>
+            <SubText padding="0 0 0 12px" onClick={() => {history.push("/policy")}}><span>개인정보처리</span></SubText>
+            <SubText padding="0 0 0 12px">
+              <Atag href={TeamNotionURL} target="_blank" rel="noreferrer noopener">
+                <span>팀원소개</span>
+              </Atag>
+            </SubText>
             <SubText padding="0 0 0 12px">All rights reserved.</SubText>
           </TextContainer>}
           {isMobile && <React.Fragment>
           <TextContainer>
-          <Text onClick={() => {history.push("/policy");
-          }}><span>개인정보처리</span></Text>
+          <Text onClick={() => {history.push("/policy")}}><span>개인정보처리</span></Text>
           <Text padding="0 0 0 12px" >
-            <Atag href={NotionURL} target="#" rel="noreferrer noopener">
-            <span>팀원소개</span>
+            <Atag href={TeamNotionURL} target="_blank" rel="noreferrer noopener">
+              <span>팀원소개</span>
             </Atag>
           </Text>
         </TextContainer>
@@ -111,7 +112,7 @@ const SubText = styled.p`
   display:inline-block;
   font-size: 13px;
   text-align: left;
-  &span{
+  span{
     cursor:pointer;
   }
   padding: ${(props) => props.padding};
@@ -131,7 +132,7 @@ const Text = styled.p`
   display:inline-block;
   font-size: 13px;
   text-align: left;
-  &span{
+  span{
     cursor:pointer;
   }
   padding: ${(props) => props.padding};
@@ -149,5 +150,8 @@ const Text = styled.p`
 
 const Atag= styled.a`
   text-decoration:none;
-
+  &:visited{
+    color:black;
+    text-decoration: none;
+  }
 `;

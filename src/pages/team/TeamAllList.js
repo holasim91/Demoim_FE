@@ -4,7 +4,7 @@ import { TeamList } from "../../components";
 import { Container } from "../../elements";
 import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { WarningAlert } from "../../shared/Alerts";
 import TeamIcon from "../../images/teamMaking.svg";
 import Arrow from "../../images/arrow.jpg";
 import { actionCreators as teamActions } from "../../redux/modules/team";

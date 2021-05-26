@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as teamActions } from "../../redux/modules/team";
 import { Editor, TeamDate } from "../../components";
 import { useMediaQuery } from "react-responsive";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { WarningAlert} from "../../shared/Alerts";
 import { actionCreators as imageActions } from "../../redux/modules/image";
 import { Wrapper, TitleBox, ChoiceBox, ConentesBox, BtnBox, WriteBtn, ChoiceTable, SelectBox, LanguageInput, PositionBox, NumberInput, PositionSelect, Line } from "../../components/TeamMaking/TeamEditor";
 

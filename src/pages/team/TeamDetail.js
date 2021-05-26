@@ -10,7 +10,7 @@ import { actionCreators as teamActions } from "../../redux/modules/team";
 import { actionCreators as applyActions } from "../../redux/modules/apply";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { calcTime, urlCheck } from "../../shared/Common";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { WarningAlert } from "../../shared/Alerts";
 import Leader from '../../images/leader.svg';
 import '../../css/editor.css';
 import moment from "moment";

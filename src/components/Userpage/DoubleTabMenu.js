@@ -14,6 +14,7 @@ const DoubleTabMenu = (props) => {
   
   //프로젝트히스토리-Double Tab Menu 
   const [active, setActive] = useState(0)
+  
   const handleClick = e => {
     const index = parseInt(e.target.id, 0);
     if (index !== active) {

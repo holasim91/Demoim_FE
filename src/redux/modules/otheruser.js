@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { ErrorAlert } from "../../shared/Alerts";
 import { config } from "../../shared/config";
 
 //action

@@ -17,7 +17,7 @@ const TabExhibitionList = (props) => {
     }else{
       dispatch(userAction.TabExhibitionAPI(otherId));
     }
-  },[is_me]);
+  },[otherId]);
   
 
   return (

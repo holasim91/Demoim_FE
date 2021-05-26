@@ -11,7 +11,7 @@ import DefaultProfile from "../../images/def_profile.svg";
 import axios from "axios";
 import { nicknameCheck } from "../../shared/Common";
 import { config } from "../../shared/config";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { WarningAlert, ErrorAlert } from "../../shared/Alerts";
 
 
 const UserEditpage = (props) => {

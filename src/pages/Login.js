@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Container } from "../elements";
 import { history } from "../redux/configStore";
 import "../shared/theme";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../shared/Alerts";
+import { WarningAlert } from "../shared/Alerts";
 import { actionCreators } from "../redux/modules/user";
 
 import { useDispatch } from "react-redux";
