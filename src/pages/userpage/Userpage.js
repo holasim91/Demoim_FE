@@ -342,6 +342,7 @@ const UserDesc = styled.div`
   height: 60px;
   padding:8px 8px 0 0;
   font-size:16px;
+  white-space: break-spaces;
   /* background-color: #f1f1f1; */
   box-sizing:border-box;
   @media ${props => props.theme.mobile}{
