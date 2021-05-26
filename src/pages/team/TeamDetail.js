@@ -23,6 +23,18 @@ const TeamDetail = (props) => {
   const team = useSelector((state) => state.team.teamInfo);
   const user = useSelector((state) => state.user.user);
   const isLogin = useSelector((state) => state.user.isLogin);
+  const descriptions  = team.leader.description
+  const description = descriptionMake()
+
+    function descriptionMake(){
+      console.log("+++ : "+descriptions)
+      if (descriptions != null){
+        let description = descriptions.replaceAll('<br>','\n').replaceAll('<-->',':').replaceAll('<샵>','#');
+        console.log("=== : "+description)
+        return description;
+    }
+  
+  }
 
   //모달
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -145,7 +157,8 @@ const TeamDetail = (props) => {
                       </LeaderInfoText>
                     </LeaderInfoTop>)}
                   <LeaderInfoText className='introduce'>
-                    {team?.leader?.description}
+                    {description}
+                    
                   </LeaderInfoText>
                 </LeaderInfo>
               </LeaderContent>
@@ -485,6 +498,7 @@ const LeaderInfo = styled.div`
 `;
 const LeaderInfoText = styled.p`
   font-size:16px;
+  white-space: break-spaces;
 
   &.introduce{
     line-height: 1.4em;
