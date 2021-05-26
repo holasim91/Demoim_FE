@@ -55,9 +55,11 @@ const loginAPI = (email, pw) => {
       }
     })
       .then((res) => {
+        const descriptions= res.data.userInfo.Description.replaceAll('<br>','\n').replaceAll('<-->',':').replaceAll('<샵>','#');
+        console.log('descriptions');
         const userInfo = {
           id: Number(res.data.userInfo.Id),
-          description: res.data.userInfo.Description,
+          description: descriptions,
           nickname: res.data.userInfo.Nickname,
           position: res.data.userInfo.Position,
           profileImage: res.data.userInfo.ProfileImage,
@@ -91,10 +93,13 @@ const loginCheckAPI = () => {
       method: "get",
       url: API,
     })
+    // \r\n|\n|\n\n
       .then((res) => {
+        const descriptions= res.data.description.replaceAll('<br>','\n').replaceAll('<-->',':').replaceAll('<샵>','#');
+        console.log('descriptions');
         dispatch(setUser({
           id: res.data.userid,
-          description: res.data.description,
+          description: descriptions,
           nickname: res.data.nickname,
           position: res.data.position,
           profileImage: res.data.profileImage,
@@ -127,7 +132,6 @@ const editProfileAPI = (formData) => {
     })
       .then((res) => {
         SuccessAlert("수정완료")
-
         dispatch(setUser({
           id: res.data.id,
           description: res.data.description,
