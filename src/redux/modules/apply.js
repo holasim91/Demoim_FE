@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from "axios";
 import { config } from "../../shared/config";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { SuccessAlert, ErrorAlert } from "../../shared/Alerts";
 import { actionCreators as teamActions } from "../modules/team";
 import { actionCreators as userActions } from "../modules/user";
 const SET_APPLY = "SET_APPLY";

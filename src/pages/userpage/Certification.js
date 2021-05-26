@@ -172,10 +172,7 @@ const Certification = () => {
                   </td>
                   <td>개인정보 처리 방침에 대한 이용약관에 동의</td>
                   <td
-                    onClick={() => {
-                      history.push("/policy");
-                    }}
-                  >
+                    onClick={() => {history.replace("/policy")}}>
                     <CheckContents>{">"} 전문보기</CheckContents>
                   </td>
                 </tr>

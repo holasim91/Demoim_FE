@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookies";
-import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
+import { SuccessAlert, ErrorAlert } from "../../shared/Alerts";
 import { produce } from 'immer';
 import axios from "axios";
 import { actionCreators as SmallTalkActions } from "../modules/smalltalk";
@@ -107,7 +107,6 @@ const loginCheckAPI = () => {
       })
   }
 }
-
 
 
 //프로필수정하기
