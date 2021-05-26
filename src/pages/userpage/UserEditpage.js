@@ -105,9 +105,13 @@ const UserEditpage = (props) => {
       WarningAlert("자기소개는 100자 이내로 작성부탁드립니다. 😭아직 특수문자는 입력이 어려워요")
       return false;
     }
+    const descriptions  = `${description}`.replace(/(\r\n|\n|\n\n)/gi,'<br>').replaceAll(':','<-->').replaceAll('#','<샵>');
+
+
+
 
     const file = fileRef.current.files[0];
-    const userEditInfo = `{nickname:${nickname}, position:${position}, description:${description}}`
+    const userEditInfo = `{nickname:${nickname}, position:${position}, description:${descriptions}}`
 
     //formData
     let formData = new FormData();
