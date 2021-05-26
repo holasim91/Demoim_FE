@@ -27,10 +27,8 @@ const TeamDetail = (props) => {
   const description = descriptionMake()
 
     function descriptionMake(){
-      console.log("+++ : "+descriptions)
       if (descriptions != null){
         let description = descriptions.replaceAll('<br>','\n').replaceAll('<-->',':').replaceAll('<샵>','#');
-        console.log("=== : "+description)
         return description;
     }
   

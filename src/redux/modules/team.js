@@ -125,7 +125,7 @@ const getDetailTeamMakingAPI = (teamId) => {
         dispatch(applyActions.getApplyAPI(teamId));
       }
     }).catch((error) => {
-      console.log(error);
+ 
     })
 
   }
