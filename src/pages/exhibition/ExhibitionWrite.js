@@ -9,38 +9,39 @@ import { actionCreators as exhibitionActions } from "../../redux/modules/exhibit
 import Swal from "sweetalert2";
 import { history } from "../../redux/configStore";
 import { useMediaQuery } from "react-responsive";
+import { WarningAlert } from "../../shared/Alerts";
 
 const ExhibitionWrite = (props) => {
   const dispatch = useDispatch();
-  const post_id = Number(props.match.params.exhibitionId)
-  const edited_post = useSelector((state) => state.exhibition.exhibitionPostDetail)
-  const {user} = useSelector((state) => state.user);
+  const post_id = Number(props.match.params.exhibitionId);
+  const edited_post = useSelector(
+    (state) => state.exhibition.exhibitionPostDetail
+  );
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (!post_id) {
-      return
+      return;
     }
     if (post_id !== edited_post.exhibitionId) {
-
       Swal.fire({
-        text: '새로고침시 프로젝트 수정을 다시 시도해주세요!',
-        icon: 'warning',
+        text: "새로고침시 프로젝트 수정을 다시 시도해주세요!",
+        icon: "warning",
         confirmButtonColor: "#999cda",
       });
       history.push(`/exhibition/detail/${post_id}`);
-      return false
+      return false;
     }
     if (post_id) {
       dispatch(imageActions.setPreview(edited_post.thumbnail));
     }
-
   }, []);
 
   const [title, setTitle] = useState(post_id ? edited_post.title : "");
   const [contents, setContents] = useState(post_id ? edited_post.contents : "");
 
-  const onChangeTitle = useCallback((e) => (setTitle(e.target.value)),[]);
-  const onEditorChange = useCallback((value) => setContents(value),[]);
+  const onChangeTitle = useCallback((e) => setTitle(e.target.value), []);
+  const onEditorChange = useCallback((value) => setContents(value), []);
   const thumbnailRef = useRef();
 
   const changeFile = (e) => {
@@ -50,49 +51,32 @@ const ExhibitionWrite = (props) => {
       reader.readAsDataURL(img);
       reader.onloadend = () => {
         dispatch(imageActions.setPreview(reader.result));
-      }
+      };
     }
-    
   };
 
-if(!user){
-  Swal.fire({
-    icon: "warning",
-    text: "로그인을 해주세요!.",
-    confirmButtonColor: "#999cda",
-  })
-  history.push("/exhibition");
-}
+  if (!user) {
+    WarningAlert("로그인을 해주세요!");
+    history.push("/exhibition");
+  }
 
   // 자랑하기 등록
   const addExhibition = () => {
-    if (title === '') {
-      Swal.fire({
-        icon: "warning",
-        text: "제목을 입력해주세요.",
-        confirmButtonColor: "#999cda",
-      })
+    if (title === "") {
+      WarningAlert("제목을 입력해주세요");
       return false;
     } // 제목 작성을 하지 않으면 Alert
 
-    if (contents === '') {
-      Swal.fire({
-        icon: "warning",
-        text: "내용을 입력해주세요.",
-        confirmButtonColor: "#999cda",
-      })
+    if (contents === "") {
+      WarningAlert("내용을 입력해주세요!");
       return false;
     } // 본문 작성을 하지 않으면 Alert
 
     const reqBody = `{'title':'${title}', 'contents':'${contents}'}`;
     let thumbnailFile = thumbnailRef.current.files[0];
     if (thumbnailFile === undefined) {
-      Swal.fire({
-        icon: "warning",
-        text: "썸네일을 등록해 주세요.",
-        confirmButtonColor: "#999cda",
-      })
-      return false
+      WarningAlert("썸네일을 등록해 주세요");
+      return false;
     } // 썸네일 등록을 하지 않으면 Alert
 
     let formData = new FormData();
@@ -109,13 +93,14 @@ if(!user){
     formData.append("file", thumbnailFile);
     formData.append("requestBody", reqBody);
 
-    dispatch(exhibitionActions.editExihibitionAPI(formData, edited_post.exhibitionId))
-  }
+    dispatch(
+      exhibitionActions.editExihibitionAPI(formData, edited_post.exhibitionId)
+    );
+  };
 
   const isMobile = useMediaQuery({
-    query: "(max-width:768px)"
+    query: "(max-width:768px)",
   });
-
 
   return (
     <>
@@ -134,12 +119,21 @@ if(!user){
           </UploadWrapper>
 
           {isMobile ? (
-            <Editor value={contents} onChange={onEditorChange} height="450px" innerHeight="400px" />
+            <Editor
+              value={contents}
+              onChange={onEditorChange}
+              height="450px"
+              innerHeight="400px"
+            />
           ) : (
             <Editor value={contents} onChange={onEditorChange} />
           )}
           <WriteButtonWrapper>
-            {post_id ? <WriteBtn onClick={editExhibition}>수정하기</WriteBtn> : <WriteBtn onClick={addExhibition}>작성완료</WriteBtn>}
+            {post_id ? (
+              <WriteBtn onClick={editExhibition}>수정하기</WriteBtn>
+            ) : (
+              <WriteBtn onClick={addExhibition}>작성완료</WriteBtn>
+            )}
           </WriteButtonWrapper>
         </WriteWrapper>
       </Container>
@@ -182,7 +176,6 @@ const UploadWrapper = styled.div`
 `;
 
 const WriteWrapper = styled.div`
-
   margin: 0 auto 150px auto;
 `;
 const WriteTitle = styled.div`
@@ -201,16 +194,16 @@ const ExhibitionTitle = styled.input`
   border: none;
   width: 100%;
   box-sizing: border-box;
-  :focus{
-    outline:none;
+  :focus {
+    outline: none;
   }
 `;
 
 const Line = styled.div`
-  width:270px;
-  margin:10px auto 0px auto;
+  width: 270px;
+  margin: 10px auto 0px auto;
   height: 1px;
-  background-color:#d8d8d8;
+  background-color: #d8d8d8;
 `;
 
 export default ExhibitionWrite;
