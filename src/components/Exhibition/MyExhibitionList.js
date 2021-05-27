@@ -4,6 +4,7 @@ import ExhibitionPost from "./ExhibitionPost";
 import Spinner from "../../shared/Spinner";
 import { history } from "../../redux/configStore";
 import styled from "styled-components";
+import NoData from "../../shared/NoData";
 
 const MyExhibitionList = () => {
   const { exhibitionPosts, exihibitionLoading } = useSelector(
@@ -11,7 +12,7 @@ const MyExhibitionList = () => {
   );
 
   if (!exhibitionPosts) {
-    return <>Nodata</>;
+    return <NoData />;
   }
   if (exihibitionLoading && history.location.pathname !== "/") {
     return (

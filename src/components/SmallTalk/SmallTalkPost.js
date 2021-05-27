@@ -328,7 +328,7 @@ const PostContents = styled.textarea`
   resize: none;
   border: none;
   background-color: #f1f1f1;
-  width: 86%;
+  /* width: 86%; */
   margin-bottom: 5px;
   :focus {
     outline: none;
