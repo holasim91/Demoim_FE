@@ -27,7 +27,6 @@ const Header = () => {
 
 
   function AlarmCountChk(){
-    // console.log("알람")
     dispatch(alarmAction.setAlarmCntAPI());
   }
 
