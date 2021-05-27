@@ -56,7 +56,7 @@ const loginAPI = (email, pw) => {
     })
       .then((res) => {
         const descriptions= res.data.userInfo.Description.replaceAll('<br>','\n').replaceAll('<-->',':').replaceAll('<샵>','#');
-        console.log('descriptions');
+        
         const userInfo = {
           id: Number(res.data.userInfo.Id),
           description: descriptions,

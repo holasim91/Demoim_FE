@@ -114,8 +114,7 @@ const UserEditpage = (props) => {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("userEditInfo", userEditInfo);
-    console.log(formData.get("userEditInfo"))
-    console.log(formData.keys())
+    
     dispatch(actionCreators.editProfileAPI(formData));
   };
 
