@@ -107,9 +107,6 @@ const UserEditpage = (props) => {
     }
     const descriptions  = `${description}`.replace(/(\r\n|\n|\n\n)/gi,'<br>').replaceAll(':','<-->').replaceAll('#','<샵>');
 
-
-
-
     const file = fileRef.current.files[0];
     const userEditInfo = `{nickname:${nickname}, position:${position}, description:${descriptions}}`
 

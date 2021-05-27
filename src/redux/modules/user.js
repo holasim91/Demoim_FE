@@ -96,7 +96,6 @@ const loginCheckAPI = () => {
     // \r\n|\n|\n\n
       .then((res) => {
         const descriptions= res.data.description.replaceAll('<br>','\n').replaceAll('<-->',':').replaceAll('<샵>','#');
-        console.log('descriptions');
         dispatch(setUser({
           id: res.data.userid,
           description: descriptions,
