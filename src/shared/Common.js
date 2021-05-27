@@ -20,7 +20,6 @@ export const nicknameCheck = (nickname) => {
 
 //비밀번호 영어숫자특수기호
 export const pwMatch = (pw) => {
-
   //const _reg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{4,20}$/;
   const _reg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{4,20}$/;
   return _reg.test(pw) && pw.search(/\s/) === -1 ? true : false;
@@ -63,7 +62,6 @@ export function calcTime(time){
 
 //핸드폰번호 하이픈,점,공백 제거
 export const specialCharsCheck = (userNumber) => {
-
   return userNumber.replace(/[.-]|\s/gm,'');
 }
 

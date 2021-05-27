@@ -423,7 +423,7 @@ const Tooltip = styled.div`
     line-height:15px;
     position: absolute;
     top: 30px;
-    left: -34px;
+    left: -58px;
     width: 120px;
     height: 30px;
     padding: 10px;
