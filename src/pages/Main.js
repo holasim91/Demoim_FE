@@ -73,8 +73,8 @@ const Main = () => {
                            <BannerImg src={Team} />
                         </ImgBox>
                         <DescText>
-                           Demoim은 국비, 부트캠프를 하지 않고도<br />
-                           팀 프로젝트의 경험을 쌓아 나갈 수 있는<br />
+                           Demoim은 국비, 부트캠프를 하지 않고도<br/>
+                           팀 프로젝트의 경험을 쌓아 나갈 수 있는<br/>
                            <strong>팀 빌딩 플랫폼</strong> 입니다.
                         </DescText>
                         <ServiceBtn onClick={() => history.push('/service')}>

@@ -48,7 +48,7 @@ const TeamDate = (props) => {
           endDate={endDate}
           minDate={periodMinDate}//최소 하루 더한날!
           maxDate={recruitMaxDate}//프로젝트 마감일을 넘어서면 안됨.
-          customInput={<ExampleCustomInput />}
+          customInput={<ExampleCustomInput/>}
           closeOnScroll={true}
           popperPlacement="auto"
         />

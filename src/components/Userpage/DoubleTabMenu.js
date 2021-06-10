@@ -51,7 +51,7 @@ const DoubleTabMenu = (props) => {
       }
     }
 
-  }, [active, otherId]);
+  }, [active, otherId, is_me, dispatch]);
 
 
   React.useEffect(() => {

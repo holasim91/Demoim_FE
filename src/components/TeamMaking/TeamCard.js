@@ -43,7 +43,9 @@ const TeamCard = React.memo((props) => {
             {planner !== 0 && `기획자 ${planner}명 `}
           </Text>
         </MentBox>
-        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 15px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)">{recruitState === 'ACTIVATED' ? '모집 중' : '모집 완료'}</Button>
+        <Button width="84px" size="0.75em" borderRadius="4.1px" padding="4px 7px" margin="10px 0px 15px 0px" shadow="0 1px 3px 0 rgba(0, 0, 0, 0.27)">
+          {recruitState === 'ACTIVATED' ? '모집중' : '모집완료'}
+        </Button>
       </Grid>
 
     </React.Fragment>
