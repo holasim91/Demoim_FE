@@ -14,6 +14,7 @@ const TeamList = (props) => {
     return <NoData />;
   }
 
+  //로딩중인데 홈화면이 아니면 스피너 보여주자
   if (isLoading && history.location.pathname !== "/") {
     return (
       <React.Fragment>

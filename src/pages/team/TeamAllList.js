@@ -13,9 +13,10 @@ import SimfinityScroll from "../../shared/SimfinityScroll";
 const TeamAllList = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const {page, hasMorePosts} = useSelector((state) => state.team);
-  const [cate, setCate] = useState('all')
+  const {page, hasMorePosts} = useSelector((state) => state.team);//무한스크롤
+  const [cate, setCate] = useState('all') //카테고리
 
+  //App.js와 여기 두곳 모두 로그인체크를 호출에서 에러남 -> 주석처리
   // async function getUsers(){
   //   if (user) {
   //     dispatch(userAction.loginCheckAPI());
@@ -29,7 +30,7 @@ const TeamAllList = () => {
   React.useEffect(()=>{
     switch (cate) {
       case 'all':
-        dispatch(teamActions.getTeamMakingAPI(1, 9));
+        dispatch(teamActions.getTeamMakingAPI(1, 9)); //1페이지당 9개의 게시물을 가져와라
         break;
       case 'fe':
         dispatch(teamActions.getFrontTeamMaking(1, 9));
@@ -47,7 +48,8 @@ const TeamAllList = () => {
         dispatch(teamActions.getTeamMakingAPI(1, 9));
         break;
     }
-  },[cate, dispatch])
+  },[cate, dispatch]) // 둘 중에 하나라도 변경되면 useEffect를 다시 실행
+
   const changeCate = useCallback((e) =>{
       setCate(e.target.value)
   },[])

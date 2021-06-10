@@ -14,6 +14,7 @@ const SmallTalk = () => {
 
   useEffect(() => {
     dispatch(smalltalkActions.getSmallTalkPostsAPI(1, 6));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   
   return (

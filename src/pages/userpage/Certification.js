@@ -8,11 +8,12 @@ import { SuccessAlert, WarningAlert, ErrorAlert } from "../../shared/Alerts";
 import { config } from "../../shared/config";
 
 const Certification = () => {
-  const [userNumber, setUserNumber] = React.useState("");
-  const [resCertNumber, setresCertNumber] = React.useState("");
-  const [certNumber, setCertNumber] = React.useState("");
-  const [disable, setDisable] = React.useState(false)
+  const [userNumber, setUserNumber] = React.useState("");//사용자번호
+  const [resCertNumber, setresCertNumber] = React.useState("");//서버에서 보내주는 사용자가 문자로 받은 인증번호
+  const [certNumber, setCertNumber] = React.useState("");//사용자가 문자로 받은 인증번호
+  const [disable, setDisable] = React.useState(false);//사용자가 인증번호를 요청한 후에 다시 요청하지 않도록
   const [check, setCheck] = React.useState({ check: false });
+
 
   //체크박스
   const handleCheck = (e, target) => {
@@ -24,7 +25,6 @@ const Certification = () => {
   const checkUserNumberAPI = (userNumber) => {
 
     let _userNumber = specialCharsCheck(userNumber)
-
     if (_userNumber === "" || !cellPhoneNum(_userNumber)) {
       WarningAlert("휴대폰번호를 확인해주세요!")
       return false;
@@ -50,7 +50,6 @@ const Certification = () => {
   const checkCertNumber = (certNumber) => {
     if (certNumber === "" || !certNumberCheck(certNumber)) {
       WarningAlert( "문자받으신 인증번호 6자리를 입력해주세요!")
-
       return false;
     }
 
@@ -61,6 +60,7 @@ const Certification = () => {
     }
   };
 
+
   //NextBtn
   const toSignup = () => {
     if (userNumber === "") {
@@ -70,7 +70,6 @@ const Certification = () => {
 
     if (certNumber === "" || !certNumberCheck(certNumber)) {
       WarningAlert( "문자받으신 인증번호 6자리를 입력해주세요!")
-
       return false;
     }
 
@@ -82,7 +81,7 @@ const Certification = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Container>
         <PageTitleContainer>
           <PageTitle>회원가입</PageTitle>
@@ -182,7 +181,7 @@ const Certification = () => {
           </CertificateForm>
         </CertificateContainer>
       </Container>
-    </React.Fragment>
+    </>
   );
 };
 
